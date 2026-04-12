@@ -1,0 +1,68 @@
+import type { LucideIcon } from "lucide-react";
+import {
+  ArrowLeftRight,
+  BookOpenText,
+  Brain,
+  BriefcaseBusiness,
+  Clock3,
+  CloudSun,
+  Drama,
+  Dumbbell,
+  Gamepad2,
+  GraduationCap,
+  Handshake,
+  Hash,
+  Home,
+  Laugh,
+  Lightbulb,
+  Lock,
+  MessageCircleMore,
+  MessageSquareMore,
+  Mic,
+  PawPrint,
+  Pizza,
+  RefreshCw,
+  Rocket,
+  ShieldAlert,
+  Shirt,
+  Sparkles,
+  TrendingUp,
+  Trophy,
+  Type
+} from "lucide-react";
+
+const iconMap: Record<string, LucideIcon> = {
+  ArrowLeftRight,
+  BookOpenText,
+  Brain,
+  BriefcaseBusiness,
+  Clock3,
+  CloudSun,
+  Drama,
+  Dumbbell,
+  Gamepad2,
+  GraduationCap,
+  Handshake,
+  Hash,
+  Home,
+  Laugh,
+  Lightbulb,
+  Lock,
+  MessageCircleMore,
+  MessageSquareMore,
+  Mic,
+  PawPrint,
+  Pizza,
+  RefreshCw,
+  Rocket,
+  ShieldAlert,
+  Shirt,
+  Sparkles,
+  TrendingUp,
+  Trophy,
+  Type
+};
+
+export function getIcon(name: string): LucideIcon {
+  return iconMap[name] ?? Sparkles;
+}

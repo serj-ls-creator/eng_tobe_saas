@@ -1,0 +1,72 @@
+"use client";
+
+import Link from "next/link";
+import { useFormState, useFormStatus } from "react-dom";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { UI_TEXT } from "@/constants/ui";
+
+interface AuthFormProps {
+  title: string;
+  subtitle: string;
+  action: (prevState: { error: string | null }, formData: FormData) => Promise<{ error: string | null }>;
+  submitLabel: string;
+  mode: "login" | "signup";
+}
+
+function SubmitButton({ label }: { label: string }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? "Loading..." : label}
+    </Button>
+  );
+}
+
+export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFormProps) {
+  const [state, formAction] = useFormState(action, { error: null });
+
+  return (
+    <div className="content-shell">
+      <div className="fade-up mx-auto mt-10 w-full max-w-sm">
+        <div className="mb-6">
+          <h1 className="mb-2 text-2xl font-bold">{title}</h1>
+          <p className="text-sm text-zinc-500">{subtitle}</p>
+        </div>
+
+        <form action={formAction} className="space-y-4">
+          {mode === "signup" ? (
+            <div className="space-y-2">
+              <label className="text-sm text-zinc-400">{UI_TEXT.fullNameLabel}</label>
+              <Input name="fullName" placeholder="Alex Johnson" required />
+            </div>
+          ) : null}
+          <div className="space-y-2">
+            <label className="text-sm text-zinc-400">{UI_TEXT.emailLabel}</label>
+            <Input name="email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm text-zinc-400">{UI_TEXT.passwordLabel}</label>
+            <Input name="password" type="password" placeholder="********" minLength={6} required />
+          </div>
+          {state.error ? <p className="text-sm text-pink-400">{state.error}</p> : null}
+          <SubmitButton label={submitLabel} />
+        </form>
+
+        <div className="mt-4 text-sm text-zinc-500">
+          {mode === "login" ? (
+            <Link href="/auth/signup" className="text-cyan-400">
+              {UI_TEXT.authSwitchToSignup}
+            </Link>
+          ) : (
+            <Link href="/auth/login" className="text-cyan-400">
+              {UI_TEXT.authSwitchToLogin}
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

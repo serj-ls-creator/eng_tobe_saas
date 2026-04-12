@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>English to be</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']}}}}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#050505;font-family:'Inter',sans-serif;color:#fff;overflow:hidden;height:100dvh;width:100vw}
+::-webkit-scrollbar{width:0;display:none}
+
+.shell{max-width:430px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.content-area{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+
+.bottom-nav{flex-shrink:0;background:rgba(5,5,5,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.06);padding-bottom:env(safe-area-inset-bottom)}
+.bnav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 4px;transition:all .15s;position:relative}
+.bnav-btn .ico{color:#52525b;transition:color .15s}
+.bnav-btn .lbl{font-size:10px;color:#52525b;transition:color .15s}
+.bnav-btn.on .ico{color:#fff}
+.bnav-btn.on .lbl{color:#fff}
+.bnav-btn.on::after{content:'';position:absolute;bottom:2px;width:16px;height:2px;background:#fff;border-radius:1px}
+
+.card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:14px;transition:all .15s}
+.card:active{transform:scale(.98);background:rgba(255,255,255,.05)}
+
+.top-bar{position:sticky;top:0;z-index:30;background:rgba(5,5,5,.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .35s ease both}
+.fade-up-d1{animation-delay:.05s}
+.fade-up-d2{animation-delay:.1s}
+.fade-up-d3{animation-delay:.15s}
+.fade-up-d4{animation-delay:.2s}
+.fade-up-d5{animation-delay:.25s}
+
+@keyframes firePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.fire{animation:firePulse 1.5s ease-in-out infinite}
+
+.tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:6px;display:inline-block}
+.tag-a1{background:rgba(34,197,94,.12);color:#4ade80}
+.tag-a2{background:rgba(34,197,94,.1);color:#86efac}
+.tag-b1{background:rgba(234,179,8,.12);color:#facc15}
+.tag-b2{background:rgba(249,115,22,.12);color:#fb923c}
+.tag-c1{background:rgba(255,61,113,.12);color:#FF3D71}
+.tag-c2{background:rgba(168,85,247,.12);color:#A855F7}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="content-area" id="app"></div>
+  <nav class="bottom-nav">
+    <div class="flex items-center justify-around">
+      <button class="bnav-btn on" onclick="go('home')"><span class="iconify ico" data-icon="mdi:home" width="22"></span><span class="lbl">Home</span></button>
+      <button class="bnav-btn" onclick="go('words')"><span class="iconify ico" data-icon="mdi:book-alphabet" width="22"></span><span class="lbl">Words</span></button>
+      <button class="bnav-btn" onclick="go('sentences')"><span class="iconify ico" data-icon="mdi:message-text" width="22"></span><span class="lbl">Sentences</span></button>
+      <button class="bnav-btn" onclick="go('idioms')"><span class="iconify ico" data-icon="mdi:lightbulb-on" width="22"></span><span class="lbl">Idioms</span></button>
+      <button class="bnav-btn" onclick="go('games')"><span class="iconify ico" data-icon="mdi:gamepad-variant" width="22"></span><span class="lbl">Games</span></button>
+    </div>
+  </nav>
+</div>
+
+<script>
+// ===== DATA =====
+const W = {};
+
+const IDIOMS = {};
+
+const SENT = {};
+
+const PRON = {};
+
+// Word categories structure
+const CATS = [
+  {id:'pronounce',name:'Pronunciation',icon:'🎤',color:'#FF3D71',desc:'Master sounds & silent letters',
+   subs:[{id:'silent',name:"Don't Pronounce",icon:'🤫'},{id:'vowels',name:'Vowel Sounds',icon:'🗣️'}]},
+  {id:'basic',name:'Basic → Advanced',icon:'📊',color:'#00E5FF',desc:'Upgrade everyday words',
+   subs:[{id:'health',name:'Health',icon:'🏥'},{id:'education',name:'Education',icon:'🎓'},{id:'technology',name:'Technology',icon:'💻'},{id:'environment',name:'Environment',icon:'🌿'}]},
+  {id:'synonyms',name:'Synonyms',icon:'🔄',color:'#FFD93D',desc:'Expand your vocabulary',
+   subs:[{id:'health',name:'Health',icon:'🏥'},{id:'education',name:'Education',icon:'🎓'},{id:'technology',name:'Technology',icon:'💻'},{id:'environment',name:'Environment',icon:'🌿'}]},
+  {id:'antonyms',name:'Antonyms',icon:'↔️',color:'#A855F7',desc:'Opposite meanings',
+   subs:[{id:'antonyms',name:'Education',icon:'🎓'}]},
+  {id:'rude',name:'Rude → Polite',icon:'😡',color:'#FF3D71',desc:'Sound more respectful',
+   subs:[{id:'rude_polite',name:'Everyday Phrases',icon:'💬'}]},
+  {id:'formal',name:'Formal → Informal',icon:'👔',color:'#00E5FF',desc:'Know when to use which',
+   subs:[{id:'formal_informal',name:'Common Phrases',icon:'💬'}]},
+  {id:'time',name:'Time Words',icon:'⏰',color:'#FFD93D',desc:'Express time like a native',
+   subs:[{id:'time_words',name:'Time Expressions',icon:'🕐'}]},
+  {id:'slang',name:'Slang',icon:'📱',color:'#A855F7',desc:'Modern texting language',
+   subs:[{id:'slang',name:'Texting Language',icon:'⌨️'}]}
+];
+
+const IDIOM_CATS = [
+  {id:'food',name:'Food Idioms',icon:'🍕',color:'#FFD93D'},
+  {id:'weather',name:'Weather Idioms',icon:'⛈️',color:'#00E5FF'},
+  {id:'emotional',name:'Emotional Idioms',icon:'😭',color:'#FF3D71'},
+  {id:'body',name:'Body Parts Idioms',icon:'💪',color:'#A855F7'},
+  {id:'animal',name:'Animal Idioms',icon:'🐾',color:'#FFD93D'},
+  {id:'business',name:'Business Idioms',icon:'💼',color:'#00E5FF'},
+  {id:'slang_idioms',name:'Slang Idioms',icon:'😎',color:'#FF3D71'}
+];
+
+const SENT_CATS = [
+  {id:'phrases',name:'A1 to C2 Phrases',icon:'📈',color:'#00E5FF',desc:'Level up sentence by sentence'},
+  {id:'phrasal',name:'Phrasal Verbs',icon:'🚀',color:'#FF3D71',desc:'The real way natives speak'},
+  {id:'dontsay',name:"Don't Say: Very Easy",icon:'🚫',color:'#FFD93D',desc:'Stop overusing basic words'},
+  {id:'modern',name:'Slang / Modern English',icon:'😎',color:'#A855F7',desc:'Sound like a native'}
+];
+
+const GAME_CATS = [
+  {id:'wordle',name:'Wordle',icon:'🔤',color:'#00E5FF',desc:'Guess the 5-letter word'},
+  {id:'memory',name:'Memory',icon:'🧠',color:'#FF3D71',desc:'Match synonym pairs'},
+  {id:'negotiation',name:'Negotiation',icon:'🤝',color:'#FFD93D',desc:'Choose the right response'}
+];
+
+const LOGO_URL = 'https://z-cdn-media.chatglm.cn/files/bd704c6e-f9fa-40f6-bc5f-05fc30a6c715.jpg?auth_key=1875998681-e01e27ef3f3d40f89ebc469087c2c3b6-0-4305ecf47c25d2312ff9a084e6f69f97';
+
+// ===== STATE =====
+let history = [];
+let cur = '';
+
+// ===== HELPERS =====
+function esc(s){return s.replace(/'/g,'&#39;').replace(/"/g,'&quot;');}
+
+function topBar(title, back){
+  return `<div class="top-bar">
+    <div class="flex items-center justify-between px-4 h-12">
+      <div class="flex items-center gap-2">
+        ${back?'<button onclick="back()" class="w-8 h-8 flex items-center justify-center rounded-full active:bg-white/5"><span class="iconify text-zinc-400" data-icon="mdi:chevron-left" width="24"></span></button>':''}
+        <span class="text-[15px] font-semibold">${title}</span>
+      </div>
+      <div class="flex items-center gap-1.5 bg-yellow-500/10 px-2.5 py-1 rounded-full">
+        <span class="iconify text-yellow-400" data-icon="mdi:star-four-points" width="13"></span>
+        <span class="text-yellow-400 text-xs font-semibold">1,240</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function catCard(name, icon, color, desc, onclick){
+  return `<div class="card p-4 flex items-center gap-3 cursor-pointer" onclick="${onclick}">
+    <div class="w-10 h-10 rounded-xl flex items-center justify-center text-lg" style="background:${color}15">${icon}</div>
+    <div class="flex-1 min-w-0"><div class="text-sm font-semibold">${name}</div><div class="text-[11px] text-zinc-500 truncate">${desc}</div></div>
+    <span class="iconify text-zinc-600" data-icon="mdi:chevron-right" width="20"></span>
+  </div>`;
+}
+
+function pairRow(pair, color, showX){
+  let extra = '';
+  if(showX && pair.x) extra = `<div class="text-[11px] text-zinc-600 mt-0.5">Opposite: ${pair.x}</div>`;
+  return `<div class="card p-3.5">
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class="text-sm text-zinc-400 line-through">${pair.b}</span>
+      <span class="iconify text-zinc-600 shrink-0" data-icon="mdi:arrow-right" width="14"></span>
+      <span class="text-sm font-medium" style="color:${color}">${pair.a}</span>
+    </div>
+    ${extra}
+  </div>`;
+}
+
+// ===== NAVIGATION =====
+function go(view, params){
+  if(cur) history.push({v:cur, p:window._p||{}});
+  cur = view;
+  window._p = params || {};
+  render();
+}
+
+function back(){
+  if(!history.length) return;
+  const prev = history.pop();
+  cur = prev.v;
+  window._p = prev.p;
+  render();
+}
+
+function render(){
+  const app = document.getElementById('app');
+  let html = '';
+  const p = window._p || {};
+
+  switch(cur){
+    case 'home': html = viewHome(); break;
+    case 'words': html = viewWords(); break;
+    case 'wcat': html = viewWCat(p); break;
+    case 'wlist': html = viewWList(p); break;
+    case 'pron': html = viewPron(p); break;
+    case 'sentences': html = viewSentences(); break;
+    case 'scat': html = viewSCat(p); break;
+    case 'idioms': html = viewIdioms(); break;
+    case 'icat': html = viewICat(p); break;
+    case 'games': html = viewGames(); break;
+    case 'gplaceholder': html = viewGPlaceholder(p); break;
+    default: html = viewHome();
+  }
+
+  app.innerHTML = html;
+  app.scrollTop = 0;
+
+  // Update bottom nav
+  const mainTabs = ['home','words','sentences','idioms','games'];
+  document.querySelectorAll('.bnav-btn').forEach((btn,i)=>{
+    btn.classList.toggle('on', mainTabs[i]===cur);
+  });
+}
+
+// ===== VIEWS =====
+function viewHome(){
+  const days = ['M','T','W','T','F','S','S'];
+  const di = (new Date().getDay()+6)%7;
+  let dhtml = days.map((d,i)=>{
+    const done = i < di;
+    return `<div class="flex flex-col items-center gap-1">
+      <span class="text-[10px] ${i===di?'text-white font-medium':'text-zinc-600'}">${d}</span>
+      <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs ${done?'bg-yellow-500/15 border border-yellow-500/30 text-yellow-400':'bg-white/[.03] border border-white/[.06] text-zinc-700'}">${done?'✓':''}</div>
+    </div>`;
+  }).join('');
+
+  return `
+    <div class="px-4 pt-4 pb-6">
+      <div class="flex items-center justify-between mb-6 fade-up">
+        <div>
+          <div class="flex items-center gap-2.5 mb-1">
+            <img src="${LOGO_URL}" class="w-8 h-8 rounded-lg object-cover" alt="logo">
+            <h1 class="text-lg font-bold">English to be</h1>
+          </div>
+          <p class="text-xs text-zinc-500">Keep your streak alive!</p>
+        </div>
+        <div class="flex items-center gap-1.5 bg-yellow-500/10 px-2.5 py-1 rounded-full">
+          <span class="text-sm fire">🔥</span>
+          <span class="text-yellow-400 text-xs font-semibold">Day 7</span>
+        </div>
+      </div>
+
+      <div class="card p-4 mb-4 fade-up fade-up-d1">
+        <div class="flex justify-between mb-4">${dhtml}</div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-zinc-500">Daily Progress</span>
+          <span class="text-cyan-400">2/4 tasks</span>
+        </div>
+        <div class="w-full h-1.5 bg-white/[.04] rounded-full mt-2 overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-pink-500 to-cyan-400 rounded-full" style="width:50%"></div>
+        </div>
+      </div>
+
+      <h2 class="text-sm font-semibold mb-3 fade-up fade-up-d2">Quick Start</h2>
+      <div class="grid grid-cols-2 gap-2 mb-5">
+        <div class="card p-3.5 cursor-pointer fade-up fade-up-d2" onclick="go('words')">
+          <div class="text-xl mb-1.5">📚</div>
+          <div class="text-sm font-medium">Words</div>
+          <div class="text-[10px] text-zinc-500">8 categories</div>
+        </div>
+        <div class="card p-3.5 cursor-pointer fade-up fade-up-d3" onclick="go('sentences')">
+          <div class="text-xl mb-1.5">💬</div>
+          <div class="text-sm font-medium">Sentences</div>
+          <div class="text-[10px] text-zinc-500">A1 → C2</div>
+        </div>
+        <div class="card p-3.5 cursor-pointer fade-up fade-up-d3" onclick="go('idioms')">
+          <div class="text-xl mb-1.5">🎯</div>
+          <div class="text-sm font-medium">Idioms</div>
+          <div class="text-[10px] text-zinc-500">7 topics</div>
+        </div>
+        <div class="card p-3.5 cursor-pointer fade-up fade-up-d4" onclick="go('games')">
+          <div class="text-xl mb-1.5">🎮</div>
+          <div class="text-sm font-medium">Games</div>
+          <div class="text-[10px] text-zinc-500">Coming soon</div>
+        </div>
+      </div>
+
+      <div class="card p-4 mb-5 fade-up fade-up-d4" style="border:2px solid transparent;background-image:linear-gradient(#0a0a0a,#0a0a0a),conic-gradient(from 0deg,#FF3D71,#A855F7,#00E5FF,#FF3D71);background-origin:border-box;background-clip:padding-box,border-box">
+        <div class="text-[10px] text-zinc-500 uppercase tracking-wider mb-2">✨ Word of the Day</div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="text-zinc-500 text-sm line-through">Very tired</span>
+          <span class="iconify text-cyan-400" data-icon="mdi:arrow-right" width="16"></span>
+        </div>
+        <div class="text-white text-lg font-semibold">Exhausted</div>
+        <div class="text-[11px] text-zinc-500 mt-1">/ɪɡˈzɔːstɪd/ — completely drained of energy</div>
+      </div>
+
+    </div>`;
+}
+
+function viewWords(){
+  return `${topBar('Words',false)}<div class="px-4 py-4 space-y-2">
+    ${CATS.map(c=>catCard(c.name, c.icon, c.color, c.desc, `go('wcat',{id:'${c.id}',name:'${esc(c.name)}'})`)).join('')}
+  </div>`;
+}
+
+function viewWCat(p){
+  const cat = CATS.find(c=>c.id===p.id);
+  if(!cat) return topBar('Error',true);
+  return `${topBar(cat.name,true)}<div class="px-4 py-4 space-y-2">
+    ${cat.subs.map(s=>catCard(s.name, s.icon, cat.color, cat.id==='pronounce'?'Reference':'Word pairs',
+      s.id==='silent'||s.id==='vowels'
+        ? `go('pron',{id:'${s.id}',name:'${esc(s.name)}',cat:'${esc(cat.name)}'})`
+        : `go('wlist',{dk:'${s.id}',name:'${esc(s.name)}',cat:'${esc(cat.name)}',color:'${cat.color}'})`
+    )).join('')}
+  </div>`;
+}
+
+function viewWList(p){
+  return `${topBar(p.name,true)}
+    <div class="px-4 py-10 flex flex-col items-center text-center">
+      <div class="text-5xl mb-5">📝</div>
+      <div class="text-xs uppercase tracking-widest text-zinc-600 mb-3">Coming Soon</div>
+      <div class="text-sm font-semibold mb-2">${p.name}</div>
+      <div class="text-xs text-zinc-500">${p.cat}</div>
+    </div>`;
+}
+
+function viewPron(p){
+  return `${topBar(p.name,true)}
+    <div class="px-4 py-10 flex flex-col items-center text-center">
+      <div class="text-5xl mb-5">🎤</div>
+      <div class="text-xs uppercase tracking-widest text-zinc-600 mb-3">Coming Soon</div>
+      <div class="text-sm font-semibold mb-2">${p.name}</div>
+      <div class="text-xs text-zinc-500">${p.cat}</div>
+    </div>`;
+}
+
+function viewSentences(){
+  return `${topBar('Sentences',false)}<div class="px-4 py-4 space-y-2">
+    ${SENT_CATS.map(c=>catCard(c.name, c.icon, c.color, c.desc, `go('scat',{id:'${c.id}',name:'${esc(c.name)}'})`)).join('')}
+  </div>`;
+}
+
+function viewSCat(p){
+  return `${topBar(p.name,true)}
+    <div class="px-4 py-10 flex flex-col items-center text-center">
+      <div class="text-5xl mb-5">💬</div>
+      <div class="text-xs uppercase tracking-widest text-zinc-600 mb-3">Coming Soon</div>
+      <div class="text-sm font-semibold">${p.name}</div>
+    </div>`;
+}
+
+function viewIdioms(){
+  return `${topBar('Idioms',false)}<div class="px-4 py-4 space-y-2">
+    ${IDIOM_CATS.map(c=>catCard(c.name, c.icon, c.color, 'Idioms', `go('icat',{id:'${c.id}',name:'${esc(c.name)}'})`)).join('')}
+  </div>`;
+}
+
+function viewICat(p){
+  const cat = IDIOM_CATS.find(c=>c.id===p.id);
+  return `${topBar(p.name,true)}
+    <div class="px-4 py-10 flex flex-col items-center text-center">
+      <div class="text-5xl mb-5">${cat?.icon||'🎯'}</div>
+      <div class="text-xs uppercase tracking-widest text-zinc-600 mb-3">Coming Soon</div>
+      <div class="text-sm font-semibold">${p.name}</div>
+    </div>`;
+}
+
+function viewGames(){
+  return `${topBar('Games',false)}<div class="px-4 py-4 space-y-2">
+    ${GAME_CATS.map(c=>catCard(c.name, c.icon, c.color, c.desc, `go('gplaceholder',{id:'${c.id}',name:'${esc(c.name)}'})`)).join('')}
+  </div>`;
+}
+
+function viewGPlaceholder(p){
+  const descriptions = {
+    wordle: {title:'Wordle',desc:'Guess the 5-letter English word in 6 tries. After each guess, the tiles will change color to show how close you are.',features:['6 attempts to guess the word','Color-coded hints (green/yellow/gray)','Built-in keyboard','Advanced vocabulary only']},
+    memory: {title:'Memory',desc:'Flip cards to find matching synonym pairs. Train your memory while learning new vocabulary.',features:['Grid of face-down cards','Match basic word with advanced synonym','Multiple difficulty levels','Track your best scores']},
+    negotiation: {title:'Negotiation',desc:'Choose the most appropriate response in real-life situations. Learn to communicate politely and effectively.',features:['Real-life scenarios','3 response options per situation','Rude / Neutral / Polite scoring','Business & casual contexts']}
+  };
+  const d = descriptions[p.id] || {title:p.name, desc:'Coming soon.', features:[]};
+  return `${topBar(d.title,true)}
+    <div class="px-4 py-6">
+      <div class="card p-6 mb-5 text-center" style="border:1px dashed rgba(255,255,255,.1)">
+        <div class="text-5xl mb-4">${GAME_CATS.find(g=>g.id===p.id)?.icon||'🎮'}</div>
+        <div class="text-xs uppercase tracking-wider text-zinc-600 mb-2">Coming Soon</div>
+        <div class="text-sm text-zinc-400 leading-relaxed">${d.desc}</div>
+      </div>
+      <h3 class="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">Planned Features</h3>
+      <div class="space-y-2">
+        ${(d.features||[]).map(f=>`<div class="flex items-center gap-3 text-sm text-zinc-400">
+          <div class="w-5 h-5 rounded-full bg-white/[.04] border border-white/[.08] flex items-center justify-center shrink-0">
+            <span class="iconify text-zinc-600" data-icon="mdi:check" width="12"></span>
+          </div>
+          ${f}
+        </div>`).join('')}
+      </div>
+      <div class="mt-6 text-center">
+        <p class="text-[11px] text-zinc-600 mb-3">Follow us on TikTok for updates</p>
+        <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white/[.03] border border-white/[.06] text-xs text-zinc-400">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/></svg>
+          @english_tobe
+        </div>
+      </div>
+    </div>`;
+}
+
+// ===== INIT =====
+cur = 'home';
+render();
+</script>
+</body>
+</html>
