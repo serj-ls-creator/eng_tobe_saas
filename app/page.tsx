@@ -41,13 +41,33 @@ export default async function HomePage() {
   return (
     <>
       <TopBar showBrand />
-      <div className="content-shell">
+      
+      <div className="content-shell relative z-10">
+        {/* Flying words background - expanded area with visibility mask */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Full screen flying area */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="flying-word text-lg" style={{ "--op": "0.15", "--dur": "20s", "--mx": "50px", "--my": "0px", "--tilt": "8deg", top: "80vh", left: "10%" } as React.CSSProperties}>Vocabulary</div>
+            <div className="flying-word text-base" style={{ "--op": "0.12", "--dur": "18s", "--mx": "-40px", "--my": "0px", "--tilt": "-6deg", top: "60vh", left: "25%" } as React.CSSProperties}>Grammar</div>
+            <div className="flying-word text-lg" style={{ "--op": "0.1", "--dur": "22s", "--mx": "60px", "--my": "0px", "--tilt": "10deg", top: "40vh", left: "40%" } as React.CSSProperties}>Practice</div>
+            <div className="flying-word text-base" style={{ "--op": "0.14", "--dur": "19s", "--mx": "-45px", "--my": "0px", "--tilt": "7deg", top: "70vh", left: "55%" } as React.CSSProperties}>Fluency</div>
+            <div className="flying-word text-lg" style={{ "--op": "0.11", "--dur": "21s", "--mx": "55px", "--my": "0px", "--tilt": "-8deg", top: "50vh", left: "70%" } as React.CSSProperties}>Success</div>
+            <div className="flying-word text-base" style={{ "--op": "0.13", "--dur": "17s", "--mx": "-50px", "--my": "0px", "--tilt": "9deg", top: "30vh", left: "85%" } as React.CSSProperties}>English</div>
+            <div className="flying-word text-base" style={{ "--op": "0.09", "--dur": "23s", "--mx": "40px", "--my": "0px", "--tilt": "-5deg", top: "90vh", left: "15%" } as React.CSSProperties}>Learning</div>
+            <div className="flying-word text-sm" style={{ "--op": "0.1", "--dur": "20s", "--mx": "-35px", "--my": "0px", "--tilt": "6deg", top: "20vh", left: "30%" } as React.CSSProperties}>Speaking</div>
+            <div className="flying-word text-base" style={{ "--op": "0.08", "--dur": "24s", "--mx": "45px", "--my": "0px", "--tilt": "-7deg", top: "85vh", left: "60%" } as React.CSSProperties}>Writing</div>
+            <div className="flying-word text-sm" style={{ "--op": "0.12", "--dur": "18s", "--mx": "-40px", "--my": "0px", "--tilt": "8deg", top: "45vh", left: "75%" } as React.CSSProperties}>Reading</div>
+            <div className="flying-word text-base" style={{ "--op": "0.1", "--dur": "22s", "--mx": "50px", "--my": "0px", "--tilt": "-9deg", top: "25vh", left: "90%" } as React.CSSProperties}>Listen</div>
+            <div className="flying-word text-sm" style={{ "--op": "0.11", "--dur": "19s", "--mx": "-38px", "--my": "0px", "--tilt": "7deg", top: "75vh", left: "45%" } as React.CSSProperties}>Study</div>
+          </div>
+        </div>
+
         <div className="fade-up">
           <StreakBar streak={profile?.streak ?? 7} completedTasks={2} totalTasks={4} />
         </div>
 
-        <section className="mb-5 mt-5">
-          <h2 className="fade-up fade-up-d2 mb-3 text-sm font-semibold">{UI_TEXT.homeTitle}</h2>
+        <section className="mb-5 mt-5 relative">
+          <h2 className="fade-up fade-up-d2 mb-3 text-sm font-semibold relative z-10">{UI_TEXT.homeTitle}</h2>
           <div className="grid grid-cols-2 gap-2">
             {quickLinks.map((item, index) => (
               <Link key={item.href} href={item.href}>

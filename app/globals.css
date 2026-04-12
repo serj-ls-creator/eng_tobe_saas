@@ -74,4 +74,31 @@ a {
   .fade-up-d5 {
     animation-delay: 0.25s;
   }
+
+  @keyframes fly-core {
+    0% { transform: translate(0, 0) rotate(calc(var(--tilt) * 0.5)); opacity: 0; }
+    10% { transform: translate(calc(var(--mx) * 0.1), -10vh) rotate(calc(var(--tilt) * 0.6)); opacity: calc(var(--op) * 0.3); }
+    20% { transform: translate(calc(var(--mx) * 0.2), -20vh) rotate(calc(var(--tilt) * 0.7)); opacity: calc(var(--op) * 0.6); }
+    30% { transform: translate(calc(var(--mx) * 0.3), -30vh) rotate(calc(var(--tilt) * 0.8)); opacity: calc(var(--op) * 0.8); }
+    40% { transform: translate(calc(var(--mx) * 0.4), -40vh) rotate(calc(var(--tilt) * 0.9)); opacity: var(--op); }
+    50% { transform: translate(calc(var(--mx) * 0.5), -50vh) rotate(calc(var(--tilt) * 1)); opacity: var(--op); }
+    60% { transform: translate(calc(var(--mx) * 0.6), -60vh) rotate(calc(var(--tilt) * 1.1)); opacity: var(--op); }
+    70% { transform: translate(calc(var(--mx) * 0.7), -70vh) rotate(calc(var(--tilt) * 1.2)); opacity: var(--op); }
+    80% { transform: translate(calc(var(--mx) * 0.8), -80vh) rotate(calc(var(--tilt) * 1.3)); opacity: calc(var(--op) * 0.8); }
+    90% { transform: translate(calc(var(--mx) * 0.9), -90vh) rotate(calc(var(--tilt) * 1.4)); opacity: calc(var(--op) * 0.4); }
+    100% { transform: translate(var(--mx), -100vh) rotate(calc(var(--tilt) * 1.5)); opacity: 0; }
+  }
+
+  .flying-word {
+    position: absolute;
+    font-weight: 900;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: white;
+    pointer-events: none;
+    user-select: none;
+    animation: fly-core var(--dur) linear infinite;
+    z-index: 1;
+    filter: blur(0.5px);
+  }
 }
