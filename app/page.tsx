@@ -62,15 +62,24 @@ export default async function HomePage() {
         </section>
 
         <section className="fade-up fade-up-d4">
-          <Card className="overflow-hidden border-2 border-transparent bg-[linear-gradient(#0a0a0a,#0a0a0a),conic-gradient(from_0deg,#FF3D71,#A855F7,#00E5FF,#FF3D71)] bg-origin-border bg-clip-padding p-4">
-            <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-500">{UI_TEXT.wordOfDayTitle}</div>
-            <div className="mb-1 flex items-center gap-2">
-              <span className="text-sm text-zinc-500 line-through">{UI_TEXT.wordOfDayBefore}</span>
-              <span className="text-cyan-400">-&gt;</span>
-            </div>
-            <div className="text-lg font-semibold">{UI_TEXT.wordOfDayAfter}</div>
-            <div className="mt-1 text-[11px] text-zinc-500">{UI_TEXT.wordOfDayDescription}</div>
-          </Card>
+          <div className="relative group overflow-hidden rounded-2xl p-[1px]">
+            {/* Медленная обводка (6 секунд) */}
+            <div 
+              className="absolute inset-[-500%] animate-[spin_6s_linear_infinite] 
+                         bg-[conic-gradient(from_90deg_at_50%_50%,#00f2ff_0%,#7000ff_50%,#00f2ff_100%)]" 
+            />
+            
+            {/* Существующий Card без изменений */}
+            <Card className="relative h-full w-full rounded-[14px] overflow-hidden border-2 border-transparent bg-[linear-gradient(#0a0a0a,#0a0a0a),conic-gradient(from_0deg,#FF3D71,#A855F7,#00E5FF,#FF3D71)] bg-origin-border bg-clip-padding p-4">
+              <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-500">{UI_TEXT.wordOfDayTitle}</div>
+              <div className="mb-1 flex items-center gap-2">
+                <span className="text-sm text-zinc-500 line-through">{UI_TEXT.wordOfDayBefore}</span>
+                <span className="text-cyan-400">-&gt;</span>
+              </div>
+              <div className="text-lg font-semibold">{UI_TEXT.wordOfDayAfter}</div>
+              <div className="mt-1 text-[11px] text-zinc-500">{UI_TEXT.wordOfDayDescription}</div>
+            </Card>
+          </div>
         </section>
 
         {!premium ? (
