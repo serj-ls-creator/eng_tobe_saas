@@ -64,12 +64,12 @@ export default async function HomePage() {
           </div>
         </div>
 
-        <div className="relative z-20 overflow-y-auto px-4 pb-28">
+        <div className="relative z-20 overflow-y-auto px-4 pt-4 pb-4">
           <div className="fade-up">
             <StreakBar streak={profile?.streak ?? 7} completedTasks={2} totalTasks={4} />
           </div>
 
-          <section className="mb-5 relative">
+          <section className="mb-5 mt-5 relative">
             <h2 className="fade-up fade-up-d2 mb-3 text-sm font-semibold relative z-10">{UI_TEXT.homeTitle}</h2>
             <div className="grid grid-cols-2 gap-2">
               {quickLinks.map((item, index) => (
@@ -106,7 +106,7 @@ export default async function HomePage() {
           </section>
 
           {!premium ? (
-            <section className="mt-5">
+            <section className="mt-2">
               <Card className="fade-up fade-up-d5 p-4">
                 <div className="mb-2 text-sm font-semibold">{UI_TEXT.premiumTitle}</div>
                 <p className="mb-4 text-xs leading-relaxed text-zinc-500">{UI_TEXT.premiumSubtitle}</p>

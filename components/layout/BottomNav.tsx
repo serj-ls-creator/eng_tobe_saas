@@ -44,7 +44,7 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="sticky bottom-0 z-40 border-t border-white/10 bg-[#050505]/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl">
+    <nav className="sticky bottom-0 z-40 border-t border-white/10 bg-[#050505]/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-shell items-center justify-around px-2">
         {navItems.map((item) => {
           const isActive = item.match?.includes(pathname) ?? pathname === item.href;

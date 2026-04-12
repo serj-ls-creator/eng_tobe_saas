@@ -43,7 +43,7 @@ a {
   }
 
   .content-shell {
-    @apply flex-1 overflow-y-auto px-4 pb-28 pt-4;
+    @apply flex-1 overflow-y-auto px-4 pt-4;
     scrollbar-width: none;
   }
 
