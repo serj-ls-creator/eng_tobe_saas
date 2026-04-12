@@ -47,18 +47,20 @@ export default async function HomePage() {
         <div className="absolute inset-0 pointer-events-none">
           {/* Full screen flying area */}
           <div className="absolute inset-0 overflow-hidden">
-            <div className="flying-word text-lg" style={{ "--op": "0.15", "--dur": "20s", "--mx": "50px", "--my": "0px", "--tilt": "8deg", top: "80vh", left: "10%" } as React.CSSProperties}>Vocabulary</div>
-            <div className="flying-word text-base" style={{ "--op": "0.12", "--dur": "18s", "--mx": "-40px", "--my": "0px", "--tilt": "-6deg", top: "60vh", left: "25%" } as React.CSSProperties}>Grammar</div>
-            <div className="flying-word text-lg" style={{ "--op": "0.1", "--dur": "22s", "--mx": "60px", "--my": "0px", "--tilt": "10deg", top: "40vh", left: "40%" } as React.CSSProperties}>Practice</div>
-            <div className="flying-word text-base" style={{ "--op": "0.14", "--dur": "19s", "--mx": "-45px", "--my": "0px", "--tilt": "7deg", top: "70vh", left: "55%" } as React.CSSProperties}>Fluency</div>
-            <div className="flying-word text-lg" style={{ "--op": "0.11", "--dur": "21s", "--mx": "55px", "--my": "0px", "--tilt": "-8deg", top: "50vh", left: "70%" } as React.CSSProperties}>Success</div>
-            <div className="flying-word text-base" style={{ "--op": "0.13", "--dur": "17s", "--mx": "-50px", "--my": "0px", "--tilt": "9deg", top: "30vh", left: "85%" } as React.CSSProperties}>English</div>
-            <div className="flying-word text-base" style={{ "--op": "0.09", "--dur": "23s", "--mx": "40px", "--my": "0px", "--tilt": "-5deg", top: "90vh", left: "15%" } as React.CSSProperties}>Learning</div>
-            <div className="flying-word text-sm" style={{ "--op": "0.1", "--dur": "20s", "--mx": "-35px", "--my": "0px", "--tilt": "6deg", top: "20vh", left: "30%" } as React.CSSProperties}>Speaking</div>
-            <div className="flying-word text-base" style={{ "--op": "0.08", "--dur": "24s", "--mx": "45px", "--my": "0px", "--tilt": "-7deg", top: "85vh", left: "60%" } as React.CSSProperties}>Writing</div>
-            <div className="flying-word text-sm" style={{ "--op": "0.12", "--dur": "18s", "--mx": "-40px", "--my": "0px", "--tilt": "8deg", top: "45vh", left: "75%" } as React.CSSProperties}>Reading</div>
-            <div className="flying-word text-base" style={{ "--op": "0.1", "--dur": "22s", "--mx": "50px", "--my": "0px", "--tilt": "-9deg", top: "25vh", left: "90%" } as React.CSSProperties}>Listen</div>
-            <div className="flying-word text-sm" style={{ "--op": "0.11", "--dur": "19s", "--mx": "-38px", "--my": "0px", "--tilt": "7deg", top: "75vh", left: "45%" } as React.CSSProperties}>Study</div>
+            <div className="flying-word text-lg" style={{ "--op": "0.15", "--dur": "30s", "--mx": "50px", "--my": "0px", "--tilt": "8deg", top: "80vh", left: "10%" } as React.CSSProperties}>Vocabulary</div>
+            <div className="flying-word text-base" style={{ "--op": "0.12", "--dur": "27s", "--mx": "-40px", "--my": "0px", "--tilt": "-6deg", top: "60vh", left: "25%" } as React.CSSProperties}>Grammar</div>
+            <div className="flying-word text-lg" style={{ "--op": "0.1", "--dur": "33s", "--mx": "60px", "--my": "0px", "--tilt": "10deg", top: "40vh", left: "40%" } as React.CSSProperties}>Practice</div>
+            <div className="flying-word text-base" style={{ "--op": "0.14", "--dur": "28.5s", "--mx": "-45px", "--my": "0px", "--tilt": "7deg", top: "70vh", left: "55%" } as React.CSSProperties}>Fluency</div>
+            <div className="flying-word text-lg" style={{ "--op": "0.11", "--dur": "31.5s", "--mx": "55px", "--my": "0px", "--tilt": "-8deg", top: "50vh", left: "70%" } as React.CSSProperties}>Success</div>
+            <div className="flying-word text-base" style={{ "--op": "0.13", "--dur": "25.5s", "--mx": "-50px", "--my": "0px", "--tilt": "9deg", top: "30vh", left: "85%" } as React.CSSProperties}>English</div>
+            <div className="flying-word text-base" style={{ "--op": "0.09", "--dur": "34.5s", "--mx": "40px", "--my": "0px", "--tilt": "-5deg", top: "90vh", left: "15%" } as React.CSSProperties}>Learning</div>
+            <div className="flying-word text-sm" style={{ "--op": "0.1", "--dur": "30s", "--mx": "-35px", "--my": "0px", "--tilt": "6deg", top: "20vh", left: "30%" } as React.CSSProperties}>Speaking</div>
+            <div className="flying-word text-base" style={{ "--op": "0.08", "--dur": "36s", "--mx": "45px", "--my": "0px", "--tilt": "-7deg", top: "85vh", left: "60%" } as React.CSSProperties}>Writing</div>
+            <div className="flying-word text-sm" style={{ "--op": "0.12", "--dur": "27s", "--mx": "-40px", "--my": "0px", "--tilt": "8deg", top: "45vh", left: "75%" } as React.CSSProperties}>Reading</div>
+            <div className="flying-word text-base" style={{ "--op": "0.1", "--dur": "33s", "--mx": "50px", "--my": "0px", "--tilt": "-9deg", top: "25vh", left: "90%" } as React.CSSProperties}>Listen</div>
+            <div className="flying-word text-sm" style={{ "--op": "0.11", "--dur": "28.5s", "--mx": "-38px", "--my": "0px", "--tilt": "7deg", top: "75vh", left: "45%" } as React.CSSProperties}>Study</div>
+            <div className="flying-word text-base" style={{ "--op": "0.1", "--dur": "29s", "--mx": "35px", "--my": "0px", "--tilt": "6deg", top: "55vh", left: "20%" } as React.CSSProperties}>Improve</div>
+            <div className="flying-word text-sm" style={{ "--op": "0.09", "--dur": "32s", "--mx": "-42px", "--my": "0px", "--tilt": "-7deg", top: "35vh", left: "65%" } as React.CSSProperties}>Online</div>
           </div>
         </div>
 
