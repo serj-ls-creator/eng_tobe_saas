@@ -15,8 +15,8 @@ interface WordsTreeProps {
 }
 
 export function WordsTree({ categories, isPremium }: WordsTreeProps) {
-  const [openCategories, setOpenCategories] = useState<string[]>(["pronounce", "basic-advanced"]);
-  const [openTopics, setOpenTopics] = useState<string[]>(["basic-advanced-health"]);
+  const [openCategories, setOpenCategories] = useState<string[]>([]);
+  const [openTopics, setOpenTopics] = useState<string[]>([]);
 
   function toggleCategory(categoryId: string) {
     setOpenCategories((current) =>
