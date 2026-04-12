@@ -23,7 +23,7 @@ export function TopBar({ title, backHref, showBrand = false, points = 1240 }: To
           ) : null}
           {showBrand ? (
             <>
-              <Image src="/logo.svg" alt={UI_TEXT.appName} width={32} height={32} className="rounded-lg" />
+              <Image src="/logo.svg" alt={UI_TEXT.appName} width={32} height={32} />
               <div>
                 <h1 className="text-base font-bold">{UI_TEXT.appName}</h1>
                 <p className="text-[11px] text-zinc-500">{UI_TEXT.homeSubtitle}</p>
