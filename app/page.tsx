@@ -71,13 +71,13 @@ export default async function HomePage() {
 
           <section className="mb-5 mt-5 relative">
             <h2 className="fade-up fade-up-d2 mb-3 text-sm font-semibold relative z-10">{UI_TEXT.homeTitle}</h2>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-3">
               {quickLinks.map((item, index) => (
                 <Link key={item.href} href={item.href}>
-                  <Card className={`p-3.5 fade-up fade-up-d${Math.min(index + 2, 5)}`}>
-                    <div className="mb-1.5 text-cyan-400">{item.icon}</div>
-                    <div className="text-sm font-medium">{item.title}</div>
-                    <div className="text-[10px] text-zinc-500">{item.subtitle}</div>
+                  <Card className={`p-4 fade-up fade-up-d${Math.min(index + 2, 5)}`}>
+                    <div className="mb-2 text-cyan-400">{item.icon}</div>
+                    <div className="text-base font-medium">{item.title}</div>
+                    <div className="text-xs text-zinc-500">{item.subtitle}</div>
                   </Card>
                 </Link>
               ))}

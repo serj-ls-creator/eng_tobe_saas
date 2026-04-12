@@ -87,8 +87,8 @@ export const CATS: WordCategory[] = [
     color: UI_COLORS.yellow,
     section: "words",
     href: "/words#synonyms",
-    access: "premium",
-    isFree: false,
+    access: "free",
+    isFree: true,
     order: 3,
     topics: [
       {
