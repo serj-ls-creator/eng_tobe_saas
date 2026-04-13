@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpenText, Gamepad2, Lightbulb, MessageCircleMore } from "lucide-react";
+import { BookOpenText, MessageCircleMore, Lightbulb, User, Gamepad2 } from "lucide-react";
 
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";

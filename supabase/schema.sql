@@ -5,6 +5,8 @@ create table if not exists public.profiles (
   user_id uuid not null unique references auth.users(id) on delete cascade,
   is_premium boolean not null default false,
   streak integer not null default 0,
+  display_name text,
+  avatar text,
   created_at timestamptz not null default now()
 );
 

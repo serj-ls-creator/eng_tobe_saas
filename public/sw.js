@@ -33,6 +33,11 @@ self.addEventListener("fetch", (event) => {
 
   const { request } = event;
 
+  // Skip caching for chrome-extension and other non-http(s) requests
+  if (!request.url.startsWith('http')) {
+    return;
+  }
+
   if (request.mode === "navigate") {
     event.respondWith(
       fetch(request).catch(async () => {

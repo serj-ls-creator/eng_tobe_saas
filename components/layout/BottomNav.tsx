@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpenText, Gamepad2, Home, Lightbulb, MessageCircleMore } from "lucide-react";
+import { BookOpenText, MessageCircleMore, Lightbulb, User, Home } from "lucide-react";
 
 import type { NavItem } from "@/types";
 import { cn } from "@/lib/utils";
@@ -33,10 +33,10 @@ const navItems: NavItem[] = [
     match: ["/idioms"]
   },
   {
-    href: "/games",
-    label: "Games",
-    icon: <Gamepad2 className="h-5 w-5" />,
-    match: ["/games"]
+    href: "/profile",
+    label: "Profile",
+    icon: <User className="h-5 w-5" />,
+    match: ["/profile"]
   }
 ];
 

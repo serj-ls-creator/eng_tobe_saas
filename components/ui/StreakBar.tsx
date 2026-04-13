@@ -11,27 +11,23 @@ interface StreakBarProps {
 }
 
 export function StreakBar({ streak, completedTasks, totalTasks }: StreakBarProps) {
-  const currentDayIndex = (new Date().getDay() + 6) % 7;
   const progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
   return (
     <Card className="p-4">
       <div className="mb-4 flex items-center justify-between">
         {STREAK_DAYS.map((day, index) => {
-          const isDone = index < currentDayIndex;
-          const isCurrent = index === currentDayIndex;
-
           return (
             <div key={`${day}-${index}`} className="flex flex-col items-center gap-1">
-              <span className={`text-[10px] ${isCurrent ? "font-medium text-white" : "text-zinc-600"}`}>{day}</span>
+              <span className="text-[10px] font-medium text-white">{day}</span>
               <div
                 className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs ${
-                  isDone
-                    ? "border-yellow-500/30 bg-yellow-500/15 text-yellow-400"
-                    : "border-white/10 bg-white/[0.03] text-zinc-700"
+                  day === "S" 
+                    ? "border-white/10 bg-white/[0.03] text-zinc-700"
+                    : "border-yellow-500/30 bg-yellow-500/15 text-yellow-400"
                 }`}
               >
-                {isDone ? "OK" : ""}
+                {day !== "S" && "✓"}
               </div>
             </div>
           );

@@ -33,9 +33,14 @@ export const getCurrentProfile = cache(async () => {
 
   const { data } = await supabase
     .from("profiles")
-    .select("id, user_id, is_premium, streak, created_at")
+    .select("id, user_id, is_premium, streak, created_at, display_name, avatar")
     .eq("user_id", user.id)
     .maybeSingle();
+
+  // Add email from auth user
+  if (data && user.email) {
+    return { ...data, email: user.email };
+  }
 
   return data;
 });
