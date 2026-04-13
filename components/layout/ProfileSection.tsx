@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { User, LogOut, Trophy, Flame, Star } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
@@ -75,6 +76,14 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
   return (
     <div className="content-shell pb-4">
       <div className="mx-auto max-w-shell">
+        <div className="mb-4">
+          <Link 
+            href="/" 
+            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          >
+            ← Back to Home
+          </Link>
+        </div>
         <div className="fade-up">
           {/* Profile Header */}
           <Card className="mb-6 p-6">

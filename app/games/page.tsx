@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ComingSoon } from "@/components/ui/ComingSoon";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBar } from "@/components/layout/TopBar";
@@ -12,6 +13,14 @@ export default async function GamesPage() {
     <>
       <TopBar title="Games" />
       <div className="content-shell">
+        <div className="mb-4">
+          <Link 
+            href="/" 
+            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          >
+            ← Back to Home
+          </Link>
+        </div>
         <div className="mb-4 space-y-2">
           {GAME_CATS.map((category, index) => (
             <div key={category.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>

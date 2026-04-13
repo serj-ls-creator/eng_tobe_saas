@@ -16,17 +16,10 @@ interface WordsTreeProps {
 
 export function WordsTree({ categories, isPremium }: WordsTreeProps) {
   const [openCategories, setOpenCategories] = useState<string[]>([]);
-  const [openTopics, setOpenTopics] = useState<string[]>([]);
 
   function toggleCategory(categoryId: string) {
     setOpenCategories((current) =>
       current.includes(categoryId) ? current.filter((item) => item !== categoryId) : [...current, categoryId]
-    );
-  }
-
-  function toggleTopic(topicKey: string) {
-    setOpenTopics((current) =>
-      current.includes(topicKey) ? current.filter((item) => item !== topicKey) : [...current, topicKey]
     );
   }
 
@@ -63,28 +56,21 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                   {category.topics?.length ? (
                     <div className="space-y-3 pt-4">
                       {category.topics.map((topic) => {
-                        const topicKey = `${category.id}-${topic.id}`;
-                        const topicOpen = openTopics.includes(topicKey);
                         const hasActivities = Boolean(topic.activities?.length);
 
                         return (
                           <div key={topic.id} className="rounded-2xl border border-white/8 bg-white/[0.02]">
                             {hasActivities ? (
-                              <button
-                                type="button"
-                                onClick={() => toggleTopic(topicKey)}
-                                className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
+                              <Link
+                                href={locked ? "/premium" : `/words/${category.id}/${topic.id}`}
+                                className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
                               >
                                 <div>
                                   <p className="text-sm font-medium text-white">{topic.name}</p>
                                   <p className="text-[11px] text-zinc-500">{topic.description}</p>
                                 </div>
-                                {topicOpen ? (
-                                  <ChevronDown className="h-4 w-4 text-zinc-500" />
-                                ) : (
-                                  <ChevronRight className="h-4 w-4 text-zinc-500" />
-                                )}
-                              </button>
+                                <ChevronRight className="h-4 w-4 text-zinc-500" />
+                              </Link>
                             ) : (
                               <Link
                                 href={locked ? "/premium" : topic.href ?? category.href}
@@ -98,23 +84,7 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                               </Link>
                             )}
 
-                            {topicOpen && hasActivities ? (
-                              <div className="grid grid-cols-2 gap-2 px-3 pb-3">
-                                {(topic.activities ?? []).map((activity) => (
-                                  <Link
-                                    key={activity.id}
-                                    href={locked ? "/premium" : activity.href}
-                                    className="group rounded-2xl border border-white/10 bg-white/[0.03] p-3 transition-all duration-200 hover:border-white/20 hover:bg-white/[0.08]"
-                                  >
-                                    <div className="mb-2 text-sm font-semibold text-white">{activity.name}</div>
-                                    <div className="text-[11px] leading-relaxed text-zinc-500 transition-colors duration-200 group-hover:text-zinc-300">
-                                      {activity.description}
-                                    </div>
-                                  </Link>
-                                ))}
-                              </div>
-                            ) : null}
-                          </div>
+                                                      </div>
                         );
                       })}
                     </div>

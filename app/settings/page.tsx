@@ -1,13 +1,22 @@
+import Link from "next/link";
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
 import { Volume2, VolumeX, Trash2 } from "lucide-react";
-import Link from "next/link";
 
 export default function SettingsPage() {
   return (
     <>
       <TopBar title="Settings" />
-      <div className="content-shell space-y-3">
+      <div className="content-shell">
+        <div className="mb-4">
+          <Link 
+            href="/" 
+            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          >
+            ← Back to Home
+          </Link>
+        </div>
+        <div className="space-y-3">
         <Card className="p-4">
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -57,6 +66,7 @@ export default function SettingsPage() {
             </Link>
           </div>
         </Card>
+        </div>
       </div>
     </>
   );
