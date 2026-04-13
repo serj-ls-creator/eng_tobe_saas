@@ -1,0 +1,63 @@
+import { TopBar } from "@/components/layout/TopBar";
+import { Card } from "@/components/ui/card";
+import { Volume2, VolumeX, Trash2 } from "lucide-react";
+import Link from "next/link";
+
+export default function SettingsPage() {
+  return (
+    <>
+      <TopBar title="Settings" />
+      <div className="content-shell space-y-3">
+        <Card className="p-4">
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Volume2 className="h-5 w-5 text-zinc-400" />
+                <div>
+                  <p className="text-sm font-medium">Sound Effects</p>
+                  <p className="text-xs text-zinc-500">Toggle sound effects</p>
+                </div>
+              </div>
+              <button className="rounded-lg bg-white/5 px-3 py-2 text-xs text-zinc-400">
+                Coming Soon
+              </button>
+            </div>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <VolumeX className="h-5 w-5 text-zinc-400" />
+                <div>
+                  <p className="text-sm font-medium">Voice Over</p>
+                  <p className="text-xs text-zinc-500">Toggle pronunciation audio</p>
+                </div>
+              </div>
+              <button className="rounded-lg bg-white/5 px-3 py-2 text-xs text-zinc-400">
+                Coming Soon
+              </button>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10">
+                <Trash2 className="h-5 w-5 text-red-400" />
+              </div>
+              <div>
+                <p className="text-sm font-medium">Delete Account</p>
+                <p className="text-xs text-zinc-500">Permanently delete your account</p>
+              </div>
+            </div>
+            <Link 
+              href="/delete-account"
+              className="rounded-lg bg-red-500/10 px-3 py-2 text-xs text-red-400 hover:bg-red-500/20 transition-colors"
+            >
+              Delete
+            </Link>
+          </div>
+        </Card>
+      </div>
+    </>
+  );
+}

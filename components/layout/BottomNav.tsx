@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpenText, MessageCircleMore, Lightbulb, User, Home } from "lucide-react";
+import { Brain, Trophy, ShoppingBag, Settings, User, Home } from "lucide-react";
 
 import type { NavItem } from "@/types";
 import { cn } from "@/lib/utils";
@@ -15,28 +15,34 @@ const navItems: NavItem[] = [
     match: ["/"]
   },
   {
-    href: "/words",
-    label: "Words",
-    icon: <BookOpenText className="h-5 w-5" />,
-    match: ["/words"]
-  },
-  {
-    href: "/sentences",
-    label: "Sentences",
-    icon: <MessageCircleMore className="h-5 w-5" />,
-    match: ["/sentences"]
-  },
-  {
-    href: "/idioms",
-    label: "Idioms",
-    icon: <Lightbulb className="h-5 w-5" />,
-    match: ["/idioms"]
+    href: "/recall",
+    label: "Recall",
+    icon: <Brain className="h-5 w-5" />,
+    match: ["/recall"]
   },
   {
     href: "/profile",
     label: "Profile",
     icon: <User className="h-5 w-5" />,
     match: ["/profile"]
+  },
+  {
+    href: "/leaderboard",
+    label: "Leaderboard",
+    icon: <Trophy className="h-5 w-5" />,
+    match: ["/leaderboard"]
+  },
+  {
+    href: "/store",
+    label: "Store",
+    icon: <ShoppingBag className="h-5 w-5" />,
+    match: ["/store"]
+  },
+  {
+    href: "/settings",
+    label: "Settings",
+    icon: <Settings className="h-5 w-5" />,
+    match: ["/settings"]
   }
 ];
 
