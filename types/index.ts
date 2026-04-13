@@ -37,12 +37,19 @@ export interface WordActivity {
   href: string;
 }
 
+export interface WordSubcategory {
+  id: string;
+  name: string;
+  description: string;
+}
+
 export interface WordTopic {
   id: string;
   name: string;
   description: string;
   href?: string;
   activities?: WordActivity[];
+  subcategories?: WordSubcategory[];
 }
 
 export interface WordCategory extends Category {

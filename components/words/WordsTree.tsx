@@ -60,7 +60,18 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
 
                         return (
                           <div key={topic.id} className="rounded-2xl border border-white/8 bg-white/[0.02]">
-                            {hasActivities ? (
+                            {topic.subcategories ? (
+                              <Link
+                                href={locked ? "/premium" : `/words/${category.id}/${topic.id}`}
+                                className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
+                              >
+                                <div>
+                                  <p className="text-sm font-medium text-white">{topic.name}</p>
+                                  <p className="text-[11px] text-zinc-500">{topic.description}</p>
+                                </div>
+                                <ChevronRight className="h-4 w-4 text-zinc-500" />
+                              </Link>
+                            ) : topic.activities ? (
                               <Link
                                 href={locked ? "/premium" : `/words/${category.id}/${topic.id}`}
                                 className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
@@ -83,8 +94,7 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                                 <ChevronRight className="h-4 w-4 text-zinc-500" />
                               </Link>
                             )}
-
-                                                      </div>
+                          </div>
                         );
                       })}
                     </div>

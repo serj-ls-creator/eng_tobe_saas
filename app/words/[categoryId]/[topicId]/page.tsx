@@ -41,14 +41,14 @@ export default async function TopicPage({ params }: PageProps) {
           </Link>
         </div>
 
-        {topic.activities && topic.activities.length > 0 ? (
+        {topic.subcategories && topic.subcategories.length > 0 ? (
           <div className="grid grid-cols-2 gap-3">
-            {topic.activities.map((activity, index) => (
-              <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-                <Link href={locked ? "/premium" : activity.href}>
+            {topic.subcategories.map((subcategory, index) => (
+              <div key={subcategory.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+                <Link href={locked ? "/premium" : `/words/${categoryId}/${topicId}/${subcategory.id}`}>
                   <Card className="p-4">
-                    <div className="mb-2 text-sm font-semibold">{activity.name}</div>
-                    <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>
+                    <div className="mb-2 text-sm font-semibold">{subcategory.name}</div>
+                    <div className="text-[11px] leading-relaxed text-zinc-500">{subcategory.description}</div>
                   </Card>
                 </Link>
               </div>
