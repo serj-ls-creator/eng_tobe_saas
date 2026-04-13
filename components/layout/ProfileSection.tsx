@@ -73,7 +73,7 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#050505] px-4 pt-4 pb-20">
+    <div className="content-shell pb-4">
       <div className="mx-auto max-w-shell">
         <div className="fade-up">
           {/* Profile Header */}
