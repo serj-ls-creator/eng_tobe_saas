@@ -48,7 +48,7 @@ a {
   }
 
   .glass-card {
-    @apply rounded-[14px] border border-white/10 bg-white/[0.03] transition-all duration-150 active:scale-[0.98] active:bg-white/[0.05];
+    @apply rounded-[14px] border border-white/15 bg-white/[0.12] transition-all duration-150 active:scale-[0.98] active:bg-white/[0.18];
   }
 
   .fade-up {

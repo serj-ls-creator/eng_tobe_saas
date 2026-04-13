@@ -106,7 +106,7 @@ export default async function HomePage() {
           </section>
 
           {!premium ? (
-            <section className="mt-2">
+            <section className="mt-4">
               <Card className="fade-up fade-up-d5 p-4">
                 <div className="mb-2 text-sm font-semibold">{UI_TEXT.premiumTitle}</div>
                 <p className="mb-4 text-xs leading-relaxed text-zinc-500">{UI_TEXT.premiumSubtitle}</p>
