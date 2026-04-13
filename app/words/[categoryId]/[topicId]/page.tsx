@@ -48,7 +48,16 @@ export default async function TopicPage({ params }: PageProps) {
                 <Link href={locked ? "/premium" : `/words/${categoryId}/${topicId}/${subcategory.id}`}>
                   <Card className="p-4">
                     <div className="mb-2 text-sm font-semibold">{subcategory.name}</div>
-                    <div className="text-[11px] leading-relaxed text-zinc-500">{subcategory.description}</div>
+                    <div className="text-[11px] leading-relaxed">
+                    {subcategory.description?.includes('||') ? (
+                      <>
+                        <div className="text-zinc-500">{subcategory.description.split('||')[0]}</div>
+                        <div className="text-cyan-400 font-medium">10 words</div>
+                      </>
+                    ) : (
+                      <div className="text-zinc-500">{subcategory.description}</div>
+                    )}
+                  </div>
                   </Card>
                 </Link>
               </div>

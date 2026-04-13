@@ -67,7 +67,16 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                               >
                                 <div>
                                   <p className="text-sm font-medium text-white">{topic.name}</p>
-                                  <p className="text-[11px] text-zinc-500">{topic.description}</p>
+                                  <div className="text-[11px]">
+                                  {topic.description?.includes('||') ? (
+                                    <>
+                                      <div className="text-zinc-500">{topic.description.split('||')[0]}</div>
+                                      <div className="text-cyan-400 font-medium">{topic.description.split('||')[1]}</div>
+                                    </>
+                                  ) : (
+                                    <div className="text-zinc-500">{topic.description}</div>
+                                  )}
+                                </div>
                                 </div>
                                 <ChevronRight className="h-4 w-4 text-zinc-500" />
                               </Link>
@@ -78,7 +87,16 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                               >
                                 <div>
                                   <p className="text-sm font-medium text-white">{topic.name}</p>
-                                  <p className="text-[11px] text-zinc-500">{topic.description}</p>
+                                  <div className="text-[11px]">
+                                  {topic.description?.includes('||') ? (
+                                    <>
+                                      <div className="text-zinc-500">{topic.description.split('||')[0]}</div>
+                                      <div className="text-cyan-400 font-medium">{topic.description.split('||')[1]}</div>
+                                    </>
+                                  ) : (
+                                    <div className="text-zinc-500">{topic.description}</div>
+                                  )}
+                                </div>
                                 </div>
                                 <ChevronRight className="h-4 w-4 text-zinc-500" />
                               </Link>
@@ -89,7 +107,16 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                               >
                                 <div>
                                   <p className="text-sm font-medium text-white">{topic.name}</p>
-                                  <p className="text-[11px] text-zinc-500">{topic.description}</p>
+                                  <div className="text-[11px]">
+                                  {topic.description?.includes('||') ? (
+                                    <>
+                                      <div className="text-zinc-500">{topic.description.split('||')[0]}</div>
+                                      <div className="text-cyan-400 font-medium">{topic.description.split('||')[1]}</div>
+                                    </>
+                                  ) : (
+                                    <div className="text-zinc-500">{topic.description}</div>
+                                  )}
+                                </div>
                                 </div>
                                 <ChevronRight className="h-4 w-4 text-zinc-500" />
                               </Link>

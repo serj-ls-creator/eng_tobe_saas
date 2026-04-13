@@ -72,7 +72,16 @@ export default async function SubcategoryPage({ params }: PageProps) {
           <Card className="border border-dashed border-white/10 p-4 text-center">
             <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-600">Practice</div>
             <h3 className="mb-1 text-sm font-semibold">{subcategory.name}</h3>
-            <p className="text-xs leading-relaxed text-zinc-500">{subcategory.description}</p>
+            <div className="text-xs leading-relaxed">
+              {subcategory.description?.includes('||') ? (
+                <>
+                  <div className="text-zinc-500">{subcategory.description.split('||')[0]}</div>
+                  <div className="text-cyan-400 font-medium">{subcategory.description.split('||')[1]}</div>
+                </>
+              ) : (
+                <div className="text-zinc-500">{subcategory.description}</div>
+              )}
+            </div>
           </Card>
         </div>
 

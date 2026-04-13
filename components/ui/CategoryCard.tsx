@@ -33,7 +33,16 @@ export function CategoryCard({ title, description, icon, color, href, locked = f
                 <span className="rounded-full bg-white/5 px-2 py-1 text-[10px] font-medium text-zinc-400">{badge}</span>
               ) : null}
             </div>
-            <p className="truncate text-[11px] text-zinc-500">{description}</p>
+            <div className="text-[11px]">
+              {description?.includes('||') ? (
+                <>
+                  <div className="text-zinc-500 truncate">{description.split('||')[0]}</div>
+                  <div className="text-cyan-400 font-medium">10 words</div>
+                </>
+              ) : (
+                <div className="text-zinc-500 truncate">{description}</div>
+              )}
+            </div>
           </div>
           <ChevronRight className="h-5 w-5 text-zinc-600" />
         </div>
