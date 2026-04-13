@@ -66,7 +66,9 @@ export default async function HomePage() {
 
         <div className="relative z-20 overflow-y-auto px-4 pt-4 pb-4">
           <div className="fade-up">
-            <StreakBar streak={profile?.streak ?? 7} completedTasks={2} totalTasks={4} />
+            <Link href="/profile">
+              <StreakBar streak={profile?.streak ?? 7} completedTasks={2} totalTasks={4} />
+            </Link>
           </div>
 
           <section className="mb-5 mt-5 relative">
