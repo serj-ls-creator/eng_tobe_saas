@@ -72,10 +72,34 @@ export const CATS: WordCategory[] = [
     order: 2,
     topics: [
       {
-        id: "health",
-        name: "Health",
-        description: "Useful health vocabulary",
-        activities: createTopicActivities("basic-advanced", "health")
+        id: "people",
+        name: "People",
+        description: "Advanced vocabulary for describing people",
+        activities: createTopicActivities("basic-advanced", "people")
+      },
+      {
+        id: "world",
+        name: "World",
+        description: "Global and cultural vocabulary",
+        activities: createTopicActivities("basic-advanced", "world")
+      },
+      {
+        id: "digital",
+        name: "Digital",
+        description: "Modern technology and internet vocabulary",
+        activities: createTopicActivities("basic-advanced", "digital")
+      },
+      {
+        id: "life",
+        name: "Life",
+        description: "Everyday life and experiences vocabulary",
+        activities: createTopicActivities("basic-advanced", "life")
+      },
+      {
+        id: "mind",
+        name: "Mind",
+        description: "Thinking and mental processes vocabulary",
+        activities: createTopicActivities("basic-advanced", "mind")
       }
     ]
   },
@@ -290,7 +314,7 @@ export const SENT_CATS: SentenceCategory[] = [
     icon: "BookOpenText",
     color: UI_COLORS.cyan,
     section: "sentences",
-    href: "/sentences#a1-c2",
+    href: "/sentences/a1-c2",
     access: "free",
     isFree: true,
     order: 1,
