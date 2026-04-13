@@ -4,14 +4,14 @@ import { UI_COLORS } from "@/constants/ui";
 
 const WORD_GAME_ACTIVITIES = [
   {
+    id: "cards",
+    name: "Cards",
+    description: "Word and synonym cards"
+  },
+  {
     id: "synonym-pair",
     name: "Synonym Pair",
     description: "Match word pairs"
-  },
-  {
-    id: "memory",
-    name: "Memory",
-    description: "Train quick recall"
   },
   {
     id: "multiple-choice",
@@ -21,7 +21,17 @@ const WORD_GAME_ACTIVITIES = [
   {
     id: "letter-hunt",
     name: "Letter Hunt",
-    description: "Find the missing letters"
+    description: "Find missing letters"
+  },
+  {
+    id: "transcribe",
+    name: "Transcribe",
+    description: "Listen and write synonym"
+  },
+  {
+    id: "unscramble",
+    name: "Unscramble",
+    description: "Arrange letters correctly"
   }
 ] as const;
 
