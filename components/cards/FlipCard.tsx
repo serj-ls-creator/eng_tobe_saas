@@ -27,9 +27,9 @@ export function FlipCard({ word, isFlipped, onFlip }: FlipCardProps) {
       `}</style>
       
       <div 
-        className="mx-auto cursor-pointer"
+        className="mx-auto cursor-pointer max-w-full"
         style={{ 
-          width: '400px', 
+          width: 'min(400px, 100% - 2rem)', 
           height: '220px',
           perspective: '1500px'
         }}
@@ -54,7 +54,7 @@ export function FlipCard({ word, isFlipped, onFlip }: FlipCardProps) {
           <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
             Basic
           </span>
-          <p className="text-[24px] text-[#cbd5e1] text-center m-0 leading-relaxed">
+          <p className="text-[clamp(20px,5vw,24px)] text-[#cbd5e1] text-center m-0 leading-relaxed">
             {word.basic}
           </p>
           <div className="absolute bottom-6 text-[9px] text-[#475569] uppercase tracking-[0.1em]">
@@ -79,10 +79,10 @@ export function FlipCard({ word, isFlipped, onFlip }: FlipCardProps) {
           <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
             Advanced
           </span>
-          <p className="text-[32px] font-black text-white text-center m-0 leading-tight tracking-[-0.02em]">
+          <p className="text-[clamp(24px,6vw,32px)] font-black text-white text-center m-0 leading-tight tracking-[-0.02em]">
             {word.advanced}
           </p>
-          <p className="text-cyan-300 text-sm font-medium text-center m-0">
+          <p className="text-cyan-300 text-[clamp(12px,3vw,14px)] font-medium text-center m-0">
             {word.transcription}
           </p>
           <div className="absolute bottom-6 text-[9px] text-cyan-400/60 uppercase tracking-[0.1em]">
