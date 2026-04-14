@@ -16,7 +16,7 @@ export default async function PremiumPage() {
   return (
     <>
       <TopBar title="Premium" backHref="/" />
-      <div className="content-shell">
+      <div className="content-shell pb-4">
         <Card className="fade-up overflow-hidden p-6">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500/25 via-purple-500/25 to-cyan-400/25">
             <Crown className="h-7 w-7 text-yellow-400" />

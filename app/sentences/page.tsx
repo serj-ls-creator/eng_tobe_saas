@@ -10,7 +10,7 @@ export default async function SentencesPage() {
   return (
     <>
       <TopBar title="Sentences" />
-      <div className="content-shell">
+      <div className="content-shell pb-4">
         <div className="mb-4">
           <Link 
             href="/" 

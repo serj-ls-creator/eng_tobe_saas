@@ -10,7 +10,7 @@ export default async function IdiomsPage() {
   return (
     <>
       <TopBar title="Idioms" />
-      <div className="content-shell">
+      <div className="content-shell pb-4">
         <div className="mb-4">
           <Link 
             href="/" 
