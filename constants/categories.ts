@@ -187,44 +187,6 @@ export const CATS: WordCategory[] = [
     ]
   },
   {
-    id: "synonyms",
-    name: "Synonyms",
-    description: "Expand your vocabulary",
-    icon: "RefreshCw",
-    color: UI_COLORS.yellow,
-    section: "words",
-    href: "/words#synonyms",
-    access: "free",
-    isFree: true,
-    order: 3,
-    topics: [
-      {
-        id: "health",
-        name: "Health",
-        description: "Health vocabulary pairs",
-        activities: createTopicActivities("synonyms", "health")
-      },
-      {
-        id: "education",
-        name: "Education",
-        description: "School and learning vocabulary",
-        activities: createTopicActivities("synonyms", "education")
-      },
-      {
-        id: "technology",
-        name: "Technology",
-        description: "Digital and tech vocabulary",
-        activities: createTopicActivities("synonyms", "technology")
-      },
-      {
-        id: "environment",
-        name: "Environment",
-        description: "Nature and climate vocabulary",
-        activities: createTopicActivities("synonyms", "environment")
-      }
-    ]
-  },
-  {
     id: "antonyms",
     name: "Antonyms",
     description: "Opposite meanings",
@@ -234,7 +196,7 @@ export const CATS: WordCategory[] = [
     href: "/words#antonyms",
     access: "premium",
     isFree: false,
-    order: 4,
+    order: 3,
     topics: [
       {
         id: "health",
@@ -254,7 +216,7 @@ export const CATS: WordCategory[] = [
     href: "/words#rude-polite",
     access: "premium",
     isFree: false,
-    order: 5
+    order: 4
   },
   {
     id: "formal-informal",
@@ -266,7 +228,7 @@ export const CATS: WordCategory[] = [
     href: "/words#formal-informal",
     access: "premium",
     isFree: false,
-    order: 6
+    order: 5
   },
   {
     id: "time-words",
@@ -278,7 +240,7 @@ export const CATS: WordCategory[] = [
     href: "/words#time-words",
     access: "premium",
     isFree: false,
-    order: 7
+    order: 6
   },
   {
     id: "slang",
@@ -290,7 +252,7 @@ export const CATS: WordCategory[] = [
     href: "/words#slang",
     access: "premium",
     isFree: false,
-    order: 8,
+    order: 7,
     topics: [
       {
         id: "texting-language",

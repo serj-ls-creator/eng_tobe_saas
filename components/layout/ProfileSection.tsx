@@ -176,15 +176,6 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
                       <span className="text-xs text-zinc-500">33%</span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-zinc-400">Synonyms</span>
-                    <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="w-1/4 h-full bg-cyan-400"></div>
-                      </div>
-                      <span className="text-xs text-zinc-500">25%</span>
-                    </div>
-                  </div>
                 </div>
               </div>
 
