@@ -57,16 +57,20 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                     <div className="space-y-3 pt-4">
                       {category.topics.map((topic) => {
                         const hasActivities = Boolean(topic.activities?.length);
+                        const topicLocked = !topic.isFree && !isPremium;
 
                         return (
                           <div key={topic.id} className="rounded-2xl border border-white/8 bg-white/[0.02]">
                             {topic.subcategories ? (
                               <Link
-                                href={locked ? "/premium" : `/words/${category.id}/${topic.id}`}
+                                href={topicLocked ? "/premium" : `/words/${category.id}/${topic.id}`}
                                 className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
                               >
                                 <div>
-                                  <p className="text-sm font-medium text-white">{topic.name}</p>
+                                  <div className="mb-1 flex items-center gap-2">
+                                    <p className="text-sm font-medium text-white">{topic.name}</p>
+                                    {topicLocked ? <PremiumBadge /> : null}
+                                  </div>
                                   <div className="text-[11px]">
                                   {topic.description?.includes('||') ? (
                                     <>
@@ -82,11 +86,14 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                               </Link>
                             ) : topic.activities ? (
                               <Link
-                                href={locked ? "/premium" : `/words/${category.id}/${topic.id}`}
+                                href={topicLocked ? "/premium" : `/words/${category.id}/${topic.id}`}
                                 className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
                               >
                                 <div>
-                                  <p className="text-sm font-medium text-white">{topic.name}</p>
+                                  <div className="mb-1 flex items-center gap-2">
+                                    <p className="text-sm font-medium text-white">{topic.name}</p>
+                                    {topicLocked ? <PremiumBadge /> : null}
+                                  </div>
                                   <div className="text-[11px]">
                                   {topic.description?.includes('||') ? (
                                     <>

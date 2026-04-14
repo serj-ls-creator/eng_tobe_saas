@@ -84,7 +84,9 @@ export const CATS: WordCategory[] = [
       {
         id: "people",
         name: "People",
-        description: "Advanced vocabulary for describing people||50 words",
+        description: "Advanced vocabulary for describing people||100 words",
+        access: "free",
+        isFree: true,
         subcategories: [
           { id: "appearance", name: "Appearance", description: "Physical appearance vocabulary||10 words" },
           { id: "thinking", name: "Thinking", description: "Thought processes vocabulary||10 words" },
@@ -101,7 +103,9 @@ export const CATS: WordCategory[] = [
       {
         id: "world",
         name: "World",
-        description: "Global and cultural vocabulary||50 words",
+        description: "Global and cultural vocabulary||100 words",
+        access: "free",
+        isFree: true,
         subcategories: [
           { id: "home", name: "Home", description: "House and living space||10 words" },
           { id: "neighbourhood", name: "Neighbourhood", description: "Local area vocabulary||10 words" },
@@ -118,7 +122,9 @@ export const CATS: WordCategory[] = [
       {
         id: "digital",
         name: "Digital",
-        description: "Modern technology and internet vocabulary||50 words",
+        description: "Modern technology and internet vocabulary||100 words",
+        access: "premium",
+        isFree: false,
         subcategories: [
           { id: "devices", name: "Devices", description: "Electronic devices||10 words" },
           { id: "internet", name: "Internet", description: "Internet and web||10 words" },
@@ -135,7 +141,9 @@ export const CATS: WordCategory[] = [
       {
         id: "life",
         name: "Life",
-        description: "Everyday life and experiences vocabulary||50 words",
+        description: "Everyday life and experiences vocabulary||100 words",
+        access: "premium",
+        isFree: false,
         subcategories: [
           { id: "food", name: "Food", description: "Food and meals||10 words" },
           { id: "drinks", name: "Drinks", description: "Beverages vocabulary||10 words" },
@@ -152,7 +160,9 @@ export const CATS: WordCategory[] = [
       {
         id: "mind",
         name: "Mind",
-        description: "Thinking and mental processes vocabulary||50 words",
+        description: "Thinking and mental processes vocabulary||100 words",
+        access: "premium",
+        isFree: false,
         subcategories: [
           { id: "logic", name: "Logic", description: "Logical thinking||10 words" },
           { id: "learning", name: "Learning", description: "Learning processes||10 words" },

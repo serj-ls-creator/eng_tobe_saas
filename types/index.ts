@@ -50,6 +50,8 @@ export interface WordTopic {
   href?: string;
   activities?: WordActivity[];
   subcategories?: WordSubcategory[];
+  access?: "free" | "premium";
+  isFree?: boolean;
 }
 
 export interface WordCategory extends Category {
