@@ -272,7 +272,7 @@ export const IDIOM_CATS: Category[] = [
     icon: "Pizza",
     color: UI_COLORS.yellow,
     section: "idioms",
-    href: "/idioms#food",
+    href: "/idioms/food",
     access: "free",
     isFree: true,
     order: 1
@@ -284,7 +284,7 @@ export const IDIOM_CATS: Category[] = [
     icon: "CloudSun",
     color: UI_COLORS.cyan,
     section: "idioms",
-    href: "/idioms#weather",
+    href: "/idioms/weather",
     access: "free",
     isFree: true,
     order: 2
@@ -296,7 +296,7 @@ export const IDIOM_CATS: Category[] = [
     icon: "Drama",
     color: UI_COLORS.pink,
     section: "idioms",
-    href: "/idioms#emotional",
+    href: "/idioms/emotional",
     access: "premium",
     isFree: false,
     order: 3
@@ -308,7 +308,7 @@ export const IDIOM_CATS: Category[] = [
     icon: "Dumbbell",
     color: UI_COLORS.purple,
     section: "idioms",
-    href: "/idioms#body",
+    href: "/idioms/body",
     access: "premium",
     isFree: false,
     order: 4
@@ -320,7 +320,7 @@ export const IDIOM_CATS: Category[] = [
     icon: "PawPrint",
     color: UI_COLORS.yellow,
     section: "idioms",
-    href: "/idioms#animal",
+    href: "/idioms/animal",
     access: "premium",
     isFree: false,
     order: 5
@@ -332,7 +332,7 @@ export const IDIOM_CATS: Category[] = [
     icon: "BriefcaseBusiness",
     color: UI_COLORS.cyan,
     section: "idioms",
-    href: "/idioms#business",
+    href: "/idioms/business",
     access: "premium",
     isFree: false,
     order: 6
@@ -344,7 +344,7 @@ export const IDIOM_CATS: Category[] = [
     icon: "Laugh",
     color: UI_COLORS.pink,
     section: "idioms",
-    href: "/idioms#slang-idioms",
+    href: "/idioms/slang-idioms",
     access: "premium",
     isFree: false,
     order: 7
