@@ -36,10 +36,18 @@ const WORD_GAME_ACTIVITIES = [
 ] as const;
 
 function createTopicActivities(categoryId: string, topicId: string) {
-  return WORD_GAME_ACTIVITIES.map((activity) => ({
-    ...activity,
-    href: `/words#${categoryId}-${topicId}-${activity.id}`
-  }));
+  return WORD_GAME_ACTIVITIES.map((activity) => {
+    if (activity.id === 'cards') {
+      return {
+        ...activity,
+        href: `/words/${categoryId}/${topicId}/[subcategoryId]/cards`
+      };
+    }
+    return {
+      ...activity,
+      href: `/words#${categoryId}-${topicId}-${activity.id}`
+    };
+  });
 }
 
 export const CATS: WordCategory[] = [
