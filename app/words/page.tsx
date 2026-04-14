@@ -10,7 +10,7 @@ export default async function WordsPage() {
   return (
     <>
       <TopBar title="Words" />
-      <div className="content-shell pb-4">
+      <div className="content-shell pb-6">
         <div className="mb-4">
           <Link 
             href="/" 
