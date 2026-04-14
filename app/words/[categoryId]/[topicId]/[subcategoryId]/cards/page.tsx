@@ -10,6 +10,7 @@ import { Progress } from '@/components/ui/progress';
 import { FlipCard } from '@/components/cards/FlipCard';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
+import { WORLD } from '@/data/words/basicadvanced/world';
 import { CATS } from '@/constants/categories';
 
 interface PageProps {
@@ -53,11 +54,18 @@ export default function CardsPage({ params }: PageProps) {
 
     setSubcategory(subcat);
 
-    // Load words from data file (for now only People category)
-    if (categoryId === 'basic-advanced' && topicId === 'people') {
-      const peopleSubcategory = PEOPLE.find(s => s.id === subcategoryId);
-      if (peopleSubcategory) {
-        setWords(peopleSubcategory.words);
+    // Load words from data file (People and World categories)
+    if (categoryId === 'basic-advanced') {
+      if (topicId === 'people') {
+        const peopleSubcategory = PEOPLE.find(s => s.id === subcategoryId);
+        if (peopleSubcategory) {
+          setWords(peopleSubcategory.words);
+        }
+      } else if (topicId === 'world') {
+        const worldSubcategory = WORLD.find(s => s.id === subcategoryId);
+        if (worldSubcategory) {
+          setWords(worldSubcategory.words);
+        }
       }
     }
   }, [categoryId, topicId, subcategoryId, mounted]);
