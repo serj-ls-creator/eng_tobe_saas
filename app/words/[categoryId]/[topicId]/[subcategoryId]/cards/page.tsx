@@ -11,6 +11,9 @@ import { FlipCard } from '@/components/cards/FlipCard';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
+import { LIFE } from '@/data/words/basicadvanced/life';
+import { MIND } from '@/data/words/basicadvanced/mind';
+import { DIGITAL } from '@/data/words/basicadvanced/digital';
 import { CATS } from '@/constants/categories';
 
 interface PageProps {
@@ -54,7 +57,7 @@ export default function CardsPage({ params }: PageProps) {
 
     setSubcategory(subcat);
 
-    // Load words from data file (People and World categories)
+    // Load words from data file (People, World, Life, Mind, Digital categories)
     if (categoryId === 'basic-advanced') {
       if (topicId === 'people') {
         const peopleSubcategory = PEOPLE.find(s => s.id === subcategoryId);
@@ -65,6 +68,21 @@ export default function CardsPage({ params }: PageProps) {
         const worldSubcategory = WORLD.find(s => s.id === subcategoryId);
         if (worldSubcategory) {
           setWords(worldSubcategory.words);
+        }
+      } else if (topicId === 'life') {
+        const lifeSubcategory = LIFE.find(s => s.id === subcategoryId);
+        if (lifeSubcategory) {
+          setWords(lifeSubcategory.words);
+        }
+      } else if (topicId === 'mind') {
+        const mindSubcategory = MIND.find(s => s.id === subcategoryId);
+        if (mindSubcategory) {
+          setWords(mindSubcategory.words);
+        }
+      } else if (topicId === 'digital') {
+        const digitalSubcategory = DIGITAL.find(s => s.id === subcategoryId);
+        if (digitalSubcategory) {
+          setWords(digitalSubcategory.words);
         }
       }
     }
@@ -125,7 +143,7 @@ export default function CardsPage({ params }: PageProps) {
             href={`/words/${categoryId}/${topicId}`}
             className="inline-flex items-center text-xs text-slate-500 hover:text-slate-300 transition-colors mb-4"
           >
-            <span className="mr-2">+</span>
+            <span className="mr-2">←</span>
             Back to {subcategory.name}
           </Link>
           
@@ -172,7 +190,7 @@ export default function CardsPage({ params }: PageProps) {
           {currentCardIndex === words.length - 1 ? (
             <button
               onClick={() => setShowCompletion(true)}
-              className="flex-1 bg-gradient-to-r from-pink-500 via-cyan-400 to-purple-500 hover:opacity-90 text-white font-semibold py-3 px-6 rounded-xl transition-all"
+              className="flex-1 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
             >
               Finish
             </button>
