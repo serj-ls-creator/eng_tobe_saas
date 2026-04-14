@@ -39,7 +39,7 @@ a {
 
 @layer components {
   .app-shell {
-    @apply mx-auto flex min-h-dvh w-full max-w-shell flex-col overflow-hidden;
+    @apply mx-auto flex min-h-dvh w-full max-w-shell flex-col;
   }
 
   .content-shell {

@@ -49,6 +49,18 @@ const navItems: NavItem[] = [
 export function BottomNav() {
   const pathname = usePathname();
 
+  // Hide bottom nav on activity pages
+  const isActivityPage = pathname.includes('/activities') || 
+                         pathname.includes('/cards') ||
+                         pathname.includes('/transcribe') ||
+                         pathname.includes('/unscramble') ||
+                         pathname.includes('/quiz') ||
+                         pathname.includes('/match');
+
+  if (isActivityPage) {
+    return null;
+  }
+
   return (
     <nav className="sticky bottom-0 z-40 border-t border-white/10 bg-[#050505]/95 backdrop-blur-xl">
       <div className="mx-auto flex max-w-shell items-center justify-around px-2">
