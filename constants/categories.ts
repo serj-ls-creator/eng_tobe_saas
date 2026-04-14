@@ -379,6 +379,140 @@ export const SENT_CATS: SentenceCategory[] = [
     level: "B2"
   },
   {
+    id: "everyday-situations",
+    name: "Everyday Situations",
+    description: "Practical phrases for daily life conversations",
+    icon: "Users",
+    color: UI_COLORS.cyan,
+    section: "sentences",
+    href: "/sentences#everyday-situations",
+    access: "premium",
+    isFree: false,
+    order: 3,
+    level: "B1",
+    topics: [
+      {
+        id: "dining-out",
+        name: "Dining Out",
+        description: "Restaurant phrases: table requests, allergies, separate bills",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "table-requests", name: "Table Requests", description: "How to ask for a table by the window" },
+          { id: "allergies", name: "Allergies", description: "How to inform about food allergies" },
+          { id: "separate-bills", name: "Separate Bills", description: "How to ask for separate checks" }
+        ]
+      },
+      {
+        id: "travel-airport",
+        name: "Travel & Airport",
+        description: "Check-in, security, flight delays, gate information",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "check-in", name: "Check-in", description: "Flight registration process" },
+          { id: "security", name: "Security", description: "Going through security screening" },
+          { id: "flight-delays", name: "Flight Delays", description: "Asking about delayed flights" },
+          { id: "gate-info", name: "Gate Information", description: "Finding your departure gate" }
+        ]
+      },
+      {
+        id: "shopping-prices",
+        name: "Shopping & Prices",
+        description: "Store conversations: sizes, prices, returns, exchanges",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "sizes", name: "Sizes", description: "Asking about clothing sizes" },
+          { id: "prices", name: "Prices", description: "Clarifying product prices" },
+          { id: "returns", name: "Returns", description: "Return and exchange policies" }
+        ]
+      },
+      {
+        id: "hotel-accommodation",
+        name: "Hotel & Accommodation",
+        description: "Check-in/out, room requests, complaints, amenities",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "checkin-out", name: "Check-in/out", description: "Hotel arrival and departure" },
+          { id: "room-requests", name: "Room Requests", description: "Towel changes, extra amenities" },
+          { id: "complaints", name: "Complaints", description: "AC/Wi-Fi issues, problems" }
+        ]
+      },
+      {
+        id: "directions-transport",
+        name: "Directions & Transport",
+        description: "Asking for directions, buying tickets, taxi rides",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "asking-directions", name: "Asking Directions", description: "How to ask for directions" },
+          { id: "public-transport", name: "Public Transport", description: "Metro/bus tickets" },
+          { id: "taxi", name: "Taxi", description: "Calling taxi and trip cost" }
+        ]
+      },
+      {
+        id: "health-pharmacy",
+        name: "Health & Pharmacy",
+        description: "Describing symptoms, buying medicine, medical help",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "symptoms", name: "Symptoms", description: "Describing headache, cold symptoms" },
+          { id: "pharmacy", name: "Pharmacy", description: "Buying medicine without prescription" }
+        ]
+      },
+      {
+        id: "socializing-smalltalk",
+        name: "Socializing & Small Talk",
+        description: "Conversation starters, weather, hobbies, work topics",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "conversation-starters", name: "Conversation Starters", description: "Polite phrases to begin talking" },
+          { id: "small-talk", name: "Small Talk", description: "Weather, hobbies, work topics" }
+        ]
+      },
+      {
+        id: "bank-money",
+        name: "At the Bank & Money",
+        description: "Cash withdrawal, currency exchange, card issues",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "cash-withdrawal", name: "Cash Withdrawal", description: "Getting cash from ATM/bank" },
+          { id: "currency-exchange", name: "Currency Exchange", description: "Exchanging money" },
+          { id: "card-issues", name: "Card Issues", description: "Blocked card problems" }
+        ]
+      },
+      {
+        id: "work-office",
+        name: "Work & Office",
+        description: "Meetings, requests, deadlines, colleague conversations",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "meetings", name: "Meetings", description: "Scheduling and arranging meetings" },
+          { id: "requests", name: "Requests", description: "Polite requests for help" },
+          { id: "deadlines", name: "Deadlines", description: "Clarifying project deadlines" }
+        ]
+      },
+      {
+        id: "emergency-situations",
+        name: "Emergency Situations",
+        description: "Calling for help, reporting theft, police/medical emergencies",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "calling-help", name: "Calling for Help", description: "How to call for assistance" },
+          { id: "reporting-theft", name: "Reporting Theft", description: "Reporting stolen passport" },
+          { id: "emergency-services", name: "Emergency Services", description: "Calling police/doctor" }
+        ]
+      }
+    ]
+  },
+    {
     id: "dont-say-very-easy",
     name: "Don't say: Very easy",
     description: "Swap weak phrases for stronger ones",
@@ -388,7 +522,7 @@ export const SENT_CATS: SentenceCategory[] = [
     href: "/sentences#dont-say-very-easy",
     access: "premium",
     isFree: false,
-    order: 3,
+    order: 4,
     level: "C2"
   },
   {
@@ -401,7 +535,7 @@ export const SENT_CATS: SentenceCategory[] = [
     href: "/sentences#slang-modern-english",
     access: "premium",
     isFree: false,
-    order: 4
+    order: 5
   }
 ];
 

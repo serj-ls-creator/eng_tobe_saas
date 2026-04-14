@@ -1,0 +1,126 @@
+"use client";
+
+import Link from "next/link";
+import { useState } from "react";
+import { ChevronDown, ChevronRight } from "lucide-react";
+
+import { PremiumBadge } from "@/components/ui/PremiumBadge";
+import { Card } from "@/components/ui/card";
+import { getIcon } from "@/lib/icons";
+import type { SentenceCategory } from "@/types";
+
+interface SentencesTreeProps {
+  categories: SentenceCategory[];
+  isPremium: boolean;
+}
+
+export function SentencesTree({ categories, isPremium }: SentencesTreeProps) {
+  const [openCategories, setOpenCategories] = useState<string[]>([]);
+
+  function toggleCategory(categoryId: string) {
+    setOpenCategories((current) =>
+      current.includes(categoryId) ? current.filter((item) => item !== categoryId) : [...current, categoryId]
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      {categories.map((category, index) => {
+        const Icon = getIcon(category.icon);
+        const locked = !category.isFree && !isPremium;
+        const isOpen = openCategories.includes(category.id);
+        const hasTopics = category.topics && category.topics.length > 0;
+
+        return (
+          <div key={category.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+            <Card className="overflow-hidden">
+              <button
+                type="button"
+                onClick={() => toggleCategory(category.id)}
+                className="flex w-full items-center gap-3 p-4 text-left"
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${category.color}25` }}>
+                  <Icon className="h-5 w-5" style={{ color: category.color }} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="mb-1 flex items-center gap-2">
+                    <p className="truncate text-sm font-semibold">{category.name}</p>
+                    {locked ? <PremiumBadge /> : null}
+                  </div>
+                  <p className="truncate text-[11px] text-zinc-500">{category.description}</p>
+                </div>
+                {hasTopics ? (
+                  isOpen ? <ChevronDown className="h-5 w-5 text-zinc-500" /> : <ChevronRight className="h-5 w-5 text-zinc-500" />
+                ) : (
+                  <ChevronRight className="h-4 w-4 text-zinc-500" />
+                )}
+              </button>
+
+              {isOpen && hasTopics ? (
+                <div className="border-t border-white/5 px-4 pb-4">
+                  <div className="space-y-3 pt-4">
+                    {category.topics?.map((topic) => {
+                      const topicLocked = !topic.isFree && !isPremium;
+
+                      return (
+                        <div key={topic.id} className="rounded-2xl border border-white/8 bg-white/[0.02]">
+                          {topic.subcategories ? (
+                            <Link
+                              href={topicLocked ? "/premium" : `/sentences/${category.id}/${topic.id}`}
+                              className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
+                            >
+                              <div>
+                                <div className="mb-1 flex items-center gap-2">
+                                  <p className="text-sm font-medium text-white">{topic.name}</p>
+                                  {topicLocked ? <PremiumBadge /> : null}
+                                </div>
+                                <div className="text-[11px]">
+                                  {topic.description?.includes('||') ? (
+                                    <>
+                                      <div className="text-zinc-500">{topic.description.split('||')[0]}</div>
+                                      <div className="text-cyan-400 font-medium">{topic.description.split('||')[1]}</div>
+                                    </>
+                                  ) : (
+                                    <div className="text-zinc-500">{topic.description}</div>
+                                  )}
+                                </div>
+                              </div>
+                              <ChevronRight className="h-4 w-4 text-zinc-500" />
+                            </Link>
+                          ) : (
+                            <Link
+                              href={locked ? "/premium" : topic.href ?? category.href}
+                              className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
+                            >
+                              <div>
+                                <div className="mb-1 flex items-center gap-2">
+                                  <p className="text-sm font-medium text-white">{topic.name}</p>
+                                  {topicLocked ? <PremiumBadge /> : null}
+                                </div>
+                                <div className="text-[11px]">
+                                  {topic.description?.includes('||') ? (
+                                    <>
+                                      <div className="text-zinc-500">{topic.description.split('||')[0]}</div>
+                                      <div className="text-cyan-400 font-medium">{topic.description.split('||')[1]}</div>
+                                    </>
+                                  ) : (
+                                    <div className="text-zinc-500">{topic.description}</div>
+                                  )}
+                                </div>
+                              </div>
+                              <ChevronRight className="h-4 w-4 text-zinc-500" />
+                            </Link>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
+            </Card>
+          </div>
+        );
+      })}
+    </div>
+  );
+}

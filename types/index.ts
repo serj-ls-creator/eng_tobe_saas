@@ -28,6 +28,7 @@ export interface Category {
 
 export interface SentenceCategory extends Category {
   level?: SentenceLevel;
+  topics?: WordTopic[];
 }
 
 export interface WordActivity {
