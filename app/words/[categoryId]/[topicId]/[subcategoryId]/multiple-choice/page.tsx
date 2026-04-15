@@ -203,12 +203,9 @@ export default function MultipleChoicePage({ params }: PageProps) {
             <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 mb-3">
               Basic word
             </div>
-            <h2 className="text-3xl font-bold text-white mb-2">
+            <h2 className="text-3xl font-bold text-white">
               {currentWord.basic}
             </h2>
-            <p className="text-cyan-400 text-sm">
-              {currentWord.transcription}
-            </p>
           </Card>
         </div>
 
