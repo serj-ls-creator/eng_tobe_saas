@@ -204,6 +204,7 @@ export default function IdiomMultipleChoicePage({ params }: PageProps) {
           total={idioms.length}
           categoryId={categoryId}
           subcategoryName={`${category.name} - ${levelName}`}
+          words={idioms.filter((_, index) => index < correctCount).map(w => w.meaning)}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToLevels}
         />
