@@ -18,12 +18,18 @@
   - **`PremiumBadge.tsx`** - Бейдж премиум-контента
   - **`StreakBar.tsx`** - Компонент полоски прогресса/стрика
   - **`Icon.tsx`** - Компонент иконок
+  - **`CompletionModal.tsx`** - Модальное окно для завершения активностей
 - **`layout/`** - Компоненты layout
   - **`TopBar.tsx`** - Верхняя панель навигации с заголовком
   - **`BottomNav.tsx`** - Нижняя панель навигации
   - **`ProfileSection.tsx`** - Секция профиля пользователя
 - **`words/`** - Компоненты для раздела Words
   - **`WordsTree.tsx`** - Дерево категорий слов с раскрывающимися списками
+- **`sentences/`** - Компоненты для раздела Sentences
+  - **`SentencesTree.tsx`** - Дерево категорий предложений с раскрывающимися списками
+- **`cards/`** - Компоненты для активностей Cards
+  - **`FlipCard.tsx`** - Компонент переворачиваемой карточки для слов
+  - **`IdiomFlipCard.tsx`** - Компонент переворачиваемой карточки для идиом
 - **`auth/`** - Компоненты авторизации
   - **`AuthForm.tsx`** - Форма входа/регистрации
 - **`pwa/`** - PWA компоненты
@@ -33,10 +39,24 @@
 - **`isPremium.ts`** - Проверка премиум-статуса пользователя
 - **`utils.ts`** - Общие утилиты (например, `cn` для классов)
 - **`icons.ts`** - Функция получения иконок по названию
+- **`idioms.ts`** - Idioms data utilities and level management
 
 ### 📁 `constants/` - Константы
 - **`ui.ts`** - UI тексты и константы
 - **`categories.ts`** - Структура категорий для Words, Sentences, Idioms, Games
+
+### 📁 `data/` - Data files
+- **`words/`** - Words data files
+  - **`basicadvanced/`** - Basic to Advanced words by category
+- **`sentences/`** - Sentences data files
+- **`idioms/`** - Idioms data files (30 idioms per category)
+  - **`food_idioms.ts`** - Food related idioms
+  - **`weather_idioms.ts`** - Weather related idioms
+  - **`emotional_idioms.ts`** - Emotional idioms
+  - **`body_parts_idioms.ts`** - Body parts idioms
+  - **`animal_idioms.ts`** - Animal idioms
+  - **`business_idioms.ts`** - Business idioms
+  - **`slang_idioms.ts`** - Slang idioms
 
 ### 📁 `types/` - TypeScript типы
 - **`index.ts`** - Основные типы проекта
@@ -64,13 +84,31 @@
 
 ### 📝 Раздел Sentences  
 **`app/sentences/page.tsx`**
-- Категории: A1 to C2, Phrasal verbs, Don't say: Very easy, Slang/Modern English
+- Категории: A1 to C2, Phrasal verbs, Everyday Situations, Don't say: Very easy, Slang/Modern English
 - Кнопка "← Back to Home"
+
+**`app/sentences/[categoryId]/[topicId]/page.tsx`**
+- Динамическая страница для подкатегорий предложений
+- Отображение активностей в сетке 2x2
+- Кнопка "← Back to Sentences"
 
 ### 💬 Раздел Idioms
 **`app/idioms/page.tsx`**
 - Категории: Food, Weather, Emotional, Body Parts, Animal, Business, Slang idioms
 - Кнопка "← Back to Home"
+
+**`app/idioms/[categoryId]/page.tsx`**
+- Выбор уровня: Level 1, Level 2, Level 3 (10 идиом каждый)
+- Кнопка "← Back to Idioms"
+
+**`app/idioms/[categoryId]/[levelId]/page.tsx`**
+- Активности в сетке 2x2: Cards, Multiple Choice, Synonym Pair, Fill the Blanks, Find the Mistake, Sentence Builder
+- Кнопка "← Back to [Category Name]"
+
+**`app/idioms/[categoryId]/[levelId]/cards/page.tsx`**
+- Реализация полной активности Cards с компонентом IdiomFlipCard
+- Прогресс-бар, навигация Previous/Next, модальное окно завершения
+- Анимация переворота, показывающая идиом на лицевой стороне, значение на оборотной
 
 ### 🎮 Раздел Games
 **`app/games/page.tsx`**
@@ -149,19 +187,38 @@
   - Texting language
 
 ### Sentences (SENT_CATS)
-- A1 to C2 (бесплатно)
-- Phrasal verbs (премиум)
-- Don't say: Very easy (премиум)
-- Slang/Modern English (премиум)
+- A1 to C2 (free)
+- Phrasal verbs (premium)
+- Everyday Situations (premium) - 10 subcategories:
+  - Dining Out (restaurant phrases)
+  - Travel & Airport (check-in, security, gates)
+  - Shopping & Prices (sizes, returns, exchanges)
+  - Hotel & Accommodation (check-in/out, requests)
+  - Directions & Transport (asking directions, tickets)
+  - Health & Pharmacy (symptoms, medicine)
+  - Socializing & Small Talk (conversation starters)
+  - At the Bank & Money (withdrawal, exchange)
+  - Work & Office (meetings, requests, deadlines)
+  - Emergency Situations (help, theft, police/medical)
+- Don't say: Very easy (premium)
+- Slang/Modern English (premium)
 
 ### Idioms (IDIOM_CATS)
-- Food Idioms (бесплатно)
-- Weather Idioms (бесплатно)
-- Emotional Idioms (премиум)
-- Body Parts Idioms (премиум)
-- Animal Idioms (премиум)
-- Business idioms (премиум)
-- Slang idioms (премиум)
+- Food Idioms (free) - 3 levels × 10 idioms
+- Weather Idioms (free) - 3 levels × 10 idioms
+- Emotional Idioms (premium) - 3 levels × 10 idioms
+- Body Parts Idioms (premium) - 3 levels × 10 idioms
+- Animal Idioms (premium) - 3 levels × 10 idioms
+- Business idioms (premium) - 3 levels × 10 idioms
+- Slang idioms (premium) - 3 levels × 10 idioms
+
+**Idioms Activities:**
+- Cards - Flip cards with idioms and meanings
+- Multiple Choice - Choose correct meaning (placeholder)
+- Synonym Pair - Match idioms with meanings (placeholder)
+- Fill the Blanks - Complete idiom sentences (placeholder)
+- Find the Mistake - Identify incorrect usage (placeholder)
+- Sentence Builder - Create sentences with idioms (placeholder)
 
 ### Games (GAME_CATS)
 - Wodrle (премиум)
