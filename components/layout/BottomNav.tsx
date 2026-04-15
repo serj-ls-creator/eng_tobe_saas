@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Brain, Trophy, ShoppingBag, Settings, User, Home } from "lucide-react";
+import { Brain, ShoppingBag, Settings, User, Home } from "lucide-react";
 
 import type { NavItem } from "@/types";
 import { cn } from "@/lib/utils";
@@ -25,12 +25,6 @@ const navItems: NavItem[] = [
     label: "Profile",
     icon: <User className="h-5 w-5" />,
     match: ["/profile"]
-  },
-  {
-    href: "/leaderboard",
-    label: "Leaderboard",
-    icon: <Trophy className="h-5 w-5" />,
-    match: ["/leaderboard"]
   },
   {
     href: "/store",
