@@ -28,14 +28,7 @@ const IDIOM_ACTIVITIES = [
     icon: "Link2",
     color: "#f59e0b"
   },
-  {
-    id: "listen-pick",
-    name: "Listen & Pick",
-    description: "Listen and select the correct idiom",
-    icon: "Headphones",
-    color: "#8b5cf6"
-  },
-  {
+    {
     id: "fill-blanks",
     name: "Fill the Blanks",
     description: "Complete the idiom sentences",
