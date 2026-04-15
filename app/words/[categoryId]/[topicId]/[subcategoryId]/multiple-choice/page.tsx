@@ -7,6 +7,7 @@ import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
+import { FlyingWords } from '@/components/ui/FlyingWords';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
@@ -159,10 +160,12 @@ export default function MultipleChoicePage({ params }: PageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
+    <div className="min-h-screen bg-black text-white relative" suppressHydrationWarning={true}>
       <TopBar />
 
-      <div className="container mx-auto px-4 py-8">
+      <FlyingWords words={words.map(w => w.advanced)} />
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <div className="mb-8">
           <Link
