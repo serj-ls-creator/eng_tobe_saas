@@ -49,7 +49,10 @@ export function BottomNav() {
                          pathname.includes('/transcribe') ||
                          pathname.includes('/unscramble') ||
                          pathname.includes('/quiz') ||
-                         pathname.includes('/match');
+                         pathname.includes('/match') ||
+                         pathname.includes('/synonym-pair') ||
+                         pathname.includes('/multiple-choice') ||
+                         pathname.includes('/letter-hunt');
 
   if (isActivityPage) {
     return null;

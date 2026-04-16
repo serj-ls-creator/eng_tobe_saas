@@ -151,7 +151,7 @@ export default function SynonymPairPage({ params }: PageProps) {
         setSelectedLeft(null);
         setSelectedRight(null);
         setIsLocked(false);
-      }, 1500);
+      }, 1000);
     }
   }, [isLocked, selectedLeft, words, shuffledSynonyms, matchedLeft, matchedRight]);
 
