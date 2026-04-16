@@ -51,6 +51,7 @@ export interface WordTopic {
   href?: string;
   activities?: WordActivity[];
   subcategories?: WordSubcategory[];
+  topics?: WordTopic[];
   access?: "free" | "premium";
   isFree?: boolean;
 }
