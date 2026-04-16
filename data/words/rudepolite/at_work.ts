@@ -237,9 +237,9 @@ export const AT_WORK: Subcategory[] = [
     words: [
       {
         basic: 'Boring',
-        advanced: 'Unproductive',
-        transcription: '/ˌʌnprəˈdʌktɪv/',
-        wrong: ['Unsuccessful', 'Unsatisfactory', 'Unprepared', 'Unprofessional'],
+        advanced: 'Let us refocus',
+        transcription: '/let əs ˌriːˈfoʊkəs/',
+        wrong: ['Let us restart', 'Let us rethink', 'Let us regroup', 'Let us reschedule'],
       },
       {
         basic: 'Shut up',
@@ -383,9 +383,9 @@ export const AT_WORK: Subcategory[] = [
       },
       {
         basic: 'Oops',
-        advanced: 'Regrettably',
-        transcription: '/rɪˈɡretəbli/',
-        wrong: ['Reliably', 'Remarkably', 'Repeatedly', 'Respectfully'],
+        advanced: 'My sincere apologies',
+        transcription: '/maɪ sɪnˈsɪər əˈpɒlədʒɪz/',
+        wrong: ['My sincere thanks', 'My sincere regards', 'My sincere wishes', 'My sincere greetings'],
       },
       {
         basic: 'Not my fault',

@@ -51,15 +51,15 @@ export const FEELING: Subcategory[] = [
       },
       {
         basic: 'Devoted',
-        advanced: 'Hostile',
-        transcription: '/ˈhɒstaɪl/',
-        wrong: ['Humble', 'Honest', 'Hopeful', 'Helpful'],
+        advanced: 'Indifferent',
+        transcription: '/ɪnˈdɪfrənt/',
+        wrong: ['Impulsive', 'Insightful', 'Intuitive', 'Inventive'],
       },
       {
         basic: 'Fond',
-        advanced: 'Bitter',
-        transcription: '/ˈbɪtər/',
-        wrong: ['Bold', 'Brave', 'Brief', 'Bright'],
+        advanced: 'Repulsed',
+        transcription: '/rɪˈpʌlst/',
+        wrong: ['Reliable', 'Reserved', 'Resilient', 'Resourceful'],
       },
       {
         basic: 'Tender',

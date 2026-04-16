@@ -63,15 +63,15 @@ export const ACTION: Subcategory[] = [
       },
       {
         basic: 'Compose',
-        advanced: 'Erase',
-        transcription: '/ɪˈreɪz/',
-        wrong: ['Escape', 'Establish', 'Evaluate', 'Examine'],
+        advanced: 'Destroy',
+        transcription: '/dɪˈstrɔɪ/',
+        wrong: ['Discuss', 'Display', 'Divide', 'Draft'],
       },
       {
         basic: 'Invent',
-        advanced: 'Abolish',
-        transcription: '/əˈbɒlɪʃ/',
-        wrong: ['Absorb', 'Accept', 'Achieve', 'Acquire'],
+        advanced: 'Copy',
+        transcription: '/ˈkɒpi/',
+        wrong: ['Confirm', 'Connect', 'Consider', 'Contain'],
       },
       {
         basic: 'Plant',
@@ -215,9 +215,9 @@ export const ACTION: Subcategory[] = [
       },
       {
         basic: 'Ask',
-        advanced: 'Ignore',
-        transcription: '/ɪɡˈnɔːr/',
-        wrong: ['Imply', 'Improve', 'Include', 'Increase'],
+        advanced: 'Answer',
+        transcription: '/ˈɑːnsər/',
+        wrong: ['Achieve', 'Acquire', 'Adapt', 'Address'],
       },
       {
         basic: 'Respond',
@@ -249,8 +249,8 @@ export const ACTION: Subcategory[] = [
       },
       {
         basic: 'Assign',
-        advanced: 'Resign',
-        transcription: '/rɪˈzaɪn/',
+        advanced: 'Revoke',
+        transcription: '/rɪˈvoʊk/',
         wrong: ['Resolve', 'Respond', 'Restore', 'Retain'],
       },
       {
@@ -343,9 +343,9 @@ export const ACTION: Subcategory[] = [
       },
       {
         basic: 'Discover',
-        advanced: 'Overlook',
-        transcription: '/ˌoʊvərˈlʊk/',
-        wrong: ['Overcome', 'Override', 'Overrate', 'Overuse'],
+        advanced: 'Conceal',
+        transcription: '/kənˈsiːl/',
+        wrong: ['Confirm', 'Connect', 'Consider', 'Contain'],
       },
       {
         basic: 'Improve',

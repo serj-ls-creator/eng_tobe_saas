@@ -69,15 +69,15 @@ export const WITH_STRANGERS: Subcategory[] = [
       },
       {
         basic: 'Oi',
-        advanced: 'Pardon me',
-        transcription: '/ˈpɑːrdən miː/',
-        wrong: ['Excuse me', 'Allow me', 'Forgive me', 'Permit me'],
+        advanced: 'I beg your pardon',
+        transcription: '/aɪ beɡ jɔːr ˈpɑːrdən/',
+        wrong: ['I beg your leave', 'I beg your time', 'I beg your help', 'I beg your mercy'],
       },
       {
         basic: 'Alright',
-        advanced: 'How do you do',
-        transcription: '/haʊ duː juː duː/',
-        wrong: ['How are things', 'How goes it', 'How is life', 'How have you been'],
+        advanced: 'How do you fare',
+        transcription: '/haʊ duː juː feər/',
+        wrong: ['How do you feel', 'How do you cope', 'How do you manage', 'How do you go'],
       },
       {
         basic: 'Heya',
@@ -133,15 +133,15 @@ export const WITH_STRANGERS: Subcategory[] = [
       },
       {
         basic: 'What time',
-        advanced: 'Could you tell me',
-        transcription: '/kʊd juː tel miː/',
-        wrong: ['Could you show me', 'Could you help me', 'Could you guide me', 'Could you remind me'],
+        advanced: 'Do you have the time',
+        transcription: '/duː juː hæv ðə taɪm/',
+        wrong: ['Do you have a watch', 'Do you have a clock', 'Do you have a phone', 'Do you have a minute'],
       },
       {
         basic: 'I need',
-        advanced: 'I would appreciate',
-        transcription: '/aɪ wʊd əˈpriːʃieɪt/',
-        wrong: ['I would accept', 'I would allow', 'I would advise', 'I would agree'],
+        advanced: 'I would be grateful',
+        transcription: '/aɪ wʊd biː ˈɡreɪtfəl/',
+        wrong: ['I would be happy', 'I would be pleased', 'I would be glad', 'I would be satisfied'],
       },
       {
         basic: 'Can you',

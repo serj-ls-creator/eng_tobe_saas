@@ -191,9 +191,9 @@ export const IN_CONFLICT: Subcategory[] = [
       },
       {
         basic: 'Give me',
-        advanced: 'I require',
-        transcription: '/aɪ rɪˈkwaɪər/',
-        wrong: ['I request', 'I respond', 'I restore', 'I retain'],
+        advanced: 'I kindly ask for',
+        transcription: '/aɪ ˈkaɪndli ɑːsk fɔːr/',
+        wrong: ['I kindly wait for', 'I kindly hope for', 'I kindly look for', 'I kindly search for'],
       },
       {
         basic: 'Comply',
@@ -291,9 +291,9 @@ export const IN_CONFLICT: Subcategory[] = [
       },
       {
         basic: 'Raging',
-        advanced: 'Intensely frustrated',
-        transcription: '/ɪnˈtensli frʌˈstreɪtɪd/',
-        wrong: ['Intensely concerned', 'Intensely troubled', 'Intensely upset', 'Intensely affected'],
+        advanced: 'Deeply troubled',
+        transcription: '/ˈdiːpli ˈtrʌbəld/',
+        wrong: ['Deeply pleased', 'Deeply relieved', 'Deeply satisfied', 'Deeply grateful'],
       },
     ],
   },
