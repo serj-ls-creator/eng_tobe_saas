@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { ComingSoon } from "@/components/ui/ComingSoon";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBar } from "@/components/layout/TopBar";
 import { GAME_CATS } from "@/constants/categories";
-import { UI_TEXT } from "@/constants/ui";
 import { isPremium } from "@/lib/isPremium";
 
 export default async function GamesPage() {
@@ -34,9 +32,6 @@ export default async function GamesPage() {
               />
             </div>
           ))}
-        </div>
-        <div className="fade-up fade-up-d4">
-          <ComingSoon title="Games are in progress" description="Wordle, Memory, and Negotiations will open here." />
         </div>
       </div>
     </>

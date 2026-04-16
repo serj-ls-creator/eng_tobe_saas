@@ -29,7 +29,7 @@ const quickLinks = [
   {
     href: "/games",
     title: "Games",
-    subtitle: "Coming soon",
+    subtitle: "Wordle & more",
     icon: <Gamepad2 className="h-5 w-5" />
   }
 ];

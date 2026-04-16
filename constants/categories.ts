@@ -841,7 +841,7 @@ export const GAME_CATS: Category[] = [
     icon: "Hash",
     color: UI_COLORS.cyan,
     section: "games",
-    href: "/games#wordle",
+    href: "/games/wordle",
     access: "free",
     isFree: true,
     order: 1

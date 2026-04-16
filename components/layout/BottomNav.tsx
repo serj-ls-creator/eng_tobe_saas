@@ -55,7 +55,8 @@ export function BottomNav() {
                          pathname.includes('/letter-hunt') ||
                          pathname.includes('/fill-blanks') ||
                          pathname.includes('/find-mistake') ||
-                         pathname.includes('/sentence-builder');
+                         pathname.includes('/sentence-builder') ||
+                         pathname.includes('/games/wordle/');
 
   if (isActivityPage) {
     return null;
