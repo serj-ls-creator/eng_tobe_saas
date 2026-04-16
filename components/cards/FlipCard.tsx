@@ -7,9 +7,11 @@ interface FlipCardProps {
   word: WordItem;
   isFlipped: boolean;
   onFlip: () => void;
+  frontLabel?: string;
+  backLabel?: string;
 }
 
-export function FlipCard({ word, isFlipped, onFlip }: FlipCardProps) {
+export function FlipCard({ word, isFlipped, onFlip, frontLabel = 'Basic', backLabel = 'Advanced' }: FlipCardProps) {
   return (
     <>
       <style>{`
@@ -52,7 +54,7 @@ export function FlipCard({ word, isFlipped, onFlip }: FlipCardProps) {
           }}
         >
           <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            Basic
+            {frontLabel}
           </span>
           <p className="text-[clamp(20px,5vw,24px)] text-[#cbd5e1] text-center m-0 leading-relaxed">
             {word.basic}
@@ -77,7 +79,7 @@ export function FlipCard({ word, isFlipped, onFlip }: FlipCardProps) {
           }}
         >
           <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            Advanced
+            {backLabel}
           </span>
           <p className="text-[clamp(24px,6vw,32px)] font-black text-white text-center m-0 leading-tight tracking-[-0.02em]">
             {word.advanced}

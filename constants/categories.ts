@@ -202,31 +202,61 @@ export const CATS: WordCategory[] = [
         id: "character",
         name: "Opposites in character",
         description: "Brave/cowardly, honest/dishonest||60 words",
-        href: "/words#character"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "courage", name: "Courage", description: "Brave vs cowardly||10 words" },
+          { id: "honesty", name: "Honesty", description: "Honest vs dishonest||10 words" },
+          { id: "kindness", name: "Kindness", description: "Kind vs cruel||10 words" },
+          { id: "ambition", name: "Ambition", description: "Ambitious vs lazy||10 words" },
+          { id: "social-nature", name: "Social Nature", description: "Outgoing vs withdrawn||10 words" },
+          { id: "attitude", name: "Attitude", description: "Optimistic vs pessimistic||10 words" }
+        ]
       },
       {
         id: "state",
         name: "Opposites in state",
         description: "Awake/asleep, hungry/full||60 words",
-        href: "/words#state"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "consciousness", name: "Consciousness", description: "Awake vs asleep||10 words" },
+          { id: "hunger", name: "Hunger & Thirst", description: "Hungry vs full||10 words" },
+          { id: "health-state", name: "Health", description: "Healthy vs ill||10 words" },
+          { id: "mood", name: "Mood", description: "Happy vs miserable||10 words" },
+          { id: "comfort", name: "Comfort", description: "Safe vs threatened||10 words" },
+          { id: "activity-level", name: "Activity Level", description: "Active vs inactive||10 words" }
+        ]
       },
       {
         id: "action",
         name: "Opposites in action",
         description: "Build/destroy, push/pull||60 words",
-        href: "/words#action"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "creation", name: "Creation", description: "Build vs demolish||10 words" },
+          { id: "movement", name: "Movement", description: "Push vs pull||10 words" },
+          { id: "communication", name: "Communication", description: "Speak vs stay silent||10 words" },
+          { id: "work", name: "Work", description: "Start vs finish||10 words" },
+          { id: "learning", name: "Learning", description: "Learn vs forget||10 words" },
+          { id: "social", name: "Social", description: "Help vs hinder||10 words" }
+        ]
       },
       {
         id: "feeling",
         name: "Opposites in feeling",
         description: "Love/hate, joy/sadness||60 words",
-        href: "/words#feeling"
-      },
-      {
-        id: "health",
-        name: "Health",
-        description: "Opposites in health vocabulary",
-        activities: createTopicActivities("antonyms", "health")
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "love-hate", name: "Love-Hate", description: "Love vs hate||10 words" },
+          { id: "joy-sadness", name: "Joy-Sadness", description: "Joy vs grief||10 words" },
+          { id: "hope-fear", name: "Hope-Fear", description: "Hope vs dread||10 words" },
+          { id: "pride-shame", name: "Pride-Shame", description: "Pride vs shame||10 words" },
+          { id: "calm-stress", name: "Calm-Stress", description: "Calm vs tense||10 words" },
+          { id: "gratitude-resentment", name: "Gratitude-Resentment", description: "Grateful vs resentful||10 words" }
+        ]
       }
     ]
   },
@@ -246,25 +276,61 @@ export const CATS: WordCategory[] = [
         id: "at-work",
         name: "At work",
         description: "Professional communication||60 words",
-        href: "/words#at-work"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "requests", name: "Requests", description: "Demand vs request||10 words" },
+          { id: "disagreement", name: "Disagreement", description: "Wrong vs inaccurate||10 words" },
+          { id: "feedback", name: "Feedback", description: "Blunt vs tactful||10 words" },
+          { id: "meetings", name: "Meetings", description: "Boring vs unproductive||10 words" },
+          { id: "tone", name: "Tone", description: "Rude vs professional||10 words" },
+          { id: "apology", name: "Apology", description: "My bad vs I apologize||10 words" }
+        ]
       },
       {
         id: "with-strangers",
         name: "With strangers",
         description: "Polite ways to approach people||60 words",
-        href: "/words#with-strangers"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "greetings", name: "Greetings", description: "Hey vs excuse me||10 words" },
+          { id: "asking-help", name: "Asking Help", description: "Help me vs could you assist||10 words" },
+          { id: "interrupting", name: "Interrupting", description: "Wait vs one moment||10 words" },
+          { id: "declining", name: "Declining", description: "No vs I am afraid not||10 words" },
+          { id: "complaining", name: "Complaining", description: "This sucks vs unsatisfactory||10 words" },
+          { id: "thanking", name: "Thanking", description: "Thanks vs I am grateful||10 words" }
+        ]
       },
       {
         id: "in-conflict",
         name: "In conflict",
         description: "Disagree respectfully||60 words",
-        href: "/words#in-conflict"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "disagreeing", name: "Disagreeing", description: "Wrong vs mistaken||10 words" },
+          { id: "blaming", name: "Blaming", description: "Blame vs address||10 words" },
+          { id: "demanding", name: "Demanding", description: "Must vs essential||10 words" },
+          { id: "reacting", name: "Reacting", description: "Furious vs deeply concerned||10 words" },
+          { id: "tone", name: "Tone", description: "Aggressive vs firm||10 words" },
+          { id: "resolving", name: "Resolving", description: "Give up vs compromise||10 words" }
+        ]
       },
       {
         id: "online-texting",
         name: "Online & texting",
         description: "Digital politeness||60 words",
-        href: "/words#online-texting"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "messaging", name: "Messaging", description: "K vs understood||10 words" },
+          { id: "reactions", name: "Reactions", description: "Lol vs that is amusing||10 words" },
+          { id: "requests", name: "Requests", description: "Send it vs please forward||10 words" },
+          { id: "tone", name: "Tone", description: "Whatever vs noted||10 words" },
+          { id: "disagreeing", name: "Disagreeing", description: "No vs I disagree||10 words" },
+          { id: "signing-off", name: "Signing Off", description: "Bye vs best regards||10 words" }
+        ]
       }
     ]
   },
@@ -284,25 +350,61 @@ export const CATS: WordCategory[] = [
         id: "emails-messages",
         name: "Emails & messages",
         description: "Written communication||60 words",
-        href: "/words#emails-messages"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "greetings", name: "Greetings", description: "Hey vs dear||10 words" },
+          { id: "closings", name: "Closings", description: "Bye vs best regards||10 words" },
+          { id: "requests", name: "Requests", description: "Can you vs could you kindly||10 words" },
+          { id: "apologies", name: "Apologies", description: "Sorry vs I apologize||10 words" },
+          { id: "updates", name: "Updates", description: "FYI vs please note||10 words" },
+          { id: "attachments", name: "Attachments", description: "See attached vs please find enclosed||10 words" }
+        ]
       },
       {
         id: "meetings-presentations",
         name: "Meetings & presentations",
         description: "Professional speaking||60 words",
-        href: "/words#meetings-presentations"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "opening", name: "Opening", description: "Let us start vs shall we begin||10 words" },
+          { id: "agreeing", name: "Agreeing", description: "Yeah vs I concur||10 words" },
+          { id: "disagreeing", name: "Disagreeing", description: "I think vs in my view||10 words" },
+          { id: "summarizing", name: "Summarizing", description: "So basically vs in summary||10 words" },
+          { id: "asking", name: "Asking", description: "Any questions vs are there queries||10 words" },
+          { id: "closing", name: "Closing", description: "That is it vs that concludes||10 words" }
+        ]
       },
       {
         id: "everyday-conversation",
         name: "Everyday conversation",
         description: "Casual vs formal talk||60 words",
-        href: "/words#everyday-conversation"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "greetings", name: "Greetings", description: "Hey vs hello||10 words" },
+          { id: "farewells", name: "Farewells", description: "Bye vs farewell||10 words" },
+          { id: "reactions", name: "Reactions", description: "Wow vs remarkable||10 words" },
+          { id: "agreement", name: "Agreement", description: "Yeah vs certainly||10 words" },
+          { id: "refusal", name: "Refusal", description: "Nope vs I decline||10 words" },
+          { id: "small-talk", name: "Small Talk", description: "Wanna vs would like to||10 words" }
+        ]
       },
       {
         id: "written-documents",
         name: "Written documents",
         description: "Reports, essays, papers||60 words",
-        href: "/words#written-documents"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "verbs", name: "Verbs", description: "Use vs utilize||10 words" },
+          { id: "nouns", name: "Nouns", description: "Problem vs issue||10 words" },
+          { id: "connectors", name: "Connectors", description: "But vs however||10 words" },
+          { id: "hedging", name: "Hedging", description: "Maybe vs potentially||10 words" },
+          { id: "emphasis", name: "Emphasis", description: "Very vs significantly||10 words" },
+          { id: "conclusions", name: "Conclusions", description: "In the end vs in conclusion||10 words" }
+        ]
       }
     ]
   },
@@ -322,25 +424,61 @@ export const CATS: WordCategory[] = [
         id: "past-memory",
         name: "Past & memory",
         description: "Remembering and past events||60 words",
-        href: "/words#past-memory"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "recently", name: "Recently", description: "Just now vs moments ago||10 words" },
+          { id: "long-ago", name: "Long Ago", description: "Long ago vs formerly||10 words" },
+          { id: "sequence", name: "Sequence", description: "First vs initially||10 words" },
+          { id: "duration", name: "Duration", description: "For a while vs for some time||10 words" },
+          { id: "frequency", name: "Frequency", description: "Often vs frequently||10 words" },
+          { id: "memory", name: "Memory", description: "Remember vs recall||10 words" }
+        ]
       },
       {
         id: "present-now",
         name: "Present & now",
         description: "Current moment and immediate actions||60 words",
-        href: "/words#present-now"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "right-now", name: "Right Now", description: "Now vs currently||10 words" },
+          { id: "ongoing", name: "Ongoing", description: "In progress vs underway||10 words" },
+          { id: "current", name: "Current", description: "These days vs nowadays||10 words" },
+          { id: "immediate", name: "Immediate", description: "Fast vs promptly||10 words" },
+          { id: "simultaneous", name: "Simultaneous", description: "At the same time vs simultaneously||10 words" },
+          { id: "temporary", name: "Temporary", description: "For now vs temporarily||10 words" }
+        ]
       },
       {
         id: "future-plans",
         name: "Future & plans",
         description: "Upcoming events and intentions||60 words",
-        href: "/words#future-plans"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "soon", name: "Soon", description: "Soon vs shortly||10 words" },
+          { id: "planning", name: "Planning", description: "Plan to vs intend to||10 words" },
+          { id: "prediction", name: "Prediction", description: "Will vs shall||10 words" },
+          { id: "intention", name: "Intention", description: "Mean to vs intend to||10 words" },
+          { id: "deadline", name: "Deadline", description: "Due date vs deadline||10 words" },
+          { id: "uncertainty", name: "Uncertainty", description: "Maybe vs potentially||10 words" }
+        ]
       },
       {
         id: "duration-frequency",
         name: "Duration & frequency",
         description: "How long and how often||60 words",
-        href: "/words#duration-frequency"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "always-never", name: "Always-Never", description: "Always vs consistently||10 words" },
+          { id: "often-rarely", name: "Often-Rarely", description: "Often vs frequently||10 words" },
+          { id: "long-short", name: "Long-Short", description: "Long vs extended||10 words" },
+          { id: "regular-irregular", name: "Regular-Irregular", description: "Regular vs consistent||10 words" },
+          { id: "brief", name: "Brief", description: "Quick vs fleeting||10 words" },
+          { id: "permanent", name: "Permanent", description: "Forever vs permanently||10 words" }
+        ]
       }
     ]
   },
@@ -360,25 +498,61 @@ export const CATS: WordCategory[] = [
         id: "gen-z-slang",
         name: "Gen Z slang",
         description: "Modern youth language and expressions||60 words",
-        href: "/words#gen-z-slang"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "approval", name: "Approval", description: "Slay vs excel||10 words" },
+          { id: "disapproval", name: "Disapproval", description: "Cringe vs embarrassing||10 words" },
+          { id: "people", name: "People", description: "Bestie vs best friend||10 words" },
+          { id: "situations", name: "Situations", description: "No cap vs honestly||10 words" },
+          { id: "reactions", name: "Reactions", description: "Shook vs shocked||10 words" },
+          { id: "internet", name: "Internet", description: "Vibe vs atmosphere||10 words" }
+        ]
       },
       {
         id: "internet-social-media",
         name: "Internet & social media",
         description: "Online communication||60 words",
-        href: "/words#internet-social-media"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "reactions", name: "Reactions", description: "LOL vs laughing||10 words" },
+          { id: "content", name: "Content", description: "Post vs publication||10 words" },
+          { id: "people", name: "People", description: "Influencer vs content creator||10 words" },
+          { id: "actions", name: "Actions", description: "DM vs message||10 words" },
+          { id: "status", name: "Status", description: "Viral vs trending||10 words" },
+          { id: "trends", name: "Trends", description: "Challenge vs viral trend||10 words" }
+        ]
       },
       {
         id: "emotions-reactions",
         name: "Emotions & reactions",
         description: "Express feelings online||60 words",
-        href: "/words#emotions-reactions"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "positive", name: "Positive", description: "Hyped vs excited||10 words" },
+          { id: "negative", name: "Negative", description: "Salty vs bitter||10 words" },
+          { id: "surprise", name: "Surprise", description: "Shook vs shocked||10 words" },
+          { id: "intensity", name: "Intensity", description: "Dead vs exhausted||10 words" },
+          { id: "social", name: "Social", description: "Awkward vs uncomfortable||10 words" },
+          { id: "online", name: "Online", description: "Salty vs hostile||10 words" }
+        ]
       },
       {
         id: "street-urban",
         name: "Street & urban",
         description: "City language and culture||60 words",
-        href: "/words#street-urban"
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "people", name: "People", description: "Homie vs friend||10 words" },
+          { id: "money", name: "Money", description: "Bread vs money||10 words" },
+          { id: "actions", name: "Actions", description: "Flex vs show off||10 words" },
+          { id: "places", name: "Places", description: "Hood vs neighborhood||10 words" },
+          { id: "approval", name: "Approval", description: "Dope vs impressive||10 words" },
+          { id: "conflict", name: "Conflict", description: "Beef vs conflict||10 words" }
+        ]
       }
     ]
   }

@@ -14,6 +14,26 @@ import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
 import { MIND } from '@/data/words/basicadvanced/mind';
 import { DIGITAL } from '@/data/words/basicadvanced/digital';
+import { CHARACTER } from '@/data/words/antonyms/character';
+import { STATE } from '@/data/words/antonyms/state';
+import { ACTION } from '@/data/words/antonyms/action';
+import { FEELING } from '@/data/words/antonyms/feeling';
+import { AT_WORK } from '@/data/words/rudepolite/at_work';
+import { WITH_STRANGERS } from '@/data/words/rudepolite/with_strangers';
+import { IN_CONFLICT } from '@/data/words/rudepolite/in_conflict';
+import { ONLINE_TEXTING } from '@/data/words/rudepolite/online_texting';
+import { EMAILS_MESSAGES } from '@/data/words/formalinformal/emails_messages';
+import { MEETINGS_PRESENTATIONS } from '@/data/words/formalinformal/meetings_presentations';
+import { EVERYDAY_CONVERSATION } from '@/data/words/formalinformal/everyday_conversation';
+import { WRITTEN_DOCUMENTS } from '@/data/words/formalinformal/written_documents';
+import { PAST_MEMORY } from '@/data/words/timewords/past_memory';
+import { PRESENT_NOW } from '@/data/words/timewords/present_now';
+import { FUTURE_PLANS } from '@/data/words/timewords/future_plans';
+import { DURATION_FREQUENCY } from '@/data/words/timewords/duration_frequency';
+import { GEN_Z_SLANG } from '@/data/words/slang/gen_z_slang';
+import { INTERNET_SOCIAL_MEDIA } from '@/data/words/slang/internet_social_media';
+import { EMOTIONS_REACTIONS } from '@/data/words/slang/emotions_reactions';
+import { STREET_URBAN } from '@/data/words/slang/street_urban';
 import { CATS } from '@/constants/categories';
 
 interface PageProps {
@@ -57,34 +77,20 @@ export default function CardsPage({ params }: PageProps) {
 
     setSubcategory(subcat);
 
-    // Load words from data file (People, World, Life, Mind, Digital categories)
-    if (categoryId === 'basic-advanced') {
-      if (topicId === 'people') {
-        const peopleSubcategory = PEOPLE.find(s => s.id === subcategoryId);
-        if (peopleSubcategory) {
-          setWords(peopleSubcategory.words);
-        }
-      } else if (topicId === 'world') {
-        const worldSubcategory = WORLD.find(s => s.id === subcategoryId);
-        if (worldSubcategory) {
-          setWords(worldSubcategory.words);
-        }
-      } else if (topicId === 'life') {
-        const lifeSubcategory = LIFE.find(s => s.id === subcategoryId);
-        if (lifeSubcategory) {
-          setWords(lifeSubcategory.words);
-        }
-      } else if (topicId === 'mind') {
-        const mindSubcategory = MIND.find(s => s.id === subcategoryId);
-        if (mindSubcategory) {
-          setWords(mindSubcategory.words);
-        }
-      } else if (topicId === 'digital') {
-        const digitalSubcategory = DIGITAL.find(s => s.id === subcategoryId);
-        if (digitalSubcategory) {
-          setWords(digitalSubcategory.words);
-        }
-      }
+    // Load words — all categories
+    const ALL_DATA: Record<string, Record<string, any[]>> = {
+      'basic-advanced': { people: PEOPLE, world: WORLD, life: LIFE, mind: MIND, digital: DIGITAL },
+      'antonyms': { character: CHARACTER, state: STATE, action: ACTION, feeling: FEELING },
+      'rude-polite': { 'at-work': AT_WORK, 'with-strangers': WITH_STRANGERS, 'in-conflict': IN_CONFLICT, 'online-texting': ONLINE_TEXTING },
+      'formal-informal': { 'emails-messages': EMAILS_MESSAGES, 'meetings-presentations': MEETINGS_PRESENTATIONS, 'everyday-conversation': EVERYDAY_CONVERSATION, 'written-documents': WRITTEN_DOCUMENTS },
+      'time-words': { 'past-memory': PAST_MEMORY, 'present-now': PRESENT_NOW, 'future-plans': FUTURE_PLANS, 'duration-frequency': DURATION_FREQUENCY },
+      'slang': { 'gen-z-slang': GEN_Z_SLANG, 'internet-social-media': INTERNET_SOCIAL_MEDIA, 'emotions-reactions': EMOTIONS_REACTIONS, 'street-urban': STREET_URBAN },
+    };
+
+    const topicData = ALL_DATA[categoryId]?.[topicId];
+    if (topicData) {
+      const found = topicData.find((s: any) => s.id === subcategoryId);
+      if (found) setWords(found.words);
     }
   }, [categoryId, topicId, subcategoryId, mounted]);
 
@@ -174,6 +180,8 @@ export default function CardsPage({ params }: PageProps) {
             word={currentWord}
             isFlipped={isFlipped}
             onFlip={handleFlip}
+            frontLabel={categoryId === 'antonyms' ? 'Word' : categoryId === 'rude-polite' ? 'Rude' : categoryId === 'formal-informal' ? 'Informal' : 'Basic'}
+            backLabel={categoryId === 'antonyms' ? 'Antonym' : categoryId === 'rude-polite' ? 'Polite' : categoryId === 'formal-informal' ? 'Formal' : 'Advanced'}
           />
         </div>
 

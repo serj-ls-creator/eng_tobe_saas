@@ -13,6 +13,26 @@ import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
 import { MIND } from '@/data/words/basicadvanced/mind';
 import { DIGITAL } from '@/data/words/basicadvanced/digital';
+import { CHARACTER } from '@/data/words/antonyms/character';
+import { STATE } from '@/data/words/antonyms/state';
+import { ACTION } from '@/data/words/antonyms/action';
+import { FEELING } from '@/data/words/antonyms/feeling';
+import { AT_WORK } from '@/data/words/rudepolite/at_work';
+import { WITH_STRANGERS } from '@/data/words/rudepolite/with_strangers';
+import { IN_CONFLICT } from '@/data/words/rudepolite/in_conflict';
+import { ONLINE_TEXTING } from '@/data/words/rudepolite/online_texting';
+import { EMAILS_MESSAGES } from '@/data/words/formalinformal/emails_messages';
+import { MEETINGS_PRESENTATIONS } from '@/data/words/formalinformal/meetings_presentations';
+import { EVERYDAY_CONVERSATION } from '@/data/words/formalinformal/everyday_conversation';
+import { WRITTEN_DOCUMENTS } from '@/data/words/formalinformal/written_documents';
+import { PAST_MEMORY } from '@/data/words/timewords/past_memory';
+import { PRESENT_NOW } from '@/data/words/timewords/present_now';
+import { FUTURE_PLANS } from '@/data/words/timewords/future_plans';
+import { DURATION_FREQUENCY } from '@/data/words/timewords/duration_frequency';
+import { GEN_Z_SLANG } from '@/data/words/slang/gen_z_slang';
+import { INTERNET_SOCIAL_MEDIA } from '@/data/words/slang/internet_social_media';
+import { EMOTIONS_REACTIONS } from '@/data/words/slang/emotions_reactions';
+import { STREET_URBAN } from '@/data/words/slang/street_urban';
 import { CATS } from '@/constants/categories';
 
 interface PageProps {
@@ -86,6 +106,66 @@ export default function UnscramblePage({ params }: PageProps) {
         if (found) {
           setWords(found.words);
         }
+      }
+    } else if (categoryId === 'antonyms') {
+      const dataMap: Record<string, any> = {
+        character: CHARACTER,
+        state: STATE,
+        action: ACTION,
+        feeling: FEELING,
+      };
+      const data = dataMap[topicId];
+      if (data) {
+        const found = data.find((s: any) => s.id === subcategoryId);
+        if (found) setWords(found.words);
+      }
+    } else if (categoryId === 'rude-polite') {
+      const dataMap: Record<string, any> = {
+        'at-work': AT_WORK,
+        'with-strangers': WITH_STRANGERS,
+        'in-conflict': IN_CONFLICT,
+        'online-texting': ONLINE_TEXTING,
+      };
+      const data = dataMap[topicId];
+      if (data) {
+        const found = data.find((s: any) => s.id === subcategoryId);
+        if (found) setWords(found.words);
+      }
+    } else if (categoryId === 'formal-informal') {
+      const dataMap: Record<string, any> = {
+        'emails-messages': EMAILS_MESSAGES,
+        'meetings-presentations': MEETINGS_PRESENTATIONS,
+        'everyday-conversation': EVERYDAY_CONVERSATION,
+        'written-documents': WRITTEN_DOCUMENTS,
+      };
+      const data = dataMap[topicId];
+      if (data) {
+        const found = data.find((s: any) => s.id === subcategoryId);
+        if (found) setWords(found.words);
+      }
+    } else if (categoryId === 'time-words') {
+      const dataMap: Record<string, any> = {
+        'past-memory': PAST_MEMORY,
+        'present-now': PRESENT_NOW,
+        'future-plans': FUTURE_PLANS,
+        'duration-frequency': DURATION_FREQUENCY,
+      };
+      const data = dataMap[topicId];
+      if (data) {
+        const found = data.find((s: any) => s.id === subcategoryId);
+        if (found) setWords(found.words);
+      }
+    } else if (categoryId === 'slang') {
+      const dataMap: Record<string, any> = {
+        'gen-z-slang': GEN_Z_SLANG,
+        'internet-social-media': INTERNET_SOCIAL_MEDIA,
+        'emotions-reactions': EMOTIONS_REACTIONS,
+        'street-urban': STREET_URBAN,
+      };
+      const data = dataMap[topicId];
+      if (data) {
+        const found = data.find((s: any) => s.id === subcategoryId);
+        if (found) setWords(found.words);
       }
     }
   }, [mounted, categoryId, topicId, subcategoryId]);
@@ -255,7 +335,7 @@ export default function UnscramblePage({ params }: PageProps) {
         <div className="mb-8">
           <Card className="p-8 text-center border border-white/10">
             <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 mb-3">
-              Basic word
+              {categoryId === 'antonyms' ? 'Word' : categoryId === 'rude-polite' ? 'Rude' : categoryId === 'formal-informal' ? 'Informal' : 'Basic word'}
             </div>
             <h2 className="text-3xl font-bold text-white">
               {currentWord.basic}
