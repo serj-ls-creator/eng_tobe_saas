@@ -89,7 +89,7 @@ export default async function ActivitiesPage({ params }: PageProps) {
         <div className="grid grid-cols-2 gap-3">
           {WORD_GAME_ACTIVITIES.map((activity, index) => (
             <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <Link href={locked ? "/premium" : `/words#${categoryId}-${topicId}-${subcategoryId}-${activity.id}`}>
+              <Link href={locked ? "/premium" : activity.id === 'unscramble' ? `/words/${categoryId}/${topicId}/${subcategoryId}/unscramble` : activity.id === 'multiple-choice' ? `/words/${categoryId}/${topicId}/${subcategoryId}/multiple-choice` : activity.id === 'cards' ? `/words/${categoryId}/${topicId}/${subcategoryId}/cards` : `/words#${categoryId}-${topicId}-${subcategoryId}-${activity.id}`}>
                 <Card className="p-4">
                   <div className="mb-2 text-sm font-semibold">{activity.name}</div>
                   <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>

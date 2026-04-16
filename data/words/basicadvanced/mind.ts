@@ -164,7 +164,7 @@ export const MIND: Subcategory[] = [
   // 3. PROBLEM SOLVING
   // ─────────────────────────────────────────
   {
-    id: 'problem_solving',
+    id: 'problem-solving',
     name: 'Problem Solving',
     words: [
       {

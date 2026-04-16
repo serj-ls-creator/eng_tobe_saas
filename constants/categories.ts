@@ -199,6 +199,30 @@ export const CATS: WordCategory[] = [
     order: 3,
     topics: [
       {
+        id: "character",
+        name: "Opposites in character",
+        description: "Brave/cowardly, honest/dishonest||60 words",
+        href: "/words#character"
+      },
+      {
+        id: "state",
+        name: "Opposites in state",
+        description: "Awake/asleep, hungry/full||60 words",
+        href: "/words#state"
+      },
+      {
+        id: "action",
+        name: "Opposites in action",
+        description: "Build/destroy, push/pull||60 words",
+        href: "/words#action"
+      },
+      {
+        id: "feeling",
+        name: "Opposites in feeling",
+        description: "Love/hate, joy/sadness||60 words",
+        href: "/words#feeling"
+      },
+      {
         id: "health",
         name: "Health",
         description: "Opposites in health vocabulary",
@@ -216,7 +240,33 @@ export const CATS: WordCategory[] = [
     href: "/words#rude-polite",
     access: "premium",
     isFree: false,
-    order: 4
+    order: 4,
+    topics: [
+      {
+        id: "at-work",
+        name: "At work",
+        description: "Professional communication||60 words",
+        href: "/words#at-work"
+      },
+      {
+        id: "with-strangers",
+        name: "With strangers",
+        description: "Polite ways to approach people||60 words",
+        href: "/words#with-strangers"
+      },
+      {
+        id: "in-conflict",
+        name: "In conflict",
+        description: "Disagree respectfully||60 words",
+        href: "/words#in-conflict"
+      },
+      {
+        id: "online-texting",
+        name: "Online & texting",
+        description: "Digital politeness||60 words",
+        href: "/words#online-texting"
+      }
+    ]
   },
   {
     id: "formal-informal",
@@ -228,7 +278,33 @@ export const CATS: WordCategory[] = [
     href: "/words#formal-informal",
     access: "premium",
     isFree: false,
-    order: 5
+    order: 5,
+    topics: [
+      {
+        id: "emails-messages",
+        name: "Emails & messages",
+        description: "Written communication||60 words",
+        href: "/words#emails-messages"
+      },
+      {
+        id: "meetings-presentations",
+        name: "Meetings & presentations",
+        description: "Professional speaking||60 words",
+        href: "/words#meetings-presentations"
+      },
+      {
+        id: "everyday-conversation",
+        name: "Everyday conversation",
+        description: "Casual vs formal talk||60 words",
+        href: "/words#everyday-conversation"
+      },
+      {
+        id: "written-documents",
+        name: "Written documents",
+        description: "Reports, essays, papers||60 words",
+        href: "/words#written-documents"
+      }
+    ]
   },
   {
     id: "time-words",
@@ -240,7 +316,33 @@ export const CATS: WordCategory[] = [
     href: "/words#time-words",
     access: "premium",
     isFree: false,
-    order: 6
+    order: 6,
+    topics: [
+      {
+        id: "past-memory",
+        name: "Past & memory",
+        description: "Remembering and past events||60 words",
+        href: "/words#past-memory"
+      },
+      {
+        id: "present-now",
+        name: "Present & now",
+        description: "Current moment and immediate actions||60 words",
+        href: "/words#present-now"
+      },
+      {
+        id: "future-plans",
+        name: "Future & plans",
+        description: "Upcoming events and intentions||60 words",
+        href: "/words#future-plans"
+      },
+      {
+        id: "duration-frequency",
+        name: "Duration & frequency",
+        description: "How long and how often||60 words",
+        href: "/words#duration-frequency"
+      }
+    ]
   },
   {
     id: "slang",
@@ -255,10 +357,28 @@ export const CATS: WordCategory[] = [
     order: 7,
     topics: [
       {
-        id: "texting-language",
-        name: "Texting language",
-        description: "Shortcuts and chat slang",
-        href: "/words#texting-language"
+        id: "gen-z-slang",
+        name: "Gen Z slang",
+        description: "Modern youth language and expressions||60 words",
+        href: "/words#gen-z-slang"
+      },
+      {
+        id: "internet-social-media",
+        name: "Internet & social media",
+        description: "Online communication||60 words",
+        href: "/words#internet-social-media"
+      },
+      {
+        id: "emotions-reactions",
+        name: "Emotions & reactions",
+        description: "Express feelings online||60 words",
+        href: "/words#emotions-reactions"
+      },
+      {
+        id: "street-urban",
+        name: "Street & urban",
+        description: "City language and culture||60 words",
+        href: "/words#street-urban"
       }
     ]
   }

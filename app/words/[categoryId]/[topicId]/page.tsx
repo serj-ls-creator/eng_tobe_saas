@@ -63,6 +63,28 @@ export default async function TopicPage({ params }: PageProps) {
               </div>
             ))}
           </div>
+        ) : topic.topics ? (
+          <div className="grid grid-cols-2 gap-3">
+            {topic.topics.map((subtopic, index) => (
+              <div key={subtopic.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+                <Link href={locked ? "/premium" : `/words#${categoryId}-${topicId}-${subtopic.id}`}>
+                  <Card className="p-4">
+                    <div className="mb-2 text-sm font-semibold">{subtopic.name}</div>
+                    <div className="text-[11px] leading-relaxed">
+                    {subtopic.description?.includes('||') ? (
+                      <>
+                        <div className="text-zinc-500">{subtopic.description.split('||')[0]}</div>
+                        <div className="text-cyan-400 font-medium">10 words</div>
+                      </>
+                    ) : (
+                      <div className="text-zinc-500">{subtopic.description}</div>
+                    )}
+                  </div>
+                  </Card>
+                </Link>
+              </div>
+            ))}
+          </div>
         ) : (
           <Card className="p-6 text-center">
             <div className="mb-4 text-4xl">📚</div>
