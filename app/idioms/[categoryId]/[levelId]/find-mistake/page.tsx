@@ -159,7 +159,7 @@ export default function FindMistakePage({ params }: PageProps) {
     }
 
     // Idle — all words look clickable
-    return 'bg-slate-800/60 border-white/10 text-white hover:bg-slate-700/60 hover:border-cyan-400/40 hover:text-cyan-300 cursor-pointer';
+    return 'bg-slate-800/60 border-white/10 text-white active:bg-slate-700/60 cursor-pointer';
   };
 
   return (
