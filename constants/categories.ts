@@ -661,15 +661,15 @@ export const SENT_CATS: SentenceCategory[] = [
 
 export const GAME_CATS: Category[] = [
   {
-    id: "wodrle",
-    name: "Wodrle",
+    id: "wordle",
+    name: "Wordle",
     description: "Guess the hidden word",
     icon: "Hash",
     color: UI_COLORS.cyan,
     section: "games",
-    href: "/games#wodrle",
-    access: "premium",
-    isFree: false,
+    href: "/games#wordle",
+    access: "free",
+    isFree: true,
     order: 1
   },
   {

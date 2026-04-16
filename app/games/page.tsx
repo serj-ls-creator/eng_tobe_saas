@@ -30,13 +30,13 @@ export default async function GamesPage() {
                 icon={category.icon}
                 color={category.color}
                 href={category.href}
-                locked={!premium}
+                locked={!category.isFree && !premium}
               />
             </div>
           ))}
         </div>
         <div className="fade-up fade-up-d4">
-          <ComingSoon title="Games are in progress" description="Wodrle, Memory, and Negotiations will open here." />
+          <ComingSoon title="Games are in progress" description="Wordle, Memory, and Negotiations will open here." />
         </div>
       </div>
     </>
