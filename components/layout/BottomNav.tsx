@@ -52,7 +52,10 @@ export function BottomNav() {
                          pathname.includes('/match') ||
                          pathname.includes('/synonym-pair') ||
                          pathname.includes('/multiple-choice') ||
-                         pathname.includes('/letter-hunt');
+                         pathname.includes('/letter-hunt') ||
+                         pathname.includes('/fill-blanks') ||
+                         pathname.includes('/find-mistake') ||
+                         pathname.includes('/sentence-builder');
 
   if (isActivityPage) {
     return null;
