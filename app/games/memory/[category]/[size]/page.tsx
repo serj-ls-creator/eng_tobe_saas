@@ -7,6 +7,7 @@ import { TopBar } from '@/components/layout/TopBar';
 import { FlyingWordsEng } from '@/components/ui/FlyingWordsEng';
 import { usePoints } from '@/lib/usePoints';
 import { addPoints } from '@/lib/useAddPoints';
+import { completeActivity } from '@/lib/useCompleteActivity';
 
 // ── Word data ────────────────────────────────────────────────────────────────
 import { PEOPLE }  from '@/data/words/basicadvanced/people';
@@ -136,6 +137,7 @@ export default function MemoryGamePage({ params }: PageProps) {
           const n = m + 1;
           if (n === pairCount) {
             addPoints(10);
+            completeActivity();
             setTimeout(() => setShowResult(true), 500);
           }
           return n;

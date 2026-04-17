@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card } from './card';
 import { useRouter } from 'next/navigation';
 import { addPoints } from '@/lib/useAddPoints';
+import { completeActivity } from '@/lib/useCompleteActivity';
 
 interface CompletionModalProps {
   completed: number;
@@ -33,10 +34,11 @@ export function CompletionModal({
     setMounted(true);
   }, []);
 
-  // Award points once when modal appears (not for cards activity)
+  // Award points + record activity once when modal appears (not for cards)
   useEffect(() => {
-    if (!mounted || completed <= 0 || noPoints) return;
-    addPoints(completed);
+    if (!mounted || noPoints) return;
+    if (completed > 0) addPoints(completed);
+    completeActivity();
   }, [mounted, completed, noPoints]);
 
   if (!mounted) return null;

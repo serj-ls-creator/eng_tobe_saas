@@ -7,6 +7,7 @@ import { TopBar } from '@/components/layout/TopBar';
 import { WORDS_5, WORDS_6, WORDS_7, WORDS_8 } from '@/data/games/wordle-words';
 import { usePoints } from '@/lib/usePoints';
 import { addPoints } from '@/lib/useAddPoints';
+import { completeActivity } from '@/lib/useCompleteActivity';
 
 interface PageProps {
   params: { length: string };
@@ -135,6 +136,7 @@ export default function WordleGamePage({ params }: PageProps) {
       setWon(true);
       setGameOver(true);
       addPoints(10);
+      completeActivity();
       setTimeout(() => setShowResult(true), 1500);
     } else if (newGuesses.length >= MAX_GUESSES) {
       setGameOver(true);
