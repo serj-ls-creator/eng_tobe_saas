@@ -300,7 +300,7 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
             position: 'absolute',
             inset: 0,
             backfaceVisibility: 'hidden',
-            background: 'rgba(15,23,42,0.30)',
+            background: 'rgba(15,23,42,0.40)',
             borderRadius: '12px',
             border: '1px solid rgba(255,255,255,0.10)',
             display: 'flex',
@@ -331,8 +331,8 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
             borderRadius: '12px',
             border: `1px solid ${isMatched ? 'rgba(34,197,94,0.55)' : `rgba(${accentRgb},0.35)`}`,
             background: isMatched
-              ? 'rgba(5,46,22,0.30)'
-              : 'linear-gradient(135deg, rgba(15,23,42,0.30) 0%, rgba(30,41,59,0.30) 50%, rgba(15,23,42,0.30) 100%)',
+              ? 'rgba(5,46,22,0.50)'
+              : 'linear-gradient(135deg, rgba(15,23,42,0.60) 0%, rgba(30,41,59,0.60) 50%, rgba(15,23,42,0.60) 100%)',
             backgroundSize: '200% 200%',
             boxShadow: isMatched
               ? '0 0 20px rgba(34,197,94,0.20)'
