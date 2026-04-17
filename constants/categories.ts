@@ -853,9 +853,9 @@ export const GAME_CATS: Category[] = [
     icon: "Brain",
     color: UI_COLORS.pink,
     section: "games",
-    href: "/games#memory",
-    access: "premium",
-    isFree: false,
+    href: "/games/memory",
+    access: "free",
+    isFree: true,
     order: 2
   },
   {
