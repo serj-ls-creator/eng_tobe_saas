@@ -51,7 +51,7 @@ export default function MemorySetupPage() {
                   onClick={() => setSelectedCat(id)}
                   className={`fade-up fade-up-d${index + 1} text-left p-4 rounded-xl border transition-all duration-200 w-full`}
                   style={{
-                    borderColor: active ? color : 'rgba(255,255,255,0.08)',
+                    borderColor: active ? color : 'rgba(255,255,255,0.22)',
                     background:  active ? `${color}12` : 'rgba(15,23,42,0.8)',
                     boxShadow:   active ? `0 0 20px ${color}20` : 'none',
                   }}

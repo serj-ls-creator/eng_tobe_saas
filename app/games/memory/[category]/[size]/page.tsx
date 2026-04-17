@@ -266,12 +266,17 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
   const { isFlipped, isMatched, text, type } = card;
   const faceUp = isFlipped || isMatched;
 
-  // Adaptive font size
-  const fs = text.length > 35 ? '6.5px'
-           : text.length > 25 ? '7.5px'
-           : text.length > 15 ? '9px'
-           : text.length > 8  ? '11px'
-           : '12px';
+  // Adaptive font size — idioms get larger minimum
+  const fs = isIdiom
+    ? (text.length > 40 ? '7px'
+     : text.length > 28 ? '8px'
+     : text.length > 16 ? '9.5px'
+     : '11px')
+    : (text.length > 35 ? '6.5px'
+     : text.length > 25 ? '7.5px'
+     : text.length > 15 ? '9px'
+     : text.length > 8  ? '11px'
+     : '12px');
 
   const typeLabel = type === 'word'
     ? (isIdiom ? 'idiom' : 'word')
@@ -302,7 +307,7 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
             backfaceVisibility: 'hidden',
             background: 'rgba(15,23,42,0.40)',
             borderRadius: '12px',
-            border: '1px solid rgba(255,255,255,0.10)',
+            border: `1px solid rgba(${accentRgb},0.40)`,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -313,7 +318,7 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
               fontSize: '1.5rem',
               fontWeight: 900,
               color: accent,
-              opacity: 0.35,
+              opacity: 0.70,
               userSelect: 'none',
             }}
           >
@@ -354,22 +359,25 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
             overflow: 'hidden',
           }}
         >
-          {/* Type label — same style as FlipCard top label */}
+          {/* Type label — pinned to top */}
           <span
             style={{
+              position: 'absolute',
+              top: '4px',
+              left: 0,
+              right: 0,
+              textAlign: 'center',
               fontSize: '7px',
               fontWeight: 700,
               textTransform: 'uppercase',
               letterSpacing: '0.15em',
               color: isMatched ? '#4ade80' : '#64748b',
-              marginBottom: '2px',
-              flexShrink: 0,
             }}
           >
             {typeLabel}
           </span>
 
-          {/* Main text */}
+          {/* Main text — centered in card */}
           <p
             style={{
               fontSize: fs,
@@ -377,11 +385,17 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
               color: isMatched ? '#86efac' : type === 'meaning' ? '#ffffff' : '#cbd5e1',
               textAlign: 'center',
               margin: 0,
-              lineHeight: 1.25,
+              lineHeight: 1.3,
               wordBreak: 'break-word',
               overflowWrap: 'break-word',
               width: '100%',
-            }}
+              paddingTop: '10px',
+              // max 3 lines
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            } as React.CSSProperties}
           >
             {text}
           </p>
