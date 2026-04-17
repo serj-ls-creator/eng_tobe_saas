@@ -258,7 +258,7 @@ export const WORDS_8: string[] = [
   'ISOLATED', // 8
   'PEACEFUL', // 8
   'RATIONAL', // 8
-  'SOCIABLE', // 8 — wait, 8: S-O-C-I-A-B-L-E ✓
+  'SOCIABLE', // 8
   'TRUTHFUL', // 8
   'WATCHFUL', // 8
   'YOUTHFUL', // 8
