@@ -14,11 +14,26 @@ export const isPremium = cache(async (): Promise<boolean> => {
 
   const { data } = await supabase
     .from("profiles")
-    .select("is_premium")
+    .select("is_premium, premium_expires_at")
     .eq("user_id", user.id)
     .maybeSingle();
 
-  return Boolean(data?.is_premium);
+  if (!data?.is_premium) return false;
+
+  // If premium was bought with points, check expiry
+  if (data.premium_expires_at) {
+    const expired = new Date(data.premium_expires_at) < new Date();
+    if (expired) {
+      // Auto-revoke expired premium
+      await supabase
+        .from('profiles')
+        .update({ is_premium: false })
+        .eq('user_id', user.id);
+      return false;
+    }
+  }
+
+  return true;
 });
 
 export const getCurrentProfile = cache(async () => {
@@ -33,7 +48,7 @@ export const getCurrentProfile = cache(async () => {
 
   const { data } = await supabase
     .from("profiles")
-    .select("id, user_id, is_premium, streak, last_activity_date, daily_activities, created_at, display_name, avatar, points")
+    .select("id, user_id, is_premium, premium_expires_at, streak, last_activity_date, daily_activities, created_at, display_name, avatar, points")
     .eq("user_id", user.id)
     .maybeSingle();
 
