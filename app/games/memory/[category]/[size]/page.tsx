@@ -268,15 +268,15 @@ function MemCardTile({ card, accent, accentRgb, isIdiom, onClick }: TileProps) {
 
   // Adaptive font size — idioms get larger minimum
   const fs = isIdiom
-    ? (text.length > 40 ? '7px'
-     : text.length > 28 ? '8px'
-     : text.length > 16 ? '9.5px'
-     : '11px')
-    : (text.length > 35 ? '6.5px'
-     : text.length > 25 ? '7.5px'
-     : text.length > 15 ? '9px'
-     : text.length > 8  ? '11px'
-     : '12px');
+    ? (text.length > 40 ? '9px'
+     : text.length > 28 ? '10px'
+     : text.length > 16 ? '12px'
+     : '14px')
+    : (text.length > 35 ? '9px'
+     : text.length > 25 ? '10px'
+     : text.length > 15 ? '12px'
+     : text.length > 8  ? '14px'
+     : '15px');
 
   const typeLabel = type === 'word'
     ? (isIdiom ? 'idiom' : 'word')
