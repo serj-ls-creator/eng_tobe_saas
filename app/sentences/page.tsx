@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TopBar } from "@/components/layout/TopBar";
+import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { SentencesTree } from "@/components/sentences/SentencesTree";
 import { SENT_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";

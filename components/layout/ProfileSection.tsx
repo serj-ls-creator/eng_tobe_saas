@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { User, LogOut, Trophy, Flame, Star } from "lucide-react";
+import { User, LogOut, Flame, Star } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { createBrowserClient } from "@supabase/ssr";
@@ -17,6 +17,7 @@ interface ProfileSectionProps {
     display_name?: string;
     avatar?: string;
     email?: string;
+    points?: number;
   };
 }
 
@@ -190,9 +191,9 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 rounded-xl bg-yellow-400/20">
-                    <Trophy className="h-6 w-6 text-yellow-400" />
+                    <Star className="h-6 w-6 text-yellow-400" />
                   </div>
-                  <div className="text-lg font-bold text-white">1,240</div>
+                  <div className="text-lg font-bold text-white">{(profile.points ?? 0).toLocaleString()}</div>
                   <div className="text-xs text-zinc-500">Points</div>
                 </div>
                 <div className="text-center">

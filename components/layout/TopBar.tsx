@@ -11,7 +11,7 @@ interface TopBarProps {
   points?: number;
 }
 
-export function TopBar({ title, backHref, showBrand = false, points = 1240 }: TopBarProps) {
+export function TopBar({ title, backHref, showBrand = false, points = 0 }: TopBarProps) {
   return (
     <header className="sticky top-0 z-30 border-b border-white/5 bg-[#050505]/90 backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-shell items-center justify-between px-4">
@@ -34,8 +34,14 @@ export function TopBar({ title, backHref, showBrand = false, points = 1240 }: To
           )}
         </div>
         <div className="flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-2.5 py-1">
-          {showBrand ? <Flame className="h-3.5 w-3.5 animate-fire-pulse text-yellow-400" /> : <Star className="h-3.5 w-3.5 text-yellow-400" />}
-          <span className="text-xs font-semibold text-yellow-400">{showBrand ? "Day 7" : points.toLocaleString()}</span>
+          {showBrand ? (
+            <Flame className="h-3.5 w-3.5 animate-fire-pulse text-yellow-400" />
+          ) : (
+            <Star className="h-3.5 w-3.5 text-yellow-400" />
+          )}
+          <span className="text-xs font-semibold text-yellow-400">
+            {showBrand ? "Day 7" : points.toLocaleString()}
+          </span>
         </div>
       </div>
     </header>

@@ -10,6 +10,7 @@ import { CompletionModal } from "@/components/ui/CompletionModal";
 import { getIdiomsByLevel, getCategoryName, type IdiomCategory } from "@/lib/idioms";
 import { IDIOM_CATS } from "@/constants/categories";
 import { notFound } from "next/navigation";
+import { usePoints } from "@/lib/usePoints";
 
 interface IdiomCardsPageProps {
   params: {
@@ -20,6 +21,7 @@ interface IdiomCardsPageProps {
 
 export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
   const router = useRouter();
+  const points = usePoints();
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const [showCompletion, setShowCompletion] = useState(false);
@@ -75,7 +77,7 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
   if (!mounted || !idioms.length || !category) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-        <TopBar />
+        <TopBar points={points} />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <p>Loading...</p>
@@ -90,7 +92,7 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-      <TopBar />
+      <TopBar points={points} />
       
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
@@ -164,6 +166,7 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
       {/* Completion Modal */}
       {showCompletion && (
         <CompletionModal
+          noPoints
           completed={idioms.length}
           total={idioms.length}
           categoryId={params.categoryId}

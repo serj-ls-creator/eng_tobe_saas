@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CategoryCard } from "@/components/ui/CategoryCard";
-import { TopBar } from "@/components/layout/TopBar";
+import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 

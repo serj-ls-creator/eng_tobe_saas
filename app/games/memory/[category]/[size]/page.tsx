@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { TopBar } from '@/components/layout/TopBar';
 import { FlyingWordsEng } from '@/components/ui/FlyingWordsEng';
+import { usePoints } from '@/lib/usePoints';
+import { addPoints } from '@/lib/useAddPoints';
 
 // ── Word data ────────────────────────────────────────────────────────────────
 import { PEOPLE }  from '@/data/words/basicadvanced/people';
@@ -90,6 +92,7 @@ export default function MemoryGamePage({ params }: PageProps) {
   const sizeLabel  = size.replace('x', ' × ');
   const catLabel   = isIdioms ? 'Idioms' : 'Words';
 
+  const points = usePoints();
   const [cards, setCards]             = useState<MemCard[]>([]);
   const [flipped, setFlipped]         = useState<number[]>([]);
   const [locked, setLocked]           = useState(false);
@@ -131,7 +134,10 @@ export default function MemoryGamePage({ params }: PageProps) {
         ));
         setMatched(m => {
           const n = m + 1;
-          if (n === pairCount) setTimeout(() => setShowResult(true), 500);
+          if (n === pairCount) {
+            addPoints(10);
+            setTimeout(() => setShowResult(true), 500);
+          }
           return n;
         });
         setFlipped([]);
@@ -175,7 +181,7 @@ export default function MemoryGamePage({ params }: PageProps) {
       `}</style>
 
       <div className="relative z-10 flex flex-col h-full">
-        <TopBar />
+        <TopBar points={points} />
 
         <div className="flex flex-col flex-1 px-3 py-2 max-w-lg mx-auto w-full overflow-hidden">
 

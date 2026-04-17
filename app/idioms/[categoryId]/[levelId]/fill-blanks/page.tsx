@@ -10,6 +10,7 @@ import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
 import { getIdiomsByLevel, type IdiomCategory } from '@/lib/idioms';
 import { IDIOM_CATS } from '@/constants/categories';
+import { usePoints } from '@/lib/usePoints';
 
 interface PageProps {
   params: {
@@ -76,6 +77,7 @@ export default function FillBlanksPage({ params }: PageProps) {
   const { categoryId, levelId } = params;
   const router = useRouter();
 
+  const points = usePoints();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [idioms, setIdioms] = useState<any[]>([]);
   const [category, setCategory] = useState<any>(null);
@@ -185,7 +187,7 @@ export default function FillBlanksPage({ params }: PageProps) {
   if (!mounted || !idioms.length || !category) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-        <TopBar />
+        <TopBar points={points} />
         <div className="container mx-auto px-4 py-8 text-center"><p>Loading...</p></div>
       </div>
     );
@@ -223,7 +225,7 @@ export default function FillBlanksPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white relative" suppressHydrationWarning={true}>
-      <TopBar />
+      <TopBar points={points} />
       <FlyingWords words={idioms.map(i => i.idiom)} />
 
       <div className="container mx-auto px-4 py-8 relative z-10">

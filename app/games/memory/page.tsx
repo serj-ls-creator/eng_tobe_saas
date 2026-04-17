@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { Brain, Lightbulb } from 'lucide-react';
+import { usePoints } from '@/lib/usePoints';
 
 const CATEGORIES = [
   { id: 'words',  label: 'Words',  desc: 'Basic → Advanced', color: '#00E5FF', Icon: Brain     },
@@ -20,13 +21,14 @@ const SIZES = [
 
 export default function MemorySetupPage() {
   const router = useRouter();
+  const points = usePoints();
   const [selectedCat, setSelectedCat] = useState<string | null>(null);
 
   const accent = selectedCat === 'idioms' ? '#A855F7' : '#00E5FF';
 
   return (
     <>
-      <TopBar />
+      <TopBar points={points} />
       <div className="content-shell pb-8">
         <div className="mb-4">
           <Link href="/games" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TopBar } from "@/components/layout/TopBar";
+import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { Volume2, VolumeX, Trash2 } from "lucide-react";
 

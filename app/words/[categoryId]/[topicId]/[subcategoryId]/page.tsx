@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { TopBar } from "@/components/layout/TopBar";
+import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";

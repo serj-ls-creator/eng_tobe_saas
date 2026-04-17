@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Card } from './card';
 import { useRouter } from 'next/navigation';
+import { addPoints } from '@/lib/useAddPoints';
 
 interface CompletionModalProps {
   completed: number;
@@ -10,6 +11,7 @@ interface CompletionModalProps {
   categoryId: string;
   subcategoryName: string;
   words?: string[];
+  noPoints?: boolean;
   onNextSubcategory?: () => void;
   onBackToTopics?: () => void;
 }
@@ -20,6 +22,7 @@ export function CompletionModal({
   categoryId, 
   subcategoryName,
   words,
+  noPoints = false,
   onNextSubcategory,
   onBackToTopics 
 }: CompletionModalProps) {
@@ -29,6 +32,12 @@ export function CompletionModal({
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  // Award points once when modal appears (not for cards activity)
+  useEffect(() => {
+    if (!mounted || completed <= 0 || noPoints) return;
+    addPoints(completed);
+  }, [mounted, completed, noPoints]);
 
   if (!mounted) return null;
 

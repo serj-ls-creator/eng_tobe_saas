@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { BookOpenText, MessageCircleMore, Lightbulb, User, Gamepad2 } from "lucide-react";
 
-import { TopBar } from "@/components/layout/TopBar";
+import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { StreakBar } from "@/components/ui/StreakBar";
 import { UI_TEXT } from "@/constants/ui";

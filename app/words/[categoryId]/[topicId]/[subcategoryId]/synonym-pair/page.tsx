@@ -7,6 +7,7 @@ import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
+import { usePoints } from '@/lib/usePoints';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
@@ -53,6 +54,7 @@ export default function SynonymPairPage({ params }: PageProps) {
   const { categoryId, topicId, subcategoryId } = params;
   const router = useRouter();
 
+  const points = usePoints();
   const [words, setWords] = useState<WordPair[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
@@ -259,7 +261,7 @@ export default function SynonymPairPage({ params }: PageProps) {
   if (!mounted || !words.length || !subcategory) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-        <TopBar />
+        <TopBar points={points} />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <p>Loading...</p>
@@ -274,7 +276,7 @@ export default function SynonymPairPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white relative" suppressHydrationWarning={true}>
-      <TopBar />
+      <TopBar points={points} />
 
       <FlyingWords words={words.map(w => w.advanced)} />
 

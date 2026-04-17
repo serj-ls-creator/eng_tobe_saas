@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
+import { usePoints } from '@/lib/usePoints';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
@@ -49,6 +50,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
   const { categoryId, topicId, subcategoryId } = params;
   const router = useRouter();
 
+  const points = usePoints();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [words, setWords] = useState<any[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
@@ -204,7 +206,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
   if (!mounted || !words.length || !subcategory) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-        <TopBar />
+        <TopBar points={points} />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <p>Loading...</p>
@@ -241,7 +243,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white relative" suppressHydrationWarning={true}>
-      <TopBar />
+      <TopBar points={points} />
 
       <FlyingWords words={words.map(w => w.advanced)} />
 

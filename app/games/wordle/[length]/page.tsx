@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { TopBar } from '@/components/layout/TopBar';
 import { WORDS_5, WORDS_6, WORDS_7, WORDS_8 } from '@/data/games/wordle-words';
+import { usePoints } from '@/lib/usePoints';
+import { addPoints } from '@/lib/useAddPoints';
 
 interface PageProps {
   params: { length: string };
@@ -42,6 +44,7 @@ export default function WordleGamePage({ params }: PageProps) {
   const wordLength = parseInt(params.length) || 5;
   const MAX_GUESSES = 6;
 
+  const points = usePoints();
   const [targetWord, setTargetWord] = useState('');
   const [guesses, setGuesses] = useState<GuessLetter[][]>([]);
   const [currentGuess, setCurrentGuess] = useState('');
@@ -131,6 +134,7 @@ export default function WordleGamePage({ params }: PageProps) {
     const isWin = currentGuess === targetWord;    if (isWin) {
       setWon(true);
       setGameOver(true);
+      addPoints(10);
       setTimeout(() => setShowResult(true), 1500);
     } else if (newGuesses.length >= MAX_GUESSES) {
       setGameOver(true);
@@ -221,7 +225,7 @@ export default function WordleGamePage({ params }: PageProps) {
   if (!mounted || !targetWord) {
     return (
       <div className="min-h-screen bg-black text-white">
-        <TopBar />
+        <TopBar points={points} />
         <div className="text-center pt-20 text-zinc-500">Loading…</div>
       </div>
     );
@@ -258,7 +262,7 @@ export default function WordleGamePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white flex flex-col">
-      <TopBar />
+      <TopBar points={points} />
 
       <div className="flex-1 flex flex-col items-center px-4 py-4 max-w-lg mx-auto w-full">
         {/* Header */}

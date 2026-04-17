@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TopBar } from "@/components/layout/TopBar";
+import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { ComingSoon } from "@/components/ui/ComingSoon";
 
 export default function RecallPage() {

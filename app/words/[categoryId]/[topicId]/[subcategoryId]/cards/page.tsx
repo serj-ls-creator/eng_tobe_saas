@@ -9,6 +9,7 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { FlipCard } from '@/components/cards/FlipCard';
 import { CompletionModal } from '@/components/ui/CompletionModal';
+import { usePoints } from '@/lib/usePoints';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
@@ -55,6 +56,7 @@ export default function CardsPage({ params }: PageProps) {
   const [words, setWords] = useState<any[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
+  const points = usePoints();
 
   // Prevent hydration issues
   useEffect(() => {
@@ -126,7 +128,7 @@ export default function CardsPage({ params }: PageProps) {
   if (!mounted || !words.length || !subcategory) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-        <TopBar />
+        <TopBar points={points} />
         <div className="container mx-auto px-4 py-8">
           <div className="text-center">
             <p>Loading...</p>
@@ -140,7 +142,7 @@ export default function CardsPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-      <TopBar />
+      <TopBar points={points} />
       
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
@@ -216,6 +218,7 @@ export default function CardsPage({ params }: PageProps) {
       {/* Completion Modal */}
       {showCompletion && (
         <CompletionModal
+          noPoints
           completed={words.length}
           total={words.length}
           categoryId={categoryId}
