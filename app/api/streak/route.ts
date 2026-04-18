@@ -62,7 +62,10 @@ export async function GET() {
     }
     const weekStart = computedWeekStart;
 
-    return NextResponse.json({ streak: activeStreak, dailyActivities, dayFlags, weekStartDate: weekStart, today });
+    return NextResponse.json(
+      { streak: activeStreak, dailyActivities, dayFlags, weekStartDate: weekStart, today },
+      { headers: { 'Cache-Control': 'no-store, no-cache, must-revalidate' } }
+    );
   } catch {
     return NextResponse.json({ streak: 0, dailyActivities: 0, dayFlags: 0, weekStartDate: null, today: null });
   }

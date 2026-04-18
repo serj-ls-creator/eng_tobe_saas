@@ -29,7 +29,7 @@ export function StreakBar() {
   });
 
   useEffect(() => {
-    fetch('/api/streak')
+    fetch(`/api/streak?t=${Date.now()}`, { cache: 'no-store' })
       .then(r => r.json())
       .then(setData)
       .catch(() => {});
