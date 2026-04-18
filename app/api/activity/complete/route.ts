@@ -114,6 +114,15 @@ export async function POST(_req: NextRequest) {
             .eq('user_id', user.id)
             .eq('week_start_date', weekStart);
         }
+
+        // Reset streak after completing 7 days — new week starts fresh next day
+        if (streak === 7) {
+          streak = 0;
+          await supabase
+            .from('profiles')
+            .update({ streak: 0 })
+            .eq('user_id', user.id);
+        }
       }
     }
 
