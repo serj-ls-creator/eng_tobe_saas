@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   description: "Mobile-first English learning SaaS with freemium access.",
   applicationName: "English to be",
   manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico"
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
