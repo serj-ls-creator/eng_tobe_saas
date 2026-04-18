@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { Card } from './card';
 import { useRouter } from 'next/navigation';
+import { Flame } from 'lucide-react';
 import { addPoints } from '@/lib/useAddPoints';
-import { completeActivity } from '@/lib/useCompleteActivity';
+import { completeActivity, type ActivityResult } from '@/lib/useCompleteActivity';
 
 interface CompletionModalProps {
   completed: number;
@@ -28,6 +29,7 @@ export function CompletionModal({
   onBackToTopics 
 }: CompletionModalProps) {
   const [mounted, setMounted] = useState(false);
+  const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -38,8 +40,10 @@ export function CompletionModal({
   useEffect(() => {
     if (!mounted || noPoints) return;
     if (completed > 0) addPoints(completed);
-    completeActivity();
-  }, [mounted, completed, noPoints]);
+    completeActivity().then(result => {
+      if (result) setActivityResult(result);
+    });
+  }, [mounted, noPoints]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!mounted) return null;
 
@@ -55,13 +59,14 @@ export function CompletionModal({
   };
 
   const performance = getPerformanceRating();
+  const DAILY_GOAL = 4;
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50" suppressHydrationWarning={true}>
       <Card className="w-full max-w-md p-8 text-center" suppressHydrationWarning={true}>
         {/* Success Icon */}
         <div className="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <span className="text-2xl">+ </span>
+          <span className="text-2xl">+</span>
         </div>
 
         {/* Title */}
@@ -75,7 +80,7 @@ export function CompletionModal({
         </p>
 
         {/* Description */}
-        <p className="text-slate-400 mb-8">
+        <p className="text-slate-400 mb-6">
           {isExcellent ? (
             <>
               You've mastered all words in <span className="text-white font-medium">{subcategoryName}</span>. 
@@ -109,7 +114,29 @@ export function CompletionModal({
           )}
         </p>
 
-        
+        {/* Daily streak progress — only for logged-in users (activityResult present) */}
+        {!noPoints && activityResult && (
+          <div className={`mb-6 rounded-xl px-4 py-3 flex items-center justify-between ${
+            activityResult.dailyActivities >= DAILY_GOAL
+              ? 'bg-yellow-500/15 border border-yellow-500/30'
+              : 'bg-slate-800/60 border border-white/8'
+          }`}>
+            <div className="flex items-center gap-2">
+              <Flame className={`h-4 w-4 ${activityResult.dailyActivities >= DAILY_GOAL ? 'text-yellow-400' : 'text-zinc-500'}`} />
+              <span className={`text-sm font-medium ${activityResult.dailyActivities >= DAILY_GOAL ? 'text-yellow-400' : 'text-zinc-400'}`}>
+                {activityResult.dailyActivities >= DAILY_GOAL
+                  ? '🎉 Daily streak done!'
+                  : `Daily progress`}
+              </span>
+            </div>
+            {activityResult.dailyActivities < DAILY_GOAL && (
+              <span className="text-sm font-bold text-cyan-400">
+                {activityResult.dailyActivities}/{DAILY_GOAL}
+              </span>
+            )}
+          </div>
+        )}
+
         {/* Action Buttons */}
         <div className="space-y-3">
           {onNextSubcategory && (

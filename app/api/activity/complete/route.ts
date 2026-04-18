@@ -49,9 +49,11 @@ export async function POST(_req: NextRequest) {
       dailyActivities = 0;
     }
 
-    // ── 3. Increment daily activity count ────────────────────────────────────
+    // ── 3. Increment daily activity count (cap at 4) ─────────────────────────
     const prevActivities = dailyActivities;
-    dailyActivities += 1;
+    if (dailyActivities < 4) {
+      dailyActivities += 1;
+    }
 
     // ── 4. Check if day is now complete (crossed 4 activities threshold) ─────
     if (prevActivities < 4 && dailyActivities >= 4) {

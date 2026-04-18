@@ -85,7 +85,7 @@ export function StreakBar({ isLoggedIn = false }: StreakBarProps) {
       <div className="mb-2 flex items-center justify-between text-xs">
         <span className="text-zinc-500">{UI_TEXT.dailyProgress}</span>
         <span className="text-cyan-400">
-          {isLoggedIn ? dailyActivities : 0}/{totalTasks} tasks
+          {isLoggedIn ? Math.min(dailyActivities, totalTasks) : 0}/{totalTasks} tasks
         </span>
       </div>
       <Progress value={progress} />

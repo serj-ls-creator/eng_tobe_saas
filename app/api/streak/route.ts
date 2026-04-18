@@ -28,7 +28,7 @@ export async function GET() {
     const lastDate: string | null = profile.last_activity_date;
 
     // Reset daily counter if last activity was not today
-    const dailyActivities = lastDate === today ? rawDailyActivities : 0;
+    const dailyActivities = Math.min(lastDate === today ? rawDailyActivities : 0, 4);
 
     // Check if streak is still active
     let activeStreak = profile.streak ?? 0;

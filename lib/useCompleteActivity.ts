@@ -1,9 +1,17 @@
 'use client';
 
-export async function completeActivity(): Promise<void> {
+export interface ActivityResult {
+  streak: number;
+  dailyActivities: number;
+  dayCompleted: boolean;
+}
+
+export async function completeActivity(): Promise<ActivityResult | null> {
   try {
-    await fetch('/api/activity/complete', { method: 'POST' });
+    const res = await fetch('/api/activity/complete', { method: 'POST' });
+    if (!res.ok) return null;
+    return await res.json();
   } catch {
-    // Silently ignore
+    return null;
   }
 }
