@@ -90,9 +90,11 @@ export const getWeeklyStreak = cache(async () => {
     activeStreak = 0;
   }
 
-  // week_start = today when streak <= 1, else today - (streak-1) days
-  const weekStartDate = new Date(todayDate);
-  if (activeStreak > 1) {
+  // weekStart = last completed day - (streak-1) days
+  // anchor = lastDate if today not yet completed, else today
+  const anchorDate = lastDate ? new Date(lastDate + 'T00:00:00Z') : todayDate;
+  const weekStartDate = new Date(anchorDate);
+  if (activeStreak > 0) {
     weekStartDate.setUTCDate(weekStartDate.getUTCDate() - (activeStreak - 1));
   }
   const computedWeekStart = weekStartDate.toISOString().slice(0, 10);
@@ -104,14 +106,12 @@ export const getWeeklyStreak = cache(async () => {
     .eq('week_start_date', computedWeekStart)
     .maybeSingle();
 
-  // If no days completed yet, always show week starting from today
-  const dayFlags = weekRow?.day_flags ?? 0;
-  const weekStart = dayFlags === 0 ? today : computedWeekStart;
+  const weekStart = computedWeekStart;
 
   return {
     streak: activeStreak,
     dailyActivities,
-    dayFlags,
+    dayFlags: weekRow?.day_flags ?? 0,
     weekStartDate: weekStart,
     today,
   };

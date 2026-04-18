@@ -18,8 +18,11 @@ export async function GET() {
 
     if (!profile) return NextResponse.json({ streak: 0, dailyActivities: 0, dayFlags: 0, weekStartDate: today, today });
 
-    const dailyActivities = profile.daily_activities ?? 0;
+    const rawDailyActivities = profile.daily_activities ?? 0;
     const lastDate: string | null = profile.last_activity_date;
+
+    // Reset daily counter if last activity was not today
+    const dailyActivities = lastDate === today ? rawDailyActivities : 0;
 
     let activeStreak = profile.streak ?? 0;
     if (lastDate) {
@@ -30,8 +33,12 @@ export async function GET() {
       activeStreak = 0;
     }
 
-    const weekStartDate = new Date(todayDate);
-    if (activeStreak > 1) {
+    // weekStart = date of day 1 of the streak
+    // = last completed day - (streak - 1) days
+    // Use lastDate as anchor (last day that was completed), not today
+    const anchorDate = lastDate ? new Date(lastDate + 'T00:00:00Z') : todayDate;
+    const weekStartDate = new Date(anchorDate);
+    if (activeStreak > 0) {
       weekStartDate.setUTCDate(weekStartDate.getUTCDate() - (activeStreak - 1));
     }
     const computedWeekStart = weekStartDate.toISOString().slice(0, 10);
@@ -53,7 +60,7 @@ export async function GET() {
       // Table exists but no row yet — derive from streak
       dayFlags = activeStreak > 0 ? (1 << activeStreak) - 1 : 0;
     }
-    const weekStart = dayFlags === 0 ? today : computedWeekStart;
+    const weekStart = computedWeekStart;
 
     return NextResponse.json({ streak: activeStreak, dailyActivities, dayFlags, weekStartDate: weekStart, today });
   } catch {
