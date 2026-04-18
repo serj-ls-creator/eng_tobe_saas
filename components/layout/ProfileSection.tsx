@@ -6,6 +6,7 @@ import { User, LogOut, Flame, Star } from "lucide-react";
 
 import { Card } from "@/components/ui/card";
 import { createBrowserClient } from "@supabase/ssr";
+import { StreakBar } from "@/components/ui/StreakBar";
 
 interface ProfileSectionProps {
   profile: {
@@ -139,7 +140,12 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
               )}
             </button>
 
-                      </Card>
+          </Card>
+
+          {/* Weekly Streak */}
+          <div className="mb-6">
+            <StreakBar isLoggedIn={true} />
+          </div>
 
           {/* Stats Section */}
           <Card className="mb-6 p-6">
