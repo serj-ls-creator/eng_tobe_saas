@@ -106,7 +106,7 @@ export function StreakBar({ isLoggedIn = false }: StreakBarProps) {
           </div>
         ) : (
           <Link
-            href="/login"
+            href="/auth/login"
             className="text-[10px] text-cyan-400/70 hover:text-cyan-400 transition-colors"
             onClick={e => e.stopPropagation()}
           >

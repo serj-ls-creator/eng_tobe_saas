@@ -71,7 +71,7 @@ export async function signupAction(_: { error: string | null }, formData: FormDa
     });
 
     if (profileError) {
-      return { error: profileError.message, success: false };
+      console.error("Failed to upsert profile during signup:", profileError);
     }
   }
 
