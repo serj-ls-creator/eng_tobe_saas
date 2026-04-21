@@ -77,3 +77,25 @@ export async function signupAction(_: { error: string | null }, formData: FormDa
 
   return { error: null, success: true };
 }
+
+export async function signInWithGoogle() {
+  const supabase = createSupabaseServerClient();
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${siteUrl}/auth/callback`
+    }
+  });
+
+  if (error) {
+    console.error("Google Auth Error:", error.message);
+    return;
+  }
+
+  if (data.url) {
+    redirect(data.url);
+  }
+}

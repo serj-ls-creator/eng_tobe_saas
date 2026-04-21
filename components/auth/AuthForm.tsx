@@ -7,6 +7,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { UI_TEXT } from "@/constants/ui";
+import { signInWithGoogle } from "@/app/auth/actions";
 
 interface AuthFormProps {
   title: string;
@@ -50,7 +51,20 @@ export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFor
         {isSuccess ? (
           <p className="text-sm text-emerald-400">{UI_TEXT.authSignupSuccess}</p>
         ) : (
-          <form action={formAction} className="space-y-4">
+          <div className="space-y-4">
+            <form action={signInWithGoogle}>
+              <Button type="submit" variant="default" className="w-full">
+                Continue with Google
+              </Button>
+            </form>
+
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-white/10" />
+              <span className="text-[10px] uppercase tracking-[0.25em] text-zinc-600">or</span>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
+
+            <form action={formAction} className="space-y-4">
             {mode === "signup" ? (
               <div className="space-y-2">
                 <label className="text-sm text-zinc-400">{UI_TEXT.fullNameLabel}</label>
@@ -67,7 +81,8 @@ export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFor
             </div>
             {state.error ? <p className="text-sm text-pink-400">{state.error}</p> : null}
             <SubmitButton label={submitLabel} />
-          </form>
+            </form>
+          </div>
         )}
 
         <div className="mt-4 text-sm text-zinc-500">
