@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,10 @@ import { UI_TEXT } from "@/constants/ui";
 interface AuthFormProps {
   title: string;
   subtitle: string;
-  action: (prevState: { error: string | null }, formData: FormData) => Promise<{ error: string | null }>;
+  action: (
+    prevState: { error: string | null; success?: boolean },
+    formData: FormData
+  ) => Promise<{ error: string | null; success?: boolean }>;
   submitLabel: string;
   mode: "login" | "signup";
 }
@@ -26,7 +30,14 @@ function SubmitButton({ label }: { label: string }) {
 }
 
 export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFormProps) {
-  const [state, formAction] = useFormState(action, { error: null });
+  const [state, formAction] = useFormState(action, { error: null, success: false });
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    if (state.success && mode === "signup") {
+      setIsSuccess(true);
+    }
+  }, [mode, state.success]);
 
   return (
     <div className="content-shell">
@@ -36,24 +47,28 @@ export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFor
           <p className="text-sm text-zinc-500">{subtitle}</p>
         </div>
 
-        <form action={formAction} className="space-y-4">
-          {mode === "signup" ? (
+        {isSuccess ? (
+          <p className="text-sm text-emerald-400">{UI_TEXT.authSignupSuccess}</p>
+        ) : (
+          <form action={formAction} className="space-y-4">
+            {mode === "signup" ? (
+              <div className="space-y-2">
+                <label className="text-sm text-zinc-400">{UI_TEXT.fullNameLabel}</label>
+                <Input name="fullName" placeholder="Alex Johnson" required />
+              </div>
+            ) : null}
             <div className="space-y-2">
-              <label className="text-sm text-zinc-400">{UI_TEXT.fullNameLabel}</label>
-              <Input name="fullName" placeholder="Alex Johnson" required />
+              <label className="text-sm text-zinc-400">{UI_TEXT.emailLabel}</label>
+              <Input name="email" type="email" placeholder="you@example.com" required />
             </div>
-          ) : null}
-          <div className="space-y-2">
-            <label className="text-sm text-zinc-400">{UI_TEXT.emailLabel}</label>
-            <Input name="email" type="email" placeholder="you@example.com" required />
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm text-zinc-400">{UI_TEXT.passwordLabel}</label>
-            <Input name="password" type="password" placeholder="********" minLength={6} required />
-          </div>
-          {state.error ? <p className="text-sm text-pink-400">{state.error}</p> : null}
-          <SubmitButton label={submitLabel} />
-        </form>
+            <div className="space-y-2">
+              <label className="text-sm text-zinc-400">{UI_TEXT.passwordLabel}</label>
+              <Input name="password" type="password" placeholder="********" minLength={6} required />
+            </div>
+            {state.error ? <p className="text-sm text-pink-400">{state.error}</p> : null}
+            <SubmitButton label={submitLabel} />
+          </form>
+        )}
 
         <div className="mt-4 text-sm text-zinc-500">
           {mode === "login" ? (

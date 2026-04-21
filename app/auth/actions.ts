@@ -44,7 +44,7 @@ export async function signupAction(_: { error: string | null }, formData: FormDa
   });
 
   if (!parsed.success) {
-    return { error: "Please complete all fields correctly." };
+    return { error: "Please complete all fields correctly.", success: false };
   }
 
   const supabase = createSupabaseServerClient();
@@ -59,17 +59,21 @@ export async function signupAction(_: { error: string | null }, formData: FormDa
   });
 
   if (error) {
-    return { error: error.message };
+    return { error: error.message, success: false };
   }
 
   if (data.user) {
     const adminClient = createSupabaseAdminClient();
-    await adminClient.from("profiles").upsert({
+    const { error: profileError } = await adminClient.from("profiles").upsert({
       user_id: data.user.id,
       is_premium: false,
       streak: 0
     });
+
+    if (profileError) {
+      return { error: profileError.message, success: false };
+    }
   }
 
-  redirect("/");
+  return { error: null, success: true };
 }
