@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { usePoints } from '@/lib/usePoints';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
@@ -51,6 +52,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
   const router = useRouter();
 
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [words, setWords] = useState<any[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
@@ -183,6 +185,12 @@ export default function MultipleChoicePage({ params }: PageProps) {
     setAnswerState(isCorrect ? 'correct' : 'wrong');
 
     if (isCorrect) {
+      playCorrect();
+    } else {
+      playWrong();
+    }
+
+    if (isCorrect) {
       setCorrectCount(prev => prev + 1);
     }
 
@@ -193,7 +201,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
         setShowCompletion(true);
       }
     }, 1500);
-  }, [answerState, currentIndex, words]);
+  }, [answerState, currentIndex, playCorrect, playWrong, words]);
 
   const handleBackToActivities = () => {
     router.push(`/words/${categoryId}/${topicId}/${subcategoryId}`);

@@ -3,12 +3,14 @@
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { CheckCircle2, XCircle } from 'lucide-react';
 
 import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { Progress } from '@/components/ui/progress';
 import { SILENT_WORD_LEVELS } from '@/data/words/pronounce/silent_words';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { usePoints } from '@/lib/usePoints';
 
 interface DontPronounceLevelClientProps {
@@ -17,9 +19,21 @@ interface DontPronounceLevelClientProps {
 
 type AnswerState = 'idle' | 'correct' | 'wrong';
 
+function shuffleArray<T>(items: T[]): T[] {
+  const copy = [...items];
+
+  for (let index = copy.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [copy[index], copy[swapIndex]] = [copy[swapIndex], copy[index]];
+  }
+
+  return copy;
+}
+
 export function DontPronounceLevelClient({ levelId }: DontPronounceLevelClientProps) {
   const router = useRouter();
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [answerState, setAnswerState] = useState<AnswerState>('idle');
@@ -30,11 +44,12 @@ export function DontPronounceLevelClient({ levelId }: DontPronounceLevelClientPr
     () => SILENT_WORD_LEVELS.find((item) => item.id === levelId) ?? SILENT_WORD_LEVELS[0],
     [levelId],
   );
+  const shuffledWords = useMemo(() => shuffleArray(level.words), [levelId, level.words]);
 
-  const currentWord = level.words[currentIndex];
+  const currentWord = shuffledWords[currentIndex];
 
   const moveNext = () => {
-    if (currentIndex < level.words.length - 1) {
+    if (currentIndex < shuffledWords.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setSelectedIndex(null);
       setAnswerState('idle');
@@ -50,6 +65,12 @@ export function DontPronounceLevelClient({ levelId }: DontPronounceLevelClientPr
     const isCorrect = index === currentWord.silentIndex;
     setSelectedIndex(index);
     setAnswerState(isCorrect ? 'correct' : 'wrong');
+
+    if (isCorrect) {
+      playCorrect();
+    } else {
+      playWrong();
+    }
 
     if (isCorrect) {
       setCorrectCount((prev) => prev + 1);
@@ -99,10 +120,10 @@ export function DontPronounceLevelClient({ levelId }: DontPronounceLevelClientPr
           <div className="mb-2 flex items-center justify-between">
             <span className="text-sm text-zinc-400">Progress</span>
             <span className="text-sm font-medium text-cyan-400">
-              {currentIndex + 1} / {level.words.length}
+              {currentIndex + 1} / {shuffledWords.length}
             </span>
           </div>
-          <Progress value={((currentIndex + 1) / level.words.length) * 100} />
+          <Progress value={((currentIndex + 1) / shuffledWords.length) * 100} />
         </div>
 
         <div className="mb-8">
@@ -114,6 +135,21 @@ export function DontPronounceLevelClient({ levelId }: DontPronounceLevelClientPr
 
         <div className="mb-4 text-center text-[10px] uppercase tracking-[0.3em] text-zinc-600">
           Tap the silent letter
+        </div>
+
+        <div className="mb-5 flex min-h-10 items-center justify-center">
+          {answerState === 'correct' && (
+            <div className="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-2 text-sm font-medium text-green-300">
+              <CheckCircle2 className="h-4 w-4" />
+              Correct
+            </div>
+          )}
+          {answerState === 'wrong' && (
+            <div className="flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-4 py-2 text-sm font-medium text-red-300">
+              <XCircle className="h-4 w-4" />
+              Wrong
+            </div>
+          )}
         </div>
 
         <div className="flex flex-wrap justify-center gap-2">
@@ -132,7 +168,7 @@ export function DontPronounceLevelClient({ levelId }: DontPronounceLevelClientPr
         {showCompletion && (
           <CompletionModal
             completed={correctCount}
-            total={level.words.length}
+            total={shuffledWords.length}
             categoryId="pronounce"
             subcategoryName={`Don't Pronounce • ${level.name}`}
             onBackToTopics={() => router.push('/words/pronounce/dont-pronounce')}

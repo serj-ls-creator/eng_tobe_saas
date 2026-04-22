@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { usePoints } from '@/lib/usePoints';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
@@ -102,6 +103,7 @@ export default function LetterHuntPage({ params }: PageProps) {
   const router = useRouter();
 
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [words, setWords] = useState<any[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
@@ -246,7 +248,12 @@ export default function LetterHuntPage({ params }: PageProps) {
       );
 
       setAnswerState(isCorrect ? 'correct' : 'wrong');
-      if (isCorrect) setCorrectCount(prev => prev + 1);
+      if (isCorrect) {
+        playCorrect();
+        setCorrectCount(prev => prev + 1);
+      } else {
+        playWrong();
+      }
 
       setTimeout(() => {
         if (currentIndex < words.length - 1) {
@@ -256,7 +263,7 @@ export default function LetterHuntPage({ params }: PageProps) {
         }
       }, 1500);
     }
-  }, [answerState, usedIds, slots, hiddenIndices, nextEmptySlot, words, currentIndex]);
+  }, [answerState, currentIndex, hiddenIndices, nextEmptySlot, playCorrect, playWrong, slots, usedIds, words]);
 
   // Erase last placed letter
   const handleErase = useCallback(() => {

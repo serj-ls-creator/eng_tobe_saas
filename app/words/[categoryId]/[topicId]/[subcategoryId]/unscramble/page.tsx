@@ -8,6 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { usePoints } from '@/lib/usePoints';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
@@ -60,6 +61,7 @@ export default function UnscramblePage({ params }: PageProps) {
   const router = useRouter();
 
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [words, setWords] = useState<any[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
@@ -208,7 +210,10 @@ export default function UnscramblePage({ params }: PageProps) {
       setAnswerState(isCorrect ? 'correct' : 'wrong');
 
       if (isCorrect) {
+        playCorrect();
         setCorrectCount(prev => prev + 1);
+      } else {
+        playWrong();
       }
 
       setTimeout(() => {
@@ -219,7 +224,7 @@ export default function UnscramblePage({ params }: PageProps) {
         }
       }, 1500);
     }
-  }, [answerState, usedIndices, placedLetters, scrambledLetters, words, currentIndex]);
+  }, [answerState, currentIndex, placedLetters, playCorrect, playWrong, scrambledLetters, usedIndices, words]);
 
   const handleSlotClick = useCallback((slotIndex: number) => {
     if (answerState !== 'idle') return;
