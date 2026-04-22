@@ -859,13 +859,13 @@ export const GAME_CATS: Category[] = [
     order: 2
   },
   {
-    id: "negotiations",
-    name: "Negotiations",
-    description: "Choose the best response",
+    id: "negotiation",
+    name: "Negotiation",
+    description: "Branching dialogue quests",
     icon: "Handshake",
     color: UI_COLORS.yellow,
     section: "games",
-    href: "/games#negotiations",
+    href: "/games/negotiation",
     access: "premium",
     isFree: false,
     order: 3
