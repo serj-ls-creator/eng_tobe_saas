@@ -35,9 +35,10 @@ export default async function DontPronouncePage() {
           {SILENT_WORD_LEVELS.map((level, index) => (
             <Link key={level.id} href={`/words/pronounce/dont-pronounce/${level.id}`}>
               <Card className={`fade-up fade-up-d${Math.min(index + 1, 5)} overflow-hidden rounded-[24px] border border-white/10 p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08]`}>
-                <div className="mb-2 text-lg font-black text-white">{level.name}</div>
-                <div className="text-[11px] uppercase tracking-[0.24em] text-cyan-300">
-                  {level.words.length} words
+                <div className="mb-2 text-sm font-semibold text-white">{level.name}</div>
+                <div className="text-[11px] leading-relaxed">
+                  <div className="text-zinc-500">Silent letter practice</div>
+                  <div className="font-medium text-cyan-400">{level.words.length} words</div>
                 </div>
               </Card>
             </Link>
