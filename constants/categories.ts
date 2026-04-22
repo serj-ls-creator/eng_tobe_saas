@@ -67,7 +67,9 @@ export const CATS: WordCategory[] = [
         id: "dont-pronounce",
         name: "Don't pronounce",
         description: "Silent letters and tricky sounds",
-        href: "/words#dont-pronounce"
+        href: "/words/pronounce/dont-pronounce",
+        access: "premium",
+        isFree: false
       },
       {
         id: "pronunciation",
