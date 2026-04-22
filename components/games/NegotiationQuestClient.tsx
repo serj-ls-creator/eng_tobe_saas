@@ -1,9 +1,10 @@
 'use client';
 
-import { startTransition, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { ChevronDown, Handshake, Sparkles, Target } from 'lucide-react';
+import { flushSync } from 'react-dom';
 
 import { TopBar } from '@/components/layout/TopBar';
 import { NegotiationResultModal } from '@/components/games/NegotiationResultModal';
@@ -43,6 +44,8 @@ export function NegotiationQuestClient({ quest }: NegotiationQuestClientProps) {
   const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
   const [rewardedEndingCode, setRewardedEndingCode] = useState<string | null>(null);
   const [showHint, setShowHint] = useState(false);
+  const activeNodeRef = useRef<HTMLDivElement | null>(null);
+  const scrollFrameRef = useRef<number | null>(null);
 
   const currentStep = steps[steps.length - 1];
   const currentNode = quest.nodes[currentStep.nodeId];
@@ -51,6 +54,14 @@ export function NegotiationQuestClient({ quest }: NegotiationQuestClientProps) {
   useEffect(() => {
     setShowHint(false);
   }, [currentNode.id]);
+
+  useEffect(() => {
+    return () => {
+      if (scrollFrameRef.current !== null) {
+        cancelAnimationFrame(scrollFrameRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!ending || rewardedEndingCode === ending.code) return;
@@ -68,8 +79,28 @@ export function NegotiationQuestClient({ quest }: NegotiationQuestClientProps) {
     setRewardedEndingCode(null);
   };
 
+  const scrollToActiveNode = () => {
+    const node = activeNodeRef.current;
+
+    if (!node) return;
+
+    if (scrollFrameRef.current !== null) {
+      cancelAnimationFrame(scrollFrameRef.current);
+    }
+
+    scrollFrameRef.current = requestAnimationFrame(() => {
+      scrollFrameRef.current = requestAnimationFrame(() => {
+        node.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+        scrollFrameRef.current = null;
+      });
+    });
+  };
+
   const choose = (choice: NegotiationChoice) => {
-    startTransition(() => {
+    flushSync(() => {
       setSteps((prev) => {
         const next = [...prev];
         next[next.length - 1] = { ...next[next.length - 1], choiceId: choice.id };
@@ -77,6 +108,8 @@ export function NegotiationQuestClient({ quest }: NegotiationQuestClientProps) {
         return next;
       });
     });
+
+    scrollToActiveNode();
   };
 
   const transcript = steps.slice(0, -1);
@@ -156,7 +189,8 @@ export function NegotiationQuestClient({ quest }: NegotiationQuestClientProps) {
           </div>
         )}
 
-        <Card className="mb-5 overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04))]">
+        <div ref={activeNodeRef} style={{ scrollMarginTop: '84px' }}>
+          <Card className="mb-5 overflow-hidden rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.04))]">
           {currentNode.scene && (
             <div className="border-b border-white/8 bg-white/[0.04] px-5 py-4 text-sm leading-6 text-zinc-300">
               {currentNode.scene}
@@ -168,7 +202,8 @@ export function NegotiationQuestClient({ quest }: NegotiationQuestClientProps) {
             </div>
             <p className="text-lg font-semibold leading-8 text-white">{currentNode.text}</p>
           </div>
-        </Card>
+          </Card>
+        </div>
 
         {currentNode.hint && !ending && (
           <div className="mb-5">
