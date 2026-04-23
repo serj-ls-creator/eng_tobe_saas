@@ -55,16 +55,41 @@ export async function GET() {
     let weekStart = today; // default: no streak yet, start from today
 
     if (activeStreak > 0 && weekRow) {
-      // If 7-day week was completed (bonus awarded), treat as reset
+      // If 7-day week was completed (bonus awarded), treat as reset ONLY on next day
       if (weekRow.days_completed >= 7 && weekRow.day_flags === 127) {
-        // Week complete — show empty for next cycle
-        activeStreak = 0;
-        dayFlags = 0;
-        weekStart = today;
+        // Check if the week was completed today — if so, still show full week
+        const weekWasCompletedToday = lastDate === today;
+        if (weekWasCompletedToday) {
+          // Show all 7 filled circles today
+          weekStart = weekRow.week_start_date;
+          dayFlags = 127;
+        } else {
+          // Next day after completing — reset display
+          activeStreak = 0;
+          dayFlags = 0;
+          weekStart = today;
+        }
       } else {
         // Use the stored week_start_date — it's always correct
         weekStart = weekRow.week_start_date;
         dayFlags = weekRow.day_flags;
+      }
+    } else if (activeStreak === 0 && lastDate === today) {
+      // streak was reset to 0 today (just completed 7-day week)
+      // Show full week if weekRow has day_flags=127, or derive from dailyActivities=4
+      if (weekRow && weekRow.day_flags === 127) {
+        weekStart = weekRow.week_start_date;
+        dayFlags = 127;
+      } else if (!weekRow) {
+        // No weekly_streak table — if daily is complete today and streak was just reset,
+        // show 7 filled circles (best effort)
+        if (dailyActivities >= 4) {
+          dayFlags = 127;
+          // weekStart = today - 6 days
+          const ws = new Date(todayDate);
+          ws.setUTCDate(ws.getUTCDate() - 6);
+          weekStart = ws.toISOString().slice(0, 10);
+        }
       }
     } else if (activeStreak > 0 && !weekRow) {
       // No row yet (table missing or first time) — derive from streak
