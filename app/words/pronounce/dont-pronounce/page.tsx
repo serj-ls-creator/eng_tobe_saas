@@ -1,17 +1,10 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 import { TopBarServer as TopBar } from '@/components/layout/TopBarServer';
 import { Card } from '@/components/ui/card';
 import { SILENT_WORD_LEVELS } from '@/data/words/pronounce/silent_words';
-import { isPremium } from '@/lib/isPremium';
 
 export default async function DontPronouncePage() {
-  const premium = await isPremium();
-
-  if (!premium) {
-    redirect('/premium');
-  }
 
   return (
     <>

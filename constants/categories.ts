@@ -64,18 +64,20 @@ export const CATS: WordCategory[] = [
     order: 1,
     topics: [
       {
+        id: "pronunciation",
+        name: "Pronunciation",
+        description: "Clearer word production",
+        href: "/words#pronunciation",
+        access: "free",
+        isFree: true
+      },
+      {
         id: "dont-pronounce",
         name: "Don't pronounce",
         description: "Silent letters and tricky sounds",
         href: "/words/pronounce/dont-pronounce",
-        access: "premium",
-        isFree: false
-      },
-      {
-        id: "pronunciation",
-        name: "Pronunciation",
-        description: "Clearer word production",
-        href: "/words#pronunciation"
+        access: "free",
+        isFree: true
       }
     ]
   },
