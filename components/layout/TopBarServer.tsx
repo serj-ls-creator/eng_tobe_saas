@@ -15,25 +15,25 @@ async function getUserData(): Promise<{ points: number; streak: number }> {
 
     const { data } = await supabase
       .from('profiles')
-      .select('points, streak, last_activity_date')
+      .select('points, streak, total_streak, last_activity_date')
       .eq('user_id', user.id)
       .maybeSingle();
 
     if (!data) return { points: 0, streak: 0 };
 
-    // Check if streak is still active
-    let streak = data.streak ?? 0;
+    // Check if total_streak is still active (not missed a day)
+    let totalStreak = data.total_streak ?? 0;
     if (data.last_activity_date) {
       const today = new Date().toISOString().slice(0, 10);
       const last = new Date(data.last_activity_date + 'T00:00:00Z');
       const todayDate = new Date(today + 'T00:00:00Z');
       const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
-      if (diffDays > 1) streak = 0;
+      if (diffDays > 1) totalStreak = 0;
     } else {
-      streak = 0;
+      totalStreak = 0;
     }
 
-    return { points: data.points ?? 0, streak };
+    return { points: data.points ?? 0, streak: totalStreak };
   } catch {
     return { points: 0, streak: 0 };
   }

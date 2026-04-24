@@ -48,7 +48,7 @@ export const getCurrentProfile = cache(async () => {
 
   const { data } = await supabase
     .from("profiles")
-    .select("id, user_id, is_premium, premium_expires_at, streak, last_activity_date, daily_activities, created_at, display_name, avatar, points")
+    .select("id, user_id, is_premium, premium_expires_at, streak, total_streak, last_activity_date, daily_activities, created_at, display_name, avatar, points")
     .eq("user_id", user.id)
     .maybeSingle();
 

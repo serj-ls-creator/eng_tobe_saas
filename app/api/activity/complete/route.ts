@@ -23,7 +23,7 @@ export async function POST(_req: NextRequest) {
     // ── 1. Load current profile ──────────────────────────────────────────────
     const { data: profile } = await supabase
       .from('profiles')
-      .select('streak, last_activity_date, daily_activities, points')
+      .select('streak, last_activity_date, daily_activities, points, total_streak')
       .eq('user_id', user.id)
       .maybeSingle();
 
@@ -31,19 +31,19 @@ export async function POST(_req: NextRequest) {
 
     const lastDate: string | null = profile.last_activity_date;
     let streak: number = profile.streak ?? 0;
+    let totalStreak: number = profile.total_streak ?? 0;
     let dailyActivities: number = profile.daily_activities ?? 0;
     let points: number = profile.points ?? 0;
-    let dayCompleted = false; // did today just become complete?
+    let dayCompleted = false;
 
     // ── 2. Reset daily counter if new day ────────────────────────────────────
     if (lastDate !== today) {
-      // Check if streak should reset (missed a day)
       if (lastDate) {
         const last = new Date(lastDate + 'T00:00:00Z');
         const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
         if (diffDays > 1) {
-          // Missed at least one day — reset streak
           streak = 0;
+          totalStreak = 0; // missed a day — reset total streak too
         }
       }
       dailyActivities = 0;
@@ -59,6 +59,7 @@ export async function POST(_req: NextRequest) {
     if (prevActivities < 4 && dailyActivities >= 4) {
       dayCompleted = true;
       streak += 1;
+      totalStreak += 1; // total streak always increments on day completion
     }
 
     // ── 5. Update profile ────────────────────────────────────────────────────
@@ -66,6 +67,7 @@ export async function POST(_req: NextRequest) {
       .from('profiles')
       .update({
         streak,
+        total_streak: totalStreak,
         daily_activities: dailyActivities,
         last_activity_date: today,
       })

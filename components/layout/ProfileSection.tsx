@@ -14,6 +14,7 @@ interface ProfileSectionProps {
     user_id: string;
     is_premium: boolean;
     streak: number;
+    total_streak?: number;
     created_at: string;
     display_name?: string;
     avatar?: string;
@@ -192,7 +193,7 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 rounded-xl bg-orange-400/20">
                     <Flame className="h-6 w-6 text-orange-400" />
                   </div>
-                  <div className="text-lg font-bold text-white">{profile.streak || 0}</div>
+                  <div className="text-lg font-bold text-white">{profile.total_streak ?? profile.streak ?? 0}</div>
                   <div className="text-xs text-zinc-500">Day Streak</div>
                 </div>
                 <div className="text-center">
