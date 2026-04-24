@@ -6,7 +6,11 @@ import { isPremium } from "@/lib/isPremium";
 import Link from "next/link";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 
-type Activity = typeof WORD_GAME_ACTIVITIES[number];
+type Activity = {
+  id: string;
+  name: string;
+  description: string;
+};
 
 interface PageProps {
   params: {
