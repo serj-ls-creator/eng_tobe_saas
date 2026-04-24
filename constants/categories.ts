@@ -2,7 +2,7 @@ import type { Category, SentenceCategory, WordCategory } from "@/types";
 
 import { UI_COLORS } from "@/constants/ui";
 
-const WORD_GAME_ACTIVITIES = [
+export const WORD_GAME_ACTIVITIES = [
   {
     id: "cards",
     name: "Cards",

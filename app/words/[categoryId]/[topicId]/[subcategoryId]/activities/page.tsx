@@ -1,10 +1,12 @@
 import { notFound } from "next/navigation";
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
-import { CATS } from "@/constants/categories";
+import { CATS, WORD_GAME_ACTIVITIES } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import Link from "next/link";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
+
+type Activity = typeof WORD_GAME_ACTIVITIES[number];
 
 interface PageProps {
   params: {
@@ -14,38 +16,6 @@ interface PageProps {
   };
 }
 
-const WORD_GAME_ACTIVITIES = [
-  {
-    id: "cards",
-    name: "Cards",
-    description: "Word and synonym cards"
-  },
-  {
-    id: "synonym-pair",
-    name: "Synonym Pair",
-    description: "Match word pairs"
-  },
-  {
-    id: "multiple-choice",
-    name: "Multiple Choice",
-    description: "Pick the right answer"
-  },
-  {
-    id: "letter-hunt",
-    name: "Letter Hunt",
-    description: "Find missing letters"
-  },
-  {
-    id: "word-check",
-    name: "Word Check",
-    description: "Verify word pairs"
-  },
-  {
-    id: "unscramble",
-    name: "Unscramble",
-    description: "Arrange letters correctly"
-  }
-] as const;
 
 export default async function ActivitiesPage({ params }: PageProps) {
   const { categoryId, topicId, subcategoryId } = params;
@@ -87,7 +57,7 @@ export default async function ActivitiesPage({ params }: PageProps) {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          {WORD_GAME_ACTIVITIES.map((activity, index) => (
+          {WORD_GAME_ACTIVITIES.map((activity: Activity, index: number) => (
             <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
               <Link href={locked ? "/premium" : activity.id === 'unscramble' ? `/words/${categoryId}/${topicId}/${subcategoryId}/unscramble` : activity.id === 'multiple-choice' ? `/words/${categoryId}/${topicId}/${subcategoryId}/multiple-choice` : activity.id === 'cards' ? `/words/${categoryId}/${topicId}/${subcategoryId}/cards` : activity.id === 'word-check' ? `/words/${categoryId}/${topicId}/${subcategoryId}/word-check` : `/words#${categoryId}-${topicId}-${subcategoryId}-${activity.id}`}>
                 <Card className="p-4">
