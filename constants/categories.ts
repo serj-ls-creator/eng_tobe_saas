@@ -24,9 +24,9 @@ const WORD_GAME_ACTIVITIES = [
     description: "Find missing letters"
   },
   {
-    id: "transcribe",
-    name: "Transcribe",
-    description: "Listen and write synonym"
+    id: "word-check",
+    name: "Word Check",
+    description: "Verify word pairs"
   },
   {
     id: "unscramble",
