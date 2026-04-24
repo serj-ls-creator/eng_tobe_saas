@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { StreakBar } from "@/components/ui/StreakBar";
 import { UI_TEXT } from "@/constants/ui";
 import { getCurrentProfile, isPremium } from "@/lib/isPremium";
+import { getWordOfTheDay } from "@/data/wordsOfTheDay";
 
 const quickLinks = [
   {
@@ -37,6 +38,7 @@ const quickLinks = [
 export default async function HomePage() {
   const profile = await getCurrentProfile();
   const premium = await isPremium();
+  const wordOfTheDay = getWordOfTheDay();
 
   return (
     <>
@@ -102,11 +104,11 @@ export default async function HomePage() {
               <Card className="relative h-full w-full rounded-[14px] overflow-hidden border-2 border-transparent bg-[linear-gradient(#0a0a0a,#0a0a0a),conic-gradient(from_0deg,#FF3D71,#A855F7,#00E5FF,#FF3D71)] bg-origin-border bg-clip-padding p-4">
                 <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-500">{UI_TEXT.wordOfDayTitle}</div>
                 <div className="mb-1 flex items-center gap-2">
-                  <span className="text-sm text-zinc-500 line-through">{UI_TEXT.wordOfDayBefore}</span>
+                  <span className="text-sm text-zinc-500 line-through">{wordOfTheDay.simple}</span>
                   <span className="text-cyan-400">-&gt;</span>
                 </div>
-                <div className="text-lg font-semibold">{UI_TEXT.wordOfDayAfter}</div>
-                <div className="mt-1 text-[11px] text-zinc-500">{UI_TEXT.wordOfDayDescription}</div>
+                <div className="text-lg font-semibold">{wordOfTheDay.synonym}</div>
+                <div className="mt-1 text-[11px] text-zinc-500">{wordOfTheDay.explanation}</div>
               </Card>
             </div>
           </section>
