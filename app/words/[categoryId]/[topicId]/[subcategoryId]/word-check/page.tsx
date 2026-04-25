@@ -70,16 +70,16 @@ export default function WordCheckPage({ params }: PageProps) {
 
   const [mounted, setMounted] = useState(false);
   const [words, setWords] = useState<any[]>([]);
+  const [revealState, setRevealState] = useState<RevealState>('idle');
+  const [pairResult, setPairResult] = useState<PairResult>(null);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [showCompletion, setShowCompletion] = useState(false);
+  const [isMatch, setIsMatch] = useState(false);
+  const [candidateRight, setCandidateRight] = useState('');
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const [subcategory, setSubcategory] = useState<any>(null);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [correctCount, setCorrectCount] = useState(0);
-  const [showCompletion, setShowCompletion] = useState(false);
-
-  const [revealState, setRevealState] = useState<RevealState>('idle');
-  const [pairResult, setPairResult] = useState<PairResult>(null);
-  const [candidateRight, setCandidateRight] = useState<string>('');
-  const [isMatch, setIsMatch] = useState<boolean>(true);
 
   useEffect(() => {
     setMounted(true);
@@ -143,15 +143,14 @@ export default function WordCheckPage({ params }: PageProps) {
   useEffect(() => {
     if (!mounted) return;
     if (!currentWord) return;
+    if (isTransitioning) return; // Блокируем обновление во время перехода
 
     const shouldMatch = Math.random() < 0.5;
     const right = shouldMatch ? currentWord.advanced : (currentWord.wrong ? currentWord.wrong[Math.floor(Math.random() * currentWord.wrong.length)] : currentWord.advanced);
 
     setIsMatch(shouldMatch);
     setCandidateRight(right);
-    setRevealState('idle');
-    setPairResult(null);
-  }, [currentIndex, currentWord, mounted]);
+  }, [currentIndex, currentWord, mounted, isTransitioning]);
 
   const handleAnswer = (answerIsMatch: boolean) => {
     if (revealState !== 'idle') return;
@@ -164,11 +163,34 @@ export default function WordCheckPage({ params }: PageProps) {
 
     setTimeout(() => {
       if (currentIndex < words.length - 1) {
-        setCurrentIndex(prev => prev + 1);
+        // Сначала исчезаем старые карточки
+        setIsTransitioning(true);
+        
+        setTimeout(() => {
+          // Применяем новые данные пока карточки скрыты
+          const nextIndex = currentIndex + 1;
+          const nextWord = words[nextIndex];
+          if (nextWord) {
+            const shouldMatch = Math.random() < 0.5;
+            const right = shouldMatch ? nextWord.advanced : (nextWord.wrong ? nextWord.wrong[Math.floor(Math.random() * nextWord.wrong.length)] : nextWord.advanced);
+            
+            // Меняем все данные пока карточки скрыты
+            setCurrentIndex(nextIndex);
+            setRevealState('idle');
+            setPairResult(null);
+            setIsMatch(shouldMatch);
+            setCandidateRight(right);
+          }
+          
+          setTimeout(() => {
+            // Плавно появляем новые карточки
+            setIsTransitioning(false);
+          }, 100);
+        }, 300); // Даем время на исчезновение старых карточек
       } else {
         setShowCompletion(true);
       }
-    }, 1200);
+    }, 1500); // 1.5 секунды задержкиа
   };
 
   const handleBackToActivities = () => {
@@ -233,16 +255,20 @@ export default function WordCheckPage({ params }: PageProps) {
 
         {/* Cards */}
         <div className="mb-8 grid grid-cols-2 gap-3 max-w-xl mx-auto">
-          <Card className="p-4 text-center border border-white/10 min-h-[120px] flex flex-col">
-              <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 pt-2">{leftLabel}</div>
+          <Card className={`p-4 text-center border border-white/10 min-h-[120px] flex flex-col transition-all duration-200 ${
+            isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+          }`}>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 pt-1">{leftLabel}</div>
               <div className="flex-1 flex items-center justify-center">
-                <div className="text-xl font-bold text-white whitespace-normal break-words">{currentWord.basic}</div>
+                <div className="text-lg font-bold text-white whitespace-normal break-words">{currentWord.basic}</div>
               </div>
             </Card>
 
-            <Card className={`p-0 border transition-colors ${rightCardColor} min-h-[120px]`}>
+            <Card className={`p-0 border transition-all duration-200 ${rightCardColor} min-h-[120px] ${
+              isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+            }`}>
               <div className="p-4 text-center h-full flex flex-col">
-                <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 pt-2">{rightLabel}</div>
+                <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 pt-1">{rightLabel}</div>
               <div className="flex-1 flex items-center justify-center">
                 <div className="relative mx-auto w-full [perspective:1000px]">
                   <div
@@ -251,10 +277,10 @@ export default function WordCheckPage({ params }: PageProps) {
                     }`}
                   >
                     <div className="w-full [backface-visibility:hidden]">
-                      <div className="text-xl font-bold text-white whitespace-normal break-words">{candidateRight}</div>
+                      <div className="text-lg font-bold text-white whitespace-normal break-words">{candidateRight}</div>
                     </div>
                     <div className="absolute inset-0 w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                      <div className="text-xl font-bold text-white whitespace-normal break-words">{currentWord.advanced}</div>
+                      <div className="text-lg font-bold text-white whitespace-normal break-words">{currentWord.advanced}</div>
                     </div>
                   </div>
                 </div>
