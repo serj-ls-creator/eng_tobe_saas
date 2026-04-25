@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Brain, ShoppingBag, Settings, User, Home } from "lucide-react";
+import { Brain, ShoppingBag, Settings, User, Home, Menu } from "lucide-react";
 
 import type { NavItem } from "@/types";
 import { cn } from "@/lib/utils";
@@ -33,10 +33,10 @@ const navItems: NavItem[] = [
     match: ["/store"]
   },
   {
-    href: "/settings",
-    label: "Settings",
-    icon: <Settings className="h-5 w-5" />,
-    match: ["/settings"]
+    href: "/more",
+    label: "More",
+    icon: <Menu className="h-5 w-5" />,
+    match: ["/more"]
   }
 ];
 
