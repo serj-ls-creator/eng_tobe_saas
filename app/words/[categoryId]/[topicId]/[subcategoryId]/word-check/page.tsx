@@ -233,25 +233,29 @@ export default function WordCheckPage({ params }: PageProps) {
 
         {/* Cards */}
         <div className="mb-8 grid grid-cols-2 gap-3 max-w-xl mx-auto">
-          <Card className="p-4 text-center border border-white/10">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 mb-2">{leftLabel}</div>
-            <div className="text-xl font-bold text-white">{currentWord.basic}</div>
-          </Card>
+          <Card className="p-4 text-center border border-white/10 min-h-[120px] flex flex-col">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 pt-2">{leftLabel}</div>
+              <div className="flex-1 flex items-center justify-center">
+                <div className="text-xl font-bold text-white whitespace-normal break-words">{currentWord.basic}</div>
+              </div>
+            </Card>
 
-          <Card className={`p-0 border transition-colors ${rightCardColor}`}>
-            <div className="p-4 text-center">
-              <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 mb-2">{rightLabel}</div>
-              <div className="relative mx-auto w-full [perspective:1000px]">
-                <div
-                  className={`relative w-full transition-transform duration-500 [transform-style:preserve-3d] ${
-                    revealState === 'revealed' ? '[transform:rotateY(180deg)]' : ''
-                  }`}
-                >
-                  <div className="w-full [backface-visibility:hidden]">
-                    <div className="text-xl font-bold text-white">{candidateRight}</div>
-                  </div>
-                  <div className="absolute inset-0 w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
-                    <div className="text-xl font-bold text-white">{currentWord.advanced}</div>
+            <Card className={`p-0 border transition-colors ${rightCardColor} min-h-[120px]`}>
+              <div className="p-4 text-center h-full flex flex-col">
+                <div className="text-[10px] uppercase tracking-[0.3em] text-zinc-600 pt-2">{rightLabel}</div>
+              <div className="flex-1 flex items-center justify-center">
+                <div className="relative mx-auto w-full [perspective:1000px]">
+                  <div
+                    className={`relative w-full transition-transform duration-500 [transform-style:preserve-3d] ${
+                      revealState === 'revealed' ? '[transform:rotateY(180deg)]' : ''
+                    }`}
+                  >
+                    <div className="w-full [backface-visibility:hidden]">
+                      <div className="text-xl font-bold text-white whitespace-normal break-words">{candidateRight}</div>
+                    </div>
+                    <div className="absolute inset-0 w-full [transform:rotateY(180deg)] [backface-visibility:hidden]">
+                      <div className="text-xl font-bold text-white whitespace-normal break-words">{currentWord.advanced}</div>
+                    </div>
                   </div>
                 </div>
               </div>
