@@ -20,13 +20,17 @@ export function UpdatePasswordForm() {
     setIsSubmitting(true);
     setError('');
 
-    if (newPassword !== confirmPassword) {
+    const formData = new FormData(e.target as HTMLFormElement);
+    const newPasswordString = formData.get('newPassword') as string;
+    const confirmPasswordString = formData.get('confirmPassword') as string;
+
+    if (newPasswordString !== confirmPasswordString) {
       setError('Passwords do not match');
       setIsSubmitting(false);
       return;
     }
 
-    if (newPassword.length < 6) {
+    if (newPasswordString.length < 6) {
       setError('Password must be at least 6 characters long');
       setIsSubmitting(false);
       return;
@@ -39,7 +43,7 @@ export function UpdatePasswordForm() {
       );
 
       const { error } = await supabase.auth.updateUser({
-        password: newPassword
+        password: newPasswordString
       });
 
       if (error) {
@@ -108,6 +112,7 @@ export function UpdatePasswordForm() {
                 <input
                   type="password"
                   id="newPassword"
+                  name="newPassword"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
@@ -126,6 +131,7 @@ export function UpdatePasswordForm() {
                 <input
                   type="password"
                   id="confirmPassword"
+                  name="confirmPassword"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   required
