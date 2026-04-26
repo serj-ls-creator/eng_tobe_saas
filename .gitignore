@@ -3,3 +3,8 @@ node_modules
 .env.local
 .vercel
 dist
+# Remotion
+video/
+node_modules/
+out/
+.remotion/
