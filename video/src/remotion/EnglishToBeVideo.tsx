@@ -1,7 +1,6 @@
 import {
 	interpolate,
 	useCurrentFrame,
-	useVideoConfig,
 } from 'remotion';
 
 // Phone frame component
@@ -95,6 +94,8 @@ const AppShell = ({ children }: { children: React.ReactNode }) => (
 const HomeScreen = ({ progress }: { progress: number }) => {
 	const opacity = interpolate(progress, [0, 0.3], [0, 1]);
 	const slideUp = interpolate(progress, [0, 0.3], [30, 0]);
+	const quickLinksOpacity = interpolate(progress, [0.3, 0.5], [0, 1]);
+	const wordOfDayOpacity = interpolate(progress, [0.7, 0.9], [0, 1]);
 
 	const quickLinks = [
 		{ title: 'Words', subtitle: '8 categories', color: '#00E5FF' },
@@ -143,6 +144,7 @@ const HomeScreen = ({ progress }: { progress: number }) => {
 					gridTemplateColumns: '1fr 1fr',
 					gap: '12px',
 					marginBottom: '16px',
+					opacity: quickLinksOpacity,
 				}}
 			>
 				{quickLinks.map((link, index) => (
@@ -153,8 +155,6 @@ const HomeScreen = ({ progress }: { progress: number }) => {
 							border: '1px solid rgba(255, 255, 255, 0.15)',
 							borderRadius: '14px',
 							padding: '16px',
-							opacity: interpolate(progress, [0.3 + index * 0.1, 0.5 + index * 0.1], [0, 1]),
-							transform: `translateY(${interpolate(progress, [0.3 + index * 0.1, 0.5 + index * 0.1], [20, 0])}px)`,
 						}}
 					>
 						<div style={{ marginBottom: '8px', color: link.color, fontSize: '20px' }}>📚</div>
@@ -173,7 +173,7 @@ const HomeScreen = ({ progress }: { progress: number }) => {
 					border: '1px solid rgba(255, 255, 255, 0.2)',
 					borderRadius: '14px',
 					padding: '16px',
-					opacity: interpolate(progress, [0.7, 0.9], [0, 1]),
+					opacity: wordOfDayOpacity,
 				}}
 			>
 				<div style={{ fontSize: '10px', color: '#9CA3AF', marginBottom: '8px' }}>WORD OF THE DAY</div>
@@ -189,6 +189,7 @@ const HomeScreen = ({ progress }: { progress: number }) => {
 const WordsListScreen = ({ progress }: { progress: number }) => {
 	const opacity = interpolate(progress, [0, 0.3], [0, 1]);
 	const slideUp = interpolate(progress, [0, 0.3], [30, 0]);
+	const itemsOpacity = interpolate(progress, [0.3, 0.5], [0, 1]);
 
 	const categories = [
 		{ name: 'Basic -&gt; Advanced', description: 'Upgrade everyday words', color: '#00E5FF', isFree: true },
@@ -222,7 +223,7 @@ const WordsListScreen = ({ progress }: { progress: number }) => {
 			</h2>
 
 			{/* Categories list */}
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+			<div style={{ display: 'flex', flexDirection: 'column', gap: '12px', opacity: itemsOpacity }}>
 				{categories.map((category, index) => (
 					<div
 						key={index}
@@ -231,8 +232,6 @@ const WordsListScreen = ({ progress }: { progress: number }) => {
 							border: '1px solid rgba(255, 255, 255, 0.15)',
 							borderRadius: '14px',
 							padding: '16px',
-							opacity: interpolate(progress, [0.3 + index * 0.1, 0.5 + index * 0.1], [0, 1]),
-							transform: `translateY(${interpolate(progress, [0.3 + index * 0.1, 0.5 + index * 0.1], [20, 0])}px)`,
 						}}
 					>
 						<div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -287,6 +286,7 @@ const WordsListScreen = ({ progress }: { progress: number }) => {
 const BasicAdvancedScreen = ({ progress }: { progress: number }) => {
 	const opacity = interpolate(progress, [0, 0.3], [0, 1]);
 	const slideUp = interpolate(progress, [0, 0.3], [30, 0]);
+	const itemsOpacity = interpolate(progress, [0.3, 0.5], [0, 1]);
 
 	const topics = [
 		{ name: 'People', description: 'Advanced vocabulary for describing people', wordCount: '100 words' },
@@ -346,7 +346,7 @@ const BasicAdvancedScreen = ({ progress }: { progress: number }) => {
 			</div>
 
 			{/* Topics list */}
-			<div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+			<div style={{ display: 'flex', flexDirection: 'column', gap: '12px', opacity: itemsOpacity }}>
 				{topics.map((topic, index) => (
 					<div
 						key={index}
@@ -355,8 +355,6 @@ const BasicAdvancedScreen = ({ progress }: { progress: number }) => {
 							border: '1px solid rgba(255, 255, 255, 0.15)',
 							borderRadius: '14px',
 							padding: '16px',
-							opacity: interpolate(progress, [0.3 + index * 0.1, 0.5 + index * 0.1], [0, 1]),
-							transform: `translateY(${interpolate(progress, [0.3 + index * 0.1, 0.5 + index * 0.1], [20, 0])}px)`,
 						}}
 					>
 						<div style={{ marginBottom: '8px' }}>
@@ -381,7 +379,6 @@ const BasicAdvancedScreen = ({ progress }: { progress: number }) => {
 // Main composition
 export const EnglishToBeVideo = () => {
 	const frame = useCurrentFrame();
-	const { fps } = useVideoConfig();
 	const duration = 150; // 5 seconds at 30fps
 
 	const progress = frame / duration;

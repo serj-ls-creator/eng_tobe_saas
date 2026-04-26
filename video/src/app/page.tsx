@@ -14,7 +14,7 @@ import {
 } from "../../types/constants";
 import { RenderControls } from "../components/RenderControls";
 import { Tips } from "../components/Tips";
-import { EnglishToBeVideo } from "../../remotion/EnglishToBeVideo";
+import { EnglishToBeVideo } from "../remotion/EnglishToBeVideo";
 
 const Home: NextPage = () => {
   const [text, setText] = useState<string>(defaultMyCompProps.title);
