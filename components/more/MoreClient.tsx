@@ -165,18 +165,18 @@ export function MoreClient() {
             </Card>
 
             <Card className="p-4">
-              <div className="flex items-center justify-between">
+              <Link href="/contact" className="flex items-center justify-between group">
                 <div className="flex items-center gap-3">
-                  <Mail className="h-5 w-5 text-zinc-400" />
+                  <Mail className="h-5 w-5 text-zinc-400 group-hover:text-white transition-colors" />
                   <div>
                     <p className="text-sm font-medium">Contact Us</p>
                     <p className="text-xs text-zinc-500">Reach out with questions</p>
                   </div>
                 </div>
-                <button className="rounded-lg bg-white/5 px-3 py-2 text-xs text-zinc-400">
-                  Coming Soon
-                </button>
-              </div>
+                <div className="text-zinc-400 group-hover:text-white transition-colors">
+                  →
+                </div>
+              </Link>
             </Card>
 
             <Card className="p-4">
