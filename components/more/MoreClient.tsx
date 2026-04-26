@@ -37,7 +37,7 @@ export function MoreClient() {
             <Card className="p-4">
               <Link href="/profile" className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <User className="h-5 w-5 text-zinc-400" />
+                  <User className="h-5 w-5 text-zinc-400 flex-shrink-0" />
                   <div>
                     <p className="text-sm font-medium">My Profile</p>
                     <p className="text-xs text-zinc-500">View and edit your profile</p>
@@ -67,10 +67,10 @@ export function MoreClient() {
             <Card className="p-4">
               <button
                 onClick={handleSignOut}
-                className="flex items-center justify-between w-full"
+                className="flex items-center justify-between w-full text-left"
               >
                 <div className="flex items-center gap-3">
-                  <LogOut className="h-5 w-5 text-zinc-400" />
+                  <LogOut className="h-5 w-5 text-zinc-400 flex-shrink-0" />
                   <div>
                     <p className="text-sm font-medium">Sign Out</p>
                     <p className="text-xs text-zinc-500">Sign out of your account</p>
