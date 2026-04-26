@@ -85,11 +85,16 @@ export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFor
           </div>
         )}
 
-        <div className="mt-4 text-sm text-zinc-500">
+        <div className="mt-4 flex justify-between items-center text-sm">
           {mode === "login" ? (
-            <Link href="/auth/signup" className="text-cyan-400">
-              {UI_TEXT.authSwitchToSignup}
-            </Link>
+            <>
+              <Link href="/auth/signup" className="text-cyan-400">
+                {UI_TEXT.authSwitchToSignup}
+              </Link>
+              <Link href="/auth/reset-password" className="text-cyan-400">
+                Change my password
+              </Link>
+            </>
           ) : (
             <Link href="/auth/login" className="text-cyan-400">
               {UI_TEXT.authSwitchToLogin}
