@@ -84,7 +84,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
             {[
               'All Words categories',
               'All Idioms categories',
-              'Sentences B1–C2',
+              'Sentences A1-C2 (coming soon)',
               'All Games',
               'Future premium updates',
             ].map(f => (
