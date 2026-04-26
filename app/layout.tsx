@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 
 import { BottomNav } from "@/components/layout/BottomNav";
 import { PwaRegister } from "@/components/pwa/PwaRegister";
@@ -50,6 +51,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <BottomNav />
         </div>
+        <Analytics />
       </body>
     </html>
   );
