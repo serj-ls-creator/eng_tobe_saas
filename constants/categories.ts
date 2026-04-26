@@ -52,36 +52,6 @@ function createTopicActivities(categoryId: string, topicId: string) {
 
 export const CATS: WordCategory[] = [
   {
-    id: "pronounce",
-    name: "Pronounce",
-    description: "Sounds and stress patterns",
-    icon: "Mic",
-    color: UI_COLORS.pink,
-    section: "words",
-    href: "/words#pronounce",
-    access: "free",
-    isFree: true,
-    order: 1,
-    topics: [
-      {
-        id: "pronunciation",
-        name: "Pronunciation",
-        description: "Clearer word production",
-        href: "/words#pronunciation",
-        access: "free",
-        isFree: true
-      },
-      {
-        id: "dont-pronounce",
-        name: "Don't pronounce",
-        description: "Silent letters and tricky sounds",
-        href: "/words/pronounce/dont-pronounce",
-        access: "free",
-        isFree: true
-      }
-    ]
-  },
-  {
     id: "basic-advanced",
     name: "Basic -> Advanced",
     description: "Upgrade everyday words",
@@ -91,7 +61,7 @@ export const CATS: WordCategory[] = [
     href: "/words#basic-advanced",
     access: "free",
     isFree: true,
-    order: 2,
+    order: 1,
     topics: [
       {
         id: "people",
@@ -135,8 +105,8 @@ export const CATS: WordCategory[] = [
         id: "digital",
         name: "Digital",
         description: "Modern technology and internet vocabulary||100 words",
-        access: "premium",
-        isFree: false,
+        access: "free",
+        isFree: true,
         subcategories: [
           { id: "devices", name: "Devices", description: "Electronic devices||10 words" },
           { id: "internet", name: "Internet", description: "Internet and web||10 words" },
@@ -191,6 +161,36 @@ export const CATS: WordCategory[] = [
     ]
   },
   {
+    id: "pronounce",
+    name: "Pronounce",
+    description: "Sounds and stress patterns",
+    icon: "Mic",
+    color: UI_COLORS.pink,
+    section: "words",
+    href: "/words#pronounce",
+    access: "free",
+    isFree: true,
+    order: 2,
+    topics: [
+      {
+        id: "dont-pronounce",
+        name: "Don't pronounce",
+        description: "Silent letters and tricky sounds",
+        href: "/words/pronounce/dont-pronounce",
+        access: "free",
+        isFree: true
+      },
+      {
+        id: "pronunciation",
+        name: "Pronunciation",
+        description: "Coming Soon",
+        href: "/words#pronunciation",
+        access: "free",
+        isFree: true
+      }
+    ]
+  },
+  {
     id: "antonyms",
     name: "Antonyms",
     description: "Opposite meanings",
@@ -198,16 +198,16 @@ export const CATS: WordCategory[] = [
     color: UI_COLORS.purple,
     section: "words",
     href: "/words#antonyms",
-    access: "premium",
-    isFree: false,
+    access: "free",
+    isFree: true,
     order: 3,
     topics: [
       {
         id: "character",
         name: "Opposites in character",
         description: "Brave/cowardly, honest/dishonest||60 words",
-        access: "premium",
-        isFree: false,
+        access: "free",
+        isFree: true,
         subcategories: [
           { id: "courage", name: "Courage", description: "Brave vs cowardly||10 words" },
           { id: "honesty", name: "Honesty", description: "Honest vs dishonest||10 words" },

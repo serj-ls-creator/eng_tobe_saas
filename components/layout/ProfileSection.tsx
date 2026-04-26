@@ -118,8 +118,7 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
                     {userName}
                   </h1>
                 )}
-                <p className="text-sm text-zinc-500">Level 12 Learner</p>
-                <p className="text-xs text-zinc-400 truncate">{profile.email || profile.user_id}</p>
+                                <p className="text-xs text-zinc-400 truncate">{profile.email || profile.user_id}</p>
               </div>
             </div>
 
@@ -150,7 +149,7 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
 
           {/* Stats Section */}
           <Card className="mb-6 p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Your Progress</h2>
+            <h2 className="text-lg font-semibold text-white mb-4">Your Progress (Coming soon)</h2>
             
             <div className="space-y-4">
               {/* Progress by Sections */}
