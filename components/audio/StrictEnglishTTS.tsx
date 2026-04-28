@@ -13,6 +13,32 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
   const [isSupported, setIsSupported] = useState(true);
   const [voicesLoaded, setVoicesLoaded] = useState(false);
 
+  function pickPreferredEnglishVoice(englishVoices: SpeechSynthesisVoice[]) {
+    const maleHints = [
+      "male",
+      "david",
+      "mark",
+      "daniel",
+      "alex",
+      "michael",
+      "thomas",
+      "george",
+      "james",
+      "john",
+      "peter",
+      "paul",
+      "brian",
+      "fred",
+      "ralph"
+    ];
+
+    const exactUS = englishVoices.filter((v) => v.lang === "en-US");
+    const candidates = exactUS.length ? exactUS : englishVoices;
+
+    const byName = candidates.find((v) => maleHints.some((hint) => v.name.toLowerCase().includes(hint)));
+    return byName ?? candidates[0];
+  }
+
   // Load voices on mount
   useEffect(() => {
     const loadVoices = () => {
@@ -109,9 +135,10 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
         utterance.pitch = 1.0;
         utterance.volume = 1.0;
         
-        // Use the first English voice
-        utterance.voice = englishVoices[0];
-        console.log('✅ Using English voice:', englishVoices[0].name);
+        // Prefer a likely male English voice if available
+        const preferredVoice = pickPreferredEnglishVoice(englishVoices);
+        utterance.voice = preferredVoice;
+        console.log('✅ Using English voice:', preferredVoice.name);
         
         utterance.onstart = () => {
           console.log('✅ English speech started');
