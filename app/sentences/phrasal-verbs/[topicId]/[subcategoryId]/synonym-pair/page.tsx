@@ -249,9 +249,9 @@ export default function SynonymPairPage({ params }: PageProps) {
         </div>
 
         {/* Two-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-10 gap-2">
+        <div className="grid grid-cols-10 gap-2">
           {/* Left column - narrow */}
-          <div className="md:col-span-3">
+          <div className="col-span-3">
             <div className="space-y-2">
               <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3">
                 Phrasal Verb
@@ -277,7 +277,7 @@ export default function SynonymPairPage({ params }: PageProps) {
           </div>
 
           {/* Right column - wide */}
-          <div className="md:col-span-7">
+          <div className="col-span-7">
             <div className="space-y-2">
               <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3">
                 Meaning
