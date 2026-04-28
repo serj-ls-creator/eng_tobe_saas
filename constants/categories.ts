@@ -671,8 +671,8 @@ export const SENT_CATS: SentenceCategory[] = [
     color: UI_COLORS.pink,
     section: "sentences",
     href: "/sentences/phrasal-verbs",
-    access: "premium",
-    isFree: false,
+    access: "free",
+    isFree: true,
     order: 2,
     level: "B2",
     topics: [
@@ -680,8 +680,8 @@ export const SENT_CATS: SentenceCategory[] = [
         id: "work-career",
         name: "Work & Career",
         description: "Professional phrasal verbs for workplace||60 words",
-        access: "premium",
-        isFree: false,
+        access: "free",
+        isFree: true,
         subcategories: [
           { id: "getting_started", name: "Getting started", description: "Beginning work and projects||10 words" },
           { id: "daily_tasks", name: "Daily tasks", description: "Routine work activities||10 words" },
@@ -695,8 +695,8 @@ export const SENT_CATS: SentenceCategory[] = [
         id: "relationships-social",
         name: "Relationships & Social",
         description: "Phrasal verbs for social interactions||60 words",
-        access: "premium",
-        isFree: false,
+        access: "free",
+        isFree: true,
         subcategories: [
           { id: "meeting_people", name: "Meeting people", description: "Making new connections||10 words" },
           { id: "friendship", name: "Friendship", description: "Building relationships||10 words" },
@@ -872,19 +872,6 @@ export const SENT_CATS: SentenceCategory[] = [
       }
     ]
   },
-    {
-    id: "dont-say-very-easy",
-    name: "Don't say: Very easy",
-    description: "Swap weak phrases for stronger ones",
-    icon: "GraduationCap",
-    color: UI_COLORS.yellow,
-    section: "sentences",
-    href: "/sentences#dont-say-very-easy",
-    access: "premium",
-    isFree: false,
-    order: 4,
-    level: "C2"
-  },
   {
     id: "slang-modern-english",
     name: "Slang / Modern English",
@@ -895,7 +882,7 @@ export const SENT_CATS: SentenceCategory[] = [
     href: "/sentences#slang-modern-english",
     access: "premium",
     isFree: false,
-    order: 5
+    order: 4
   }
 ];
 
