@@ -20,31 +20,39 @@ export function TechnicalSupportClient() {
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">Account & Authentication</h3>
           <div className="space-y-2">
             <Card className="p-4">
-              <button className="flex items-center justify-between w-full group">
-                <span className="text-xs font-medium text-white">Issues with Google Sign-In</span>
-                <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
-              </button>
+              <Link href="/technical-support/google-sign-in" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Issues with Google Sign-In</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
             </Card>
 
             <Card className="p-4">
-              <button className="flex items-center justify-between w-full group">
-                <span className="text-xs font-medium text-white">Data loss after logging in</span>
-                <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
-              </button>
+              <Link href="/technical-support/data-loss" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Data loss after logging in</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
             </Card>
 
             <Card className="p-4">
-              <button className="flex items-center justify-between w-full group">
-                <span className="text-xs font-medium text-white">Account deletion and data removal</span>
-                <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
-              </button>
+              <Link href="/technical-support/account-deletion" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Account deletion and data removal</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
             </Card>
 
             <Card className="p-4">
-              <button className="flex items-center justify-between w-full group">
-                <span className="text-xs font-medium text-white">Profile settings</span>
-                <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
-              </button>
+              <Link href="/technical-support/profile-settings" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Profile settings</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
             </Card>
           </div>
         </div>
@@ -121,24 +129,30 @@ export function TechnicalSupportClient() {
           <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-zinc-500">Technical Bugs & Performance</h3>
           <div className="space-y-2">
             <Card className="p-4">
-              <button className="flex items-center justify-between w-full group">
-                <span className="text-xs font-medium text-white">Application freezing or slow loading</span>
-                <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
-              </button>
+              <Link href="/technical-support/application-freezing" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Application freezing or slow loading</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
             </Card>
 
             <Card className="p-4">
-              <button className="flex items-center justify-between w-full group">
-                <span className="text-xs font-medium text-white">Mobile layout and UI responsiveness issues</span>
-                <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
-              </button>
+              <Link href="/technical-support/mobile-layout" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Mobile layout and UI responsiveness issues</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
             </Card>
 
             <Card className="p-4">
-              <button className="flex items-center justify-between w-full group">
-                <span className="text-xs font-medium text-white">Page rendering errors on specific browsers</span>
-                <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
-              </button>
+              <Link href="/technical-support/browser-errors" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Page rendering errors on specific browsers</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
             </Card>
           </div>
         </div>

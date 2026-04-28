@@ -32,7 +32,7 @@ export function AboutClient() {
         {/* Buttons */}
         <div className="space-y-3 w-full max-w-xs">
           <Card className="p-4">
-            <Link href="#" className="flex items-center justify-between group">
+            <Link href="/about/terms-of-use" className="flex items-center justify-between group">
               <div className="flex items-center gap-3">
                 <FileText className="h-5 w-5 text-zinc-400 group-hover:text-white transition-colors" />
                 <span className="text-sm font-medium text-white">Terms of Use</span>
@@ -44,7 +44,7 @@ export function AboutClient() {
           </Card>
 
           <Card className="p-4">
-            <Link href="#" className="flex items-center justify-between group">
+            <Link href="/about/privacy-policy" className="flex items-center justify-between group">
               <div className="flex items-center gap-3">
                 <Shield className="h-5 w-5 text-zinc-400 group-hover:text-white transition-colors" />
                 <span className="text-sm font-medium text-white">Privacy Policy</span>
