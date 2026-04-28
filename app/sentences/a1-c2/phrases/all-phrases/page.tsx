@@ -1,34 +1,7 @@
 import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
-
-const sentences = [
-  "How are you?",
-  "How old are you?", 
-  "I don't know.",
-  "I don't understand.",
-  "I like coffee.",
-  "I like it.",
-  "I need help.",
-  "I think.",
-  "I understand.",
-  "I'm angry.",
-  "I'm busy.",
-  "I'm fine.",
-  "I'm happy.",
-  "I'm hungry.",
-  "I'm late.",
-  "I'm sick.",
-  "I'm sorry.",
-  "I'm tired.",
-  "I'm very busy.",
-  "It's easy.",
-  "It's expensive.",
-  "It's funny.",
-  "It's good.",
-  "Let's go.",
-  "Yes."
-].sort(); // Sort alphabetically
+import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
 
 export default function PhrasesPage() {
   return (
@@ -53,11 +26,11 @@ export default function PhrasesPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          {sentences.map((sentence, index) => (
-            <div key={index} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <Link href={`/sentences/a1-c2/phrases/all-phrases/${encodeURIComponent(sentence.toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-]/g, ''))}`}>
+          {A1_C2_PHRASES.sort((a, b) => a.title.localeCompare(b.title)).map((phrase, index) => (
+            <div key={phrase.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+              <Link href={`/sentences/a1-c2/phrases/all-phrases/${phrase.id}`}>
                 <Card className="p-4">
-                  <div className="text-sm font-medium text-white">{sentence}</div>
+                  <div className="text-sm font-medium text-white">{phrase.title}</div>
                 </Card>
               </Link>
             </div>
