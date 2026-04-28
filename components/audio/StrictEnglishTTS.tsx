@@ -18,6 +18,13 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
     const loadVoices = () => {
       const voices = window.speechSynthesis.getVoices();
       console.log('🔍 Loading voices, total:', voices.length);
+
+      // On some browsers (especially mobile), voices are loaded asynchronously.
+      // When `voices.length === 0`, we should not mark TTS as unsupported yet.
+      if (voices.length === 0) {
+        setVoicesLoaded(false);
+        return;
+      }
       
       const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
       console.log('🇺🇸 English voices:', englishVoices.length);
@@ -38,6 +45,10 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
     
     // Also load when voices change (mobile fix)
     window.speechSynthesis.onvoiceschanged = loadVoices;
+
+    return () => {
+      window.speechSynthesis.onvoiceschanged = null;
+    };
   }, []);
 
   const speak = () => {
@@ -50,6 +61,8 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
 
       if (!voicesLoaded) {
         console.log('⏳ Voices not loaded yet, please wait...');
+        // Re-trigger voices load attempt (helps on some devices).
+        window.speechSynthesis.getVoices();
         return;
       }
 
