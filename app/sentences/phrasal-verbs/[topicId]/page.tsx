@@ -32,10 +32,10 @@ export default async function TopicPage({ params }: PageProps) {
       <div className="content-shell">
         <div className="mb-4">
           <Link 
-            href="/sentences/phrasal-verbs" 
+            href="/sentences" 
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
-            ← Back to Phrasal Verbs
+            ← Back to Sentences
           </Link>
         </div>
 

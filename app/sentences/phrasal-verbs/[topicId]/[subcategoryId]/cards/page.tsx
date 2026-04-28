@@ -88,11 +88,11 @@ export default function CardsPage({ params }: PageProps) {
   };
 
   const handleNextSubcategory = () => {
-    router.push(`/sentences/phrasal-verbs/${topicId}`);
+    router.push(`/sentences/phrasal-verbs/${topicId}/${subcategoryId}`);
   };
 
   const handleBackToTopics = () => {
-    router.push(`/sentences/phrasal-verbs/${topicId}`);
+    router.push(`/sentences/phrasal-verbs/${topicId}/${subcategoryId}`);
   };
 
   if (!mounted || !words.length || !subcategory) {
