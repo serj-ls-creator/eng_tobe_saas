@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
-import { EnglishOnlyTTS } from '@/components/audio/EnglishOnlyTTS';
+import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
 import { A1_C2_PHRASES, Phrase } from '@/data/sentences/a1-c2-phrases';
 
 interface PageProps {
@@ -118,7 +118,7 @@ export default function PhrasePage({ params }: PageProps) {
               >
                 <div className="flex items-center justify-between">
                   <div className="text-sm font-medium text-white">{phrase.levels[level]}</div>
-                  <EnglishOnlyTTS text={phrase.levels[level]} />
+                  <StrictEnglishTTS text={phrase.levels[level]} />
                 </div>
               </div>
             </div>
