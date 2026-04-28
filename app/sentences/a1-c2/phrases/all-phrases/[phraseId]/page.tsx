@@ -105,7 +105,7 @@ export default function PhrasePage({ params }: PageProps) {
                   leftColumnVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
                 }`}
               >
-                <div className="flex items-center">
+                <div className="flex items-center justify-center p-3 bg-white/[0.02] border border-white/10 rounded-lg">
                   <div className="text-lg font-black text-yellow-300">{level}</div>
                 </div>
               </div>
@@ -116,7 +116,7 @@ export default function PhrasePage({ params }: PageProps) {
                   rightRowVisible[index] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
                 }`}
               >
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between p-3 bg-white/[0.02] border border-white/10 rounded-lg">
                   <div className="text-sm font-medium text-white">{phrase.levels[level]}</div>
                   <StrictEnglishTTS text={phrase.levels[level]} />
                 </div>
