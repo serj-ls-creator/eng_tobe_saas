@@ -30,11 +30,13 @@ export function SentencesTree({ categories, isPremium }: SentencesTreeProps) {
         const locked = !category.isFree && !isPremium;
         const isOpen = openCategories.includes(category.id);
         const hasTopics = category.topics && category.topics.length > 0;
+        // Special case: A1-C2 should be a simple link, not expandable
+        const isA1C2 = category.id === "a1-c2";
 
         return (
           <div key={category.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
             <Card className="overflow-hidden">
-              {hasTopics ? (
+              {hasTopics && !isA1C2 ? (
                 <button
                   type="button"
                   onClick={() => toggleCategory(category.id)}
@@ -71,7 +73,7 @@ export function SentencesTree({ categories, isPremium }: SentencesTreeProps) {
                 </Link>
               )}
 
-              {isOpen && hasTopics ? (
+              {isOpen && hasTopics && !isA1C2 ? (
                 <div className="border-t border-white/5 px-4 pb-4">
                   <div className="space-y-3 pt-4">
                     {category.topics?.map((topic) => {

@@ -661,7 +661,49 @@ export const SENT_CATS: SentenceCategory[] = [
     access: "free",
     isFree: true,
     order: 1,
-    level: "A2"
+    level: "A2",
+    topics: [
+      {
+        id: "phrases",
+        name: "Phrases",
+        description: "Practice sentence patterns",
+        access: "free",
+        isFree: true,
+        subcategories: [
+          { id: "all-phrases", name: "All Phrases", description: "Complete phrase collection" }
+        ]
+      },
+      {
+        id: "error-hunt",
+        name: "Error Hunt",
+        description: "Find mistakes in sentences",
+        access: "free",
+        isFree: true,
+        subcategories: [
+          { id: "basic-errors", name: "Basic Errors", description: "Common mistakes" }
+        ]
+      },
+      {
+        id: "pairs",
+        name: "Pairs",
+        description: "Match sentence elements",
+        access: "free",
+        isFree: true,
+        subcategories: [
+          { id: "sentence-pairs", name: "Sentence Pairs", description: "Matching practice" }
+        ]
+      },
+      {
+        id: "level-match",
+        name: "Level Match",
+        description: "Match levels to sentences",
+        access: "free",
+        isFree: true,
+        subcategories: [
+          { id: "progression-match", name: "Progression Match", description: "Level matching game" }
+        ]
+      }
+    ]
   },
   {
     id: "phrasal-verbs",
