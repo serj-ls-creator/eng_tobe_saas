@@ -39,8 +39,8 @@ const PHRASAL_VERB_ACTIVITIES: Activity[] = [
     description: "Arrange letters correctly"
   },
   {
-    id: "word-check",
-    name: "Word Check",
+    id: "pair-match",
+    name: "Pair Match",
     description: "Verify phrasal verb pairs"
   }
 ];
