@@ -200,8 +200,7 @@ export default function SentencePairsGame() {
           <div className="space-y-2">
             <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3">A1 Phrases</div>
             {pairs.map((pair, index) => (
-              <button key={`left-${index}`} onClick={() => handleSelectLeft(index)} disabled={matchedLeft.has(index) || isLocked} className={`w-full text-left px-4 py-3 rounded-xl border transition-all font-medium whitespace-nowrap overflow-hidden flex items-center ${getLeftStyle(index)}`} style={{fontSize: '11px', height: '44px'}}>
-                {matchedLeft.has(index) && <span className="mr-2 text-green-400 flex-shrink-0">✓</span>}
+              <button key={`left-${index}`} onClick={() => handleSelectLeft(index)} disabled={matchedLeft.has(index) || isLocked} className={`w-full text-left pl-2 pr-3 py-3 rounded-xl border transition-all font-medium whitespace-nowrap overflow-hidden flex items-center ${getLeftStyle(index)}`} style={{fontSize: '11px', height: '44px'}}>
                 <span className="flex-1 min-w-0">{pair.a1Phrase}</span>
                 <span className="w-3 flex-shrink-0"></span>
               </button>
@@ -210,8 +209,7 @@ export default function SentencePairsGame() {
           <div className="space-y-2">
             <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3">{selectedLevel.toLowerCase() === 'random' ? 'Mixed Levels' : `${selectedLevel} Phrases`}</div>
             {shuffledPhrases.map((phrase, index) => (
-              <button key={`right-${index}`} onClick={() => handleSelectRight(index)} disabled={matchedRight.has(index) || isLocked || selectedLeft === null} className={`w-full text-left px-4 py-3 rounded-xl border transition-all font-medium whitespace-nowrap overflow-hidden flex items-center ${getRightStyle(index)}`} style={{fontSize: '10px', height: '44px'}}>
-                {matchedRight.has(index) && <span className="mr-2 text-green-400 flex-shrink-0">✓</span>}
+              <button key={`right-${index}`} onClick={() => handleSelectRight(index)} disabled={matchedRight.has(index) || isLocked || selectedLeft === null} className={`w-full text-left pl-2 pr-3 py-3 rounded-xl border transition-all font-medium whitespace-nowrap overflow-hidden flex items-center ${getRightStyle(index)}`} style={{fontSize: '10px', height: '44px'}}>
                 <span className="flex-1 min-w-0">{phrase}</span>
                 <span className="w-3 flex-shrink-0"></span>
               </button>
