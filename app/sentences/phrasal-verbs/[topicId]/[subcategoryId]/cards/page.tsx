@@ -1,9 +1,16 @@
-import { notFound } from "next/navigation";
-import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
-import { Card } from "@/components/ui/card";
-import { SENT_CATS } from "@/constants/categories";
-import { isPremium } from "@/lib/isPremium";
-import Link from "next/link";
+'use client';
+
+import { useState, useEffect } from 'react';
+import { notFound } from 'next/navigation';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { TopBar } from '@/components/layout/TopBar';
+import { PhrasalVerbFlipCard } from '@/components/cards/PhrasalVerbFlipCard';
+import { Progress } from '@/components/ui/progress';
+import { CompletionModal } from '@/components/ui/CompletionModal';
+import { usePoints } from '@/lib/usePoints';
+import { SENT_CATS } from '@/constants/categories';
+import { WORK_CAREER, RELATIONSHIPS_SOCIAL, MIND_EMOTIONS, DAILY_LIFE, PhrasalVerb, Subcategory } from '@/data/sentences/phrasal-verbs';
 
 interface PageProps {
   params: {
@@ -12,65 +19,184 @@ interface PageProps {
   };
 }
 
-export default async function CardsPage({ params }: PageProps) {
+export default function CardsPage({ params }: PageProps) {
   const { topicId, subcategoryId } = params;
-  const premium = await isPremium();
+  const router = useRouter();
+  
+  // State with safe initialization
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [showCompletion, setShowCompletion] = useState(false);
+  const [words, setWords] = useState<PhrasalVerb[]>([]);
+  const [subcategory, setSubcategory] = useState<any>(null);
+  const [mounted, setMounted] = useState(false);
+  const points = usePoints();
 
-  // Find the phrasal-verbs category
-  const category = SENT_CATS.find(cat => cat.id === "phrasal-verbs");
-  if (!category) notFound();
+  // Prevent hydration issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  // Find the topic
-  const topic = category.topics?.find(t => t.id === topicId);
-  if (!topic) notFound();
+  // Load data only after mount
+  useEffect(() => {
+    if (!mounted) return;
+    
+    // Find category and topic
+    const category = SENT_CATS.find(cat => cat.id === "phrasal-verbs");
+    if (!category) return;
 
-  // Find the subcategory
-  const subcategory = topic.subcategories?.find(sub => sub.id === subcategoryId);
-  if (!subcategory) notFound();
+    const topic = category.topics?.find(t => t.id === topicId);
+    if (!topic) return;
 
-  const locked = !category.isFree && !premium;
+    const subcat = topic.subcategories?.find(s => s.id === subcategoryId);
+    if (!subcat) return;
+
+    setSubcategory(subcat);
+
+    // Load phrasal verbs data
+    const ALL_DATA: Record<string, any[]> = {
+      'work-career': WORK_CAREER,
+      'relationships-social': RELATIONSHIPS_SOCIAL,
+      'mind-emotions': MIND_EMOTIONS,
+      'daily-life': DAILY_LIFE,
+    };
+
+    const topicData = ALL_DATA[topicId];
+    if (topicData) {
+      const found = topicData.find((s: any) => s.id === subcategoryId);
+      if (found) setWords(found.verbs);
+    }
+  }, [topicId, subcategoryId, mounted]);
+
+  
+  const handleNext = () => {
+    if (currentCardIndex < words.length - 1) {
+      setCurrentCardIndex(currentCardIndex + 1);
+      setIsFlipped(false);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentCardIndex > 0) {
+      setCurrentCardIndex(currentCardIndex - 1);
+      setIsFlipped(false);
+    }
+  };
+
+  const handleFlip = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  const handleNextSubcategory = () => {
+    router.push(`/sentences/phrasal-verbs/${topicId}`);
+  };
+
+  const handleBackToTopics = () => {
+    router.push(`/sentences/phrasal-verbs/${topicId}`);
+  };
+
+  if (!mounted || !words.length || !subcategory) {
+    return (
+      <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
+        <TopBar points={points} />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center">
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const currentWord = words[currentCardIndex];
 
   return (
-    <>
-      <TopBar title="Cards" />
-      <div className="content-shell">
-        <div className="mb-4">
+    <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
+      <TopBar points={points} />
+      
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-8">
           <Link 
             href={`/sentences/phrasal-verbs/${topicId}/${subcategoryId}`}
-            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="inline-flex items-center text-xs text-slate-500 hover:text-slate-300 transition-colors mb-4"
           >
-            ← Back to {subcategory.name}
+            <span className="mr-2">←</span>
+            Back to {subcategory.name}
           </Link>
+          
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-white mb-2">
+              Cards
+            </h1>
+            <p className="text-slate-400">
+              {subcategory.name}
+            </p>
+          </div>
         </div>
 
-        <div className="mb-6">
-          <Card className="border border-dashed border-white/10 p-8 text-center">
-            <div className="mb-4 text-6xl">🃏</div>
-            <h3 className="mb-2 text-lg font-semibold">Cards Activity</h3>
-            <p className="text-sm leading-relaxed text-zinc-500 mb-4">
-              Practice phrasal verbs with interactive cards
-            </p>
-            <div className="text-xs text-cyan-400">
-              {topic.name} → {subcategory.name} → Cards
-            </div>
-            {locked && (
-              <div className="mt-4 text-xs text-amber-400">
-                Premium feature - Upgrade to access
-              </div>
-            )}
-          </Card>
+        {/* Progress */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm text-slate-400">Progress</span>
+            <span className="text-sm text-cyan-400 font-medium">
+              {currentCardIndex + 1} / {words.length}
+            </span>
+          </div>
+          <Progress value={((currentCardIndex + 1) / words.length) * 100} />
         </div>
 
-        {!locked && (
-          <Card className="p-6 text-center">
-            <div className="mb-4 text-4xl">🚧</div>
-            <h3 className="mb-2 text-sm font-semibold">Coming Soon</h3>
-            <p className="text-xs leading-relaxed text-zinc-500">
-              This activity is under development. Check back soon!
-            </p>
-          </Card>
-        )}
+        {/* Card */}
+        <div className="mb-12">
+          <PhrasalVerbFlipCard 
+            verb={currentWord}
+            isFlipped={isFlipped}
+            onFlip={handleFlip}
+            frontLabel="Phrasal Verb"
+            backLabel="Meaning"
+          />
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between gap-4 max-w-md mx-auto">
+          <button
+            onClick={handlePrevious}
+            disabled={currentCardIndex === 0}
+            className="flex-1 bg-slate-800 hover:bg-slate-700 disabled:bg-slate-900 disabled:text-slate-600 text-white font-medium py-3 px-6 rounded-xl transition-colors"
+          >
+            Previous
+          </button>
+          
+          {currentCardIndex === words.length - 1 ? (
+            <button
+              onClick={() => setShowCompletion(true)}
+              className="flex-1 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
+            >
+              Finish
+            </button>
+          ) : (
+            <button
+              onClick={handleNext}
+              className="flex-1 bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
+            >
+              Next
+            </button>
+          )}
+        </div>
       </div>
-    </>
+
+      {/* Completion Modal */}
+      {showCompletion && (
+        <CompletionModal
+          noPoints
+          completed={words.length}
+          total={words.length}
+          categoryId="phrasal-verbs"
+          subcategoryName={subcategory.name}
+          onNextSubcategory={handleNextSubcategory}
+          onBackToTopics={handleBackToTopics}
+        />
+      )}
+    </div>
   );
 }

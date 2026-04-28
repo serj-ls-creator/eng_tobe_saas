@@ -4,17 +4,7 @@
 // Game: show phrasal verb → pick correct meaning from 5 options
 // ============================================================
 
-export interface PhrasalVerb {
-  basic: string       // phrasal verb shown to player
-  advanced: string    // correct meaning
-  wrong: [string, string, string, string]  // 4 wrong options
-}
-
-export interface Subcategory {
-  id: string
-  name: string
-  verbs: PhrasalVerb[]
-}
+import { PhrasalVerb, Subcategory } from './types';
 
 export const WORK_CAREER: Subcategory[] = [
 

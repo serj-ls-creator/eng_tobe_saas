@@ -683,8 +683,8 @@ export const SENT_CATS: SentenceCategory[] = [
         access: "premium",
         isFree: false,
         subcategories: [
-          { id: "getting-started", name: "Getting started", description: "Beginning work and projects||10 words" },
-          { id: "daily-tasks", name: "Daily tasks", description: "Routine work activities||10 words" },
+          { id: "getting_started", name: "Getting started", description: "Beginning work and projects||10 words" },
+          { id: "daily_tasks", name: "Daily tasks", description: "Routine work activities||10 words" },
           { id: "communication", name: "Communication", description: "Workplace interactions||10 words" },
           { id: "problems", name: "Problems", description: "Dealing with issues||10 words" },
           { id: "progress", name: "Progress", description: "Career advancement||10 words" },
@@ -698,7 +698,7 @@ export const SENT_CATS: SentenceCategory[] = [
         access: "premium",
         isFree: false,
         subcategories: [
-          { id: "meeting-people", name: "Meeting people", description: "Making new connections||10 words" },
+          { id: "meeting_people", name: "Meeting people", description: "Making new connections||10 words" },
           { id: "friendship", name: "Friendship", description: "Building relationships||10 words" },
           { id: "conflict", name: "Conflict", description: "Handling disagreements||10 words" },
           { id: "romance", name: "Romance", description: "Dating and romantic relationships||10 words" },
@@ -713,10 +713,10 @@ export const SENT_CATS: SentenceCategory[] = [
         access: "premium",
         isFree: false,
         subcategories: [
-          { id: "feeling-good", name: "Feeling good", description: "Positive emotions||10 words" },
-          { id: "feeling-bad", name: "Feeling bad", description: "Negative emotions||10 words" },
+          { id: "feeling_good", name: "Feeling good", description: "Positive emotions||10 words" },
+          { id: "feeling_bad", name: "Feeling bad", description: "Negative emotions||10 words" },
           { id: "thinking", name: "Thinking", description: "Mental processes||10 words" },
-          { id: "decision-making", name: "Decision making", description: "Making choices||10 words" },
+          { id: "decision_making", name: "Decision making", description: "Making choices||10 words" },
           { id: "stress", name: "Stress", description: "Pressure and tension||10 words" },
           { id: "motivation", name: "Motivation", description: "Drive and inspiration||10 words" }
         ]
@@ -728,7 +728,7 @@ export const SENT_CATS: SentenceCategory[] = [
         access: "premium",
         isFree: false,
         subcategories: [
-          { id: "morning-routine", name: "Morning routine", description: "Starting the day||10 words" },
+          { id: "morning_routine", name: "Morning routine", description: "Starting the day||10 words" },
           { id: "money", name: "Money", description: "Financial matters||10 words" },
           { id: "travel", name: "Travel", description: "Journeys and transportation||10 words" },
           { id: "health", name: "Health", description: "Wellness and illness||10 words" },
