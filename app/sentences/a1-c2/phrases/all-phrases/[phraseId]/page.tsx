@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
+import { EnglishOnlyTTS } from '@/components/audio/EnglishOnlyTTS';
 import { A1_C2_PHRASES, Phrase } from '@/data/sentences/a1-c2-phrases';
 
 interface PageProps {
@@ -41,7 +42,7 @@ export default function PhrasePage({ params }: PageProps) {
       // Animate right column rows one by one
       const levelsCount = 6; // A1, A2, B1, B2, C1, C2
       for (let index = 0; index < levelsCount; index++) {
-        const delay = index === 0 ? 1000 : 1500 + (index - 1) * 667; // First row after 1s, others after 1.5s with 667ms intervals
+        const delay = index === 0 ? 500 : 750 + (index - 1) * 334; // First row after 0.5s, others after 0.75s with 334ms intervals
         setTimeout(() => {
           setRightRowVisible(prev => {
             const newRowVisible = [...prev];
@@ -97,7 +98,7 @@ export default function PhrasePage({ params }: PageProps) {
         {/* Two-column layout */}
         <div className="max-w-4xl mx-auto">
           {levels.map((level, index) => (
-            <div key={level} className="grid grid-cols-[15%_85%] gap-6 mb-3">
+            <div key={level} className="grid grid-cols-[15%_85%] gap-1 mb-3">
               {/* Left column - Level */}
               <div 
                 className={`transition-all duration-[3500ms] transform delay-${index * 750} ${
@@ -115,8 +116,9 @@ export default function PhrasePage({ params }: PageProps) {
                   rightRowVisible[index] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
                 }`}
               >
-                <div className="flex items-center">
+                <div className="flex items-center justify-between">
                   <div className="text-sm font-medium text-white">{phrase.levels[level]}</div>
+                  <EnglishOnlyTTS text={phrase.levels[level]} />
                 </div>
               </div>
             </div>
