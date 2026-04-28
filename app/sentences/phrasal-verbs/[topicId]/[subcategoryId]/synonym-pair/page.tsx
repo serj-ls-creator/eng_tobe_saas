@@ -253,7 +253,7 @@ export default function SynonymPairPage({ params }: PageProps) {
           {/* Left column - narrow */}
           <div className="col-span-3">
             <div className="space-y-2">
-              <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3">
+              <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3 h-4 flex items-center justify-center">
                 Phrasal Verb
               </div>
               {words.map((pair, index) => (
@@ -279,7 +279,7 @@ export default function SynonymPairPage({ params }: PageProps) {
           {/* Right column - wide */}
           <div className="col-span-7">
             <div className="space-y-2">
-              <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3">
+              <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-600 text-center mb-3 h-4 flex items-center justify-center">
                 Meaning
               </div>
               {shuffledSynonyms.map((synonym, index) => (
