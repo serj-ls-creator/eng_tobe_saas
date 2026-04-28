@@ -116,7 +116,7 @@ export default function PhrasePage({ params }: PageProps) {
                   rightRowVisible[index] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
                 }`}
               >
-                <Card className="p-3">
+                <Card className="p-3 rounded-lg">
                   <div className="flex items-center justify-between">
                     <div className="text-sm font-medium text-white">{phrase.levels[level]}</div>
                     <StrictEnglishTTS text={phrase.levels[level]} />

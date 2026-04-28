@@ -23,7 +23,7 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
       // When `voices.length === 0`, we should not mark TTS as unsupported yet.
       if (voices.length === 0) {
         setVoicesLoaded(false);
-        return;
+        return false;
       }
       
       const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
@@ -38,16 +38,27 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
       }
       
       setVoicesLoaded(true);
+      return true;
     };
 
     // Load immediately
     loadVoices();
-    
-    // Also load when voices change (mobile fix)
-    window.speechSynthesis.onvoiceschanged = loadVoices;
+
+    // IMPORTANT: `speechSynthesis.onvoiceschanged` is a single global handler.
+    // When multiple <StrictEnglishTTS /> instances are rendered, assigning it here
+    // causes the last mounted instance to overwrite the others.
+    // Instead, poll per-instance for a short time until voices are available.
+    let attempts = 0;
+    const interval = window.setInterval(() => {
+      attempts += 1;
+      const done = loadVoices();
+      if (done || attempts >= 20) {
+        window.clearInterval(interval);
+      }
+    }, 300);
 
     return () => {
-      window.speechSynthesis.onvoiceschanged = null;
+      window.clearInterval(interval);
     };
   }, []);
 
