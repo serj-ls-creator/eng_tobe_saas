@@ -670,11 +670,73 @@ export const SENT_CATS: SentenceCategory[] = [
     icon: "Rocket",
     color: UI_COLORS.pink,
     section: "sentences",
-    href: "/sentences#phrasal-verbs",
+    href: "/sentences/phrasal-verbs",
     access: "premium",
     isFree: false,
     order: 2,
-    level: "B2"
+    level: "B2",
+    topics: [
+      {
+        id: "work-career",
+        name: "Work & Career",
+        description: "Professional phrasal verbs for workplace||60 words",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "getting-started", name: "Getting started", description: "Beginning work and projects||10 words" },
+          { id: "daily-tasks", name: "Daily tasks", description: "Routine work activities||10 words" },
+          { id: "communication", name: "Communication", description: "Workplace interactions||10 words" },
+          { id: "problems", name: "Problems", description: "Dealing with issues||10 words" },
+          { id: "progress", name: "Progress", description: "Career advancement||10 words" },
+          { id: "leaving", name: "Leaving", description: "Exiting jobs and projects||10 words" }
+        ]
+      },
+      {
+        id: "relationships-social",
+        name: "Relationships & Social",
+        description: "Phrasal verbs for social interactions||60 words",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "meeting-people", name: "Meeting people", description: "Making new connections||10 words" },
+          { id: "friendship", name: "Friendship", description: "Building relationships||10 words" },
+          { id: "conflict", name: "Conflict", description: "Handling disagreements||10 words" },
+          { id: "romance", name: "Romance", description: "Dating and romantic relationships||10 words" },
+          { id: "family", name: "Family", description: "Family interactions||10 words" },
+          { id: "community", name: "Community", description: "Social groups and activities||10 words" }
+        ]
+      },
+      {
+        id: "mind-emotions",
+        name: "Mind & Emotions",
+        description: "Phrasal verbs for feelings and thoughts||60 words",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "feeling-good", name: "Feeling good", description: "Positive emotions||10 words" },
+          { id: "feeling-bad", name: "Feeling bad", description: "Negative emotions||10 words" },
+          { id: "thinking", name: "Thinking", description: "Mental processes||10 words" },
+          { id: "decision-making", name: "Decision making", description: "Making choices||10 words" },
+          { id: "stress", name: "Stress", description: "Pressure and tension||10 words" },
+          { id: "motivation", name: "Motivation", description: "Drive and inspiration||10 words" }
+        ]
+      },
+      {
+        id: "daily-life",
+        name: "Daily Life",
+        description: "Everyday phrasal verbs||60 words",
+        access: "premium",
+        isFree: false,
+        subcategories: [
+          { id: "morning-routine", name: "Morning routine", description: "Starting the day||10 words" },
+          { id: "money", name: "Money", description: "Financial matters||10 words" },
+          { id: "travel", name: "Travel", description: "Journeys and transportation||10 words" },
+          { id: "health", name: "Health", description: "Wellness and illness||10 words" },
+          { id: "home", name: "Home", description: "House and living||10 words" },
+          { id: "technology", name: "Technology", description: "Digital life||10 words" }
+        ]
+      }
+    ]
   },
   {
     id: "everyday-situations",
