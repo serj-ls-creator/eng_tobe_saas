@@ -35,6 +35,15 @@ export default async function A1C2Page() {
     <>
       <TopBar title={category.name} />
       <div className="content-shell">
+        <div className="mb-4">
+          <Link 
+            href="/sentences"
+            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+          >
+            ← Back to Sentences
+          </Link>
+        </div>
+
         <div className="mb-6">
           <Card className="border border-dashed border-white/10 p-4 text-center">
             <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-600">Practice</div>
@@ -48,7 +57,7 @@ export default async function A1C2Page() {
         <div className="grid grid-cols-2 gap-3">
           {A1_C2_ACTIVITIES.map((activity, index) => (
             <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <Link href={`/sentences/a1-c2/${activity.id}/${activity.id === 'phrases' ? 'all-phrases' : activity.id === 'error-hunt' ? 'basic-errors' : activity.id === 'pairs' ? 'sentence-pairs' : 'progression-match'}`}>
+              <Link href={`/sentences/a1-c2/${activity.id}`}>
                 <Card className="p-4">
                   <div className="mb-2 text-sm font-semibold">{activity.name}</div>
                   <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>
