@@ -41,7 +41,7 @@ export function TopBar({ title, backHref, showBrand = false, points = 0, streak 
             <Star className="h-3.5 w-3.5 text-yellow-400" />
           )}
           <span className="text-xs font-semibold text-yellow-400">
-            {showBrand ? `Day ${streak || 0}` : points.toLocaleString()}
+            {showBrand ? `Day ${streak || 0}` : points.toLocaleString('en-US')}
           </span>
         </div>
       </div>
