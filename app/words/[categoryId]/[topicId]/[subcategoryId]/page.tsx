@@ -52,21 +52,19 @@ export default async function SubcategoryPage({ params }: PageProps) {
           </Link>
         </div>
 
-        <div className="mb-6">
-          <Card className="border border-dashed border-white/10 p-4 text-center">
-            <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-600">Practice</div>
-            <h3 className="mb-1 text-sm font-semibold">{subcategory.name}</h3>
-            <div className="text-xs leading-relaxed">
-              {subcategory.description?.includes('||') ? (
-                <>
-                  <div className="text-zinc-500">{subcategory.description.split('||')[0]}</div>
-                  <div className="text-cyan-400 font-medium">{subcategory.description.split('||')[1]}</div>
-                </>
-              ) : (
-                <div className="text-zinc-500">{subcategory.description}</div>
-              )}
-            </div>
-          </Card>
+        <div className="mb-6 rounded-[28px] border border-cyan-400/20 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.18),_transparent_35%),linear-gradient(180deg,_rgba(15,23,42,0.96),_rgba(2,6,23,0.96))] p-5">
+          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Practice</div>
+          <h1 className="mb-2 text-3xl font-black text-white">{subcategory.name}</h1>
+          <p className="max-w-md text-sm leading-6 text-zinc-200">
+            {subcategory.description?.includes('||') ? (
+              <>
+                <div>{subcategory.description.split('||')[0]}</div>
+                <div className="text-cyan-400 font-medium">{subcategory.description.split('||')[1]}</div>
+              </>
+            ) : (
+              <div>{subcategory.description}</div>
+            )}
+          </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
