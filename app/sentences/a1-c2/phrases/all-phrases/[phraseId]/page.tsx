@@ -8,6 +8,7 @@ import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
 import { A1_C2_PHRASES, Phrase } from '@/data/sentences/a1-c2-phrases';
+import { usePoints } from '@/lib/usePoints';
 
 interface PageProps {
   params: {
@@ -18,6 +19,7 @@ interface PageProps {
 export default function PhrasePage({ params }: PageProps) {
   const { phraseId } = params;
   const router = useRouter();
+  const points = usePoints();
   
   const [mounted, setMounted] = useState(false);
   const [phrase, setPhrase] = useState<Phrase | null>(null);
@@ -57,8 +59,8 @@ export default function PhrasePage({ params }: PageProps) {
   if (!mounted || !phrase) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-        <TopBar points={0} />
-        <div className="container mx-auto px-4 py-8">
+        <TopBar points={points} />
+        <div className="content-shell">
           <div className="text-center">
             <p>Loading...</p>
           </div>
@@ -71,14 +73,14 @@ export default function PhrasePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-      <TopBar points={0} />
+      <TopBar points={points} />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="content-shell">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6">
           <Link
             href="/sentences/a1-c2/phrases/all-phrases"
-            className="inline-flex items-center text-xs text-slate-500 hover:text-slate-300 transition-colors mb-4"
+            className="inline-flex items-center text-xs text-zinc-500 hover:text-zinc-300 transition-colors mb-4"
           >
             <span className="mr-2">←</span>
             Back to Phrases
