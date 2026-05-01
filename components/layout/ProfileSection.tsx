@@ -21,6 +21,11 @@ interface ProfileSectionProps {
     email?: string;
     points?: number;
   };
+  progress: {
+    words: number;
+    sentences: number;
+    idioms: number;
+  };
 }
 
 const avatarOptions = [
@@ -32,7 +37,7 @@ const avatarOptions = [
   "🤴", "🥳", "🤵", "🤶", "🥷", "🤸", "🤹", "🤺", "🥻"
 ];
 
-export function ProfileSection({ profile }: ProfileSectionProps) {
+export function ProfileSection({ profile, progress }: ProfileSectionProps) {
   const [selectedAvatar, setSelectedAvatar] = useState(profile.avatar || "👤");
   const [userName, setUserName] = useState(profile.display_name || "Player");
   const [isEditingName, setIsEditingName] = useState(false);
@@ -149,7 +154,7 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
 
           {/* Stats Section */}
           <Card className="mb-6 p-6">
-            <h2 className="text-lg font-semibold text-white mb-4">Your Progress (Coming soon)</h2>
+            <h2 className="text-lg font-semibold text-white mb-4">Your Progress</h2>
             
             <div className="space-y-4">
               {/* Progress by Sections */}
@@ -160,27 +165,27 @@ export function ProfileSection({ profile }: ProfileSectionProps) {
                     <span className="text-sm text-zinc-400">Words</span>
                     <div className="flex items-center gap-2">
                       <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="w-3/4 h-full bg-cyan-400"></div>
+                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.words}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">75%</span>
+                      <span className="text-xs text-zinc-500">{progress.words}%</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Sentences</span>
                     <div className="flex items-center gap-2">
                       <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="w-1/2 h-full bg-cyan-400"></div>
+                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.sentences}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">50%</span>
+                      <span className="text-xs text-zinc-500">{progress.sentences}%</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Idioms</span>
                     <div className="flex items-center gap-2">
                       <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="w-1/3 h-full bg-cyan-400"></div>
+                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.idioms}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">33%</span>
+                      <span className="text-xs text-zinc-500">{progress.idioms}%</span>
                     </div>
                   </div>
                 </div>

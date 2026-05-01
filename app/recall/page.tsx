@@ -2,7 +2,10 @@ import Link from "next/link";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
+import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import { getRecallSnapshot, type LearningSection } from "@/lib/learning-progress";
+import { isPremium } from "@/lib/isPremium";
+import { isRecallItemPremiumLocked } from "@/lib/learning-progress-shared";
 
 const SECTION_TITLES: Record<LearningSection, string> = {
   words: "Words",
@@ -12,6 +15,7 @@ const SECTION_TITLES: Record<LearningSection, string> = {
 
 export default async function RecallPage() {
   const recall = await getRecallSnapshot();
+  const premium = await isPremium();
 
   return (
     <>
@@ -49,18 +53,23 @@ export default async function RecallPage() {
                 ) : (
                   <div className="space-y-3">
                     {recall.sections[section].map((item) => (
-                      <Link key={item.key} href={item.href}>
+                      <Link key={item.key} href={isRecallItemPremiumLocked(item, premium) ? "/premium" : item.href}>
                         <Card className="p-4">
                           <div className="mb-2 flex items-center justify-between gap-3">
                             <div className="min-w-0">
-                              <div className="truncate text-sm font-semibold text-white">{item.title}</div>
+                              <div className="mb-1 flex items-center gap-2">
+                                <div className="truncate text-sm font-semibold text-white">{item.title}</div>
+                                {isRecallItemPremiumLocked(item, premium) ? <PremiumBadge /> : null}
+                              </div>
                               <div className="text-[11px] text-zinc-500">{item.activityName}</div>
                             </div>
                             <span className="rounded-full border border-white/10 px-2 py-1 text-[10px] text-zinc-300">
                               {item.scoreLabel}
                             </span>
                           </div>
-                          <div className="text-[11px] text-cyan-400">Review now</div>
+                          <div className="text-[11px] text-cyan-400">
+                            {isRecallItemPremiumLocked(item, premium) ? "Premium required" : "Review now"}
+                          </div>
                         </Card>
                       </Link>
                     ))}

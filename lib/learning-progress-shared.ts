@@ -37,6 +37,11 @@ export interface LearningProgressRow {
 
 export interface RecallItem {
   key: string;
+  section: LearningSection;
+  categoryId: string;
+  topicId: string | null;
+  subcategoryId: string | null;
+  levelId: string | null;
   title: string;
   activityName: string;
   href: string;
@@ -53,6 +58,12 @@ export interface LearningProgressSnapshot {
 export interface RecallSnapshot {
   isLoggedIn: boolean;
   sections: Record<LearningSection, RecallItem[]>;
+}
+
+export interface SectionProgressPercentages {
+  words: number;
+  sentences: number;
+  idioms: number;
 }
 
 const WORD_ACTIVITY_IDS = WORD_GAME_ACTIVITIES.map((activity) => activity.id);
@@ -283,6 +294,11 @@ export function buildRecallSnapshot(rows: LearningProgressRow[], isLoggedIn = tr
 
     sections[row.section].push({
       key,
+      section: row.section,
+      categoryId: row.category_id,
+      topicId: row.topic_id,
+      subcategoryId: row.subcategory_id,
+      levelId: row.level_id,
       title: row.title,
       activityName: row.activity_name,
       href: row.href,
@@ -292,4 +308,185 @@ export function buildRecallSnapshot(rows: LearningProgressRow[], isLoggedIn = tr
   });
 
   return { isLoggedIn, sections };
+}
+
+function buildWordsActivityKeys(): string[] {
+  const keys: string[] = [];
+
+  CATS.forEach((category) => {
+    category.topics?.forEach((topic) => {
+      if (category.id === "pronounce" && topic.id === "dont-pronounce") {
+        SILENT_WORD_LEVELS.forEach((level) => {
+          keys.push(
+            buildProgressKey({
+              section: "words",
+              categoryId: "pronounce",
+              topicId: "dont-pronounce",
+              levelId: level.id,
+              activityId: "dont-pronounce"
+            })
+          );
+        });
+        return;
+      }
+
+      topic.subcategories?.forEach((subcategory) => {
+        WORD_ACTIVITY_IDS.forEach((activityId) => {
+          keys.push(
+            buildProgressKey({
+              section: "words",
+              categoryId: category.id,
+              topicId: topic.id,
+              subcategoryId: subcategory.id,
+              activityId
+            })
+          );
+        });
+      });
+    });
+  });
+
+  return keys;
+}
+
+function buildSentencesActivityKeys(): string[] {
+  const keys: string[] = [];
+
+  SENT_CATS.forEach((category) => {
+    if (category.id === "phrasal-verbs") {
+      category.topics?.forEach((topic) => {
+        topic.subcategories?.forEach((subcategory) => {
+          PHRASAL_VERB_ACTIVITY_IDS.forEach((activityId) => {
+            keys.push(
+              buildProgressKey({
+                section: "sentences",
+                categoryId: "phrasal-verbs",
+                topicId: topic.id,
+                subcategoryId: subcategory.id,
+                activityId
+              })
+            );
+          });
+        });
+      });
+      return;
+    }
+
+    if (category.id === "a1-c2") {
+      A1_C2_PHRASES.forEach((phrase) => {
+        keys.push(
+          buildProgressKey({
+            section: "sentences",
+            categoryId: "a1-c2",
+            topicId: "phrases",
+            subcategoryId: phrase.id,
+            activityId: "phrase-view"
+          })
+        );
+      });
+
+      keys.push(buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId: "error-hunt", subcategoryId: "basic-errors", activityId: "error-hunt" }));
+      keys.push(buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId: "pairs", subcategoryId: "sentence-pairs", activityId: "pairs" }));
+      keys.push(buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId: "level-match", subcategoryId: "progression-match", activityId: "level-match" }));
+    }
+  });
+
+  return keys;
+}
+
+function buildIdiomsActivityKeys(): string[] {
+  const keys: string[] = [];
+
+  IDIOM_CATS.forEach((category) => {
+    IDIOM_LEVEL_IDS.forEach((levelId) => {
+      IDIOM_ACTIVITY_IDS.forEach((activityId) => {
+        keys.push(
+          buildProgressKey({
+            section: "idioms",
+            categoryId: category.id,
+            levelId,
+            activityId
+          })
+        );
+      });
+    });
+  });
+
+  return keys;
+}
+
+function scoreStatus(status: ProgressStatus): number {
+  if (status === "perfect") return 1;
+  if (status === "completed") return 0.5;
+  return 0;
+}
+
+function toPercent(keys: string[], activityStatuses: Record<string, ProgressStatus>): number {
+  if (!keys.length) return 0;
+  const total = keys.reduce((sum, key) => sum + scoreStatus(activityStatuses[key] ?? "none"), 0);
+  return Math.round((total / keys.length) * 100);
+}
+
+export function buildSectionProgressPercentages(snapshot: LearningProgressSnapshot): SectionProgressPercentages {
+  return {
+    words: toPercent(buildWordsActivityKeys(), snapshot.activityStatuses),
+    sentences: toPercent(buildSentencesActivityKeys(), snapshot.activityStatuses),
+    idioms: toPercent(buildIdiomsActivityKeys(), snapshot.activityStatuses)
+  };
+}
+
+export function isRecallItemPremiumLocked(
+  item: Pick<RecallItem, "section" | "categoryId" | "topicId">,
+  hasPremium: boolean
+): boolean {
+  if (hasPremium) {
+    return false;
+  }
+
+  if (item.section === "words") {
+    const category = CATS.find((entry) => entry.id === item.categoryId);
+    if (!category) {
+      return false;
+    }
+
+    if (!category.isFree) {
+      return true;
+    }
+
+    if (item.topicId) {
+      const topic = category.topics?.find((entry) => entry.id === item.topicId);
+      if (topic && topic.isFree === false) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  if (item.section === "sentences") {
+    const category = SENT_CATS.find((entry) => entry.id === item.categoryId);
+    if (!category) {
+      return false;
+    }
+
+    if (!category.isFree) {
+      return true;
+    }
+
+    if (item.topicId) {
+      const topic = category.topics?.find((entry) => entry.id === item.topicId);
+      if (topic && topic.isFree === false) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  if (item.section === "idioms") {
+    const category = IDIOM_CATS.find((entry) => entry.id === item.categoryId);
+    return category ? !category.isFree : false;
+  }
+
+  return false;
 }

@@ -1,10 +1,12 @@
 import { createSupabaseServerClient } from "@/lib/supabase";
 import {
+  buildSectionProgressPercentages,
   buildLearningProgressSnapshot,
   buildRecallSnapshot,
   type LearningProgressRow,
   type LearningProgressSnapshot,
-  type RecallSnapshot
+  type RecallSnapshot,
+  type SectionProgressPercentages
 } from "@/lib/learning-progress-shared";
 
 export * from "@/lib/learning-progress-shared";
@@ -64,4 +66,9 @@ export async function getRecallSnapshot(): Promise<RecallSnapshot> {
   }
 
   return buildRecallSnapshot((data ?? []) as LearningProgressRow[], true);
+}
+
+export async function getSectionProgressPercentages(): Promise<SectionProgressPercentages> {
+  const snapshot = await getLearningProgressSnapshot();
+  return buildSectionProgressPercentages(snapshot);
 }
