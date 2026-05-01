@@ -193,6 +193,16 @@ export default function CardsPage({ params }: PageProps) {
           total={words.length}
           categoryId="phrasal-verbs"
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'sentences',
+            categoryId: 'phrasal-verbs',
+            topicId,
+            subcategoryId,
+            activityId: 'cards',
+            activityName: 'Cards',
+            title: subcategory.name,
+            href: `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/cards`,
+          }}
           onNextSubcategory={handleNextSubcategory}
           onBackToTopics={handleBackToTopics}
         />

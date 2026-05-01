@@ -314,6 +314,18 @@ export default function WordCheckPage({ params }: PageProps) {
           total={words.length}
           categoryId={categoryId}
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'words',
+            categoryId,
+            topicId,
+            subcategoryId,
+            activityId: 'word-check',
+            activityName: 'Word Check',
+            title: subcategory.name,
+            href: `/words/${categoryId}/${topicId}/${subcategoryId}/word-check`,
+            score: correctCount,
+            total: words.length,
+          }}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}
         />

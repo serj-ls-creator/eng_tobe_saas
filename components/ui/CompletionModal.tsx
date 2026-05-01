@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card } from './card';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Flame } from 'lucide-react';
 import { addPoints } from '@/lib/useAddPoints';
+import type { RecordLearningProgressPayload } from '@/lib/learning-progress-shared';
 import { completeActivity, type ActivityResult } from '@/lib/useCompleteActivity';
+import { recordLearningProgress } from '@/lib/useLearningProgress';
 
 interface CompletionModalProps {
   completed: number;
@@ -14,8 +16,114 @@ interface CompletionModalProps {
   subcategoryName: string;
   words?: string[];
   noPoints?: boolean;
+  progressPayload?: RecordLearningProgressPayload;
   onNextSubcategory?: () => void;
   onBackToTopics?: () => void;
+}
+
+function formatActivityName(activityId: string): string {
+  return activityId
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function inferProgressPayload({
+  pathname,
+  categoryId,
+  subcategoryName,
+  completed,
+  total,
+  noPoints
+}: {
+  pathname: string;
+  categoryId: string;
+  subcategoryName: string;
+  completed: number;
+  total: number;
+  noPoints: boolean;
+}): RecordLearningProgressPayload | null {
+  const segments = pathname.split('/').filter(Boolean);
+
+  if (segments[0] === 'words' && segments.length >= 5) {
+    const [, inferredCategoryId, topicId, subcategoryId, activityId] = segments;
+    return {
+      section: 'words',
+      categoryId: inferredCategoryId,
+      topicId,
+      subcategoryId,
+      activityId,
+      activityName: formatActivityName(activityId),
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
+  if (segments[0] === 'sentences' && segments[1] === 'phrasal-verbs' && segments.length >= 5) {
+    const [, inferredCategoryId, topicId, subcategoryId, activityId] = segments;
+    return {
+      section: 'sentences',
+      categoryId: inferredCategoryId,
+      topicId,
+      subcategoryId,
+      activityId,
+      activityName: formatActivityName(activityId),
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
+  if (segments[0] === 'sentences' && segments[1] === 'a1-c2' && segments.length >= 4) {
+    const [, inferredCategoryId, topicId, subcategoryId] = segments;
+    return {
+      section: 'sentences',
+      categoryId: inferredCategoryId,
+      topicId,
+      subcategoryId,
+      activityId: topicId,
+      activityName: formatActivityName(topicId),
+      title: subcategoryName,
+      href: pathname,
+      score: completed,
+      total,
+    };
+  }
+
+  if (segments[0] === 'idioms' && segments.length >= 4) {
+    const [, inferredCategoryId, levelId, activityId] = segments;
+    return {
+      section: 'idioms',
+      categoryId: inferredCategoryId,
+      levelId,
+      activityId,
+      activityName: formatActivityName(activityId),
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
+  if (segments[0] === 'words' && segments[1] === 'pronounce' && segments[2] === 'dont-pronounce' && segments[3]) {
+    return {
+      section: 'words',
+      categoryId,
+      topicId: 'dont-pronounce',
+      levelId: segments[3],
+      activityId: 'dont-pronounce',
+      activityName: "Don't Pronounce",
+      title: subcategoryName,
+      href: pathname,
+      score: completed,
+      total,
+    };
+  }
+
+  return null;
 }
 
 export function CompletionModal({ 
@@ -25,12 +133,26 @@ export function CompletionModal({
   subcategoryName,
   words,
   noPoints = false,
+  progressPayload,
   onNextSubcategory,
   onBackToTopics 
 }: CompletionModalProps) {
   const [mounted, setMounted] = useState(false);
   const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
+  const pointsHandledRef = useRef(false);
+  const progressSavedRef = useRef(false);
+  const pathname = usePathname();
   const router = useRouter();
+  const effectiveProgressPayload =
+    progressPayload ??
+    inferProgressPayload({
+      pathname,
+      categoryId,
+      subcategoryName,
+      completed,
+      total,
+      noPoints,
+    });
 
   useEffect(() => {
     setMounted(true);
@@ -38,12 +160,21 @@ export function CompletionModal({
 
   // Award points + record activity once when modal appears (not for cards)
   useEffect(() => {
-    if (!mounted || noPoints) return;
-    if (completed > 0) addPoints(completed);
+    if (!mounted || noPoints || pointsHandledRef.current) return;
+    pointsHandledRef.current = true;
+    if (completed > 0) {
+      addPoints(completed);
+    }
     completeActivity().then(result => {
       if (result) setActivityResult(result);
     });
   }, [mounted, noPoints]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (!mounted || !effectiveProgressPayload || progressSavedRef.current) return;
+    progressSavedRef.current = true;
+    recordLearningProgress(effectiveProgressPayload);
+  }, [effectiveProgressPayload, mounted]);
 
   if (!mounted) return null;
 

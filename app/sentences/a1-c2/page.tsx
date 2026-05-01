@@ -2,6 +2,7 @@ import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { SENT_CATS } from "@/constants/categories";
+import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 
 const A1_C2_ACTIVITIES = [
   {
@@ -29,6 +30,7 @@ const A1_C2_ACTIVITIES = [
 export default async function A1C2Page() {
   // Find the A1-C2 category
   const category = SENT_CATS.find(cat => cat.id === "a1-c2");
+  const progress = await getLearningProgressSnapshot();
   if (!category) return null;
 
   return (
@@ -56,7 +58,15 @@ export default async function A1C2Page() {
           {A1_C2_ACTIVITIES.map((activity, index) => (
             <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
               <Link href={`/sentences/a1-c2/${activity.id}`}>
-                <Card className="p-4">
+                <Card
+                  className={`p-4 ${
+                    getProgressCardClass(
+                      progress.containerStatuses[
+                        buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId: activity.id })
+                      ] ?? "none"
+                    )
+                  }`}
+                >
                   <div className="mb-2 text-sm font-semibold">{activity.name}</div>
                   <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>
                 </Card>

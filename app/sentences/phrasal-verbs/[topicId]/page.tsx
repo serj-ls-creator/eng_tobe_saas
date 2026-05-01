@@ -3,6 +3,7 @@ import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { SENT_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
+import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 
@@ -15,6 +16,7 @@ interface PageProps {
 export default async function TopicPage({ params }: PageProps) {
   const { topicId } = params;
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
 
   // Find the phrasal-verbs category
   const category = SENT_CATS.find(cat => cat.id === "phrasal-verbs");
@@ -59,7 +61,20 @@ export default async function TopicPage({ params }: PageProps) {
             {topic.subcategories.map((subcategory, index) => (
               <div key={subcategory.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
                 <Link href={locked ? "/premium" : `/sentences/phrasal-verbs/${topicId}/${subcategory.id}`}>
-                  <Card className="p-4">
+                  <Card
+                    className={`p-4 ${
+                      getProgressCardClass(
+                        progress.containerStatuses[
+                          buildProgressKey({
+                            section: "sentences",
+                            categoryId: "phrasal-verbs",
+                            topicId,
+                            subcategoryId: subcategory.id
+                          })
+                        ] ?? "none"
+                      )
+                    }`}
+                  >
                     <div className="mb-2 text-sm font-semibold">{subcategory.name}</div>
                     <div className="text-[11px] leading-relaxed">
                       {subcategory.description?.includes('||') ? (

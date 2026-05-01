@@ -1,6 +1,6 @@
 import { cache } from "react";
 
-import { createSupabaseBrowserClient } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 export const updateProfile = cache(async (updates: { display_name?: string; avatar?: string }) => {
   const supabase = createSupabaseBrowserClient();

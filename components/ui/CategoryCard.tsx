@@ -4,6 +4,7 @@ import { ChevronRight } from "lucide-react";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import { Card } from "@/components/ui/card";
 import { getIcon } from "@/lib/icons";
+import { getProgressCardClass, type ProgressStatus } from "@/lib/learning-progress-shared";
 
 interface CategoryCardProps {
   title: string;
@@ -13,14 +14,24 @@ interface CategoryCardProps {
   href: string;
   locked?: boolean;
   badge?: string;
+  progressStatus?: ProgressStatus;
 }
 
-export function CategoryCard({ title, description, icon, color, href, locked = false, badge }: CategoryCardProps) {
+export function CategoryCard({
+  title,
+  description,
+  icon,
+  color,
+  href,
+  locked = false,
+  badge,
+  progressStatus = "none"
+}: CategoryCardProps) {
   const Icon = getIcon(icon);
 
   return (
     <Link href={locked ? "/premium" : href} aria-disabled={locked}>
-      <Card className="p-4">
+      <Card className={`p-4 ${getProgressCardClass(progressStatus)}`}>
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${color}25` }}>
             <Icon className="h-5 w-5" style={{ color }} />

@@ -3,9 +3,11 @@ import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
+import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 
 export default async function IdiomsPage() {
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
 
   return (
     <>
@@ -29,6 +31,7 @@ export default async function IdiomsPage() {
                 color={category.color}
                 href={category.href}
                 locked={!category.isFree && !premium}
+                progressStatus={progress.containerStatuses[buildProgressKey({ section: "idioms", categoryId: category.id })] ?? "none"}
               />
             </div>
           ))}

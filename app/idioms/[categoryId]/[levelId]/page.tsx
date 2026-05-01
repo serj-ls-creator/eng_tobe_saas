@@ -5,6 +5,7 @@ import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { notFound } from "next/navigation";
 import { getIcon } from "@/lib/icons";
+import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 
 const IDIOM_ACTIVITIES = [
   {
@@ -53,6 +54,7 @@ const IDIOM_ACTIVITIES = [
 
 export default async function IdiomLevelPage({ params }: { params: { categoryId: string; levelId: string } }) {
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
   const category = IDIOM_CATS.find(cat => cat.id === params.categoryId);
   
   if (!category) {
@@ -82,7 +84,20 @@ export default async function IdiomLevelPage({ params }: { params: { categoryId:
             return (
               <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
                 <Link href={locked ? "/premium" : `/idioms/${category.id}/${params.levelId}/${activity.id}`}>
-                  <Card className="p-4">
+                  <Card
+                    className={`p-4 ${
+                      getProgressCardClass(
+                        progress.activityStatuses[
+                          buildProgressKey({
+                            section: "idioms",
+                            categoryId: category.id,
+                            levelId: params.levelId,
+                            activityId: activity.id
+                          })
+                        ] ?? "none"
+                      )
+                    }`}
+                  >
                     <div className="mb-2 flex items-center gap-2">
                       <div className="flex h-6 w-6 items-center justify-center rounded-lg" style={{ backgroundColor: `${activity.color}25` }}>
                         <Icon className="h-3 w-3" style={{ color: activity.color }} />

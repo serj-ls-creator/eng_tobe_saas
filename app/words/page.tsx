@@ -3,9 +3,11 @@ import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { WordsTree } from "@/components/words/WordsTree";
 import { CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
+import { getLearningProgressSnapshot } from "@/lib/learning-progress";
 
 export default async function WordsPage() {
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
 
   return (
     <>
@@ -28,7 +30,7 @@ export default async function WordsPage() {
           </p>
         </div>
 
-        <WordsTree categories={CATS} isPremium={premium} />
+        <WordsTree categories={CATS} isPremium={premium} progress={progress} />
       </div>
     </>
   );

@@ -378,6 +378,18 @@ export default function SynonymPairPage({ params }: PageProps) {
           total={10}
           categoryId={categoryId}
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'words',
+            categoryId,
+            topicId,
+            subcategoryId,
+            activityId: 'synonym-pair',
+            activityName: 'Synonym Pair',
+            title: subcategory.name,
+            href: `/words/${categoryId}/${topicId}/${subcategoryId}/synonym-pair`,
+            score,
+            total: 10,
+          }}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}
         />

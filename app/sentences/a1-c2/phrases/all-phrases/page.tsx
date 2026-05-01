@@ -1,17 +1,15 @@
-'use client';
-
 import Link from "next/link";
-import { TopBar } from "@/components/layout/TopBar";
+import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
-import { usePoints } from "@/lib/usePoints";
+import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 
-export default function PhrasesPage() {
-  const points = usePoints();
+export default async function PhrasesPage() {
+  const progress = await getLearningProgressSnapshot();
 
   return (
     <>
-      <TopBar title="Phrases" points={points} />
+      <TopBar title="Phrases" />
       <div className="content-shell">
         <div className="mb-4">
           <Link 
@@ -32,7 +30,18 @@ export default function PhrasesPage() {
           {A1_C2_PHRASES.sort((a, b) => a.title.localeCompare(b.title)).map((phrase, index) => (
             <div key={phrase.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
               <Link href={`/sentences/a1-c2/phrases/all-phrases/${phrase.id}`}>
-                <Card className="p-4">
+                <Card className={`p-4 ${
+                  getProgressCardClass(
+                    progress.containerStatuses[
+                      buildProgressKey({
+                        section: "sentences",
+                        categoryId: "a1-c2",
+                        topicId: "phrases",
+                        subcategoryId: phrase.id
+                      })
+                    ] ?? "none"
+                  )
+                }`}>
                   <div className="text-sm font-medium text-white">{phrase.title}</div>
                 </Card>
               </Link>

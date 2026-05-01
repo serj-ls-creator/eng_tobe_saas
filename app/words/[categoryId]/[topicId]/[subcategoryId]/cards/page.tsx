@@ -223,6 +223,16 @@ export default function CardsPage({ params }: PageProps) {
           total={words.length}
           categoryId={categoryId}
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'words',
+            categoryId,
+            topicId,
+            subcategoryId,
+            activityId: 'cards',
+            activityName: 'Cards',
+            title: subcategory.name,
+            href: `/words/${categoryId}/${topicId}/${subcategoryId}/cards`,
+          }}
           onNextSubcategory={handleNextSubcategory}
           onBackToTopics={handleBackToTopics}
         />

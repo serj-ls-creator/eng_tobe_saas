@@ -251,6 +251,18 @@ export default function PairMatchPage({ params }: PageProps) {
           total={words.length}
           categoryId="phrasal-verbs"
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'sentences',
+            categoryId: 'phrasal-verbs',
+            topicId,
+            subcategoryId,
+            activityId: 'pair-match',
+            activityName: 'Pair Match',
+            title: subcategory.name,
+            href: `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/pair-match`,
+            score: correctCount,
+            total: words.length,
+          }}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}
         />

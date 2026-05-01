@@ -412,6 +412,18 @@ export default function UnscramblePage({ params }: PageProps) {
           total={words.length}
           categoryId={categoryId}
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'words',
+            categoryId,
+            topicId,
+            subcategoryId,
+            activityId: 'unscramble',
+            activityName: 'Unscramble',
+            title: subcategory.name,
+            href: `/words/${categoryId}/${topicId}/${subcategoryId}/unscramble`,
+            score: correctCount,
+            total: words.length,
+          }}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}
         />

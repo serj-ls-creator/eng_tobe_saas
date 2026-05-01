@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { TopBarServer as TopBar } from '@/components/layout/TopBarServer';
 import { Card } from '@/components/ui/card';
 import { SILENT_WORD_LEVELS } from '@/data/words/pronounce/silent_words';
+import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from '@/lib/learning-progress';
 
 export default async function DontPronouncePage() {
+  const progress = await getLearningProgressSnapshot();
 
   return (
     <>
@@ -27,7 +29,19 @@ export default async function DontPronouncePage() {
         <div className="grid grid-cols-2 gap-3">
           {SILENT_WORD_LEVELS.map((level, index) => (
             <Link key={level.id} href={`/words/pronounce/dont-pronounce/${level.id}`}>
-              <Card className={`fade-up fade-up-d${Math.min(index + 1, 5)} overflow-hidden rounded-[24px] border border-white/10 p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08]`}>
+              <Card className={`fade-up fade-up-d${Math.min(index + 1, 5)} overflow-hidden rounded-[24px] border p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08] ${
+                getProgressCardClass(
+                  progress.activityStatuses[
+                    buildProgressKey({
+                      section: "words",
+                      categoryId: "pronounce",
+                      topicId: "dont-pronounce",
+                      levelId: level.id,
+                      activityId: "dont-pronounce"
+                    })
+                  ] ?? "none"
+                ) || "border-white/10"
+              }`}>
                 <div className="mb-2 text-sm font-semibold text-white">{level.name}</div>
                 <div className="text-[11px] leading-relaxed">
                   <div className="text-zinc-500">Silent letter practice</div>

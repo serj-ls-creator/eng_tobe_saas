@@ -427,6 +427,18 @@ export default function LetterHuntPage({ params }: PageProps) {
           total={words.length}
           categoryId={categoryId}
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'words',
+            categoryId,
+            topicId,
+            subcategoryId,
+            activityId: 'letter-hunt',
+            activityName: 'Letter Hunt',
+            title: subcategory.name,
+            href: `/words/${categoryId}/${topicId}/${subcategoryId}/letter-hunt`,
+            score: correctCount,
+            total: words.length,
+          }}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}
         />

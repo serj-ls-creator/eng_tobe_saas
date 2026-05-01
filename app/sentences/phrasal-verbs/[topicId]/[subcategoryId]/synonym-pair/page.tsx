@@ -314,6 +314,18 @@ export default function SynonymPairPage({ params }: PageProps) {
           total={10}
           categoryId="phrasal-verbs"
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'sentences',
+            categoryId: 'phrasal-verbs',
+            topicId,
+            subcategoryId,
+            activityId: 'synonym-pair',
+            activityName: 'Synonym Pair',
+            title: subcategory.name,
+            href: `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/synonym-pair`,
+            score,
+            total: 10,
+          }}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}
         />

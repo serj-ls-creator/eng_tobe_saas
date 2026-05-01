@@ -7,14 +7,16 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import { Card } from "@/components/ui/card";
 import { getIcon } from "@/lib/icons";
+import { buildProgressKey, getProgressCardClass, type LearningProgressSnapshot } from "@/lib/learning-progress-shared";
 import type { WordCategory } from "@/types";
 
 interface WordsTreeProps {
   categories: WordCategory[];
   isPremium: boolean;
+  progress: LearningProgressSnapshot;
 }
 
-export function WordsTree({ categories, isPremium }: WordsTreeProps) {
+export function WordsTree({ categories, isPremium, progress }: WordsTreeProps) {
   const [openCategories, setOpenCategories] = useState<string[]>([]);
 
   function toggleCategory(categoryId: string) {
@@ -29,10 +31,11 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
         const Icon = getIcon(category.icon);
         const locked = !category.isFree && !isPremium;
         const isOpen = openCategories.includes(category.id);
+        const categoryStatus = progress.containerStatuses[buildProgressKey({ section: "words", categoryId: category.id })] ?? "none";
 
         return (
           <div key={category.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-            <Card className="overflow-hidden">
+            <Card className={`overflow-hidden ${getProgressCardClass(categoryStatus)}`}>
               <button
                 type="button"
                 onClick={() => toggleCategory(category.id)}
@@ -58,9 +61,12 @@ export function WordsTree({ categories, isPremium }: WordsTreeProps) {
                       {category.topics.map((topic) => {
                         const hasActivities = Boolean(topic.activities?.length);
                         const topicLocked = !topic.isFree && !isPremium;
+                        const topicStatus = progress.containerStatuses[
+                          buildProgressKey({ section: "words", categoryId: category.id, topicId: topic.id })
+                        ] ?? "none";
 
                         return (
-                          <div key={topic.id} className="rounded-2xl border border-white/8 bg-white/[0.02]">
+                          <div key={topic.id} className={`rounded-2xl border bg-white/[0.02] ${getProgressCardClass(topicStatus) || "border-white/8"}`}>
                             {topic.subcategories ? (
                               <Link
                                 href={topicLocked ? "/premium" : `/words/${category.id}/${topic.id}`}

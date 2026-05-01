@@ -322,6 +322,18 @@ export default function UnscramblePage({ params }: PageProps) {
           total={words.length}
           categoryId="phrasal-verbs"
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'sentences',
+            categoryId: 'phrasal-verbs',
+            topicId,
+            subcategoryId,
+            activityId: 'unscramble',
+            activityName: 'Unscramble',
+            title: subcategory.name,
+            href: `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/unscramble`,
+            score: correctCount,
+            total: words.length,
+          }}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}
         />

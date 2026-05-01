@@ -3,9 +3,11 @@ import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { SentencesTree } from "@/components/sentences/SentencesTree";
 import { SENT_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
+import { getLearningProgressSnapshot } from "@/lib/learning-progress";
 
 export default async function SentencesPage() {
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
 
   return (
     <>
@@ -28,7 +30,7 @@ export default async function SentencesPage() {
           </p>
         </div>
 
-        <SentencesTree categories={SENT_CATS} isPremium={premium} />
+        <SentencesTree categories={SENT_CATS} isPremium={premium} progress={progress} />
       </div>
     </>
   );

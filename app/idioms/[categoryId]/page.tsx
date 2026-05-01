@@ -3,6 +3,7 @@ import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
+import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 import { notFound } from "next/navigation";
 
 const IDIOM_LEVELS = [
@@ -31,6 +32,7 @@ const IDIOM_LEVELS = [
 
 export default async function IdiomCategoryPage({ params }: { params: { categoryId: string } }) {
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
   const category = IDIOM_CATS.find(cat => cat.id === params.categoryId);
   
   if (!category) {
@@ -64,6 +66,9 @@ export default async function IdiomCategoryPage({ params }: { params: { category
                 color={level.color}
                 href={locked ? "/premium" : `/idioms/${category.id}/${level.id}`}
                 locked={locked}
+                progressStatus={progress.containerStatuses[
+                  buildProgressKey({ section: "idioms", categoryId: category.id, levelId: level.id })
+                ] ?? "none"}
               />
             </div>
           ))}

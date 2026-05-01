@@ -321,6 +321,18 @@ export default function MultipleChoicePage({ params }: PageProps) {
           total={words.length}
           categoryId={categoryId}
           subcategoryName={subcategory.name}
+          progressPayload={{
+            section: 'words',
+            categoryId,
+            topicId,
+            subcategoryId,
+            activityId: 'multiple-choice',
+            activityName: 'Multiple Choice',
+            title: subcategory.name,
+            href: `/words/${categoryId}/${topicId}/${subcategoryId}/multiple-choice`,
+            score: correctCount,
+            total: words.length,
+          }}
           words={words.filter((_, index) => index < correctCount).map(w => w.advanced)}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToTopics}

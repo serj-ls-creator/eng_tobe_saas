@@ -8,6 +8,7 @@ import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
 import { A1_C2_PHRASES, Phrase } from '@/data/sentences/a1-c2-phrases';
+import { recordLearningProgress } from '@/lib/useLearningProgress';
 import { usePoints } from '@/lib/usePoints';
 
 interface PageProps {
@@ -25,6 +26,7 @@ export default function PhrasePage({ params }: PageProps) {
   const [phrase, setPhrase] = useState<Phrase | null>(null);
   const [leftColumnVisible, setLeftColumnVisible] = useState(false);
   const [rightRowVisible, setRightRowVisible] = useState<boolean[]>(new Array(6).fill(false));
+  const [recorded, setRecorded] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -55,6 +57,22 @@ export default function PhrasePage({ params }: PageProps) {
       }
     }
   }, [mounted, phraseId]);
+
+  useEffect(() => {
+    if (!mounted || !phrase || recorded) return;
+
+    setRecorded(true);
+    recordLearningProgress({
+      section: 'sentences',
+      categoryId: 'a1-c2',
+      topicId: 'phrases',
+      subcategoryId: phrase.id,
+      activityId: 'phrase-view',
+      activityName: 'Phrase View',
+      title: phrase.title,
+      href: `/sentences/a1-c2/phrases/all-phrases/${phrase.id}`,
+    });
+  }, [mounted, phrase, recorded]);
 
   if (!mounted || !phrase) {
     return (

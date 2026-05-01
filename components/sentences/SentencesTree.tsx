@@ -7,14 +7,16 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import { Card } from "@/components/ui/card";
 import { getIcon } from "@/lib/icons";
+import { buildProgressKey, getProgressCardClass, type LearningProgressSnapshot } from "@/lib/learning-progress-shared";
 import type { SentenceCategory } from "@/types";
 
 interface SentencesTreeProps {
   categories: SentenceCategory[];
   isPremium: boolean;
+  progress: LearningProgressSnapshot;
 }
 
-export function SentencesTree({ categories, isPremium }: SentencesTreeProps) {
+export function SentencesTree({ categories, isPremium, progress }: SentencesTreeProps) {
   const [openCategories, setOpenCategories] = useState<string[]>([]);
 
   function toggleCategory(categoryId: string) {
@@ -32,10 +34,13 @@ export function SentencesTree({ categories, isPremium }: SentencesTreeProps) {
         const hasTopics = category.topics && category.topics.length > 0;
         // Special case: A1-C2 should be a simple link, not expandable
         const isA1C2 = category.id === "a1-c2";
+        const categoryStatus = progress.containerStatuses[
+          buildProgressKey({ section: "sentences", categoryId: category.id })
+        ] ?? "none";
 
         return (
           <div key={category.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-            <Card className="overflow-hidden">
+            <Card className={`overflow-hidden ${getProgressCardClass(categoryStatus)}`}>
               {hasTopics && !isA1C2 ? (
                 <button
                   type="button"
@@ -78,9 +83,12 @@ export function SentencesTree({ categories, isPremium }: SentencesTreeProps) {
                   <div className="space-y-3 pt-4">
                     {category.topics?.map((topic) => {
                       const topicLocked = !topic.isFree && !isPremium;
+                      const topicStatus = progress.containerStatuses[
+                        buildProgressKey({ section: "sentences", categoryId: category.id, topicId: topic.id })
+                      ] ?? "none";
 
                       return (
-                        <div key={topic.id} className="rounded-2xl border border-white/8 bg-white/[0.02]">
+                        <div key={topic.id} className={`rounded-2xl border bg-white/[0.02] ${getProgressCardClass(topicStatus) || "border-white/8"}`}>
                           {topic.subcategories ? (
                             <Link
                               href={topicLocked ? "/premium" : `/sentences/${category.id}/${topic.id}`}
