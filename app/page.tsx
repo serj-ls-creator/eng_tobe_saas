@@ -107,7 +107,10 @@ export default async function HomePage() {
                   <span className="text-sm text-zinc-500 line-through">{wordOfTheDay.simple}</span>
                   <span className="text-cyan-400">-&gt;</span>
                 </div>
-                <div className="text-lg font-semibold">{wordOfTheDay.synonym}</div>
+                <div className="flex items-center gap-2">
+                  <div className="text-lg font-semibold">{wordOfTheDay.synonym}</div>
+                  <span className="text-[11px] text-zinc-400">{wordOfTheDay.transcription}</span>
+                </div>
                 <div className="mt-1 text-[11px] text-zinc-500">{wordOfTheDay.explanation}</div>
               </Card>
             </div>
