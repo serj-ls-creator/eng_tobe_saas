@@ -145,11 +145,11 @@ export default async function RecallPage() {
             {(Object.keys(SECTION_TITLES) as LearningSection[]).map((section) => (
               <section key={section}>
                 <details className="group" open={false}>
-                  <summary className="mb-3 flex cursor-pointer list-none items-center justify-between rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3">
+                  <summary className="mb-3 flex cursor-pointer list-none items-center justify-between rounded-2xl border border-zinc-600 bg-zinc-800/80 px-4 py-3">
                     <h2 className="text-lg font-semibold text-white">{SECTION_TITLES[section]}</h2>
                     <div className="flex items-center gap-3">
-                      <span className="text-xs text-zinc-500">{recall.sections[section].length} due</span>
-                      <span className="text-xs text-zinc-500 transition-transform group-open:rotate-180">⌄</span>
+                      <span className="text-xs text-zinc-300">{recall.sections[section].length} due</span>
+                      <span className="text-xs text-zinc-300 transition-transform group-open:rotate-180">⌄</span>
                     </div>
                   </summary>
 
