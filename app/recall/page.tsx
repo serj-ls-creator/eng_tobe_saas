@@ -136,48 +136,53 @@ export default async function RecallPage() {
           <div className="space-y-5 pb-4">
             {(Object.keys(SECTION_TITLES) as LearningSection[]).map((section) => (
               <section key={section}>
-                <div className="mb-3 flex items-center justify-between">
-                  <h2 className="text-lg font-semibold text-white">{SECTION_TITLES[section]}</h2>
-                  <span className="text-xs text-zinc-500">{recall.sections[section].length} due</span>
-                </div>
+                <details className="group" open={false}>
+                  <summary className="mb-3 flex cursor-pointer list-none items-center justify-between rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3">
+                    <h2 className="text-lg font-semibold text-white">{SECTION_TITLES[section]}</h2>
+                    <div className="flex items-center gap-3">
+                      <span className="text-xs text-zinc-500">{recall.sections[section].length} due</span>
+                      <span className="text-xs text-zinc-500 transition-transform group-open:rotate-180">⌄</span>
+                    </div>
+                  </summary>
 
-                {recall.sections[section].length === 0 ? (
-                  <Card className="p-4">
-                    <p className="text-sm text-zinc-500">Nothing to review here yet.</p>
-                  </Card>
-                ) : (
-                  <div className="space-y-3">
-                    {groupRecallItems(recall.sections[section]).map((group) => (
-                      <Card key={group.key} className="p-4">
-                        <div className="mb-3 text-sm font-semibold text-white">{group.label}</div>
-                        <div className="space-y-2">
-                          {group.items.map((item) => (
-                            <Link key={item.key} href={isRecallItemPremiumLocked(item, premium) ? "/premium" : item.href}>
-                              <div className="rounded-xl border border-white/8 bg-white/[0.03] p-3 transition-colors hover:bg-white/[0.05]">
-                                <div className="mb-2 flex items-center justify-between gap-3">
-                                  <div className="min-w-0">
-                                  <div className="mb-1 flex items-center gap-2">
-                                      <div className="truncate text-sm font-semibold text-white">{item.activityName}</div>
-                                      {isRecallItemPremiumLocked(item, premium) ? <PremiumBadge /> : null}
+                  {recall.sections[section].length === 0 ? (
+                    <Card className="p-4">
+                      <p className="text-sm text-zinc-500">Nothing to review here yet.</p>
+                    </Card>
+                  ) : (
+                    <div className="space-y-3">
+                      {groupRecallItems(recall.sections[section]).map((group) => (
+                        <Card key={group.key} className="p-4">
+                          <div className="mb-3 text-sm font-semibold text-white">{group.label}</div>
+                          <div className="space-y-2">
+                            {group.items.map((item) => (
+                              <Link key={item.key} href={isRecallItemPremiumLocked(item, premium) ? "/premium" : item.href}>
+                                <div className="rounded-xl border border-white/8 bg-white/[0.03] p-3 transition-colors hover:bg-white/[0.05]">
+                                  <div className="mb-2 flex items-center justify-between gap-3">
+                                    <div className="min-w-0">
+                                      <div className="mb-1 flex items-center gap-2">
+                                        <div className="truncate text-sm font-semibold text-white">{item.activityName}</div>
+                                        {isRecallItemPremiumLocked(item, premium) ? <PremiumBadge /> : null}
+                                      </div>
+                                      <div className="flex items-center gap-2 text-[11px]">
+                                        <span className="text-zinc-500">{item.scoreLabel}</span>
+                                        <span className="text-zinc-600">•</span>
+                                        <span className="text-zinc-400">{getDueLabel(item.dueAt)}</span>
+                                      </div>
                                     </div>
-                                    <div className="flex items-center gap-2 text-[11px]">
-                                      <span className="text-zinc-500">{item.scoreLabel}</span>
-                                      <span className="text-zinc-600">•</span>
-                                      <span className="text-zinc-400">{getDueLabel(item.dueAt)}</span>
+                                    <div className="text-[11px] text-cyan-400">
+                                      {isRecallItemPremiumLocked(item, premium) ? "Premium required" : "Review now"}
                                     </div>
-                                  </div>
-                                  <div className="text-[11px] text-cyan-400">
-                                    {isRecallItemPremiumLocked(item, premium) ? "Premium required" : "Review now"}
                                   </div>
                                 </div>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                )}
+                              </Link>
+                            ))}
+                          </div>
+                        </Card>
+                      ))}
+                    </div>
+                  )}
+                </details>
               </section>
             ))}
           </div>
