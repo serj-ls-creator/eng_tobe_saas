@@ -57,6 +57,7 @@ export async function getRecallSnapshot(): Promise<RecallSnapshot> {
       "section, category_id, topic_id, subcategory_id, level_id, activity_id, activity_name, title, href, score, total, is_perfect, next_recall_at"
     )
     .eq("user_id", user.id)
+    .neq("activity_id", "cards")
     .lte("next_recall_at", new Date().toISOString())
     .order("next_recall_at", { ascending: true });
 

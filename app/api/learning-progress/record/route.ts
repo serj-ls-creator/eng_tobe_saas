@@ -4,18 +4,30 @@ import type { RecordLearningProgressPayload } from "@/lib/learning-progress-shar
 import { buildProgressKey } from "@/lib/learning-progress-shared";
 import { createSupabaseServerClient } from "@/lib/supabase";
 
-function getNextRecallAt(score?: number | null, total?: number | null): string {
+function getNextRecallAt(
+  previousCompletionCount: number,
+  score?: number | null,
+  total?: number | null
+): string {
   const now = new Date();
-  let daysToAdd = 1;
+  let daysToAdd: number;
 
-  if (typeof score === "number" && typeof total === "number") {
-    if (score >= total) {
+  if (previousCompletionCount <= 0) {
+    daysToAdd = 1;
+
+    if (typeof score === "number" && typeof total === "number") {
+      if (score >= total) {
+        daysToAdd = 3;
+      } else if (score >= Math.max(1, total - 2)) {
+        daysToAdd = 2;
+      }
+    } else {
       daysToAdd = 3;
-    } else if (score >= Math.max(1, total - 2)) {
-      daysToAdd = 2;
     }
+  } else if (previousCompletionCount === 1) {
+    daysToAdd = 7;
   } else {
-    daysToAdd = 3;
+    daysToAdd = 30;
   }
 
   now.setDate(now.getDate() + daysToAdd);
@@ -52,7 +64,8 @@ export async function POST(req: NextRequest) {
       console.error("Failed to read learning progress record", existingError);
     }
 
-    const nextRecallAt = getNextRecallAt(payload.score, payload.total);
+    const previousCompletionCount = existing?.completion_count ?? 0;
+    const nextRecallAt = getNextRecallAt(previousCompletionCount, payload.score, payload.total);
 
     const record = {
       user_id: user.id,
@@ -69,7 +82,7 @@ export async function POST(req: NextRequest) {
       score: payload.score ?? null,
       total: payload.total ?? null,
       is_perfect: existing?.is_perfect ? true : isPerfect,
-      completion_count: (existing?.completion_count ?? 0) + 1,
+      completion_count: previousCompletionCount + 1,
       last_completed_at: now,
       next_recall_at: nextRecallAt,
       updated_at: now,

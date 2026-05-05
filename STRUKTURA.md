@@ -18,14 +18,28 @@
 - **`auth/`** - Страницы авторизации
   - **`login/`** - Страница входа
   - **`signup/`** - Страница регистрации
+  - **`reset-password/`** - Сброс пароля
+  - **`update-password/`** - Обновление пароля
+- **`about/`** - Информационные страницы
+  - **`privacy-policy/`** - Политика конфиденциальности
+  - **`terms-of-use/`** - Условия использования
+- **`contact/`** - Страница контактов
 - **`games/`** - Раздел игр
+  - **`wordle/`** - Игра Wordle с выбором длины слова
+  - **`memory/`** - Игра Memory с категориями и размерами
+  - **`negotiation/`** - Игра Negotiations с квестами
 - **`idioms/`** - Раздел идиом
 - **`premium/`** - Премиум страница
 - **`profile/`** - Профиль пользователя
 - **`recall/`** - Функция повторения
 - **`sentences/`** - Раздел предложений
+  - **`a1-c2/`** - Уровни A1-C2 с различными активностями
+  - **`everyday-situations/`** - Повседневные ситуации
+  - **`phrasal-verbs/`** - Фразовые глаголы
 - **`settings/`** - Настройки
 - **`store/`** - Магазин
+- **`more/`** - Дополнительные функции
+- **`technical-support/`** - Техническая поддержка
 - **`words/`** - Раздел слов
 
 ### 📁 `components/` - React компоненты
@@ -45,17 +59,43 @@
   - **`StorePremiumCard.tsx`** - Карточка премиум-подписки в магазине
 - **`layout/`** - Компоненты layout
   - **`TopBar.tsx`** - Верхняя панель навигации с заголовком
+  - **`TopBarServer.tsx`** - Серверная версия TopBar
   - **`BottomNav.tsx`** - Нижняя панель навигации
   - **`ProfileSection.tsx`** - Секция профиля пользователя
+- **`audio/`** - Компоненты для аудио
+  - **`TextToSpeech.tsx`** - Основной компонент TTS
+  - **`GoogleTextToSpeech.tsx`** - Google TTS
+  - **`EnglishOnlyTTS.tsx`** - TTS только для английского
+  - **`ExternalTextToSpeech.tsx`** - Внешний TTS
+  - **`OnlineTTS.tsx`** - Онлайн TTS
+  - **`SimpleTTS.tsx`** - Простой TTS
+  - **`StrictEnglishTTS.tsx`** - Строгий английский TTS
+  - **`WorkingTTS.tsx`** - Рабочий TTS
 - **`words/`** - Компоненты для раздела Words
   - **`WordsTree.tsx`** - Дерево категорий слов с раскрывающимися списками
+  - **`DontPronounceLevelClient.tsx`** - Компонент для уровней произношения
 - **`sentences/`** - Компоненты для раздела Sentences
   - **`SentencesTree.tsx`** - Дерево категорий предложений с раскрывающимися списками
 - **`cards/`** - Компоненты для активностей Cards
   - **`FlipCard.tsx`** - Компонент переворачиваемой карточки для слов
   - **`IdiomFlipCard.tsx`** - Компонент переворачиваемой карточки для идиом
+  - **`PhrasalVerbFlipCard.tsx`** - Компонент переворачиваемой карточки для фразовых глаголов
 - **`auth/`** - Компоненты авторизации
   - **`AuthForm.tsx`** - Форма входа/регистрации
+  - **`ResetPasswordForm.tsx`** - Форма сброса пароля
+  - **`UpdatePasswordForm.tsx`** - Форма обновления пароля
+- **`games/`** - Компоненты для игр
+  - **`NegotiationQuestClient.tsx`** - Клиент для квестов Negotiations
+  - **`NegotiationResultModal.tsx`** - Модальное окно результатов Negotiations
+- **`about/`** - Компоненты для About
+  - **`AboutClient.tsx`** - Клиент для страницы About
+- **`contact/`** - Компоненты для контактов
+  - **`ContactClient.tsx`** - Клиент для контактной формы
+- **`more/`** - Компоненты для дополнительных функций
+  - **`MoreClient.tsx`** - Клиент для страницы More
+- **`technical-support/`** - Компоненты техподдержки
+  - **`TechnicalSupportClient.tsx`** - Клиент техподдержки
+  - **`SupportContent.tsx`** - Контент техподдержки
 - **`pwa/`** - PWA компоненты
   - **`PwaRegister.tsx`** - Регистрация PWA
 
@@ -68,6 +108,9 @@
 - **`profile.ts`** - Утилиты для работы с профилем
 - **`supabase-browser.ts`** - Supabase клиент для браузера
 - **`supabase.ts`** - Supabase серверный клиент
+- **`learning-progress.ts`** - Система прогресса и интервального повторения
+- **`learning-progress-shared.ts`** - Общие функции для прогресса и recall
+- **`useLearningProgress.ts`** - Hook для работы с прогрессом обучения
 - **`useAddPoints.ts`** - Hook для добавления очков
 - **`useCompleteActivity.ts`** - Hook для завершения активностей
 - **`usePoints.ts`** - Hook для работы с очками
@@ -88,7 +131,7 @@
   - **`rudepolite/`** - Грубый/вежливый стиль (4 категории)
   - **`slang/`** - Сленг (4 категории)
   - **`timewords/`** - Слова времени (4 категории)
-- **`sentences/`** - Sentences data files (пустая директория)
+- **`sentences/`** - Sentences data files (A1-C2 уровни, фразовые глаголы, повседневные ситуации)
 - **`idioms/`** - Idioms data files (30 idioms per category)
   - **`food_idioms.ts`** - Food related idioms
   - **`weather_idioms.ts`** - Weather related idioms
@@ -151,15 +194,21 @@
 - Категории: A1 to C2, Phrasal verbs, Everyday Situations, Don't say: Very easy, Slang/Modern English
 - Кнопка "← Back to Home"
 
-**`app/sentences/[categoryId]/page.tsx`**
-- Динамическая страница для категорий предложений
-- Отображение подкатегорий и тем
-- Кнопка "← Back to Sentences"
+**`app/sentences/a1-c2/page.tsx`**
+- Упражнения для уровней A1-C2
+- Level Match, Progression Match, Error Hunt, Pairs, Phrases
 
-**`app/sentences/[categoryId]/[topicId]/page.tsx`**
-- Динамическая страница для подкатегорий предложений
-- Отображение активностей в сетке 2x2
-- Кнопка "← Back to [Category]"
+**`app/sentences/phrasal-verbs/[topicId]/[subcategoryId]/page.tsx`**
+- Активности для фразовых глаголов: Cards, Letter Hunt, Multiple Choice
+
+**`app/sentences/everyday-situations/[topicId]/page.tsx`**
+- 10 повседневных ситуаций: Dining Out, Travel & Airport, Shopping & Prices, и др.
+
+**`app/sentences/a1-c2/pairs/page.tsx`**
+- Игра с парами предложений
+
+**`app/sentences/a1-c2/phrases/page.tsx`**
+- Упражнения с фразами
 
 ### 💬 Раздел Idioms
 **`app/idioms/page.tsx`**
@@ -200,6 +249,12 @@
 - Выбор категории и размера поля
 - Нахождение пар vocab слов
 
+**`app/games/negotiation/page.tsx`**
+- Страница выбора квеста для Negotiations
+
+**`app/games/negotiation/[questId]/page.tsx`**
+- Полная реализация игры Negotiations с диалогами и выбором ответов
+
 ### 👤 Раздел Profile
 **`app/profile/page.tsx`**
 - Профиль пользователя через `ProfileSection` компонент
@@ -207,13 +262,39 @@
 
 ### 🔄 Раздел Recall
 **`app/recall/page.tsx`**
-- Заглушка "Coming Soon" для функции повторения
+- Система интервального повторения (spaced repetition)
+- Показывает завершенные активности для повторения
+- Разделена по секциям: Words, Sentences, Idioms
+- Счетчик количества активностей для повторения
+- Премиум-блокировка для некоторых элементов
+- Показывает счет и метки прогресса
+
+### 📞 Раздел Contact
+**`app/contact/page.tsx`**
+- Контактная форма с валидацией
+- Отправка сообщений через API
 - Кнопка "← Back to Home"
 
-### 🏆 Раздел Leaderboard
-**`app/leaderboard/page.tsx`**
-- Заглушка "Coming Soon" для рейтингов
-- Кнопка "← Back to Home"
+### ℹ️ Раздел About
+**`app/about/page.tsx`**
+- Информация о проекте
+- Ссылки на политику конфиденциальности и условия использования
+
+**`app/about/privacy-policy/page.tsx`**
+- Политика конфиденциальности
+
+**`app/about/terms-of-use/page.tsx`**
+- Условия использования
+
+### 🔧 Раздел Technical Support
+**`app/technical-support/page.tsx`**
+- Техническая поддержка и помощь
+- FAQ и инструкции
+
+### 📱 Раздел More
+**`app/more/page.tsx`**
+- Дополнительные функции и возможности
+- Расширенные настройки
 
 ### 🛍️ Раздел Store
 **`app/store/page.tsx`**
@@ -271,9 +352,25 @@
 - **Slang** - Сленг (премиум)
   - Texting language
 
+**Words Activities:**
+- Cards - Flip cards with words and synonyms
+- Synonym Pair - Match word pairs
+- Multiple Choice - Pick the right answer
+- Letter Hunt - Find missing letters
+- Word Check - Verify word pairs
+- Unscramble - Arrange letters correctly
+
 ### Sentences (SENT_CATS)
 - A1 to C2 (free)
+  - Level Match - Match sentences by difficulty level
+  - Progression Match - Advanced matching exercises
+  - Error Hunt - Find and correct errors
+  - Pairs - Match sentence pairs
+  - Phrases - Work with common phrases
 - Phrasal verbs (premium)
+  - Cards - Flip cards with phrasal verbs
+  - Letter Hunt - Find missing letters
+  - Multiple Choice - Choose correct meanings
 - Everyday Situations (premium) - 10 subcategories:
   - Dining Out (restaurant phrases)
   - Travel & Airport (check-in, security, gates)
@@ -299,16 +396,17 @@
 
 **Idioms Activities:**
 - Cards - Flip cards with idioms and meanings
-- Multiple Choice - Choose correct meaning (placeholder)
-- Synonym Pair - Match idioms with meanings (placeholder)
-- Fill the Blanks - Complete idiom sentences (placeholder)
-- Find the Mistake - Identify incorrect usage (placeholder)
-- Sentence Builder - Create sentences with idioms (placeholder)
+- Multiple Choice - Choose correct meaning
+- Synonym Pair - Match idioms with meanings
+- Fill the Blanks - Complete idiom sentences
+- Find the Mistake - Identify incorrect usage
+- Sentence Builder - Create sentences with idioms
+- Listen & Pick - Audio comprehension exercises
 
 ### Games (GAME_CATS)
-- Wordle (бесплатная) - игра "Угадай слово" с выбором длины
+- Wordle (бесплатная) - игра "Угадай слово" с выбором длины (4-8 букв)
 - Memory (бесплатная) - карточная игра на память с выбором категории и размера поля
-- Negotiations (премиум) - игра выбора лучшего ответа (в разработке)
+- Negotiations (премиум) - игра выбора лучшего ответа в диалогах с квестами
 
 ---
 
@@ -323,16 +421,38 @@
 - `fade-up-d1` до `fade-up-d5` - задержки появления
 - `flying-word` - анимированные слова на фоне главной
 - `hover:scale-110` - увеличение при наведении на аватар
+- 3D flip animation для карточек
+- Плавные переходы между страницами
 
 ### Премиум-логика
 - `isPremium()` проверяет статус пользователя
 - `PremiumBadge` показывает премиум-контент
 - Заблокированные элементы ведут на `/premium`
+- Интеграция с Lemon Squeezy для платежей
+
+### Система прогресса
+- Очки за завершение активностей
+- Streak (полоса прогресса)
+- Отслеживание в базе данных через API
+- Система достижений и уровней
 
 ### Адаптивность
 - `max-w-shell` - ограничение ширины контента
 - `grid-cols-2` - сетка для мобильных устройств
 - `content-shell` - адаптивные отступы
+- Мобильная-first разработка
+
+### PWA функциональность
+- Service Worker для офлайн работы
+- Манифест для установки на устройство
+- Push notifications (заглушка)
+- Адаптивный дизайн для всех устройств
+
+### Аудио поддержка
+- 8 различных TTS движков
+- Google TTS интеграция
+- Поддержка произношения для всех активностей
+- Настройки аудио в настройках приложения
 
 ---
 
@@ -347,6 +467,7 @@
 - **Radix UI** - Базовые UI компоненты
 - **React Hook Form 7.53.0** - Формы
 - **Zod 3.23.8** - Валидация
+- **Vercel Analytics 2.0.1** - Аналитика
 
 ### Backend
 - **Supabase** - База данных и аутентификация
@@ -358,6 +479,7 @@
 ### PWA
 - **Service Worker** - Офлайн функциональность
 - **Manifest** - Установка на устройство
+- **Adaptive Design** - Оптимизация для всех устройств
 
 ---
 
@@ -455,21 +577,39 @@
 - Многоуровневая система доступа (free/premium)
 - Интеграция с платежной системой Lemon Squeezy
 - Отслеживание прогресса и активности пользователей
+- Система подписок и платежей
 
 ### Образовательная платформа
 - 4 основных раздела: Words, Sentences, Idioms, Games
-- Интерактивные активности с анимациями
+- 13+ интерактивных активностей с анимациями
 - Система уровней и прогресса
 - Адаптивный дизайн для мобильных устройств
+- Аудио поддержка с 8 TTS движками
 
 ### Технологическая реализация
 - Современный стек Next.js 14 с App Router
 - Полная типизация на TypeScript
 - PWA функциональность для установки на устройства
 - Реальная база данных через Supabase
+- Серверные компоненты и SSR
 
 ### Масштабируемость
 - Модульная архитектура компонентов
 - Четкое разделение данных и UI
 - Гибкая система категорий и активностей
 - API для расширения функционала
+- Поддержка множества языков и локализация
+
+### Пользовательский опыт
+- Интуитивная навигация с кнопками "назад"
+- Прогресс-бары и система достижений
+- Анимированные переходы и 3D эффекты
+- Офлайн доступ через PWA
+- Техническая поддержка и контактные формы
+
+### Контент и обучение
+- 8 категорий слов (от произношения до сленга)
+- 7 категорий идиом (210 идиом всего)
+- Уровни предложений A1-C2
+- Фразовые глаголы и повседневные ситуации
+- 3 образовательные игры с разной механикой
