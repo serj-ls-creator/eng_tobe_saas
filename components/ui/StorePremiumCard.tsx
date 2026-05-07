@@ -142,7 +142,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
           <div className="space-y-3">
             {currentPremium && newExpiry && (
               <p className="text-xs text-zinc-500 text-center">
-                Buying will extend your premium by 30 days
+                Buying will extend your premium by 1 month
               </p>
             )}
 
