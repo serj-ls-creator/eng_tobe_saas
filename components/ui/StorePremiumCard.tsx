@@ -158,6 +158,10 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
               {lemonLoading ? 'Redirecting…' : 'Buy Premium — 1 Month'}
             </button>
 
+            <p className="text-[11px] text-zinc-500 text-center">
+              After payment, you will be redirected back, and your Premium will activate automatically. It might take a few seconds.
+            </p>
+
             {success ? (
               <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
                 🎉 Premium activated until {newExpiry ? formatDate(newExpiry) : ''}
