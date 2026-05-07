@@ -20,6 +20,7 @@ function formatDate(iso: string): string {
 
 export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props) {
   const [loading, setLoading] = useState(false);
+  const [lemonLoading, setLemonLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [newExpiry, setNewExpiry] = useState<string | null>(premiumExpiresAt);
@@ -28,6 +29,37 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
 
   const canBuy = currentPoints >= COST;
   const missing = COST - currentPoints;
+
+  const handleBuyViaLemon = async () => {
+    setLemonLoading(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/checkout', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({ variantId: 1 }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setError(data.error ?? 'Something went wrong');
+        return;
+      }
+
+      if (!data.checkoutUrl) {
+        setError('Checkout URL is missing');
+        return;
+      }
+
+      window.location.href = data.checkoutUrl;
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setLemonLoading(false);
+    }
+  };
 
   const handleBuy = async () => {
     setLoading(true);
@@ -97,10 +129,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
 
           {/* Price */}
           <div className="flex items-center justify-between mb-4">
-            <div className="text-2xl font-black text-white">
-              {COST.toLocaleString()}
-              <span className="text-sm font-normal text-yellow-400 ml-1">pts</span>
-            </div>
+            <div className="text-2xl font-black text-white">$</div>
             {currentPremium && newExpiry && (
               <div className="text-xs text-green-400 text-right">
                 Active until<br />
@@ -110,43 +139,59 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
           </div>
 
           {/* Status / Button */}
-          {success ? (
-            <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
-              🎉 Premium activated until {newExpiry ? formatDate(newExpiry) : ''}
-            </div>
-          ) : (
-            <>
-              {!canBuy && (
-                <p className="text-xs text-zinc-500 mb-3 text-center">
-                  You need{' '}
-                  <span className="text-yellow-400 font-semibold">
-                    {missing.toLocaleString()} more pts
-                  </span>{' '}
-                  to unlock
-                </p>
-              )}
-              {currentPremium && newExpiry && (
-                <p className="text-xs text-zinc-500 mb-3 text-center">
-                  Buying will extend your premium by 30 days
-                </p>
-              )}
-              <button
-                onClick={handleBuy}
-                disabled={!canBuy || loading}
-                className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                style={{
-                  background: canBuy ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
-                  backgroundColor: canBuy ? undefined : 'rgba(255,255,255,0.05)',
-                  color: canBuy ? '#000' : '#71717a',
-                }}
-              >
-                {loading ? 'Processing…' : canBuy ? 'Buy Premium — 1 Month' : `Need ${missing.toLocaleString()} more pts`}
-              </button>
-              {error && (
-                <p className="text-xs text-red-400 mt-2 text-center">{error}</p>
-              )}
-            </>
-          )}
+          <div className="space-y-3">
+            {currentPremium && newExpiry && (
+              <p className="text-xs text-zinc-500 text-center">
+                Buying will extend your premium by 30 days
+              </p>
+            )}
+
+            <button
+              onClick={handleBuyViaLemon}
+              disabled={lemonLoading}
+              className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{
+                background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                color: '#000',
+              }}
+            >
+              {lemonLoading ? 'Redirecting…' : 'Buy Premium — 1 Month'}
+            </button>
+
+            {success ? (
+              <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
+                🎉 Premium activated until {newExpiry ? formatDate(newExpiry) : ''}
+              </div>
+            ) : (
+              <>
+                {!canBuy && (
+                  <p className="text-xs text-zinc-500 text-center">
+                    You need{' '}
+                    <span className="text-yellow-400 font-semibold">
+                      {missing.toLocaleString()} more pts
+                    </span>{' '}
+                    to unlock with points
+                  </p>
+                )}
+                <button
+                  onClick={handleBuy}
+                  disabled={!canBuy || loading}
+                  className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                  style={{
+                    background: canBuy ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
+                    backgroundColor: canBuy ? undefined : 'rgba(255,255,255,0.05)',
+                    color: canBuy ? '#000' : '#71717a',
+                  }}
+                >
+                  {loading ? 'Processing…' : canBuy ? 'Buy with points — 1 Month' : `Need ${missing.toLocaleString()} more pts`}
+                </button>
+              </>
+            )}
+
+            {error && (
+              <p className="text-xs text-red-400 text-center">{error}</p>
+            )}
+          </div>
         </div>
       </Card>
 
