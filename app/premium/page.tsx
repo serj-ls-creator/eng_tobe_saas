@@ -32,12 +32,9 @@ export default async function PremiumPage() {
             ))}
           </div>
           {user ? (
-            <form action="/api/checkout" method="POST" className="space-y-3">
-              <input type="hidden" name="variantId" value="1" />
-              <Button className="w-full" size="lg">
-                {UI_TEXT.premiumButton}
-              </Button>
-            </form>
+            <Button asChild className="w-full" size="lg">
+              <Link href="/store">Go to Store</Link>
+            </Button>
           ) : (
             <Button asChild className="w-full" size="lg">
               <Link href="/auth/login">{UI_TEXT.authLoginButton}</Link>
