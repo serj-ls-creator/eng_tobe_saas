@@ -129,7 +129,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
 
           {/* Price */}
           <div className="flex items-center justify-between mb-4">
-            <div className="text-2xl font-black text-white">$</div>
+            <div className="text-2xl font-black text-white">$4.99</div>
             {currentPremium && newExpiry && (
               <div className="text-xs text-green-400 text-right">
                 Active until<br />
