@@ -783,7 +783,7 @@ export const SENT_CATS: SentenceCategory[] = [
   {
     id: "everyday-situations",
     name: "Everyday Situations",
-    description: "Practical phrases for daily life conversations",
+    description: "Coming Soon",
     icon: "Users",
     color: UI_COLORS.cyan,
     section: "sentences",
@@ -917,7 +917,7 @@ export const SENT_CATS: SentenceCategory[] = [
   {
     id: "slang-modern-english",
     name: "Slang / Modern English",
-    description: "Sound like a native",
+    description: "Coming Soon",
     icon: "Sparkles",
     color: UI_COLORS.purple,
     section: "sentences",
