@@ -74,19 +74,3 @@ export interface NavItem {
   icon: ReactNode;
   match?: string[];
 }
-
-export interface LemonSqueezyWebhookPayload {
-  meta?: {
-    event_name?: string;
-    custom_data?: {
-      user_id?: string;
-    };
-  };
-  data?: {
-    id?: string;
-    attributes?: {
-      user_email?: string;
-      status?: string;
-    };
-  };
-}

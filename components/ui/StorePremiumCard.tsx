@@ -22,7 +22,6 @@ function formatDate(iso: string): string {
 
 export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: Props) {
   const [loading, setLoading] = useState(false);
-  const [lemonLoading, setLemonLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [newExpiry, setNewExpiry] = useState<string | null>(premiumExpiresAt);
@@ -31,37 +30,6 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
 
   const canBuy = currentPoints >= COST;
   const missing = COST - currentPoints;
-
-  const handleBuyViaLemon = async () => {
-    setLemonLoading(true);
-    setError(null);
-    try {
-      const res = await fetch('/api/checkout', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
-        body: JSON.stringify({ variantId: 1 }),
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        setError(data.error ?? 'Something went wrong');
-        return;
-      }
-
-      if (!data.checkoutUrl) {
-        setError('Checkout URL is missing');
-        return;
-      }
-
-      window.location.href = data.checkoutUrl;
-    } catch {
-      setError('Network error. Please try again.');
-    } finally {
-      setLemonLoading(false);
-    }
-  };
 
   const handleBuy = async () => {
     setLoading(true);
@@ -171,10 +139,6 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                 >
                   Buy Premium — 1 Month
                 </button>
-
-                <p className="text-[11px] text-zinc-500 text-center">
-                  After payment, you will be redirected back, and your Premium will activate automatically. It might take a few seconds.
-                </p>
 
                 {success ? (
                   <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">

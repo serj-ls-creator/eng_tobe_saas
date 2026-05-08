@@ -80,17 +80,13 @@ Modern English learning platform built with Next.js 14, featuring interactive ac
    npm install
    ```
 
-2. **Environment setup**
-   ```bash
-   cp .env.example .env.local
-   ```
-   
-   Fill in your environment variables:
+2. **Configure environment variables**
+
+   Copy `.env.example` to `.env.local` and fill in the values:
+
    - `NEXT_PUBLIC_SUPABASE_URL` - Your Supabase project URL
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
    - `SUPABASE_SERVICE_ROLE_KEY` - Supabase service role key
-   - `LEMONSQUEEZY_API_KEY` - Lemon Squeezy API key
-   - `LEMONSQUEEZY_WEBHOOK_SECRET` - Webhook secret
 
 3. **Database setup**
    ```bash

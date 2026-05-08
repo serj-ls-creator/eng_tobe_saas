@@ -14,7 +14,7 @@ export const UI_TEXT = {
   premiumCta: "Unlock Premium",
   premiumTitle: "Go Premium",
   premiumSubtitle: "Unlock all categories, games, and advanced levels.",
-  premiumButton: "Continue with LemonSqueezy",
+  premiumButton: "Go to Store",
   comingSoon: "Coming Soon",
   loginTitle: "Welcome back",
   signupTitle: "Create your account",
