@@ -75,6 +75,7 @@ export default function DataLossPage() {
             ]
           }
         ]}
+        footerText="© 2025 English to be. All rights reserved."
       />
     </>
   );

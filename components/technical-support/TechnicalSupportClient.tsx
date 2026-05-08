@@ -181,6 +181,15 @@ export function TechnicalSupportClient() {
                 <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
               </button>
             </Card>
+
+            <Card className="p-4">
+              <Link href="/technical-support/refund-policy" className="block">
+                <div className="flex items-center justify-between w-full group">
+                  <span className="text-xs font-medium text-white">Refund policy</span>
+                  <ChevronRight className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
+                </div>
+              </Link>
+            </Card>
           </div>
         </div>
 

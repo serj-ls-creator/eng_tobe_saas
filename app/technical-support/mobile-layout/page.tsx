@@ -81,6 +81,7 @@ export default function MobileLayoutPage() {
             ]
           }
         ]}
+        footerText="© 2025 English to be. All rights reserved."
       />
     </>
   );

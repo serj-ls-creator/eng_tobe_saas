@@ -14,9 +14,10 @@ interface Props {
   title: string;
   description: string;
   sections: Section[];
+  footerText?: string;
 }
 
-export function SupportContent({ title, description, sections }: Props) {
+export function SupportContent({ title, description, sections, footerText }: Props) {
   return (
     <div className="content-shell">
       <div className="max-w-2xl mx-auto">
@@ -80,6 +81,12 @@ export function SupportContent({ title, description, sections }: Props) {
               </button>
             </Link>
           </Card>
+        
+        {footerText && (
+          <div className="mt-6 text-center">
+            <p className="text-xs text-zinc-500">{footerText}</p>
+          </div>
+        )}
         </div>
       </div>
     </div>

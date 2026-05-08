@@ -71,6 +71,7 @@ export default function ApplicationFreezingPage() {
             ]
           }
         ]}
+        footerText="© 2025 English to be. All rights reserved."
       />
     </>
   );

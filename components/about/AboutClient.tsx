@@ -55,6 +55,11 @@ export function AboutClient() {
             </Link>
           </Card>
         </div>
+        
+        {/* Copyright */}
+        <div className="mt-8 text-center">
+          <p className="text-xs text-zinc-500">© 2025 English to be. All rights reserved.</p>
+        </div>
       </div>
     </div>
   );

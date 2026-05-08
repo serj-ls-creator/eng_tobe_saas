@@ -80,6 +80,7 @@ export default function ProfileSettingsPage() {
             ]
           }
         ]}
+        footerText="© 2025 English to be. All rights reserved."
       />
     </>
   );

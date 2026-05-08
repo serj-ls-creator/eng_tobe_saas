@@ -120,6 +120,7 @@ export default function TermsOfUsePage() {
             ]
           }
         ]}
+        footerText="© 2025 English to be. All rights reserved."
       />
     </>
   );

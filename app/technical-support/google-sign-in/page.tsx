@@ -61,6 +61,7 @@ export default function GoogleSignInPage() {
             ]
           }
         ]}
+        footerText="© 2025 English to be. All rights reserved."
       />
     </>
   );

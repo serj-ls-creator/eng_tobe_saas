@@ -130,6 +130,7 @@ export default function PrivacyPolicyPage() {
             ]
           }
         ]}
+        footerText="© 2025 English to be. All rights reserved."
       />
     </>
   );
