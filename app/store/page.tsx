@@ -32,6 +32,7 @@ export default async function StorePage() {
           points={points}
           isPremium={premium}
           premiumExpiresAt={premiumExpiresAt}
+          user={profile}
         />
       </div>
     </>

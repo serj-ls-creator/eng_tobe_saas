@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Star, Crown, Zap } from 'lucide-react';
+import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 
 const COST = 20000;
@@ -10,6 +11,7 @@ interface Props {
   points: number;
   isPremium: boolean;
   premiumExpiresAt: string | null;
+  user: any;
 }
 
 function formatDate(iso: string): string {
@@ -18,7 +20,7 @@ function formatDate(iso: string): string {
   });
 }
 
-export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props) {
+export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: Props) {
   const [loading, setLoading] = useState(false);
   const [lemonLoading, setLemonLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -140,55 +142,69 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt }: Props)
 
           {/* Status / Button */}
           <div className="space-y-3">
-            {currentPremium && newExpiry && (
-              <p className="text-xs text-zinc-500 text-center">
-                Buying will extend your premium by 1 month
-              </p>
-            )}
-
-            <button
-              onClick={handleBuyViaLemon}
-              disabled={lemonLoading}
-              className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              style={{
-                background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
-                color: '#000',
-              }}
-            >
-              {lemonLoading ? 'Redirecting…' : 'Buy Premium — 1 Month'}
-            </button>
-
-            <p className="text-[11px] text-zinc-500 text-center">
-              After payment, you will be redirected back, and your Premium will activate automatically. It might take a few seconds.
-            </p>
-
-            {success ? (
-              <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
-                🎉 Premium activated until {newExpiry ? formatDate(newExpiry) : ''}
-              </div>
+            {!user ? (
+              <Link
+                href="/auth/login"
+                className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-center min-h-[44px] flex items-center justify-center"
+                style={{
+                  background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                  color: '#000',
+                }}
+              >
+                Sign in
+              </Link>
             ) : (
               <>
-                {!canBuy && (
+                {currentPremium && newExpiry && (
                   <p className="text-xs text-zinc-500 text-center">
-                    You need{' '}
-                    <span className="text-yellow-400 font-semibold">
-                      {missing.toLocaleString()} more pts
-                    </span>{' '}
-                    to unlock with points
+                    Buying will extend your premium by 1 month
                   </p>
                 )}
+
                 <button
-                  onClick={handleBuy}
-                  disabled={!canBuy || loading}
+                  disabled
                   className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{
-                    background: canBuy ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
-                    backgroundColor: canBuy ? undefined : 'rgba(255,255,255,0.05)',
-                    color: canBuy ? '#000' : '#71717a',
+                    background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                    color: '#000',
                   }}
                 >
-                  {loading ? 'Processing…' : canBuy ? 'Buy with points — 1 Month' : `Need ${missing.toLocaleString()} more pts`}
+                  Buy Premium — 1 Month
                 </button>
+
+                <p className="text-[11px] text-zinc-500 text-center">
+                  After payment, you will be redirected back, and your Premium will activate automatically. It might take a few seconds.
+                </p>
+
+                {success ? (
+                  <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
+                    🎉 Premium activated until {newExpiry ? formatDate(newExpiry) : ''}
+                  </div>
+                ) : (
+                  <>
+                    {!canBuy && (
+                      <p className="text-xs text-zinc-500 text-center">
+                        You need{' '}
+                        <span className="text-yellow-400 font-semibold">
+                          {missing.toLocaleString()} more pts
+                        </span>{' '}
+                        to unlock with points
+                      </p>
+                    )}
+                    <button
+                      onClick={handleBuy}
+                      disabled={!canBuy || loading}
+                      className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      style={{
+                        background: canBuy ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
+                        backgroundColor: canBuy ? undefined : 'rgba(255,255,255,0.05)',
+                        color: canBuy ? '#000' : '#71717a',
+                      }}
+                    >
+                      {loading ? 'Processing…' : canBuy ? 'Buy with points — 1 Month' : `Need ${missing.toLocaleString()} more pts`}
+                    </button>
+                  </>
+                )}
               </>
             )}
 
