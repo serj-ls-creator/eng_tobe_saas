@@ -15,9 +15,10 @@ interface Props {
   description: string;
   sections: Section[];
   footerText?: string;
+  backHref?: string;
 }
 
-export function SupportContent({ title, description, sections, footerText }: Props) {
+export function SupportContent({ title, description, sections, footerText, backHref }: Props) {
   return (
     <div className="content-shell">
       <div className="max-w-2xl mx-auto">
@@ -25,11 +26,11 @@ export function SupportContent({ title, description, sections, footerText }: Pro
         <div className="mb-8">
           <div className="mb-6">
             <Link 
-              href="/technical-support" 
+              href={backHref || "/technical-support"} 
               className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
-              Back to Technical Support
+              {backHref === "/about" ? "Back to About" : "Back to Technical Support"}
             </Link>
           </div>
           

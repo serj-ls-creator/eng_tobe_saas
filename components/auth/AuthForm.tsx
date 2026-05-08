@@ -101,6 +101,19 @@ export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFor
             </Link>
           )}
         </div>
+        
+        {mode === "login" && (
+          <div className="mt-4 text-xs text-zinc-500 text-center">
+            By signing up, you agree to our{' '}
+            <Link href="/about/terms-of-use" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+              Terms of Use
+            </Link>{' '}
+            and{' '}
+            <Link href="/about/privacy-policy" className="text-cyan-400 hover:text-cyan-300 transition-colors">
+              Privacy Policy
+            </Link>.
+          </div>
+        )}
       </div>
     </div>
   );
