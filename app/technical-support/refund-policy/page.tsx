@@ -34,8 +34,8 @@ export default function RefundPolicyPage() {
           {
             title: "4. How to Request a Refund",
             content: [
-              "Payments are processed by Paddle.com (our Merchant of Record). You can request a refund by contacting English ToBe support or Paddle's support team directly.",
-              "To request a refund through us, please use the Contact Support button below and provide your registered email address and purchase date.",
+              "Payments are processed by our authorized payment processor. You can request a refund by contacting English ToBe support team directly.",
+              "To request a refund through us, please use Contact Support button below and provide your registered email address and purchase date.",
               "We will process your request within 3–5 business days. Please note that it may take an additional 5–10 business days for the funds to appear on your bank statement, depending on your financial institution."
             ]
           },

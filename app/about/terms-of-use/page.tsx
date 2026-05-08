@@ -25,16 +25,16 @@ export default function TermsOfUsePage() {
           {
             title: "3. Subscription and Payment Terms",
             content: [
-              "Our order process is conducted by our online reseller Paddle.com. Paddle.com is the Merchant of Record for all our orders. Paddle handles all customer service inquiries and returns.",
+              "Our order process is conducted by our authorized payment processor. The processor handles all customer service inquiries and returns.",
               "Premium subscriptions provide access to enhanced features.",
-              "Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current period.",
+              "Subscriptions automatically renew unless cancelled at least 24 hours before end of current period.",
               "Prices are subject to change with 30 days' notice via email or in-app notification."
             ]
           },
           {
             title: "4. Refund Policy",
             content: [
-              "We offer a 14-day money-back guarantee for initial subscriptions if the service does not meet your expectations or technical issues prevent use. After this period, no refunds are provided for partial months. Please contact Paddle.com or our support for refund requests."
+              "We offer a 14-day money-back guarantee for initial subscriptions if service does not meet your expectations or technical issues prevent use. After this period, no refunds are provided for partial months. Please contact our support for refund requests."
             ]
           },
           {
