@@ -25,7 +25,7 @@ export const UI_TEXT = {
   fullNameLabel: "Full name",
   authLoginButton: "Sign in",
   authSignupButton: "Sign up",
-  authSignupSuccess: "Email sent! Please confirm it in your inbox",
+  authSignupSuccess: "Sign up successful.",
   authSwitchToSignup: "Create account",
   authSwitchToLogin: "Back to login",
   lockedLabel: "Premium",
