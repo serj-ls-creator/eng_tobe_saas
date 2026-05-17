@@ -29,18 +29,21 @@ CREATE TABLE IF NOT EXISTS public.learning_activity_progress (
 
 ALTER TABLE public.learning_activity_progress ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "learning_progress_select_own" ON public.learning_activity_progress;
 CREATE POLICY "learning_progress_select_own"
 ON public.learning_activity_progress
 FOR SELECT
 TO authenticated
 USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "learning_progress_insert_own" ON public.learning_activity_progress;
 CREATE POLICY "learning_progress_insert_own"
 ON public.learning_activity_progress
 FOR INSERT
 TO authenticated
 WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "learning_progress_update_own" ON public.learning_activity_progress;
 CREATE POLICY "learning_progress_update_own"
 ON public.learning_activity_progress
 FOR UPDATE
@@ -70,18 +73,21 @@ CREATE TABLE IF NOT EXISTS public.weekly_streak (
 
 ALTER TABLE public.weekly_streak ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "weekly_streak_select_own" ON public.weekly_streak;
 CREATE POLICY "weekly_streak_select_own"
 ON public.weekly_streak
 FOR SELECT
 TO authenticated
 USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "weekly_streak_insert_own" ON public.weekly_streak;
 CREATE POLICY "weekly_streak_insert_own"
 ON public.weekly_streak
 FOR INSERT
 TO authenticated
 WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "weekly_streak_update_own" ON public.weekly_streak;
 CREATE POLICY "weekly_streak_update_own"
 ON public.weekly_streak
 FOR UPDATE
