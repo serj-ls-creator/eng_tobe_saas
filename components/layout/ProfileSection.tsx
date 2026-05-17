@@ -38,7 +38,7 @@ const avatarOptions = [
 ];
 
 export function ProfileSection({ profile, progress }: ProfileSectionProps) {
-  const [selectedAvatar, setSelectedAvatar] = useState(profile.avatar || "👤");
+  const [selectedAvatar, setSelectedAvatar] = useState(profile.avatar || "👑");
   const [userName, setUserName] = useState(profile.display_name || "Player");
   const [isEditingName, setIsEditingName] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
