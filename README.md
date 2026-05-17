@@ -40,7 +40,6 @@ Modern English learning platform built with Next.js 14, featuring interactive ac
 - **PWA** - Installable on mobile devices
 - **Responsive Design** - Works on all screen sizes
 - **Real-time Progress** - Database-driven tracking
-- **Payment Integration** - Lemon Squeezy subscriptions
 - **Audio Support** - Multiple TTS engines
 - **Contact System** - User feedback and support
 - **Technical Support** - Dedicated help section
@@ -61,9 +60,6 @@ Modern English learning platform built with Next.js 14, featuring interactive ac
 ### Backend & Database
 - **Supabase** - Authentication and database
 - **Supabase SSR** - Server-side integration
-
-### Payments
-- **Lemon Squeezy** - Subscription management
 
 ### Development Tools
 - **React Hook Form** - Form handling
@@ -183,7 +179,6 @@ Run the SQL from `supabase/schema.sql` in your Supabase project to create all ne
 ### Environment Variables for Production
 - All variables from `.env.example`
 - `NEXT_PUBLIC_APP_URL` - Your production URL
-- Lemon Squeezy webhook configuration
 
 ## Learning Content
 
