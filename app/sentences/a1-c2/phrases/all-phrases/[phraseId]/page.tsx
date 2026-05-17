@@ -1,15 +1,8 @@
-'use client';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-
-import { TopBar } from '@/components/layout/TopBar';
-import { Card } from '@/components/ui/card';
-import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
-import { A1_C2_PHRASES, Phrase } from '@/data/sentences/a1-c2-phrases';
-import { recordLearningProgress } from '@/lib/useLearningProgress';
-import { usePoints } from '@/lib/usePoints';
+import { A1_C2_PHRASES } from '@/data/sentences/a1-c2-phrases';
+import { PhraseClient } from './PhraseClient';
 
 interface PageProps {
   params: {
@@ -17,136 +10,39 @@ interface PageProps {
   };
 }
 
-export default function PhrasePage({ params }: PageProps) {
+// 1. Statically generate paths for all phrases at build time (SSG)
+export function generateStaticParams() {
+  return A1_C2_PHRASES.map((phrase) => ({
+    phraseId: phrase.id,
+  }));
+}
+
+// 2. Generate dynamic, search-engine-optimized metadata for each page (SEO)
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { phraseId } = params;
-  const router = useRouter();
-  const points = usePoints();
+  const phrase = A1_C2_PHRASES.find(p => p.id === phraseId);
   
-  const [mounted, setMounted] = useState(false);
-  const [phrase, setPhrase] = useState<Phrase | null>(null);
-  const [leftColumnVisible, setLeftColumnVisible] = useState(false);
-  const [rightRowVisible, setRightRowVisible] = useState<boolean[]>(new Array(6).fill(false));
-  const [recorded, setRecorded] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-    
-    // Find phrase by ID (decode from URL)
-    const foundPhrase = A1_C2_PHRASES.find(p => p.id === phraseId);
-    if (foundPhrase) {
-      setPhrase(foundPhrase);
-      
-      // Animate left column first (faster)
-      setTimeout(() => setLeftColumnVisible(true), 100);
-      
-      // Animate right column rows one by one
-      const levelsCount = 6; // A1, A2, B1, B2, C1, C2
-      for (let index = 0; index < levelsCount; index++) {
-        const delay = index === 0 ? 500 : 750 + (index - 1) * 334; // First row after 0.5s, others after 0.75s with 334ms intervals
-        setTimeout(() => {
-          setRightRowVisible(prev => {
-            const newRowVisible = [...prev];
-            newRowVisible[index] = true;
-            return newRowVisible;
-          });
-        }, delay);
-      }
-    }
-  }, [mounted, phraseId]);
-
-  useEffect(() => {
-    if (!mounted || !phrase || recorded) return;
-
-    setRecorded(true);
-    recordLearningProgress({
-      section: 'sentences',
-      categoryId: 'a1-c2',
-      topicId: 'phrases',
-      subcategoryId: phrase.id,
-      activityId: 'phrase-view',
-      activityName: 'Phrase View',
-      title: phrase.title,
-      href: `/sentences/a1-c2/phrases/all-phrases/${phrase.id}`,
-    });
-  }, [mounted, phrase, recorded]);
-
-  if (!mounted || !phrase) {
-    return (
-      <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-        <TopBar points={points} />
-        <div className="content-shell">
-          <div className="text-center">
-            <p>Loading...</p>
-          </div>
-        </div>
-      </div>
-    );
+  if (!phrase) {
+    return {
+      title: 'Phrase Not Found | Tobee',
+    };
   }
 
-  const levels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const;
+  return {
+    title: `How to say: "${phrase.title}" in English (A1-C2) | Tobee`,
+    description: `Learn how to express "${phrase.title}" in English across all CEFR levels from A1 to C2. Perfect pronunciation and context-appropriate examples on Tobee.`,
+    keywords: [phrase.title, 'english phrases', 'CEFR levels', 'learn english', 'Tobee phrases'],
+  };
+}
 
-  return (
-    <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
-      <TopBar points={points} />
+// 3. React Server Component (RSC) page
+export default async function PhrasePage({ params }: PageProps) {
+  const { phraseId } = params;
+  
+  const phrase = A1_C2_PHRASES.find(p => p.id === phraseId);
+  if (!phrase) {
+    notFound();
+  }
 
-      <div className="content-shell">
-        {/* Header */}
-        <div className="mb-6">
-          <Link
-            href="/sentences/a1-c2/phrases/all-phrases"
-            className="inline-flex items-center text-xs text-zinc-500 hover:text-zinc-300 transition-colors mb-4"
-          >
-            <span className="mr-2">←</span>
-            Back to Phrases
-          </Link>
-
-          <div className="text-center">
-            <h1 
-              className={`text-2xl font-black text-yellow-400 mb-2 transition-all duration-700 transform ${
-                leftColumnVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-              }`}
-            >
-              {phrase.title}
-            </h1>
-          </div>
-        </div>
-
-        {/* Two-column layout */}
-        <div className="max-w-4xl mx-auto">
-          {levels.map((level, index) => (
-            <div key={level} className="grid grid-cols-[15%_85%] gap-1 mb-3">
-              {/* Left column - Level */}
-              <div 
-                className={`transition-all duration-[3500ms] transform delay-${index * 750} ${
-                  leftColumnVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
-                }`}
-              >
-                <div className="flex items-center justify-center p-3 bg-white/[0.02] border border-white/10 rounded-lg">
-                  <div className="text-lg font-black text-yellow-300">{level}</div>
-                </div>
-              </div>
-
-              {/* Right column - Phrase */}
-              <div 
-                className={`transition-all duration-[4000ms] transform ${
-                  rightRowVisible[index] ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
-                }`}
-              >
-                <Card className="p-3 rounded-lg">
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm font-medium text-white">{phrase.levels[level]}</div>
-                    <StrictEnglishTTS text={phrase.levels[level]} />
-                  </div>
-                </Card>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+  return <PhraseClient phrase={phrase} />;
 }
