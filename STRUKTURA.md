@@ -61,14 +61,7 @@
   - **`BottomNav.tsx`** - Нижняя панель навигации
   - **`ProfileSection.tsx`** - Секция профиля пользователя
 - **`audio/`** - Компоненты для аудио
-  - **`TextToSpeech.tsx`** - Основной компонент TTS
-  - **`GoogleTextToSpeech.tsx`** - Google TTS
-  - **`EnglishOnlyTTS.tsx`** - TTS только для английского
-  - **`ExternalTextToSpeech.tsx`** - Внешний TTS
-  - **`OnlineTTS.tsx`** - Онлайн TTS
-  - **`SimpleTTS.tsx`** - Простой TTS
-  - **`StrictEnglishTTS.tsx`** - Строгий английский TTS
-  - **`WorkingTTS.tsx`** - Рабочий TTS
+  - **`StrictEnglishTTS.tsx`** - Строгий английский TTS для качественной английской озвучки с использованием SpeechSynthesis
 - **`words/`** - Компоненты для раздела Words
   - **`WordsTree.tsx`** - Дерево категорий слов с раскрывающимися списками
   - **`DontPronounceLevelClient.tsx`** - Компонент для уровней произношения
@@ -103,14 +96,14 @@
 - **`icons.tsx`** - Компонент иконок
 - **`idioms.ts`** - Idioms data utilities and level management
 - **`profile.ts`** - Утилиты для работы с профилем
-- **`supabase-browser.ts`** - Supabase клиент для браузера
-- **`supabase.ts`** - Supabase серверный клиент
-- **`learning-progress.ts`** - Система прогресса и интервального повторения
-- **`learning-progress-shared.ts`** - Общие функции для прогресса и recall
-- **`useLearningProgress.ts`** - Hook для работы с прогрессом обучения
-- **`useAddPoints.ts`** - Hook для добавления очков
-- **`useCompleteActivity.ts`** - Hook для завершения активностей
-- **`usePoints.ts`** - Hook для работы с очками
+- **`supabase-browser.ts`** - Supabase клиент для браузера (глобальный синглтон-паттерн для экономии ресурсов)
+- **`supabase.ts`** - Supabase серверный клиент, админ-клиент и хелперы
+- **`learning-progress.ts`** - Серверная система прогресса и интервального повторения
+- **`learning-progress-client.ts`** - Клиентская асинхронная утилита отправки прогресса обучения
+- **`learning-progress-shared.ts`** - Общие функции, типы и расчеты классов для прогресса и recall
+- **`complete-activity.ts`** - Клиентская асинхронная утилита для завершения активностей
+- **`add-points.ts`** - Клиентская асинхронная утилита для безопасного добавления очков
+- **`usePoints.ts`** - React-хук для чтения очков пользователя в реальном времени
 
 ### 📁 `hooks/` - React hooks
 - **`useIsPremium.ts`** - Hook для проверки премиум-статуса
@@ -206,6 +199,11 @@
 
 **`app/sentences/a1-c2/phrases/page.tsx`**
 - Упражнения с фразами
+
+**`app/sentences/a1-c2/phrases/all-phrases/[phraseId]/`**
+- Детальный просмотр конкретной фразы (SEO-оптимизирован через RSC, SSG и dynamic metadata)
+  - **`page.tsx`** - Серверный компонент (RSC) с `generateStaticParams()` и `generateMetadata()`
+  - **`PhraseClient.tsx`** - Клиентский компонент (Client Component) для анимаций и плеере озвучки
 
 ### 💬 Раздел Idioms
 **`app/idioms/page.tsx`**
@@ -515,10 +513,11 @@
 
 ### Структура таблиц
 - **profiles** - Профили пользователей
-  - id, user_id, is_premium, streak, created_at
-- **user_activities** - Отслеживание активностей
-- **user_points** - Очки пользователей
-- **user_streak** - Стрик пользователей
+  - id, user_id, is_premium, streak, total_streak, points, last_activity_date, daily_activities, premium_expires_at, display_name, avatar, created_at
+- **weekly_streak** - Недельный стрик пользователей для расчета бонусов
+  - id, user_id, week_start_date, day_flags, days_completed, bonus_awarded, updated_at
+- **learning_activity_progress** - Прогресс тем и активностей обучения с интервальным повторением
+  - id, user_id, path_key, section, category_id, topic_id, subcategory_id, level_id, activity_id, activity_name, title, href, score, total, is_perfect, completion_count, first_completed_at, last_completed_at, next_recall_at, updated_at
 
 ### Миграции
 - `supabase/migrations.sql` - Миграции базы данных

@@ -10,6 +10,7 @@ import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { usePoints } from '@/lib/usePoints';
 import { A1_C2_PHRASES } from '@/data/sentences/a1-c2-phrases';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 
 type RevealState = 'idle' | 'revealed';
 type PairResult = 'correct' | 'wrong' | null;
@@ -33,6 +34,7 @@ function pickRandom<T>(arr: T[]): T {
 export default function LevelMatchPage() {
   const router = useRouter();
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
 
   const [mounted, setMounted] = useState(false);
   const [rounds, setRounds] = useState<Round[]>([]);
@@ -92,7 +94,12 @@ export default function LevelMatchPage() {
     const ok = answerIsMatch === currentRound.isMatch;
     setRevealState('revealed');
     setPairResult(ok ? 'correct' : 'wrong');
-    if (ok) setCorrectCount((prev) => prev + 1);
+    if (ok) {
+      setCorrectCount((prev) => prev + 1);
+      playCorrect();
+    } else {
+      playWrong();
+    }
 
     setTimeout(() => {
       if (currentIndex < rounds.length - 1) {

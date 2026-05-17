@@ -10,6 +10,7 @@ import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { usePoints } from '@/lib/usePoints';
 import { SENT_CATS } from '@/constants/categories';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { WORK_CAREER, RELATIONSHIPS_SOCIAL, MIND_EMOTIONS, DAILY_LIFE, PhrasalVerb, Subcategory } from '@/data/sentences/phrasal-verbs';
 
 interface PageProps {
@@ -27,6 +28,7 @@ export default function PairMatchPage({ params }: PageProps) {
   const { topicId, subcategoryId } = params;
   const router = useRouter();
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
 
   const [mounted, setMounted] = useState(false);
   const [words, setWords] = useState<PhrasalVerb[]>([]);
@@ -96,7 +98,12 @@ export default function PairMatchPage({ params }: PageProps) {
     setRevealState('revealed');
     setPairResult(ok ? 'correct' : 'wrong');
 
-    if (ok) setCorrectCount(prev => prev + 1);
+    if (ok) {
+      setCorrectCount(prev => prev + 1);
+      playCorrect();
+    } else {
+      playWrong();
+    }
 
     setTimeout(() => {
       if (currentIndex < words.length - 1) {

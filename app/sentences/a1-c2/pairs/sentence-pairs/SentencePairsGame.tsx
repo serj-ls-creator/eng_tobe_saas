@@ -8,6 +8,7 @@ import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
 import { usePoints } from '@/lib/usePoints';
 import { A1_C2_PHRASES } from '@/data/sentences/a1-c2-phrases';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 
 interface PhrasePair {
   id: string;
@@ -19,6 +20,7 @@ export default function SentencePairsGame() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
   
   const [mounted, setMounted] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState('A2');
@@ -111,6 +113,7 @@ export default function SentencePairsGame() {
     if (leftPhrase.matchingPhrase === rightPhrase) {
       // Correct match
       setIsLocked(true);
+      playCorrect();
       setTimeout(() => {
         setMatchedLeft(prev => new Set([...prev, selectedLeft]));
         setMatchedRight(prev => new Set([...prev, index]));
@@ -129,6 +132,7 @@ export default function SentencePairsGame() {
       setWrongRight(index);
       setScore(prev => Math.max(0, prev - 1));
       setMistakes(prev => prev + 1);
+      playWrong();
       
       setTimeout(() => {
         setWrongLeft(null);
@@ -137,7 +141,7 @@ export default function SentencePairsGame() {
         setSelectedRight(null);
       }, 1000);
     }
-  }, [isLocked, matchedRight, selectedLeft, pairs, shuffledPhrases, matchedLeft, score]);
+  }, [isLocked, matchedRight, selectedLeft, pairs, shuffledPhrases, matchedLeft, score, playCorrect, playWrong]);
 
   const getLeftStyle = (index: number) => {
     if (matchedLeft.has(index)) return 'bg-green-500/20 border-green-400/40 text-green-300';

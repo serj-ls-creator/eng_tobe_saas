@@ -40,7 +40,7 @@ Modern English learning platform built with Next.js 14, featuring interactive ac
 - **PWA** - Installable on mobile devices
 - **Responsive Design** - Works on all screen sizes
 - **Real-time Progress** - Database-driven tracking
-- **Audio Support** - Multiple TTS engines
+- **Audio Support** - Premium English TTS engine using SpeechSynthesis API
 - **Contact System** - User feedback and support
 - **Technical Support** - Dedicated help section
 
@@ -86,8 +86,8 @@ Modern English learning platform built with Next.js 14, featuring interactive ac
 
 3. **Database setup**
    ```bash
-   # Run the SQL schema in Supabase SQL editor
-   cat supabase/schema.sql
+   # Run the SQL migrations script in Supabase SQL editor
+   cat supabase/migrations.sql
    ```
 
 4. **Run development server**
@@ -102,7 +102,7 @@ Modern English learning platform built with Next.js 14, featuring interactive ac
 ```
 eng_tobe_saas/
  app/                    # Next.js App Router pages
-   api/                 # API routes (activity, checkout, me, points, premium, streak, webhooks)
+   api/                 # API routes (activity, me, points, premium, streak)
    auth/                # Authentication pages (login, signup, reset-password, update-password)
    about/               # About pages (privacy-policy, terms-of-use)
    contact/             # Contact page
@@ -119,7 +119,7 @@ eng_tobe_saas/
  components/            # React components
    ui/                  # Base UI components (cards, buttons, modals, etc.)
    layout/              # Layout components (TopBar, BottomNav, ProfileSection)
-   audio/               # Text-to-speech components (8 TTS engines)
+   audio/               # Strict English Text-to-Speech component
    auth/                # Authentication forms
    cards/               # Activity components (FlipCard, IdiomFlipCard, PhrasalVerbFlipCard)
    games/               # Game-specific components
@@ -134,10 +134,11 @@ eng_tobe_saas/
    idioms/              # Idiom collections (7 categories × 3 levels × 10 idioms)
    games/               # Game data (wordle words, etc.)
  lib/                   # Utilities and helpers
-   supabase-*.ts        # Supabase clients (browser, server)
-   payments.ts          # Lemon Squeezy integration
+   supabase-*.ts        # Supabase clients (with global browser singleton)
    profile.ts           # Profile utilities
-   use*.ts              # Custom hooks
+   learning-progress*.ts # Learning progress tracking (server/client)
+   complete-activity.ts # Activity completion utilities
+   add-points.ts        # Point-adding utilities
  hooks/                 # Custom React hooks
  types/                 # TypeScript definitions
  constants/             # App constants and categories
@@ -152,22 +153,15 @@ eng_tobe_saas/
 - `npm run lint` - Run ESLint
 - `npm run typecheck` - Type checking
 
-### Main Tables
-- **profiles** - User profiles and premium status
-- **user_activities** - Activity completion tracking
-- **user_points** - Points and achievements
-- **user_streak** - Learning streaks
-
 ## Database Schema
 
 ### Main Tables
-- **profiles** - User profiles and premium status
-- **user_activities** - Activity completion tracking
-- **user_points** - Points and achievements
-- **user_streak** - Learning streaks
+- **profiles** - User profiles, streaks, daily activities, and points
+- **weekly_streak** - Weekly progress and full 7-day bonus awards
+- **learning_activity_progress** - Learning progress, scores, and spaced repetition recall schedules
 
 ### Setup
-Run the SQL from `supabase/schema.sql` in your Supabase project to create all necessary tables and RLS policies.
+Run the SQL from `supabase/migrations.sql` in your Supabase project to create all necessary tables, constraints, and RLS policies with automatic fallback-ready RPC functions.
 
 ## Deployment
 
@@ -216,7 +210,7 @@ Each category includes multiple activity types designed for different learning s
 
 ### Advanced Interactions
 - **13 Activity Types**: Cards, Multiple Choice, Synonym Pair, Fill Blanks, Error Correction, and more
-- **Audio Support**: 8 different TTS engines for pronunciation practice
+- **Audio Support**: Premium Strict English TTS engine for high-quality pronunciation practice
 - **Progress Tracking**: Real-time database-driven progress monitoring
 - **Gamification**: Points, streaks, and leaderboards
 - **Spaced Repetition**: Intelligent recall system for optimized learning retention
