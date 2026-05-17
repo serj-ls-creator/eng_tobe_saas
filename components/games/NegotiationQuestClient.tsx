@@ -15,8 +15,8 @@ import type {
   NegotiationNode,
   NegotiationQuest,
 } from '@/data/games/negotiation/perfect-suit';
-import { addPoints } from '@/lib/useAddPoints';
-import { completeActivity, type ActivityResult } from '@/lib/useCompleteActivity';
+import { addPoints } from '@/lib/add-points';
+import { completeActivity, type ActivityResult } from '@/lib/complete-activity';
 import { usePoints } from '@/lib/usePoints';
 
 interface NegotiationQuestClientProps {

@@ -4,7 +4,7 @@ import { Flame, Sparkles } from 'lucide-react';
 
 import { Card } from '@/components/ui/card';
 import type { NegotiationEnding } from '@/data/games/negotiation/perfect-suit';
-import type { ActivityResult } from '@/lib/useCompleteActivity';
+import type { ActivityResult } from '@/lib/complete-activity';
 
 interface NegotiationResultModalProps {
   ending: NegotiationEnding;

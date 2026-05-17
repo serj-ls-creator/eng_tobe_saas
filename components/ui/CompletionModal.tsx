@@ -4,10 +4,10 @@ import { useState, useEffect, useRef } from 'react';
 import { Card } from './card';
 import { usePathname, useRouter } from 'next/navigation';
 import { Flame } from 'lucide-react';
-import { addPoints } from '@/lib/useAddPoints';
+import { addPoints } from '@/lib/add-points';
 import type { RecordLearningProgressPayload } from '@/lib/learning-progress-shared';
-import { completeActivity, type ActivityResult } from '@/lib/useCompleteActivity';
-import { recordLearningProgress } from '@/lib/useLearningProgress';
+import { completeActivity, type ActivityResult } from '@/lib/complete-activity';
+import { recordLearningProgress } from '@/lib/learning-progress-client';
 
 interface CompletionModalProps {
   completed: number;

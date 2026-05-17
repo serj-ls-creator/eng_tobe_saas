@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { TopBar } from '@/components/layout/TopBar';
 import { FlyingWordsEng } from '@/components/ui/FlyingWordsEng';
 import { usePoints } from '@/lib/usePoints';
-import { addPoints } from '@/lib/useAddPoints';
-import { completeActivity } from '@/lib/useCompleteActivity';
+import { addPoints } from '@/lib/add-points';
+import { completeActivity } from '@/lib/complete-activity';
 
 // ── Word data ────────────────────────────────────────────────────────────────
 import { PEOPLE }  from '@/data/words/basicadvanced/people';

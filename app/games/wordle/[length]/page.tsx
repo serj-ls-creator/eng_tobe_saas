@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { TopBar } from '@/components/layout/TopBar';
 import { WORDS_5, WORDS_6, WORDS_7, WORDS_8 } from '@/data/games/wordle-words';
 import { usePoints } from '@/lib/usePoints';
-import { addPoints } from '@/lib/useAddPoints';
-import { completeActivity } from '@/lib/useCompleteActivity';
+import { addPoints } from '@/lib/add-points';
+import { completeActivity } from '@/lib/complete-activity';
 
 interface PageProps {
   params: { length: string };

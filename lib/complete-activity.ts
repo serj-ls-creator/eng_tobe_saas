@@ -4,6 +4,7 @@ export interface ActivityResult {
   streak: number;
   dailyActivities: number;
   dayCompleted: boolean;
+  weeklyBonus: boolean;
 }
 
 export async function completeActivity(): Promise<ActivityResult | null> {

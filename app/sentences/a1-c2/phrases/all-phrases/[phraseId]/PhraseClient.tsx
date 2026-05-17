@@ -7,7 +7,7 @@ import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
 import { Phrase } from '@/data/sentences/a1-c2-phrases';
-import { recordLearningProgress } from '@/lib/useLearningProgress';
+import { recordLearningProgress } from '@/lib/learning-progress-client';
 import { usePoints } from '@/lib/usePoints';
 
 interface PhraseClientProps {
