@@ -67,7 +67,7 @@ export function NegotiationQuestClient({ quest }: NegotiationQuestClientProps) {
     if (!ending || rewardedEndingCode === ending.code) return;
 
     setRewardedEndingCode(ending.code);
-    addPoints(ending.points);
+    addPoints(ending.points, 'negotiation');
     completeActivity().then((result) => {
       if (result) setActivityResult(result);
     });

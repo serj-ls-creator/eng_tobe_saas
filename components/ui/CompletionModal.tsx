@@ -163,7 +163,7 @@ export function CompletionModal({
     if (!mounted || noPoints || pointsHandledRef.current) return;
     pointsHandledRef.current = true;
     if (completed > 0) {
-      addPoints(completed);
+      addPoints(completed, 'completion-modal');
     }
     completeActivity().then(result => {
       if (result) setActivityResult(result);

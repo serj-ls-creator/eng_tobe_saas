@@ -4,7 +4,12 @@ create table if not exists public.profiles (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null unique references auth.users(id) on delete cascade,
   is_premium boolean not null default false,
+  premium_expires_at timestamptz,
   streak integer not null default 0,
+  total_streak integer not null default 0,
+  points integer not null default 0,
+  last_activity_date text,
+  daily_activities integer not null default 0,
   display_name text,
   avatar text,
   created_at timestamptz not null default now()
@@ -120,3 +125,53 @@ for update
 to authenticated
 using (auth.uid() = user_id)
 with check (auth.uid() = user_id);
+
+-- Weekly Streak Table
+create table if not exists public.weekly_streak (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  week_start_date text not null,
+  day_flags integer not null default 0,
+  days_completed integer not null default 0,
+  updated_at timestamptz not null default now(),
+  unique (user_id, week_start_date)
+);
+
+alter table public.weekly_streak enable row level security;
+
+create policy "weekly_streak_select_own"
+on public.weekly_streak
+for select
+to authenticated
+using (auth.uid() = user_id);
+
+create policy "weekly_streak_insert_own"
+on public.weekly_streak
+for insert
+to authenticated
+with check (auth.uid() = user_id);
+
+create policy "weekly_streak_update_own"
+on public.weekly_streak
+for update
+to authenticated
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+-- RPC for incrementing points atomic update
+create or replace function public.increment_points(user_id_input uuid, points_to_add integer)
+returns integer
+language plpgsql
+security definer
+as $$
+declare
+  new_points integer;
+begin
+  update public.profiles
+  set points = coalesce(points, 0) + points_to_add
+  where user_id = user_id_input
+  returning points into new_points;
+  
+  return new_points;
+end;
+$$;

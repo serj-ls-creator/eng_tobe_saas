@@ -136,7 +136,7 @@ export default function MemoryGamePage({ params }: PageProps) {
         setMatched(m => {
           const n = m + 1;
           if (n === pairCount) {
-            addPoints(10);
+            addPoints(10, 'memory');
             completeActivity();
             setTimeout(() => setShowResult(true), 500);
           }

@@ -3,10 +3,28 @@ import { createSupabaseServerClient } from '@/lib/supabase';
 
 export async function POST(req: NextRequest) {
   try {
-    const { points } = await req.json();
+    const { points, activityType } = await req.json();
 
     if (typeof points !== 'number' || points < 0) {
       return NextResponse.json({ error: 'Invalid points' }, { status: 400 });
+    }
+
+    // Server-side validation of points based on activityType
+    let maxAllowedPoints = 10; // Default maximum points allowed per transaction is 10
+    
+    if (activityType === 'negotiation') {
+      maxAllowedPoints = 10;
+    } else if (activityType === 'wordle' || activityType === 'memory') {
+      maxAllowedPoints = 10;
+    } else if (activityType === 'completion-modal') {
+      maxAllowedPoints = 20; // Allow up to 20 points for lesson completions
+    } else {
+      // If activityType is not provided or unknown, restrict strictly to 10 points
+      maxAllowedPoints = 10;
+    }
+
+    if (points > maxAllowedPoints) {
+      return NextResponse.json({ error: 'Unauthorized: points amount exceeds allowable limit for this activity' }, { status: 403 });
     }
 
     const supabase = createSupabaseServerClient();

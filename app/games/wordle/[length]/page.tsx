@@ -135,7 +135,7 @@ export default function WordleGamePage({ params }: PageProps) {
     const isWin = currentGuess === targetWord;    if (isWin) {
       setWon(true);
       setGameOver(true);
-      addPoints(10);
+      addPoints(10, 'wordle');
       completeActivity();
       setTimeout(() => setShowResult(true), 1500);
     } else if (newGuesses.length >= MAX_GUESSES) {
