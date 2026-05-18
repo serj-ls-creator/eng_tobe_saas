@@ -335,5 +335,1160 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
         ]
       }
     ]
+  },
+  {
+    id: "travel-airport",
+    name: "Travel & Airport",
+    description: "Check-in, security, flight delays, gate information",
+    subcategories: [
+      {
+        id: "check-in",
+        name: "Check-in",
+        description: "Flight registration process",
+        dialogues: [
+          {
+            id: "ta-ci-1",
+            prompt: "Could I change my seat to an exit row for some extra legroom?",
+            positive: "Certainly, we have one exit row seat left on this flight, and I've assigned it to you.",
+            negative: "I'm sorry, all the exit row seats are completely booked on today's flight.",
+            question: "Would you prefer an aisle or a window seat in the exit row if one opens up?"
+          },
+          {
+            id: "ta-ci-2",
+            prompt: "Is it possible to check this bag all the way through to my final destination?",
+            positive: "Yes, since your flights are under a single booking, your bags will go directly to your destination.",
+            negative: "Unfortunately, you will need to collect your baggage and re-check it during your layover.",
+            question: "Would you like me to print your baggage tags showing the full itinerary?"
+          },
+          {
+            id: "ta-ci-3",
+            prompt: "Can I bring this small backpack as my personal item in addition to my carry-on?",
+            positive: "Yes, that fits our size guidelines and can be placed under the seat in front of you.",
+            negative: "I'm afraid that bag is too large to qualify as a personal item and must be checked.",
+            question: "Does your backpack contain any fragile items or laptops that you'd like to take out?"
+          },
+          {
+            id: "ta-ci-4",
+            prompt: "Could you print my boarding pass for the connecting flight as well?",
+            positive: "Absolutely, here are the boarding passes for both legs of your journey.",
+            negative: "I'm sorry, I can only print the ticket for your first leg; you'll get the second one at the transit desk.",
+            question: "Would you prefer to have digital boarding passes sent directly to your phone?"
+          },
+          {
+            id: "ta-ci-5",
+            prompt: "Is my flight currently on schedule or has it been delayed?",
+            positive: "Your flight is right on time and scheduled to depart from gate A4.",
+            negative: "Unfortunately, your flight is delayed by forty minutes due to late incoming aircraft.",
+            question: "Would you like me to check if there are any gate updates for your flight?"
+          }
+        ]
+      },
+      {
+        id: "security",
+        name: "Security",
+        description: "Going through security screening",
+        dialogues: [
+          {
+            id: "ta-sec-1",
+            prompt: "Do I need to take my laptop and tablet out of my bag for the scanner?",
+            positive: "Yes, please place all large electronic devices in a separate tray.",
+            negative: "No, our modern scanners allow you to keep electronics inside your bag.",
+            question: "Are there any external hard drives or cameras inside your bag as well?"
+          },
+          {
+            id: "ta-sec-2",
+            prompt: "Should I remove my light jacket and belt before walking through the metal detector?",
+            positive: "Yes, please take off your jacket, belt, and any heavy jewelry and place them in the bin.",
+            negative: "No, a light jacket is perfectly fine, but please remove your belt.",
+            question: "Do you have any metal items or coins remaining in your pockets?"
+          },
+          {
+            id: "ta-sec-3",
+            prompt: "Am I allowed to bring this sealed bottle of water through the security checkpoint?",
+            positive: "Yes, since you purchased it after the main ticketing area, it is allowed.",
+            negative: "No, unfortunately, all liquids over one hundred milliliters must be discarded here.",
+            question: "Would you like to drink it now or throw it in the bin?"
+          },
+          {
+            id: "ta-sec-4",
+            prompt: "Could you tell me why my carry-on bag has been flagged for manual inspection?",
+            positive: "Certainly, we just need to verify the liquids container size inside your bag.",
+            negative: "I cannot disclose details, but our officers will inspect the bag immediately.",
+            question: "Do you have any sharp objects, sprays, or tools inside this bag?"
+          },
+          {
+            id: "ta-sec-5",
+            prompt: "Do I need to take off my shoes, or is that only for international flights?",
+            positive: "Yes, everyone must remove their shoes and place them directly on the conveyor belt.",
+            negative: "No, you can keep your shoes on unless the metal detector alarm goes off.",
+            question: "Are you carrying any liquids or gels in your footwear or socks?"
+          }
+        ]
+      },
+      {
+        id: "flight-delays",
+        name: "Flight Delays",
+        description: "Asking about delayed flights",
+        dialogues: [
+          {
+            id: "ta-fd-1",
+            prompt: "Will I still be able to make my connection in Chicago with this one-hour delay?",
+            positive: "Yes, you have a three-hour layover, so you will still have plenty of time.",
+            negative: "I'm afraid it will be very tight, and you might miss your connecting flight.",
+            question: "Would you like me to check if we can book you on a later connection just in case?"
+          },
+          {
+            id: "ta-fd-2",
+            prompt: "Is the airline offering any meal vouchers or accommodation due to this overnight delay?",
+            positive: "Yes, we will provide you with a hotel room voucher and a twenty-dollar dinner coupon.",
+            negative: "No, because the delay is due to severe weather, the airline is not liable for hotels.",
+            question: "Would you like me to print out the list of nearby hotels with discounted rates?"
+          },
+          {
+            id: "ta-fd-3",
+            prompt: "Could you rebook me on the next available flight to London if this one is canceled?",
+            positive: "Absolutely, I've secured you a seat on our partner airline's flight leaving in two hours.",
+            negative: "Unfortunately, all flights to London are fully booked for the rest of the day.",
+            question: "Would you be open to a flight with a short layover in Paris instead?"
+          },
+          {
+            id: "ta-fd-4",
+            prompt: "How long is the boarding expected to be delayed due to the incoming aircraft?",
+            positive: "The incoming plane has just landed, so boarding will begin in about twenty minutes.",
+            negative: "I'm sorry, we don't have an exact boarding time yet as the plane is still undergoing maintenance.",
+            question: "Would you like me to send an SMS alert to your phone once boarding begins?"
+          },
+          {
+            id: "ta-fd-5",
+            prompt: "Can I get a refund if I decide not to travel because of this massive delay?",
+            positive: "Yes, since the delay exceeds five hours, you are entitled to a full refund to your original card.",
+            negative: "No, your ticket is strictly non-refundable, but we can issue a travel voucher for future use.",
+            question: "Would you prefer to rebook for tomorrow morning at no additional charge?"
+          }
+        ]
+      },
+      {
+        id: "gate-info",
+        name: "Gate Information",
+        description: "Finding your departure gate",
+        dialogues: [
+          {
+            id: "ta-gi-1",
+            prompt: "Could you double-check if the departure gate for flight UA123 has changed?",
+            positive: "Yes, the gate has changed from B12 to C24; please head there immediately.",
+            negative: "No, the gate is still B12 as originally printed on your boarding pass.",
+            question: "Would you like me to point you in the direction of the C gates?"
+          },
+          {
+            id: "ta-gi-2",
+            prompt: "Is boarding starting soon, or should I wait in the lounge a bit longer?",
+            positive: "Boarding is starting right now; you should proceed to the gate immediately.",
+            negative: "You have about forty minutes before boarding, so feel free to stay in the lounge.",
+            question: "Which zone number is printed on your boarding pass?"
+          },
+          {
+            id: "ta-gi-3",
+            prompt: "Where can I find the nearest lounge or quiet area near Gate B12?",
+            positive: "There is a premium lounge directly opposite gate B14, just a short walk away.",
+            negative: "Unfortunately, there are no quiet lounges in terminal B; they are all located in terminal A.",
+            question: "Do you have a lounge pass, or would you like to buy a one-day entry ticket?"
+          },
+          {
+            id: "ta-gi-4",
+            prompt: "Is it possible to upgrade my ticket to business class here at the gate?",
+            positive: "Yes, we have two business class seats left, and I can process the upgrade for you.",
+            negative: "I'm sorry, business class is fully booked on this flight, so no upgrades are possible.",
+            question: "Would you like to pay for the upgrade using your frequent flyer miles?"
+          },
+          {
+            id: "ta-gi-5",
+            prompt: "How far is the international terminal from this domestic gate?",
+            positive: "It is about a ten-minute ride on the terminal shuttle train.",
+            negative: "It's quite far and requires walking for at least twenty-five minutes.",
+            question: "Do you need a map of the airport terminals to find the shuttle station?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "shopping-prices",
+    name: "Shopping & Prices",
+    description: "Store conversations: sizes, prices, returns, exchanges",
+    subcategories: [
+      {
+        id: "sizes",
+        name: "Sizes",
+        description: "Asking about clothing sizes",
+        dialogues: [
+          {
+            id: "sp-sz-1",
+            prompt: "Do you happen to have this woolen sweater in a medium size?",
+            positive: "Yes, we have a few medium sweaters left in stock; I will fetch one for you.",
+            negative: "I'm sorry, we are completely sold out of medium sizes for this sweater.",
+            question: "Would you like to try the small size, as this design is quite oversized?"
+          },
+          {
+            id: "sp-sz-2",
+            prompt: "Does this jacket run true to size, or should I size up?",
+            positive: "It runs exactly true to size, so your usual size should fit perfectly.",
+            negative: "It actually runs quite small, so I would highly recommend sizing up.",
+            question: "Would you like to take both a medium and a large to the fitting room?"
+          },
+          {
+            id: "sp-sz-3",
+            prompt: "Is there a larger size available in the changing rooms right now?",
+            positive: "Yes, our assistant will bring a larger size to your changing room immediately.",
+            negative: "Unfortunately, the size you currently have is the largest one we carry.",
+            question: "Would you like to try a different style that has a looser fit?"
+          },
+          {
+            id: "sp-sz-4",
+            prompt: "Can you check if your other store has this dress in a size small?",
+            positive: "Yes, our downtown branch has two of these dresses in size small.",
+            negative: "I'm afraid this item is completely sold out across all our local branches.",
+            question: "Would you like me to reserve the dress at our downtown branch for you to collect tomorrow?"
+          },
+          {
+            id: "sp-sz-5",
+            prompt: "Is this pair of jeans stretchable, or is it rigid denim?",
+            positive: "Yes, it contains two percent elastane, making it very comfortable and stretchy.",
+            negative: "No, this is a classic hundred percent cotton rigid denim with no stretch.",
+            question: "Do you prefer a high-waisted fit or a mid-rise cut in jeans?"
+          }
+        ]
+      },
+      {
+        id: "prices",
+        name: "Prices",
+        description: "Clarifying product prices",
+        dialogues: [
+          {
+            id: "sp-pr-1",
+            prompt: "Is there any discount on this coat, or is it full price?",
+            positive: "Yes, this coat is currently thirty percent off as part of our seasonal sale.",
+            negative: "Unfortunately, this item is from our new arrivals and is not discounted.",
+            question: "Would you like to sign up for our store membership to get a ten percent discount?"
+          },
+          {
+            id: "sp-pr-2",
+            prompt: "Could you tell me if this item is included in the buy-one-get-one-free promo?",
+            positive: "Yes, all items on this specific rack are part of the buy-one-get-one promotion.",
+            negative: "No, that promotion only applies to selected shoes and accessories.",
+            question: "Would you like me to show you where the promotional footwear is located?"
+          },
+          {
+            id: "sp-pr-3",
+            prompt: "Why does the price tag on the shelf differ from what rang up at the register?",
+            positive: "I apologize, the shelf tag was out of date; I will adjust the price to match it.",
+            negative: "The tag on the shelf is for a different product model; the register price is correct.",
+            question: "Would you still like to purchase this item at the registered price?"
+          },
+          {
+            id: "sp-pr-4",
+            prompt: "Do you offer tax-free shopping forms for international tourists?",
+            positive: "Yes, we can prepare the tax-free forms for you right now.",
+            negative: "I'm sorry, our store is not registered for the tax-free program.",
+            question: "Could I please see your passport to fill out the tax refund form?"
+          },
+          {
+            id: "sp-pr-5",
+            prompt: "Is it possible to price-match this item with your online store?",
+            positive: "Certainly, we will gladly match the lower price advertised on our official website.",
+            negative: "I'm afraid our retail stores operate independently and do not match online prices.",
+            question: "Would you prefer to order it online and select free in-store collection?"
+          }
+        ]
+      },
+      {
+        id: "returns",
+        name: "Returns",
+        description: "Return and exchange policies",
+        dialogues: [
+          {
+            id: "sp-ret-1",
+            prompt: "Can I return this pair of boots if I don't have the original receipt?",
+            positive: "Yes, as long as the boots are unworn, we can offer an exchange or store credit.",
+            negative: "I'm sorry, we cannot accept any returns or exchanges without a valid receipt.",
+            question: "Did you purchase this item using our customer loyalty account?"
+          },
+          {
+            id: "sp-ret-2",
+            prompt: "Is it possible to get a full refund to my card, or only store credit?",
+            positive: "Since you are within our thirty-day return window, we can issue a full refund to your card.",
+            negative: "Because the return window has passed, we can only offer you store credit.",
+            question: "Would you like me to process the refund to your original payment card?"
+          },
+          {
+            id: "sp-ret-3",
+            prompt: "How many days do I have to exchange this item if it doesn't fit?",
+            positive: "You have exactly thirty days from the purchase date to make an exchange.",
+            negative: "All clothing items must be exchanged within fourteen days of purchase.",
+            question: "Are the original tags and labels still attached to the item?"
+          },
+          {
+            id: "sp-ret-4",
+            prompt: "Can I return an item that was purchased on final sale or clearance?",
+            positive: "Yes, clearance items can be returned for store credit within seven days.",
+            negative: "Unfortunately, all items marked as final sale or clearance are non-returnable.",
+            question: "Is there a fault with the item, or is it just a change of mind?"
+          },
+          {
+            id: "sp-ret-5",
+            prompt: "Would you mind checking if I can return this online order at your physical store?",
+            positive: "Absolutely, you can bring any online purchase to our physical store for a direct refund.",
+            negative: "No, all online purchases must be shipped back to our central warehouse for returns.",
+            question: "Do you have the online order confirmation email showing the order number?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "hotel-accommodation",
+    name: "Hotel & Accommodation",
+    description: "Check-in/out, room requests, complaints, amenities",
+    subcategories: [
+      {
+        id: "checkin-out",
+        name: "Check-in/out",
+        description: "Hotel arrival and departure",
+        dialogues: [
+          {
+            id: "ha-co-1",
+            prompt: "Is it possible to request an early check-in as our flight landed at 7 AM?",
+            positive: "Yes, your room is already prepared, and we can check you in right away.",
+            negative: "Unfortunately, our checkout time is 11 AM, so no rooms are available yet.",
+            question: "Would you like us to store your bags while you grab some breakfast?"
+          },
+          {
+            id: "ha-co-2",
+            prompt: "Could we arrange for a late check-out at 2 PM instead of 11 AM?",
+            positive: "Certainly, we can extend your checkout to 2 PM free of charge.",
+            negative: "I'm sorry, we are fully booked tonight and need the room for incoming guests.",
+            question: "Would you like to pay a small fee to extend your checkout until 5 PM?"
+          },
+          {
+            id: "ha-co-3",
+            prompt: "Do you have a secure room where we can store our luggage until our evening departure?",
+            positive: "Yes, we have a luggage room right next to the reception desk; here are your bag tags.",
+            negative: "No, we don't have a dedicated storage room, but you can leave them in the lobby corner.",
+            question: "At what time do you plan to collect your bags tonight?"
+          },
+          {
+            id: "ha-co-4",
+            prompt: "Can I pay the security deposit using a debit card instead of a credit card?",
+            positive: "Yes, a debit card is perfectly fine, but the refund may take up to five business days.",
+            negative: "Unfortunately, our policy strictly requires a credit card for the security hold.",
+            question: "Do you have a credit card under the same name as the booking?"
+          },
+          {
+            id: "ha-co-5",
+            prompt: "Could you provide me with the Wi-Fi password and breakfast hours?",
+            positive: "Of course, Wi-Fi is free and the password is 'guest2026'; breakfast is served from 7 to 10 AM.",
+            negative: "I'm sorry, our system is currently down; I will write the info on a card for you.",
+            question: "Would you like me to book a breakfast slot for you to avoid the busy times?"
+          }
+        ]
+      },
+      {
+        id: "room-requests",
+        name: "Room Requests",
+        description: "Towel changes, extra amenities",
+        dialogues: [
+          {
+            id: "ha-rr-1",
+            prompt: "Could we have some extra towels and a couple of pillows sent up to room 405?",
+            positive: "Certainly, housekeeping will deliver them to your room in a few minutes.",
+            negative: "I'm sorry, we are currently out of extra pillows due to high occupancy.",
+            question: "Would you like regular pillows or do you prefer our memory foam options?"
+          },
+          {
+            id: "ha-rr-2",
+            prompt: "Is it possible to switch to a room with a king-size bed instead of twin beds?",
+            positive: "Yes, we have a king room available on the second floor and can move you now.",
+            negative: "Unfortunately, all our king-size rooms are fully occupied for the weekend.",
+            question: "Would you mind waiting until tomorrow afternoon to change your room?"
+          },
+          {
+            id: "ha-rr-3",
+            prompt: "Can we request a room on a higher floor away from the elevator noise?",
+            positive: "Absolutely, I've relocated you to a quiet room on the top floor.",
+            negative: "I'm afraid all our quiet rooms on higher floors are already taken.",
+            question: "Would you prefer a room at the end of the corridor on the third floor?"
+          },
+          {
+            id: "ha-rr-4",
+            prompt: "Could you send a complimentary bottle of water and some coffee pods to our room?",
+            positive: "Of course, I will have those sent up to you immediately.",
+            negative: "Unfortunately, we only provide coffee pods upon check-in; extras carry a fee.",
+            question: "Would you like decaf or regular coffee pods sent up?"
+          },
+          {
+            id: "ha-rr-5",
+            prompt: "Is there a way to get a room with a balcony facing the ocean?",
+            positive: "Yes, we can upgrade you to an oceanfront room for a small nightly surcharge.",
+            negative: "I'm sorry, all our ocean-facing rooms are completely sold out.",
+            question: "Would a partial ocean view room suit your preferences?"
+          }
+        ]
+      },
+      {
+        id: "complaints",
+        name: "Complaints",
+        description: "AC/Wi-Fi issues, problems",
+        dialogues: [
+          {
+            id: "ha-comp-1",
+            prompt: "The air conditioning in our room is making a loud noise and not cooling properly.",
+            positive: "I apologize for the inconvenience; our maintenance technician will head up immediately.",
+            negative: "I'm sorry, our maintenance team is off-duty until tomorrow morning.",
+            question: "Would you prefer to switch to another room with fully functioning AC right now?"
+          },
+          {
+            id: "ha-comp-2",
+            prompt: "The Wi-Fi signal in room 302 is extremely weak and keeps disconnecting.",
+            positive: "I will restart our corridor router right away to boost your signal.",
+            negative: "Unfortunately, that corner room has historically had poor signal coverage.",
+            question: "Would you like me to give you a voucher for our high-speed premium Wi-Fi?"
+          },
+          {
+            id: "ha-comp-3",
+            prompt: "There is no hot water in our shower, and the pressure is very low.",
+            positive: "I am very sorry; I will send our plumber to investigate the pipes immediately.",
+            negative: "We are currently experiencing a boiler issue affecting the entire west wing.",
+            question: "Would you like to use the shower facilities in our spa area in the meantime?"
+          },
+          {
+            id: "ha-comp-4",
+            prompt: "Our room hasn't been cleaned yet today, even though we had the sign out.",
+            positive: "I apologize; I will instruct our housekeeping supervisor to clean your room right now.",
+            negative: "Housekeeping service ended at 4 PM, so we can only offer fresh towels tonight.",
+            question: "Would you like us to clean the room while you are out for dinner?"
+          },
+          {
+            id: "ha-comp-5",
+            prompt: "The guests in the next room are having a loud party; could you ask them to quiet down?",
+            positive: "Absolutely, I will send our night security officer to deal with the noise immediately.",
+            negative: "I'm sorry, we cannot interfere with other guests' rooms unless it's past midnight.",
+            question: "Would you like me to move you to a quieter room on another floor?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "directions-transport",
+    name: "Directions & Transport",
+    description: "Asking for directions, buying tickets, taxi rides",
+    subcategories: [
+      {
+        id: "asking-directions",
+        name: "Asking Directions",
+        description: "How to ask for directions",
+        dialogues: [
+          {
+            id: "dt-ad-1",
+            prompt: "Excuse me, could you tell me the best way to get to the national museum from here?",
+            positive: "Certainly, the easiest way is to walk straight down this avenue and turn left at the lights.",
+            negative: "I'm sorry, I'm not from around here and don't know the way to the museum.",
+            question: "Would you like me to show you the route on a physical tourist map?"
+          },
+          {
+            id: "dt-ad-2",
+            prompt: "Is the central train station within walking distance, or should I take a bus?",
+            positive: "It's only a five-minute walk, so walking is definitely your best option.",
+            negative: "It's quite far from here; walking would take at least forty-five minutes.",
+            question: "Would you like to know which bus line goes directly to the station?"
+          },
+          {
+            id: "dt-ad-3",
+            prompt: "Which way should I go to find the nearest subway station?",
+            positive: "Walk straight ahead for two blocks, and you'll see the subway entrance on your right.",
+            negative: "Subway stations are closed in this area; you must use the tram instead.",
+            question: "Are you looking for a specific metro line, or just any subway station?"
+          },
+          {
+            id: "dt-ad-4",
+            prompt: "Am I heading in the right direction for the historic cathedral?",
+            positive: "Yes, just keep walking straight and you will see its spires in a few minutes.",
+            negative: "No, you are actually walking in the opposite direction; you need to turn back.",
+            question: "Would you like to use my phone GPS to verify the cathedral's location?"
+          },
+          {
+            id: "dt-ad-5",
+            prompt: "Could you point me towards the main shopping street?",
+            positive: "Sure, it is just around the corner behind that tall modern building.",
+            negative: "I'm afraid there are no shopping streets nearby; the malls are outside the city.",
+            question: "Are you looking for boutique shops or large department stores?"
+          }
+        ]
+      },
+      {
+        id: "public-transport",
+        name: "Public Transport",
+        description: "Metro/bus tickets",
+        dialogues: [
+          {
+            id: "dt-pt-1",
+            prompt: "Where can I purchase a 3-day travel card for the metro and buses?",
+            positive: "You can buy it at any ticket machine inside the metro station or at the tourist office.",
+            negative: "Unfortunately, 3-day travel cards are currently out of stock at all kiosks.",
+            question: "Would you like to buy a standard single ticket for this trip instead?"
+          },
+          {
+            id: "dt-pt-2",
+            prompt: "Which line should I take to get to the international airport?",
+            positive: "You should take the blue line directly to the terminal; it takes twenty minutes.",
+            negative: "No train lines go to the airport; you must take a dedicated express bus.",
+            question: "Are you traveling with a lot of heavy luggage today?"
+          },
+          {
+            id: "dt-pt-3",
+            prompt: "How often do the trains run on this line during the weekend?",
+            positive: "They are very frequent, running every five minutes throughout the day.",
+            negative: "During the weekend, trains only run once every thirty minutes on this line.",
+            question: "Would you like me to print out the full weekend train schedule for you?"
+          },
+          {
+            id: "dt-pt-4",
+            prompt: "Do I need to tap my transport card both when entering and exiting the station?",
+            positive: "Yes, tapping on entry and exit ensures you are charged the correct fare.",
+            negative: "No, you only need to tap when entering the station; the gates open automatically on exit.",
+            question: "Is your transport card pre-loaded with sufficient credit?"
+          },
+          {
+            id: "dt-pt-5",
+            prompt: "Is this bus heading directly to the city center, or does it make transfers?",
+            positive: "Yes, this bus goes straight to the city center without any transfers.",
+            negative: "No, you will need to transfer to the subway at the third stop.",
+            question: "Would you like me to tell you when we reach the transfer station?"
+          }
+        ]
+      },
+      {
+        id: "taxi",
+        name: "Taxi",
+        description: "Calling taxi and trip cost",
+        dialogues: [
+          {
+            id: "dt-tx-1",
+            prompt: "Could you call a taxi for me to take me to the conference hall?",
+            positive: "Certainly, I have called a cab and it will arrive at the entrance in five minutes.",
+            negative: "I'm sorry, because of the heavy rain, all taxi services are fully booked right now.",
+            question: "Would you prefer me to book a premium ride-share vehicle for you instead?"
+          },
+          {
+            id: "dt-tx-2",
+            prompt: "How much is the approximate fare from here to the airport?",
+            positive: "It is generally a flat rate of forty-five dollars, including tolls.",
+            negative: "Fares vary wildly depending on traffic; there is no fixed rate.",
+            question: "Would you like me to ask the driver for a price quote before you get in?"
+          },
+          {
+            id: "dt-tx-3",
+            prompt: "Do you accept credit cards, or do I need to pay the fare in cash?",
+            positive: "Yes, my taxi is equipped with a card terminal that accepts all major cards.",
+            negative: "No, unfortunately, my terminal is broken today, so I can only accept cash.",
+            question: "Would you like to stop at an ATM along the way to withdraw cash?"
+          },
+          {
+            id: "dt-tx-4",
+            prompt: "Could you pull over near the subway entrance, please?",
+            positive: "Sure thing, I will pull over safely just past the subway signs.",
+            negative: "I can't stop there due to strict bus lane restrictions; I'll drop you off at the corner.",
+            question: "Would you like me to help you with your bags from the trunk?"
+          },
+          {
+            id: "dt-tx-5",
+            prompt: "Is there an extra surcharge for luggage or airport drop-off?",
+            positive: "Yes, there is a standard three-dollar surcharge for airport trips.",
+            negative: "No, there are no hidden fees or extra charges for baggage.",
+            question: "How many bags do you need to place in the trunk today?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "health-pharmacy",
+    name: "Health & Pharmacy",
+    description: "Describing symptoms, buying medicine, medical help",
+    subcategories: [
+      {
+        id: "symptoms",
+        name: "Symptoms",
+        description: "Describing headache, cold symptoms",
+        dialogues: [
+          {
+            id: "hp-sy-1",
+            prompt: "I've had a severe headache and a dry cough since yesterday morning.",
+            positive: "That sounds like a classic seasonal bug; you should get plenty of rest.",
+            negative: "A dry cough is not typical for a standard headache; you should see a doctor.",
+            question: "Have you developed a fever or any body aches as well?"
+          },
+          {
+            id: "hp-sy-2",
+            prompt: "I feel quite dizzy and my stomach has been upset all day.",
+            positive: "You might be suffering from mild dehydration or food poisoning; drink some water.",
+            negative: "Dizziness and stomach upset are highly unusual symptoms together.",
+            question: "Would you like me to call our hotel's on-call doctor for you?"
+          },
+          {
+            id: "hp-sy-3",
+            prompt: "I think I sprained my ankle; it's swollen and I can't put weight on it.",
+            positive: "Oh dear, please sit down and I will get some ice to reduce the swelling.",
+            negative: "If it's not painful, it's probably just a minor strain; keep walking.",
+            question: "Would you like me to accompany you to the nearest urgent care clinic?"
+          },
+          {
+            id: "hp-sy-4",
+            prompt: "My throat is extremely sore and it hurts whenever I swallow.",
+            positive: "You should try gargling with warm salt water and drinking hot herbal tea.",
+            negative: "That doesn't sound serious; you don't need any medicine for throat pain.",
+            question: "Do you have a sore throat often, or did this start suddenly?"
+          },
+          {
+            id: "hp-sy-5",
+            prompt: "I have a high fever and feel completely exhausted; could it be the flu?",
+            positive: "Yes, those are classic symptoms of the flu; please stay warm and rest.",
+            negative: "No, a high fever is rarely associated with the seasonal flu.",
+            question: "How many days have you been experiencing this high temperature?"
+          }
+        ]
+      },
+      {
+        id: "pharmacy",
+        name: "Pharmacy",
+        description: "Buying medicine without prescription",
+        dialogues: [
+          {
+            id: "hp-ph-1",
+            prompt: "Do you have anything over-the-counter for a blocked nose and sinus pressure?",
+            positive: "Yes, this nasal spray is highly effective for reducing sinus congestion quickly.",
+            negative: "I'm sorry, we don't have any decongestants available without a prescription.",
+            question: "Would you prefer a non-drowsy tablet or a fast-acting spray?"
+          },
+          {
+            id: "hp-ph-2",
+            prompt: "Can I buy this allergy medication without a prescription from a doctor?",
+            positive: "Yes, this specific brand is fully approved for over-the-counter sales.",
+            negative: "No, this medication is very strong and strictly requires a doctor's prescription.",
+            question: "Would you like to try our generic over-the-counter antihistamine instead?"
+          },
+          {
+            id: "hp-ph-3",
+            prompt: "How many times a day should I take these pain relievers?",
+            positive: "You should take one tablet every four to six hours as needed, with food.",
+            negative: "There are no dosing instructions; you can take as many as you want.",
+            question: "Are you taking any other medications that might interact with this?"
+          },
+          {
+            id: "hp-ph-4",
+            prompt: "Are there any side effects, like drowsiness, associated with these pills?",
+            positive: "Yes, they can cause significant drowsiness, so please avoid driving.",
+            negative: "No, these are completely natural and have zero known side effects.",
+            question: "Would you prefer a non-drowsy alternative to take during the daytime?"
+          },
+          {
+            id: "hp-ph-5",
+            prompt: "Do you have a milder cough syrup suitable for young children?",
+            positive: "Yes, we have a pediatric herbal honey syrup that is very gentle and safe.",
+            negative: "No, all our cough medicines are formulated exclusively for adults.",
+            question: "How old is your child so I can verify the correct dosage?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "socializing-smalltalk",
+    name: "Socializing & Small Talk",
+    description: "Conversation starters, weather, hobbies, work topics",
+    subcategories: [
+      {
+        id: "conversation-starters",
+        name: "Conversation Starters",
+        description: "Polite phrases to begin talking",
+        dialogues: [
+          {
+            id: "ss-cs-1",
+            prompt: "Excuse me, is anyone sitting here, or is this chair free?",
+            positive: "No, go right ahead, the chair is completely free.",
+            negative: "Actually, my colleague is using that chair; he will be back shortly.",
+            question: "Would you like me to help you carry it over to your table?"
+          },
+          {
+            id: "ss-cs-2",
+            prompt: "That's a lovely watch you have; mind if I ask where you got it?",
+            positive: "Thank you! It was actually a gift from my grandfather.",
+            negative: "I'd prefer not to say, as it's a very personal item.",
+            question: "Are you a collector of vintage watches yourself?"
+          },
+          {
+            id: "ss-cs-3",
+            prompt: "Hi there, have you attended this conference before, or is it your first time?",
+            positive: "It's my first time here, and I must say the sessions are fascinating.",
+            negative: "No, I've attended this conference every single year since it started.",
+            question: "Which of today's presentations are you looking forward to the most?"
+          },
+          {
+            id: "ss-cs-4",
+            prompt: "What a spectacular view from this balcony! Isn't it wonderful?",
+            positive: "It really is! The skyline looks stunning as the sun goes down.",
+            negative: "Honestly, the height makes me a bit dizzy, so I don't enjoy it.",
+            question: "Would you like to take a photo together with the city in the background?"
+          },
+          {
+            id: "ss-cs-5",
+            prompt: "It's getting quite crowded in here, isn't it?",
+            positive: "Yes, it really is; it's almost impossible to move around.",
+            negative: "No, I think this is a very comfortable crowd size for the lobby.",
+            question: "Would you like to step outside on the terrace for some fresh air?"
+          }
+        ]
+      },
+      {
+        id: "small-talk",
+        name: "Small Talk",
+        description: "Weather, hobbies, work topics",
+        dialogues: [
+          {
+            id: "ss-st-1",
+            prompt: "The weather has been absolutely gorgeous this week, hasn't it?",
+            positive: "Yes, it's been so sunny and warm, perfect for outdoor walks.",
+            negative: "Actually, I think it's been way too hot and humid for this time of year.",
+            question: "Do you have any plans to enjoy the sunshine over the weekend?"
+          },
+          {
+            id: "ss-st-2",
+            prompt: "What do you like to do in your free time when you're not working?",
+            positive: "I'm a big fan of hiking and playing acoustic guitar in the evenings.",
+            negative: "I don't have much free time at all, so I mostly just sleep.",
+            question: "Do you prefer outdoor sports or creative hobbies inside?"
+          },
+          {
+            id: "ss-st-3",
+            prompt: "Are you planning to go anywhere nice for your summer holiday this year?",
+            positive: "Yes, we are planning a two-week road trip along the coast of Spain.",
+            negative: "No, I have too much work and will be staying home this summer.",
+            question: "Have you ever visited the Spanish coast before?"
+          },
+          {
+            id: "ss-st-4",
+            prompt: "How long have you been working in the tech industry?",
+            positive: "I've been in tech for about seven years now, mostly in software design.",
+            negative: "Actually, I just joined the industry last month, so I'm very new.",
+            question: "What major changes have you noticed in the tech scene recently?"
+          },
+          {
+            id: "ss-st-5",
+            prompt: "Have you tried any of the local restaurants around the hotel?",
+            positive: "Yes, the Italian bistro down the street serves the most amazing pasta.",
+            negative: "No, I've been eating all my meals in the hotel dining room.",
+            question: "What kind of food are you in the mood for tonight?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "bank-money",
+    name: "At the Bank & Money",
+    description: "Cash withdrawal, currency exchange, card issues",
+    subcategories: [
+      {
+        id: "cash-withdrawal",
+        name: "Cash Withdrawal",
+        description: "Getting cash from ATM/bank",
+        dialogues: [
+          {
+            id: "bm-cw-1",
+            prompt: "I'd like to withdraw five hundred dollars from my savings account, please.",
+            positive: "Certainly, please insert your card and enter your PIN on the pad.",
+            negative: "I'm afraid your account has insufficient funds to complete this withdrawal.",
+            question: "Would you like me to check your current savings account balance first?"
+          },
+          {
+            id: "bm-cw-2",
+            prompt: "Is there a daily limit on cash withdrawals at the ATM outside?",
+            positive: "Yes, the daily withdrawal limit at our external ATMs is one thousand dollars.",
+            negative: "No, you can withdraw as much cash as your account balance allows.",
+            question: "Do you need to withdraw a larger amount inside the branch today?"
+          },
+          {
+            id: "bm-cw-3",
+            prompt: "Could you give me the cash in fifty-dollar bills instead of hundreds?",
+            positive: "Of course, I will count out ten fifty-dollar bills for you.",
+            negative: "I'm sorry, we are currently out of fifty-dollar bills at this teller desk.",
+            question: "Would you mind if I gave you twenty-dollar bills instead?"
+          },
+          {
+            id: "bm-cw-4",
+            prompt: "Are there any fees for withdrawing cash using an international card?",
+            positive: "Yes, international cards carry a standard transaction fee of five dollars.",
+            negative: "No, our bank does not charge any fees for international card withdrawals.",
+            question: "Would you like me to explain our currency conversion options?"
+          },
+          {
+            id: "bm-cw-5",
+            prompt: "Why did the ATM decline my cash withdrawal transaction just now?",
+            positive: "It looks like your home bank has blocked the card for security reasons.",
+            negative: "Our ATM system is down, which is why your card was declined.",
+            question: "Did you enter the correct four-digit PIN code at the machine?"
+          }
+        ]
+      },
+      {
+        id: "currency-exchange",
+        name: "Currency Exchange",
+        description: "Exchanging money",
+        dialogues: [
+          {
+            id: "bm-ce-1",
+            prompt: "What is the current exchange rate for euros to US dollars today?",
+            positive: "Today's exchange rate is one point zero eight dollars for one euro.",
+            negative: "Our exchange rates are changing rapidly, and I cannot give an exact quote.",
+            question: "How many euros would you like to convert into dollars today?"
+          },
+          {
+            id: "bm-ce-2",
+            prompt: "Is there a commission fee for exchanging these British pounds?",
+            positive: "Yes, we charge a flat one percent commission fee on all cash exchanges.",
+            negative: "No, we offer completely commission-free currency exchange today.",
+            question: "Would you like me to calculate the final payout after fees?"
+          },
+          {
+            id: "bm-ce-3",
+            prompt: "Could I exchange these bills for smaller denominations or coins?",
+            positive: "Certainly, I can break this hundred-dollar bill into smaller changes.",
+            negative: "I'm sorry, I don't have enough small bills or coins in my drawer right now.",
+            question: "Would you prefer to get five-dollar bills or ten-dollar bills?"
+          },
+          {
+            id: "bm-ce-4",
+            prompt: "Do you accept older versions of the hundred-dollar bill for exchange?",
+            positive: "Yes, we accept all valid older bills as long as they are not damaged.",
+            negative: "No, we can only accept modern hundred-dollar bills with security strips.",
+            question: "Would you mind if I inspected the serial number on your bill?"
+          },
+          {
+            id: "bm-ce-5",
+            prompt: "Do I need to show my passport to complete this currency exchange?",
+            positive: "Yes, we strictly require a valid physical passport for all currency transactions.",
+            negative: "No, for amounts under one thousand dollars, a simple ID card is sufficient.",
+            question: "Do you have a digital copy of your passport on your phone?"
+          }
+        ]
+      },
+      {
+        id: "card-issues",
+        name: "Card Issues",
+        description: "Blocked card problems",
+        dialogues: [
+          {
+            id: "bm-ci-1",
+            prompt: "My credit card has been blocked, and I can't make any online payments.",
+            positive: "I will verify your details and unblock the card for you right now.",
+            negative: "I'm sorry, your card has been permanently blocked due to suspicious activity.",
+            question: "Have you recently tried using the card in a foreign country?"
+          },
+          {
+            id: "bm-ci-2",
+            prompt: "I think the ATM outside has swallowed my card; what should I do?",
+            positive: "Don't worry, I will lock the swallowed card and order a new one for you.",
+            negative: "I cannot access the ATM machine to retrieve your card today.",
+            question: "Did the ATM screen show an error message before swallowing your card?"
+          },
+          {
+            id: "bm-ci-3",
+            prompt: "I noticed a suspicious charge on my bank statement that I didn't authorize.",
+            positive: "Let's file a dispute claim and block your card to prevent further charges.",
+            negative: "That transaction looks fully valid, so we cannot dispute it.",
+            question: "Do you recognize the name of the merchant listed on this charge?"
+          },
+          {
+            id: "bm-ci-4",
+            prompt: "Could you tell me how long it takes to issue a replacement debit card?",
+            positive: "It takes about three to five business days to deliver the new card to your home.",
+            negative: "Card production is delayed; it will take at least three weeks to arrive.",
+            question: "Would you like me to issue a temporary virtual card to your phone?"
+          },
+          {
+            id: "bm-ci-5",
+            prompt: "How can I activate my new card for international travel transactions?",
+            positive: "You can easily enable international travel in our mobile banking app under card settings.",
+            negative: "International transactions are disabled on this basic card model.",
+            question: "Which countries do you plan to visit during your trip?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "work-office",
+    name: "Work & Office",
+    description: "Meetings, requests, deadlines, colleague conversations",
+    subcategories: [
+      {
+        id: "meetings",
+        name: "Meetings",
+        description: "Scheduling and arranging meetings",
+        dialogues: [
+          {
+            id: "wo-mt-1",
+            prompt: "Could we reschedule our weekly team meeting to Thursday afternoon?",
+            positive: "Sure, I will update the calendar invite and send it out to everyone.",
+            negative: "Unfortunately, Thursday afternoon is packed with client reviews.",
+            question: "Would Friday morning at 10 AM work for your schedule instead?"
+          },
+          {
+            id: "wo-mt-2",
+            prompt: "Is everyone available for a brief sync-up at 10 AM tomorrow?",
+            positive: "Yes, the team is fully available, and I've booked the slot.",
+            negative: "No, several developers have an urgent deployment at that time.",
+            question: "Could we push the sync-up to 2 PM instead?"
+          },
+          {
+            id: "wo-mt-3",
+            prompt: "Should I book a conference room for the client presentation, or is it online?",
+            positive: "Please book the large conference room; the client will be visiting in person.",
+            negative: "No need, the presentation will be fully remote via Microsoft Teams.",
+            question: "Do you need me to set up the projector and audio system in the room?"
+          },
+          {
+            id: "wo-mt-4",
+            prompt: "Could you send over the agenda before the meeting starts?",
+            positive: "Certainly, I will email the detailed meeting agenda in a few minutes.",
+            negative: "I haven't prepared the agenda yet; we will brainstorm during the call.",
+            question: "Is there any specific topic you would like me to add to the agenda?"
+          },
+          {
+            id: "wo-mt-5",
+            prompt: "Would you mind if we recorded this session for team members who are absent?",
+            positive: "Not at all, recording the session is a great idea for documentation.",
+            negative: "Actually, because we are discussing confidential HR matters, please do not record.",
+            question: "Should I upload the recording to our shared folder once it's processed?"
+          }
+        ]
+      },
+      {
+        id: "requests",
+        name: "Requests",
+        description: "Polite requests for help",
+        dialogues: [
+          {
+            id: "wo-rq-1",
+            prompt: "Would you be able to help me proofread this proposal before I submit it?",
+            positive: "Absolutely, I will review it and send you my feedback by lunchtime.",
+            negative: "I'm swamped with coding tasks today and won't have time to look at it.",
+            question: "When is the absolute deadline for submitting this proposal?"
+          },
+          {
+            id: "wo-rq-2",
+            prompt: "Could you grant me access to the shared project folder on Google Drive?",
+            positive: "Of course, I've just updated the permissions; check your email for the link.",
+            negative: "I'm sorry, only the project manager can authorize access to that folder.",
+            question: "Do you need editing permissions or just read-only access?"
+          },
+          {
+            id: "wo-rq-3",
+            prompt: "Is it okay if I borrow your adapter for the presentation this morning?",
+            positive: "Sure, it's right here on my desk; just bring it back when you're done.",
+            negative: "Unfortunately, I'm using it to run my second monitor right now.",
+            question: "Do you need the HDMI-to-USB-C adapter, or the standard VGA one?"
+          },
+          {
+            id: "wo-rq-4",
+            prompt: "Could you explain how to set up the printer for wireless printing?",
+            positive: "Definitely, it's very simple; just connect to our office Wi-Fi and add the device.",
+            negative: "I'm not sure how to do it; our IT support team handles all printer issues.",
+            question: "Are you trying to print from a Mac or a Windows laptop?"
+          },
+          {
+            id: "wo-rq-5",
+            prompt: "Would you mind taking over this client call while I finish the report?",
+            positive: "No problem at all, I am familiar with their project and can handle the call.",
+            negative: "I'm sorry, I have a conflicting meeting starting in exactly five minutes.",
+            question: "Is there any specific update I should deliver to the client?"
+          }
+        ]
+      },
+      {
+        id: "deadlines",
+        name: "Deadlines",
+        description: "Clarifying project deadlines",
+        dialogues: [
+          {
+            id: "wo-dl-1",
+            prompt: "Is there any flexibility with the deadline for the marketing campaign?",
+            positive: "Yes, we can push the launch date back by three days to polish the copy.",
+            negative: "Unfortunately, no; the ad space is pre-booked, so we must deliver on time.",
+            question: "Are you experiencing any major bottlenecks with the campaign designs?"
+          },
+          {
+            id: "wo-dl-2",
+            prompt: "When do you need the final draft of the budget proposal?",
+            positive: "Please submit the final draft by Friday afternoon at the latest.",
+            negative: "We actually need it immediately; please stop other tasks and finish it.",
+            question: "Would you like me to review your initial numbers before you draft the final version?"
+          },
+          {
+            id: "wo-dl-3",
+            prompt: "I'm running a bit behind on the project; can I get a two-day extension?",
+            positive: "Don't worry, a two-day extension is perfectly fine; just keep me updated.",
+            negative: "I'm afraid a delay will disrupt the entire development timeline.",
+            question: "Which specific features are causing the delay on your end?"
+          },
+          {
+            id: "wo-dl-4",
+            prompt: "Could you clarify which tasks are the highest priority for this week's sprint?",
+            positive: "Certainly, fixing the payment gateway bugs is our absolute top priority.",
+            negative: "All sprint tasks carry equal priority and must be completed together.",
+            question: "Do you have any questions about the user stories in our Jira board?"
+          },
+          {
+            id: "wo-dl-5",
+            prompt: "Will we be able to deliver the software release on schedule by Friday?",
+            positive: "Yes, all key features are tested and ready for deployment on Friday.",
+            negative: "No, we have too many unresolved critical bugs to deploy this week.",
+            question: "Would you recommend a partial release containing only the stable updates?"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: "emergency-situations",
+    name: "Emergency Situations",
+    description: "Calling for help, reporting theft, police/medical emergencies",
+    subcategories: [
+      {
+        id: "calling-help",
+        name: "Calling for Help",
+        description: "How to call for assistance",
+        dialogues: [
+          {
+            id: "em-ch-1",
+            prompt: "Help! There's been a bad accident and someone is seriously hurt!",
+            positive: "Oh my god! I will call an ambulance and look for a first-aid kit immediately.",
+            negative: "I don't see any accident; please stop shouting.",
+            question: "Where exactly did the accident occur so I can direct the emergency services?"
+          },
+          {
+            id: "em-ch-2",
+            prompt: "Fire! The kitchen downstairs is filling up with thick black smoke!",
+            positive: "Quickly! Everyone pull the fire alarm and head towards the nearest emergency exit!",
+            negative: "It's just some burnt toast; there's no need to panic.",
+            question: "Has anyone called the fire department yet?"
+          },
+          {
+            id: "em-ch-3",
+            prompt: "Watch out! That loose sign is about to fall down onto the pavement!",
+            positive: "Watch out! Thank you, I almost walked right under it!",
+            negative: "The sign is perfectly secure; you are worrying over nothing.",
+            question: "Should we block off this section of the street to keep pedestrians safe?"
+          },
+          {
+            id: "em-ch-4",
+            prompt: "Could you help me? I've lost my young daughter in this crowded market!",
+            positive: "Stay calm, please describe what she is wearing and we will search the market.",
+            negative: "I'm sorry, I'm in a rush and cannot help you look for anyone.",
+            question: "Could we go to the market security office to make an announcement?"
+          },
+          {
+            id: "em-ch-5",
+            prompt: "Help! That man just collapsed on the floor and isn't breathing!",
+            positive: "I will start CPR immediately; please run and find an automated defibrillator!",
+            negative: "He is probably just resting; let's leave him alone.",
+            question: "Does anyone here have professional medical or first-aid training?"
+          }
+        ]
+      },
+      {
+        id: "reporting-theft",
+        name: "Reporting Theft",
+        description: "Reporting stolen passport",
+        dialogues: [
+          {
+            id: "em-rt-1",
+            prompt: "Someone has stolen my backpack containing my passport and wallet!",
+            positive: "Oh no! Let's go to the tourist police office immediately to file a report.",
+            negative: "You probably just misplaced it somewhere; check your hotel room again.",
+            question: "Do you have digital copies of your passport stored online?"
+          },
+          {
+            id: "em-rt-2",
+            prompt: "My hotel room was broken into, and my laptop is missing!",
+            positive: "This is terrible; I will contact the hotel manager and call the police right now.",
+            negative: "The hotel is not responsible for any personal items left in rooms.",
+            question: "Was your laptop locked inside the room's security safe?"
+          },
+          {
+            id: "em-rt-3",
+            prompt: "I've just been pickpocketed on the subway; they took my phone!",
+            positive: "Let's block your SIM card and track the device using your account immediately.",
+            negative: "Pickpocketing is common on this line; there's nothing we can do.",
+            question: "Do you remember seeing anyone standing suspicious or close to you?"
+          },
+          {
+            id: "em-rt-4",
+            prompt: "Where is the nearest police station so I can file a theft report?",
+            positive: "The central police station is just three blocks away next to the post office.",
+            negative: "There are no police stations in this district; you must file it online.",
+            question: "Would you like me to walk with you to the police station?"
+          },
+          {
+            id: "em-rt-5",
+            prompt: "Could you block my credit cards? They were stolen from my bag.",
+            positive: "Yes, I will call our bank's emergency line to block your cards immediately.",
+            negative: "No, only the cardholder can call the bank to freeze transactions.",
+            question: "Which bank issued the credit cards that were stolen?"
+          }
+        ]
+      },
+      {
+        id: "emergency-services",
+        name: "Emergency Services",
+        description: "Calling police/doctor",
+        dialogues: [
+          {
+            id: "em-es-1",
+            prompt: "Please call an ambulance immediately; this is a medical emergency!",
+            positive: "I've dialed the emergency services; they say an ambulance is on its way.",
+            negative: "Please call them yourself; I don't have credit on my phone.",
+            question: "Is the patient conscious and able to speak?"
+          },
+          {
+            id: "em-es-2",
+            prompt: "We need the fire department right away; the building next door is on fire!",
+            positive: "I've just spoken to the dispatcher; the fire engines are coming now.",
+            negative: "It's just a small grill in the garden; there's no danger of fire.",
+            question: "Are there any people trapped inside the burning building?"
+          },
+          {
+            id: "em-es-3",
+            prompt: "I need to report a break-in that occurred at my apartment while I was out.",
+            positive: "I am sending a police patrol unit to your address to take your statement.",
+            negative: "We don't send police for old incidents; please visit the station tomorrow.",
+            question: "Do you think the intruder is still inside the apartment?"
+          },
+          {
+            id: "em-es-4",
+            prompt: "Could you connect me to the police department dispatcher, please?",
+            positive: "Certainly, transferring your call to the emergency dispatcher right now.",
+            negative: "I cannot transfer calls; you must hang up and dial nine-one-one.",
+            question: "What is the nature of the incident you want to report?"
+          },
+          {
+            id: "em-es-5",
+            prompt: "Is there a doctor or first-aid kit available in this building?",
+            positive: "Yes, we have a fully equipped medical station on the ground floor next to the reception.",
+            negative: "No, we don't have any medical supplies or doctors on-site.",
+            question: "Do you need me to call an emergency doctor to the building?"
+          }
+        ]
+      }
+    ]
   }
 ];
