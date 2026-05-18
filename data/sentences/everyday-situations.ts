@@ -514,7 +514,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
   {
     id: "shopping-prices",
     name: "Shopping & Prices",
-    description: "Store conversations: sizes, prices, returns, exchanges",
+    description: "Store conversations: sizes, prices, returns, discounts & promos",
     subcategories: [
       {
         id: "sizes",
@@ -641,13 +641,55 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             question: "Do you have the online order confirmation email showing the order number?"
           }
         ]
+      },
+      {
+        id: "discounts-promo",
+        name: "Discounts & Promo",
+        description: "How to clarify discount and promo details",
+        dialogues: [
+          {
+            id: "sp-dp-1",
+            prompt: "Could you tell me if there is a student discount available for this software subscription?",
+            positive: "Yes, we offer a twenty percent discount for active students with a valid student ID card.",
+            negative: "Unfortunately, we do not offer any student discounts on our digital products.",
+            question: "Would you like me to check if there are any seasonal promo codes instead?"
+          },
+          {
+            id: "sp-dp-2",
+            prompt: "Is this buy-one-get-one-half-price offer applicable to items of different brands?",
+            positive: "Yes, you can mix and match any two brands featured on this table.",
+            negative: "No, the half-price deal only applies if both items are from the exact same brand.",
+            question: "Would you like to see which brands are currently included in the offer?"
+          },
+          {
+            id: "sp-dp-3",
+            prompt: "Do you have a coupon code or promotional flyer that I can use for this transaction?",
+            positive: "Yes, here is a ten percent off coupon from our latest weekly flyer.",
+            negative: "No, unfortunately, we don't have any active coupons or flyers at the moment.",
+            question: "Did you sign up for our email newsletter, which has a welcome coupon?"
+          },
+          {
+            id: "sp-dp-4",
+            prompt: "Can I combine this promotional voucher with the items that are already on sale?",
+            positive: "Yes, you can stack the voucher on top of the existing clearance discounts.",
+            negative: "I'm afraid promotional vouchers cannot be used on items that are already discounted.",
+            question: "Would you prefer to use the voucher on a full-priced item instead?"
+          },
+          {
+            id: "sp-dp-5",
+            prompt: "Is there any special offer if I purchase three of these shirts instead of just one?",
+            positive: "Yes, if you buy three shirts, you get the third one completely free.",
+            negative: "No, the price remains identical regardless of the quantity purchased.",
+            question: "Would you like to choose a third shirt to take advantage of the bundle discount?"
+          }
+        ]
       }
     ]
   },
   {
     id: "hotel-accommodation",
     name: "Hotel & Accommodation",
-    description: "Check-in/out, room requests, complaints, amenities",
+    description: "Check-in/out, room requests, complaints, services & amenities",
     subcategories: [
       {
         id: "checkin-out",
@@ -736,7 +778,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "complaints",
         name: "Complaints",
-        description: "AC/Wi-Fi issues, problems",
+        description: "AC/Wi-Fi issues and room problems",
         dialogues: [
           {
             id: "ha-comp-1",
@@ -774,13 +816,55 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             question: "Would you like me to move you to a quieter room on another floor?"
           }
         ]
+      },
+      {
+        id: "amenities-services",
+        name: "Amenities & Services",
+        description: "Inquiring about breakfast, pool, or gym",
+        dialogues: [
+          {
+            id: "ha-as-1",
+            prompt: "Could you tell me if access to the rooftop pool and fitness center is included in our room rate?",
+            positive: "Yes, both the pool and the gym are fully free of charge for all hotel guests.",
+            negative: "No, rooftop pool access requires a separate resort fee of fifteen dollars per day.",
+            question: "Would you like me to add pool and gym passes to your room key card?"
+          },
+          {
+            id: "ha-as-2",
+            prompt: "Is there a complimentary shuttle bus that goes directly from the hotel to the city center?",
+            positive: "Yes, our shuttle departs every hour from the lobby entrance directly to the center.",
+            negative: "Unfortunately, we do not offer shuttle service, but we can call a taxi for you.",
+            question: "Would you like a copy of our daily shuttle timetable and route map?"
+          },
+          {
+            id: "ha-as-3",
+            prompt: "Could we book a slot for the couple's massage at the spa for tomorrow afternoon?",
+            positive: "Certainly, I have booked a couple's massage slot for you at three PM tomorrow.",
+            negative: "I'm sorry, the spa is fully booked for all massage slots tomorrow afternoon.",
+            question: "Would you prefer an evening slot at seven PM, or something on Sunday morning?"
+          },
+          {
+            id: "ha-as-4",
+            prompt: "Is room service available twenty-four hours a day, or does the kitchen close at night?",
+            positive: "Yes, our room service menu is available twenty-four hours a day for your convenience.",
+            negative: "Our kitchen closes at eleven PM, but we have a selection of cold wraps overnight.",
+            question: "Would you like me to place a breakfast room service order for tomorrow morning?"
+          },
+          {
+            id: "ha-as-5",
+            prompt: "Does the hotel offer laundry or dry-cleaning services for guests staying multiple nights?",
+            positive: "Yes, we offer express laundry service with same-day return if submitted before nine AM.",
+            negative: "Unfortunately, we do not have laundry service on-site, but there is a laundromat nearby.",
+            question: "Would you like me to send a laundry bag and price list up to your room?"
+          }
+        ]
       }
     ]
   },
   {
     id: "directions-transport",
     name: "Directions & Transport",
-    description: "Asking for directions, buying tickets, taxi rides",
+    description: "Asking for directions, public transport, taxi, car rentals",
     subcategories: [
       {
         id: "asking-directions",
@@ -827,7 +911,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "public-transport",
         name: "Public Transport",
-        description: "Metro/bus tickets",
+        description: "Metro/bus tickets and routes",
         dialogues: [
           {
             id: "dt-pt-1",
@@ -869,7 +953,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "taxi",
         name: "Taxi",
-        description: "Calling taxi and trip cost",
+        description: "Calling a taxi and trip costs",
         dialogues: [
           {
             id: "dt-tx-1",
@@ -907,18 +991,60 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             question: "How many bags do you need to place in the trunk today?"
           }
         ]
+      },
+      {
+        id: "car-rental",
+        name: "Car Rental",
+        description: "Renting a vehicle and selecting insurance",
+        dialogues: [
+          {
+            id: "dt-cr-1",
+            prompt: "What is the daily rate for renting a compact economy car with unlimited mileage?",
+            positive: "Our current rate for an economy car is thirty-five dollars per day, including unlimited miles.",
+            negative: "Unfortunately, we have no economy cars available today; only SUVs are in stock.",
+            question: "Would you like to add comprehensive collision damage insurance to your rental?"
+          },
+          {
+            id: "dt-cr-2",
+            prompt: "Do I need to return the rental car with a full tank of gas, or can I pay for fuel later?",
+            positive: "Yes, please return it with a full tank to avoid our refueling service charge.",
+            negative: "No, you have pre-paid for the fuel, so you can return it empty.",
+            question: "Would you prefer to pre-purchase a full tank at our discounted fuel rate now?"
+          },
+          {
+            id: "dt-cr-3",
+            prompt: "Is my domestic driver's license sufficient, or do you require an international driving permit?",
+            positive: "Your domestic license is perfectly sufficient as it is printed in English.",
+            negative: "I'm afraid we strictly require an international permit alongside your domestic license.",
+            question: "Could you tell me which country issued your driver's license?"
+          },
+          {
+            id: "dt-cr-4",
+            prompt: "Can I add an additional driver to the rental agreement, and is there an extra fee?",
+            positive: "Yes, you can add another driver for a small fee of five dollars per day.",
+            negative: "No, only the primary renter is legally authorized to drive the vehicle.",
+            question: "Could you provide the driver's license of the second driver for registration?"
+          },
+          {
+            id: "dt-cr-5",
+            prompt: "What should I do if the rental vehicle breaks down or gets a flat tire on the highway?",
+            positive: "Please call our twenty-four-hour roadside assistance number printed on the key fob.",
+            negative: "You will need to arrange for a local towing service and pay them directly.",
+            question: "Would you like me to verify if your insurance covers roadside assistance?"
+          }
+        ]
       }
     ]
   },
   {
     id: "health-pharmacy",
     name: "Health & Pharmacy",
-    description: "Describing symptoms, buying medicine, medical help",
+    description: "Describing symptoms, buying medicine, doctor visits, first aid",
     subcategories: [
       {
         id: "symptoms",
         name: "Symptoms",
-        description: "Describing headache, cold symptoms",
+        description: "Describing headache or cold symptoms",
         dialogues: [
           {
             id: "hp-sy-1",
@@ -998,13 +1124,97 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             question: "How old is your child so I can verify the correct dosage?"
           }
         ]
+      },
+      {
+        id: "doctor-appointment",
+        name: "Doctor's Appointment",
+        description: "Booking a visit and confirming coverage",
+        dialogues: [
+          {
+            id: "hp-da-1",
+            prompt: "Could I schedule an appointment with a general practitioner for tomorrow morning?",
+            positive: "Yes, I have scheduled an appointment for you at nine-thirty tomorrow morning.",
+            negative: "I'm sorry, our doctor is fully booked tomorrow; the earliest slot is on Thursday.",
+            question: "Would you prefer to see a male or a female doctor for your consultation?"
+          },
+          {
+            id: "hp-da-2",
+            prompt: "Does your medical clinic accept international travel insurance for direct billing?",
+            positive: "Yes, we partner with major international insurers for direct cashless billing.",
+            negative: "No, you will need to pay upfront and claim the reimbursement from your insurer.",
+            question: "Could you show me your insurance card so I can verify the coverage details?"
+          },
+          {
+            id: "hp-da-3",
+            prompt: "Is it possible to consult with a doctor online via video call instead of visiting the clinic?",
+            positive: "Yes, we can arrange a virtual tele-health consultation within the next hour.",
+            negative: "Unfortunately, a physical examination is required for your specific symptoms.",
+            question: "Would you like me to send you the link to download our telehealth application?"
+          },
+          {
+            id: "hp-da-4",
+            prompt: "Could you tell me how much a standard consultation fee is without any insurance?",
+            positive: "A standard consultation with a general practitioner is eighty dollars flat.",
+            negative: "Consultation fees vary depending on the tests needed; we cannot give a flat rate.",
+            question: "Would you like to pay by credit card or cash at the reception desk?"
+          },
+          {
+            id: "hp-da-5",
+            prompt: "Do I need to bring my medical records or previous prescriptions to the appointment?",
+            positive: "Yes, please bring any relevant records and your current medications with you.",
+            negative: "No, that is not necessary; our doctor will conduct a fresh evaluation.",
+            question: "Have you ever visited our medical clinic before?"
+          }
+        ]
+      },
+      {
+        id: "first-aid",
+        name: "First Aid",
+        description: "Requesting urgent care or medical kits",
+        dialogues: [
+          {
+            id: "hp-fa-1",
+            prompt: "Excuse me, where is the nearest first-aid kit or medical room in this shopping mall?",
+            positive: "The first-aid room is on the ground floor, right next to the security office.",
+            negative: "We do not have a dedicated first-aid kit available for public use here.",
+            question: "Do you need me to call the mall's paramedic team to assist you immediately?"
+          },
+          {
+            id: "hp-fa-2",
+            prompt: "My friend cut her hand on some glass; do you have any antiseptic wipes and bandages?",
+            positive: "Yes, here is a sterile bandage and some antiseptic wipes from our first-aid box.",
+            negative: "No, unfortunately, we are out of bandages and wipes in our office kit today.",
+            question: "Is the cut bleeding heavily, or is it a relatively minor scratch?"
+          },
+          {
+            id: "hp-fa-3",
+            prompt: "Could you help me clean and dress this burn on my arm, or should I go to urgent care?",
+            positive: "I can apply a soothing burn gel and wrap it in a sterile gauze for you right now.",
+            negative: "I'm not trained in first aid; I highly recommend visiting the urgent care clinic down the street.",
+            question: "Did the burn occur from hot liquid or a direct chemical contact?"
+          },
+          {
+            id: "hp-fa-4",
+            prompt: "Is there a first-aid officer on duty at the hotel who can check this allergic reaction?",
+            positive: "Yes, our duty manager is certified in advanced first aid and will come up to your room.",
+            negative: "No, we don't have a first-aid officer, but we can direct you to the nearest pharmacy.",
+            question: "Are you experiencing any difficulty breathing or swelling around your throat?"
+          },
+          {
+            id: "hp-fa-5",
+            prompt: "Do you have any instant cold packs to put on a bruised wrist?",
+            positive: "Yes, I will crack an instant ice pack and bring it to you right away.",
+            negative: "No, we don't have any cold packs, but I can fetch some ice cubes in a plastic bag.",
+            question: "Can you move your fingers easily, or does it cause severe pain?"
+          }
+        ]
       }
     ]
   },
   {
     id: "socializing-smalltalk",
     name: "Socializing & Small Talk",
-    description: "Conversation starters, weather, hobbies, work topics",
+    description: "Conversation starters, small talk, plans & invites, hobbies",
     subcategories: [
       {
         id: "conversation-starters",
@@ -1051,7 +1261,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "small-talk",
         name: "Small Talk",
-        description: "Weather, hobbies, work topics",
+        description: "Weather, hobbies, and work topics",
         dialogues: [
           {
             id: "ss-st-1",
@@ -1089,13 +1299,97 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             question: "What kind of food are you in the mood for tonight?"
           }
         ]
+      },
+      {
+        id: "invitations-plans",
+        name: "Plans & Invites",
+        description: "Suggesting coffee, accepting or refusing",
+        dialogues: [
+          {
+            id: "ss-ip-1",
+            prompt: "Would you be interested in grabbing a cup of coffee tomorrow afternoon to catch up?",
+            positive: "I'd love to! Tomorrow afternoon works perfectly for me; let's meet at Starbucks.",
+            negative: "I'd really like to, but I'm completely booked with work meetings all day tomorrow.",
+            question: "Would you prefer to meet at three PM, or is four PM better for your schedule?"
+          },
+          {
+            id: "ss-ip-2",
+            prompt: "We are having a small dinner party at our place on Saturday; would you like to join us?",
+            positive: "That sounds wonderful! Thank you so much for the invitation; I'd love to come.",
+            negative: "Thank you for inviting me, but I've already made plans to visit my parents this weekend.",
+            question: "Can I bring anything along with me, like a dessert or a bottle of wine?"
+          },
+          {
+            id: "ss-ip-3",
+            prompt: "Would you mind if we rescheduled our weekend hike to next Sunday instead?",
+            positive: "Not at all, next Sunday actually suits me much better anyway.",
+            negative: "I'm afraid next Sunday doesn't work for me as I'll be traveling out of town.",
+            question: "Is the weather forecast looking bad for this coming weekend?"
+          },
+          {
+            id: "ss-ip-4",
+            prompt: "Are you free to join us for a drink after work this Friday evening?",
+            positive: "Absolutely, a Friday night drink sounds like the perfect way to start the weekend.",
+            negative: "Unfortunately, I have to pick up my kids early this Friday and can't make it.",
+            question: "Where are you planning to go for drinks after we wrap up at the office?"
+          },
+          {
+            id: "ss-ip-5",
+            prompt: "Would you like to come with me to the modern art exhibition at the museum this Saturday?",
+            positive: "That sounds highly intriguing! I've been meaning to check out that exhibition.",
+            negative: "Thanks, but modern art isn't really my cup of tea; I think I'll pass this time.",
+            question: "Do we need to purchase the entry tickets online in advance?"
+          }
+        ]
+      },
+      {
+        id: "hobbies-interests",
+        name: "Hobbies & Interests",
+        description: "Sharing passions, books, and movies",
+        dialogues: [
+          {
+            id: "ss-hi-1",
+            prompt: "What kind of books do you enjoy reading when you have some quiet time?",
+            positive: "I'm absolutely obsessed with historical fiction and biographical novels.",
+            negative: "Honestly, I rarely read books; I prefer listening to podcasts instead.",
+            question: "Have you read any good mystery novels recently that you would recommend?"
+          },
+          {
+            id: "ss-hi-2",
+            prompt: "Do you play any musical instruments, or have you ever taken lessons?",
+            positive: "Yes, I've been playing the acoustic guitar for about five years now.",
+            negative: "No, unfortunately, I'm completely unmusical and have never played an instrument.",
+            question: "Would you be interested in learning how to play the piano or the violin?"
+          },
+          {
+            id: "ss-hi-3",
+            prompt: "Are you into outdoor activities like hiking and camping, or do you prefer staying indoors?",
+            positive: "I absolutely love hiking! I try to go camping in the mountains every summer.",
+            negative: "I am definitely an indoor person; I prefer cozy cafes and museum visits.",
+            question: "Have you ever hiked the trails in the national park near the border?"
+          },
+          {
+            id: "ss-hi-4",
+            prompt: "How often do you go to the cinema, or do you prefer streaming movies at home?",
+            positive: "I love the cinema experience and try to go at least once a month for new releases.",
+            negative: "I almost never go to the theater; streaming on my couch is much more comfortable.",
+            question: "What was the last movie you watched that made a really strong impression on you?"
+          },
+          {
+            id: "ss-hi-5",
+            prompt: "Do you enjoy cooking new recipes, or do you prefer dining out and ordering in?",
+            positive: "I find cooking extremely therapeutic and love experimenting with Asian cuisine.",
+            negative: "I absolutely detest washing dishes, so I order takeout almost every single night.",
+            question: "Would you like to try making homemade fresh pasta together sometime?"
+          }
+        ]
       }
     ]
   },
   {
     id: "bank-money",
     name: "At the Bank & Money",
-    description: "Cash withdrawal, currency exchange, card issues",
+    description: "Cash withdrawal, currency exchange, card issues, opening accounts",
     subcategories: [
       {
         id: "cash-withdrawal",
@@ -1184,7 +1478,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "card-issues",
         name: "Card Issues",
-        description: "Blocked card problems",
+        description: "Blocked card and transaction problems",
         dialogues: [
           {
             id: "bm-ci-1",
@@ -1222,13 +1516,55 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             question: "Which countries do you plan to visit during your trip?"
           }
         ]
+      },
+      {
+        id: "opening-account",
+        name: "Opening an Account",
+        description: "Applying for debit/savings accounts",
+        dialogues: [
+          {
+            id: "bm-oa-1",
+            prompt: "I'd like to open a checking and a savings account; what documents do I need to provide?",
+            positive: "We can open both accounts for you today; I just need your passport and proof of address.",
+            negative: "I'm sorry, because you are on a tourist visa, you cannot open a bank account here.",
+            question: "Would you like to link a contactless debit card to your new checking account?"
+          },
+          {
+            id: "bm-oa-2",
+            prompt: "Is there a minimum initial deposit required to open a premium savings account?",
+            positive: "Yes, our premium savings account requires an initial deposit of five hundred dollars.",
+            negative: "No, there is absolutely no minimum deposit required to open an account with us.",
+            question: "Would you like to transfer the initial deposit from your international card?"
+          },
+          {
+            id: "bm-oa-3",
+            prompt: "Does this student checking account carry any monthly maintenance fees?",
+            positive: "No, our student accounts are completely free of monthly maintenance charges.",
+            negative: "Yes, there is a small fee of three dollars per month unless you maintain a minimum balance.",
+            question: "Are you currently enrolled in a full-time university program?"
+          },
+          {
+            id: "bm-oa-4",
+            prompt: "How long does it take for my new account to become fully active for transfers?",
+            positive: "Your account is active immediately, and you can start transferring funds right away.",
+            negative: "It will take up to twenty-four hours for our security team to verify and activate the account.",
+            question: "Would you like to set up online banking access on your phone now?"
+          },
+          {
+            id: "bm-oa-5",
+            prompt: "Can I open a joint bank account with my spouse, and does she need to be present?",
+            positive: "Yes, you can open a joint account, but both of you must be physically present to sign.",
+            negative: "Unfortunately, our branch does not support joint accounts; we only offer individual ones.",
+            question: "Would you like to schedule an appointment for both of you later this week?"
+          }
+        ]
       }
     ]
   },
   {
     id: "work-office",
     name: "Work & Office",
-    description: "Meetings, requests, deadlines, colleague conversations",
+    description: "Meetings, requests, deadlines, interviews & pitching",
     subcategories: [
       {
         id: "meetings",
@@ -1275,7 +1611,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "requests",
         name: "Requests",
-        description: "Polite requests for help",
+        description: "Polite requests for help or files",
         dialogues: [
           {
             id: "wo-rq-1",
@@ -1317,7 +1653,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "deadlines",
         name: "Deadlines",
-        description: "Clarifying project deadlines",
+        description: "Clarifying project deadlines and schedules",
         dialogues: [
           {
             id: "wo-dl-1",
@@ -1355,18 +1691,60 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             question: "Would you recommend a partial release containing only the stable updates?"
           }
         ]
+      },
+      {
+        id: "interviews-pitching",
+        name: "Interviews & Pitching",
+        description: "Describing qualifications and salary",
+        dialogues: [
+          {
+            id: "wo-ip-1",
+            prompt: "Could you tell me why you think you are the most qualified candidate for this senior role?",
+            positive: "I have over eight years of experience leading software teams and a proven track record of successful launches.",
+            negative: "Honestly, I might not be the most qualified, but I am very willing to learn quickly.",
+            question: "Would you like me to walk you through some specific projects I managed in my previous job?"
+          },
+          {
+            id: "wo-ip-2",
+            prompt: "What are your salary expectations for this software developer position?",
+            positive: "Based on my experience and market research, I am looking for around ninety thousand dollars annually.",
+            negative: "I don't have any specific expectations; I am open to whatever offer you make.",
+            question: "Is there a standard salary range allocated for this role within your company?"
+          },
+          {
+            id: "wo-ip-3",
+            prompt: "How do you handle tight deadlines and high-pressure situations in your work?",
+            positive: "I prioritize tasks using the Eisenhower matrix and communicate early with stakeholders to manage expectations.",
+            negative: "I usually get quite stressed and work overtime until the task is somehow finished.",
+            question: "Could you share an example of a high-pressure project that you successfully delivered?"
+          },
+          {
+            id: "wo-ip-4",
+            prompt: "Are you willing to relocate or travel frequently for client meetings if required?",
+            positive: "Yes, I am fully open to relocation and enjoy traveling to meet clients in person.",
+            negative: "Unfortunately, due to family commitments, I am strictly looking for a remote or local role.",
+            question: "How often do you estimate travel would be required for this position?"
+          },
+          {
+            id: "wo-ip-5",
+            prompt: "What is your biggest professional weakness, and how are you working to improve it?",
+            positive: "I sometimes struggle with public speaking, so I have joined a local Toastmasters club to practice.",
+            negative: "I don't really have any weaknesses; I am extremely good at everything I do.",
+            question: "Would you like to know how I managed to overcome a recent challenge in my team?"
+          }
+        ]
       }
     ]
   },
   {
     id: "emergency-situations",
     name: "Emergency Situations",
-    description: "Calling for help, reporting theft, police/medical emergencies",
+    description: "Calling for help, reporting theft, emergency services, lost & found",
     subcategories: [
       {
         id: "calling-help",
         name: "Calling for Help",
-        description: "How to call for assistance",
+        description: "How to call for urgent assistance",
         dialogues: [
           {
             id: "em-ch-1",
@@ -1408,7 +1786,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "reporting-theft",
         name: "Reporting Theft",
-        description: "Reporting stolen passport",
+        description: "Reporting stolen passport or bags",
         dialogues: [
           {
             id: "em-rt-1",
@@ -1450,7 +1828,7 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
       {
         id: "emergency-services",
         name: "Emergency Services",
-        description: "Calling police/doctor",
+        description: "Calling police or medical dispatch",
         dialogues: [
           {
             id: "em-es-1",
@@ -1486,6 +1864,48 @@ export const EVERYDAY_SITUATIONS: EverydayTopic[] = [
             positive: "Yes, we have a fully equipped medical station on the ground floor next to the reception.",
             negative: "No, we don't have any medical supplies or doctors on-site.",
             question: "Do you need me to call an emergency doctor to the building?"
+          }
+        ]
+      },
+      {
+        id: "lost-found",
+        name: "Lost & Found",
+        description: "Inquiring about lost items or luggage",
+        dialogues: [
+          {
+            id: "em-lf-1",
+            prompt: "Excuse me, I've left my black leather wallet on the seat of the train; has anyone turned it in?",
+            positive: "Yes, a passenger handed in a black leather wallet about thirty minutes ago; let's verify.",
+            negative: "I'm sorry, no wallets matching that description have been reported to our lost and found office.",
+            question: "Could you tell me what specific cards or documents were inside the wallet?"
+          },
+          {
+            id: "em-lf-2",
+            prompt: "Where should I go to report lost luggage that didn't arrive on the baggage carousel?",
+            positive: "Please head to the baggage service desk located right next to carousel number four.",
+            negative: "There is no physical desk; you must file a lost baggage claim on our website.",
+            question: "Do you have your baggage claim tags and the boarding pass with you?"
+          },
+          {
+            id: "em-lf-3",
+            prompt: "I think I dropped my house keys near the reception desk; could you check if they are there?",
+            positive: "Yes, our receptionist found a set of keys on the counter earlier; here they are.",
+            negative: "No, we have searched the entire reception area and found no keys today.",
+            question: "Did your keychain have a specific tag or a colorful ring attached to it?"
+          },
+          {
+            id: "em-lf-4",
+            prompt: "Is there a lost and found department at the museum where I can check for my lost camera?",
+            positive: "Yes, the lost and found office is located near the main entrance cloakroom.",
+            negative: "No, we don't have a dedicated department; found items are handed to security.",
+            question: "When exactly did you notice that your camera was missing during your visit?"
+          },
+          {
+            id: "em-lf-5",
+            prompt: "Can I leave my contact details in case my stolen backpack is recovered by police?",
+            positive: "Certainly, please fill out this form with your name, phone number, and email address.",
+            negative: "Unfortunately, we do not keep records of lost items once they are sent to the central station.",
+            question: "Would you like me to give you the phone number of the central police lost property office?"
           }
         ]
       }

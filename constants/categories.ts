@@ -783,7 +783,7 @@ export const SENT_CATS: SentenceCategory[] = [
   {
     id: "everyday-situations",
     name: "Everyday Situations",
-    description: "Coming Soon",
+    description: "Master real-life English dialogues: dining out, travel, shopping, hotels, transport, and emergencies",
     icon: "Users",
     color: UI_COLORS.cyan,
     section: "sentences",
@@ -822,95 +822,105 @@ export const SENT_CATS: SentenceCategory[] = [
       {
         id: "shopping-prices",
         name: "Shopping & Prices",
-        description: "Store conversations: sizes, prices, returns, exchanges",
+        description: "Store conversations: sizes, prices, returns, discounts & promos",
         access: "premium",
         isFree: false,
         subcategories: [
           { id: "sizes", name: "Sizes", description: "Asking about clothing sizes" },
           { id: "prices", name: "Prices", description: "Clarifying product prices" },
-          { id: "returns", name: "Returns", description: "Return and exchange policies" }
+          { id: "returns", name: "Returns", description: "Return and exchange policies" },
+          { id: "discounts-promo", name: "Discounts & Promo", description: "How to clarify discount and promo details" }
         ]
       },
       {
         id: "hotel-accommodation",
         name: "Hotel & Accommodation",
-        description: "Check-in/out, room requests, complaints, amenities",
+        description: "Check-in/out, room requests, complaints, services & amenities",
         access: "premium",
         isFree: false,
         subcategories: [
           { id: "checkin-out", name: "Check-in/out", description: "Hotel arrival and departure" },
           { id: "room-requests", name: "Room Requests", description: "Towel changes, extra amenities" },
-          { id: "complaints", name: "Complaints", description: "AC/Wi-Fi issues, problems" }
+          { id: "complaints", name: "Complaints", description: "AC/Wi-Fi issues and room problems" },
+          { id: "amenities-services", name: "Amenities & Services", description: "Inquiring about breakfast, pool, or gym" }
         ]
       },
       {
         id: "directions-transport",
         name: "Directions & Transport",
-        description: "Asking for directions, buying tickets, taxi rides",
+        description: "Asking for directions, public transport, taxi, car rentals",
         access: "premium",
         isFree: false,
         subcategories: [
           { id: "asking-directions", name: "Asking Directions", description: "How to ask for directions" },
-          { id: "public-transport", name: "Public Transport", description: "Metro/bus tickets" },
-          { id: "taxi", name: "Taxi", description: "Calling taxi and trip cost" }
+          { id: "public-transport", name: "Public Transport", description: "Metro/bus tickets and routes" },
+          { id: "taxi", name: "Taxi", description: "Calling a taxi and trip costs" },
+          { id: "car-rental", name: "Car Rental", description: "Renting a vehicle and selecting insurance" }
         ]
       },
       {
         id: "health-pharmacy",
         name: "Health & Pharmacy",
-        description: "Describing symptoms, buying medicine, medical help",
+        description: "Describing symptoms, buying medicine, doctor visits, first aid",
         access: "premium",
         isFree: false,
         subcategories: [
-          { id: "symptoms", name: "Symptoms", description: "Describing headache, cold symptoms" },
-          { id: "pharmacy", name: "Pharmacy", description: "Buying medicine without prescription" }
+          { id: "symptoms", name: "Symptoms", description: "Describing headache or cold symptoms" },
+          { id: "pharmacy", name: "Pharmacy", description: "Buying medicine without prescription" },
+          { id: "doctor-appointment", name: "Doctor's Appointment", description: "Booking a visit and confirming coverage" },
+          { id: "first-aid", name: "First Aid", description: "Requesting urgent care or medical kits" }
         ]
       },
       {
         id: "socializing-smalltalk",
         name: "Socializing & Small Talk",
-        description: "Conversation starters, weather, hobbies, work topics",
+        description: "Conversation starters, small talk, plans & invites, hobbies",
         access: "premium",
         isFree: false,
         subcategories: [
           { id: "conversation-starters", name: "Conversation Starters", description: "Polite phrases to begin talking" },
-          { id: "small-talk", name: "Small Talk", description: "Weather, hobbies, work topics" }
+          { id: "small-talk", name: "Small Talk", description: "Weather, hobbies, and work topics" },
+          { id: "invitations-plans", name: "Plans & Invites", description: "Suggesting coffee, accepting or refusing" },
+          { id: "hobbies-interests", name: "Hobbies & Interests", description: "Sharing passions, books, and movies" }
         ]
       },
       {
         id: "bank-money",
         name: "At the Bank & Money",
-        description: "Cash withdrawal, currency exchange, card issues",
+        description: "Cash withdrawal, currency exchange, card issues, opening accounts",
         access: "premium",
         isFree: false,
         subcategories: [
           { id: "cash-withdrawal", name: "Cash Withdrawal", description: "Getting cash from ATM/bank" },
           { id: "currency-exchange", name: "Currency Exchange", description: "Exchanging money" },
-          { id: "card-issues", name: "Card Issues", description: "Blocked card problems" }
+          { id: "card-issues", name: "Card Issues", description: "Blocked card and transaction problems" },
+          { id: "opening-account", name: "Opening an Account", description: "Applying for debit/savings accounts" }
         ]
       },
       {
         id: "work-office",
         name: "Work & Office",
-        description: "Meetings, requests, deadlines, colleague conversations",
+        description: "Meetings, requests, deadlines, interviews & pitching",
         access: "premium",
         isFree: false,
         subcategories: [
           { id: "meetings", name: "Meetings", description: "Scheduling and arranging meetings" },
-          { id: "requests", name: "Requests", description: "Polite requests for help" },
-          { id: "deadlines", name: "Deadlines", description: "Clarifying project deadlines" }
+          { id: "requests", name: "Requests", description: "Polite requests for help or files" },
+          { id: "deadlines", name: "Deadlines", description: "Clarifying project deadlines and schedules" },
+          { id: "interviews-pitching", name: "Interviews & Pitching", description: "Describing qualifications and salary" }
         ]
       },
       {
         id: "emergency-situations",
         name: "Emergency Situations",
-        description: "Calling for help, reporting theft, police/medical emergencies",
+        description: "Calling for help, reporting theft, emergency services, lost & found",
         access: "premium",
         isFree: false,
         subcategories: [
-          { id: "calling-help", name: "Calling for Help", description: "How to call for assistance" },
-          { id: "reporting-theft", name: "Reporting Theft", description: "Reporting stolen passport" },
-          { id: "emergency-services", name: "Emergency Services", description: "Calling police/doctor" }
+          { id: "calling-help", name: "Calling for Help", description: "How to call for urgent assistance" },
+          { id: "reporting-theft", name: "Reporting Theft", description: "Reporting stolen passport or bags" },
+          { id: "emergency-services", name: "Emergency Services", description: "Calling police or medical dispatch" },
+          { id: "lost-found", name: "Lost & Found", description: "Inquiring about lost items or luggage" }
         ]
       }
     ]
