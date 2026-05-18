@@ -68,6 +68,7 @@ export interface SectionProgressPercentages {
 
 const WORD_ACTIVITY_IDS = WORD_GAME_ACTIVITIES.map((activity) => activity.id);
 const PHRASAL_VERB_ACTIVITY_IDS = ["cards", "multiple-choice", "synonym-pair", "letter-hunt", "unscramble", "pair-match"];
+const EVERYDAY_ACTIVITY_IDS = ["cards", "choice", "pairs", "find-the-mistake"];
 const IDIOM_ACTIVITY_IDS = ["cards", "multiple-choice", "synonym-pair", "fill-blanks", "find-mistake", "sentence-builder"];
 const A1_C2_TOPIC_IDS = ["phrases", "error-hunt", "pairs", "level-match"];
 const IDIOM_LEVEL_IDS = ["level-1", "level-2", "level-3"];
@@ -221,6 +222,43 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
     containerStatuses[buildProgressKey({ section: "sentences", categoryId: "phrasal-verbs" })] = aggregateStatuses(topicStatuses);
   }
 
+  const everydayCategory = SENT_CATS.find((category) => category.id === "everyday-situations");
+  if (everydayCategory?.topics?.length) {
+    const topicStatuses = everydayCategory.topics.map((topic) => {
+      const topicKey = buildProgressKey({ section: "sentences", categoryId: "everyday-situations", topicId: topic.id });
+
+      const subcategoryStatuses =
+        topic.subcategories?.map((subcategory) => {
+          const subcategoryKey = buildProgressKey({
+            section: "sentences",
+            categoryId: "everyday-situations",
+            topicId: topic.id,
+            subcategoryId: subcategory.id
+          });
+
+          const childKeys = EVERYDAY_ACTIVITY_IDS.map((activityId) =>
+            buildProgressKey({
+              section: "sentences",
+              categoryId: "everyday-situations",
+              topicId: topic.id,
+              subcategoryId: subcategory.id,
+              activityId
+            })
+          );
+
+          const status = aggregateStatuses(collectStatuses(childKeys, activityStatuses, containerStatuses));
+          containerStatuses[subcategoryKey] = status;
+          return status;
+        }) ?? [];
+
+      const topicStatus = aggregateStatuses(subcategoryStatuses);
+      containerStatuses[topicKey] = topicStatus;
+      return topicStatus;
+    });
+
+    containerStatuses[buildProgressKey({ section: "sentences", categoryId: "everyday-situations" })] = aggregateStatuses(topicStatuses);
+  }
+
   const a1c2Statuses = A1_C2_TOPIC_IDS.map((topicId) => {
     const topicKey = buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId });
 
@@ -361,6 +399,25 @@ function buildSentencesActivityKeys(): string[] {
               buildProgressKey({
                 section: "sentences",
                 categoryId: "phrasal-verbs",
+                topicId: topic.id,
+                subcategoryId: subcategory.id,
+                activityId
+              })
+            );
+          });
+        });
+      });
+      return;
+    }
+
+    if (category.id === "everyday-situations") {
+      category.topics?.forEach((topic) => {
+        topic.subcategories?.forEach((subcategory) => {
+          EVERYDAY_ACTIVITY_IDS.forEach((activityId) => {
+            keys.push(
+              buildProgressKey({
+                section: "sentences",
+                categoryId: "everyday-situations",
                 topicId: topic.id,
                 subcategoryId: subcategory.id,
                 activityId

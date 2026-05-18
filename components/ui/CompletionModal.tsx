@@ -61,7 +61,7 @@ function inferProgressPayload({
     };
   }
 
-  if (segments[0] === 'sentences' && segments[1] === 'phrasal-verbs' && segments.length >= 5) {
+  if (segments[0] === 'sentences' && (segments[1] === 'phrasal-verbs' || segments[1] === 'everyday-situations') && segments.length >= 5) {
     const [, inferredCategoryId, topicId, subcategoryId, activityId] = segments;
     return {
       section: 'sentences',

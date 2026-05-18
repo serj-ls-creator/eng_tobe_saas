@@ -796,13 +796,14 @@ export const SENT_CATS: SentenceCategory[] = [
       {
         id: "dining-out",
         name: "Dining Out",
-        description: "Restaurant phrases: table requests, allergies, separate bills",
+        description: "Restaurant phrases: table requests, allergies, separate bills, ordering & recommendations",
         access: "premium",
         isFree: false,
         subcategories: [
           { id: "table-requests", name: "Table Requests", description: "How to ask for a table by the window" },
           { id: "allergies", name: "Allergies", description: "How to inform about food allergies" },
-          { id: "separate-bills", name: "Separate Bills", description: "How to ask for separate checks" }
+          { id: "separate-bills", name: "Separate Bills", description: "How to ask for separate checks" },
+          { id: "ordering-recommendations", name: "Ordering & Recommendations", description: "How to order food and ask for recommendations" }
         ]
       },
       {

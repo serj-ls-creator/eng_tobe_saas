@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
-import { CATS, WORD_GAME_ACTIVITIES } from "@/constants/categories";
+import { SENT_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
-import { PremiumBadge } from "@/components/ui/PremiumBadge";
 
 type Activity = {
   id: string;
@@ -13,22 +12,43 @@ type Activity = {
   description: string;
 };
 
+const EVERYDAY_ACTIVITIES: Activity[] = [
+  {
+    id: "cards",
+    name: "Cards",
+    description: "Dialogue practice cards"
+  },
+  {
+    id: "choice",
+    name: "Choice",
+    description: "Pick the best response"
+  },
+  {
+    id: "pairs",
+    name: "Pairs",
+    description: "Match the situations"
+  },
+  {
+    id: "find-the-mistake",
+    name: "Find the Mistake",
+    description: "Find error in dialogue"
+  }
+];
+
 interface PageProps {
   params: {
-    categoryId: string;
     topicId: string;
     subcategoryId: string;
   };
 }
 
-
 export default async function SubcategoryPage({ params }: PageProps) {
-  const { categoryId, topicId, subcategoryId } = params;
+  const { topicId, subcategoryId } = params;
   const premium = await isPremium();
   const progress = await getLearningProgressSnapshot();
 
-  // Find the category
-  const category = CATS.find(cat => cat.id === categoryId);
+  // Find the everyday-situations category
+  const category = SENT_CATS.find(cat => cat.id === "everyday-situations");
   if (!category) notFound();
 
   // Find the topic
@@ -39,7 +59,7 @@ export default async function SubcategoryPage({ params }: PageProps) {
   const subcategory = topic.subcategories?.find(sub => sub.id === subcategoryId);
   if (!subcategory) notFound();
 
-  const locked = !category.isFree && !premium;
+  const locked = !topic.isFree && !premium;
 
   return (
     <>
@@ -47,7 +67,7 @@ export default async function SubcategoryPage({ params }: PageProps) {
       <div className="content-shell">
         <div className="mb-4">
           <Link 
-            href={`/words/${categoryId}/${topicId}`}
+            href={`/sentences/everyday-situations/${topicId}`}
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             ← Back to {topic.name}
@@ -70,16 +90,16 @@ export default async function SubcategoryPage({ params }: PageProps) {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          {WORD_GAME_ACTIVITIES.map((activity: Activity, index: number) => (
+          {EVERYDAY_ACTIVITIES.map((activity: Activity, index: number) => (
             <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <Link href={locked ? "/premium" : (activity.id === 'cards' ? `/words/${categoryId}/${topicId}/${subcategoryId}/cards` : activity.id === 'synonym-pair' ? `/words/${categoryId}/${topicId}/${subcategoryId}/synonym-pair` : activity.id === 'multiple-choice' ? `/words/${categoryId}/${topicId}/${subcategoryId}/multiple-choice` : activity.id === 'letter-hunt' ? `/words/${categoryId}/${topicId}/${subcategoryId}/letter-hunt` : activity.id === 'unscramble' ? `/words/${categoryId}/${topicId}/${subcategoryId}/unscramble` : activity.id === 'word-check' ? `/words/${categoryId}/${topicId}/${subcategoryId}/word-check` : `/words#${categoryId}-${topicId}-${subcategoryId}-${activity.id}`)}>
+              <Link href={locked ? "/premium" : `/sentences/everyday-situations/${topicId}/${subcategoryId}/${activity.id}`}>
                 <Card
-                  className={`p-4 ${
+                  className={`p-4 h-full cursor-pointer hover:border-cyan-500/50 transition-all ${
                     getProgressCardClass(
                       progress.activityStatuses[
                         buildProgressKey({
-                          section: "words",
-                          categoryId,
+                          section: "sentences",
+                          categoryId: "everyday-situations",
                           topicId,
                           subcategoryId,
                           activityId: activity.id
