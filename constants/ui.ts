@@ -43,7 +43,7 @@ export const STREAK_DAYS = ["M", "T", "W", "T", "F", "S", "S"] as const;
 export const PREMIUM_FEATURES = [
   "All Words categories",
   "All Idioms categories",
-  "Sentences A1-C2 (coming soon)",
+  "Sentences A1-C2",
   "All Games",
   "Future premium updates"
 ] as const;

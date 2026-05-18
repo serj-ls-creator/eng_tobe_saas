@@ -86,7 +86,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
             {[
               'All Words categories',
               'All Idioms categories',
-              'Sentences A1-C2 (coming soon)',
+              'Sentences A1-C2',
               'All Games',
               'Future premium updates',
             ].map(f => (
