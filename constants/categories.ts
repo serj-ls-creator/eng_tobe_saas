@@ -783,7 +783,7 @@ export const SENT_CATS: SentenceCategory[] = [
   {
     id: "everyday-situations",
     name: "Everyday Situations",
-    description: "Master real-life English dialogues: dining out, travel, shopping, hotels, transport, and emergencies",
+    description: "Master real-life English dialogues",
     icon: "Users",
     color: UI_COLORS.cyan,
     section: "sentences",
