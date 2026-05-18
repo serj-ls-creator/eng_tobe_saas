@@ -52,6 +52,30 @@ export const getCurrentProfile = cache(async () => {
     .eq("user_id", user.id)
     .maybeSingle();
 
+  if (data) {
+    let streak = data.streak ?? 0;
+    let totalStreak = data.total_streak ?? 0;
+    const lastDate = data.last_activity_date;
+    const rawDailyActivities = data.daily_activities ?? 0;
+
+    if (lastDate) {
+      const today = new Date().toISOString().slice(0, 10);
+      const last = new Date(lastDate + 'T00:00:00Z');
+      const todayDate = new Date(today + 'T00:00:00Z');
+      const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
+      
+      if (diffDays > 1 || (diffDays === 1 && rawDailyActivities < 4)) {
+        streak = 0;
+        totalStreak = 0;
+      }
+    } else {
+      streak = 0;
+      totalStreak = 0;
+    }
+    data.streak = streak;
+    data.total_streak = totalStreak;
+  }
+
   // Add email from auth user
   if (data && user.email) {
     return { ...data, email: user.email };
@@ -85,7 +109,11 @@ export const getWeeklyStreak = cache(async () => {
   if (lastDate) {
     const last = new Date(lastDate + 'T00:00:00Z');
     const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
-    if (diffDays > 1) activeStreak = 0;
+    
+    // If missed a whole day (diffDays > 1) OR did not complete daily goal yesterday (diffDays === 1 and dailyActivities < 4)
+    if (diffDays > 1 || (diffDays === 1 && dailyActivities < 4)) {
+      activeStreak = 0;
+    }
   } else {
     activeStreak = 0;
   }

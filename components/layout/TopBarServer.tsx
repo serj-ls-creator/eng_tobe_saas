@@ -15,7 +15,7 @@ async function getUserData(): Promise<{ points: number; streak: number }> {
 
     const { data } = await supabase
       .from('profiles')
-      .select('points, streak, total_streak, last_activity_date')
+      .select('points, streak, total_streak, last_activity_date, daily_activities')
       .eq('user_id', user.id)
       .maybeSingle();
 
@@ -28,7 +28,11 @@ async function getUserData(): Promise<{ points: number; streak: number }> {
       const last = new Date(data.last_activity_date + 'T00:00:00Z');
       const todayDate = new Date(today + 'T00:00:00Z');
       const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
-      if (diffDays > 1) totalStreak = 0;
+      
+      const rawDailyActivities = data.daily_activities ?? 0;
+      if (diffDays > 1 || (diffDays === 1 && rawDailyActivities < 4)) {
+        totalStreak = 0;
+      }
     } else {
       totalStreak = 0;
     }

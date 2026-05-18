@@ -155,8 +155,8 @@ BEGIN
   -- 2. Reset daily counter and check streak break if new day
   IF p_last_activity_date IS NULL OR p_last_activity_date != today_input THEN
     IF p_last_activity_date IS NOT NULL THEN
-      -- If more than 1 day has passed, reset streaks
-      IF (today_input::date - p_last_activity_date::date) > 1 THEN
+      -- If more than 1 day has passed, or yesterday was not completed (activities < 4), reset streaks
+      IF (today_input::date - p_last_activity_date::date) > 1 OR p_daily_activities < 4 THEN
         p_streak := 0;
         p_total_streak := 0;
       END IF;

@@ -55,9 +55,9 @@ export async function POST(_req: NextRequest) {
       if (lastDate) {
         const last = new Date(lastDate + 'T00:00:00Z');
         const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
-        if (diffDays > 1) {
+        if (diffDays > 1 || dailyActivities < 4) {
           streak = 0;
-          totalStreak = 0; // missed a day — reset total streak too
+          totalStreak = 0; // missed a day or did not complete yesterday — reset total streak too
         }
       }
       dailyActivities = 0;

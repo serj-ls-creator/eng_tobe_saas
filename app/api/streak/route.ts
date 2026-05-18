@@ -35,7 +35,11 @@ export async function GET() {
     if (lastDate) {
       const last = new Date(lastDate + 'T00:00:00Z');
       const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
-      if (diffDays > 1) activeStreak = 0;
+      
+      // If missed a whole day (diffDays > 1) OR did not complete daily goal yesterday (diffDays === 1 and rawDailyActivities < 4)
+      if (diffDays > 1 || (diffDays === 1 && rawDailyActivities < 4)) {
+        activeStreak = 0;
+      }
     } else {
       activeStreak = 0;
     }
