@@ -230,6 +230,19 @@ export default function SentencePairsGame() {
             categoryId="sentences"
             subcategoryName={`Pairs - ${selectedLevel.toUpperCase()}`}
             words={pairs.map(p => p.a1Phrase)}
+            progressPayload={{
+              section: "sentences",
+              categoryId: "a1-c2",
+              topicId: "pairs",
+              subcategoryId: "sentence-pairs",
+              levelId: selectedLevel.toLowerCase(),
+              activityId: "pairs",
+              activityName: "Pairs",
+              title: `Pairs - ${selectedLevel.toUpperCase()}`,
+              href: `/sentences/a1-c2/pairs/sentence-pairs?level=${selectedLevel.toLowerCase()}`,
+              score: score,
+              total: 10
+            }}
             onNextSubcategory={handleBackToLevels}
             onBackToTopics={handleBackToMain}
           />

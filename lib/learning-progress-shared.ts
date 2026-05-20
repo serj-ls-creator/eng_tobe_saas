@@ -288,6 +288,48 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
       return status;
     }
 
+    if (topicId === "pairs") {
+      const childKeys = ["a2", "b1", "b2", "c1", "c2", "random"].map((levelId) =>
+        buildProgressKey({
+          section: "sentences",
+          categoryId: "a1-c2",
+          topicId: "pairs",
+          subcategoryId: "sentence-pairs",
+          levelId,
+          activityId: "pairs"
+        })
+      );
+      const status = aggregateStatuses(collectStatuses(childKeys, activityStatuses, containerStatuses));
+      containerStatuses[topicKey] = status;
+      return status;
+    }
+
+    if (topicId === "error-hunt") {
+      const key = buildProgressKey({
+        section: "sentences",
+        categoryId: "a1-c2",
+        topicId: "error-hunt",
+        subcategoryId: "basic-errors",
+        activityId: "error-hunt"
+      });
+      const status = activityStatuses[key] ?? "none";
+      containerStatuses[topicKey] = status;
+      return status;
+    }
+
+    if (topicId === "level-match") {
+      const key = buildProgressKey({
+        section: "sentences",
+        categoryId: "a1-c2",
+        topicId: "level-match",
+        subcategoryId: "progression-match",
+        activityId: "level-match"
+      });
+      const status = activityStatuses[key] ?? "none";
+      containerStatuses[topicKey] = status;
+      return status;
+    }
+
     const matchingKeys = Object.keys(activityStatuses).filter((key) => key.startsWith(`${topicKey}:`));
     const status = aggregateStatuses(collectStatuses(matchingKeys, activityStatuses, containerStatuses));
     containerStatuses[topicKey] = status;
@@ -443,7 +485,18 @@ function buildSentencesActivityKeys(): string[] {
       });
 
       keys.push(buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId: "error-hunt", subcategoryId: "basic-errors", activityId: "error-hunt" }));
-      keys.push(buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId: "pairs", subcategoryId: "sentence-pairs", activityId: "pairs" }));
+      ["a2", "b1", "b2", "c1", "c2", "random"].forEach((levelId) => {
+        keys.push(
+          buildProgressKey({
+            section: "sentences",
+            categoryId: "a1-c2",
+            topicId: "pairs",
+            subcategoryId: "sentence-pairs",
+            levelId,
+            activityId: "pairs"
+          })
+        );
+      });
       keys.push(buildProgressKey({ section: "sentences", categoryId: "a1-c2", topicId: "level-match", subcategoryId: "progression-match", activityId: "level-match" }));
     }
   });

@@ -4,6 +4,7 @@ import { CategoryCard } from "@/components/ui/CategoryCard";
 import { SENT_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import Link from "next/link";
+import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 
 const PAIRS_LEVELS = [
   {
@@ -52,6 +53,7 @@ const PAIRS_LEVELS = [
 
 export default async function PairsPage() {
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
 
   // Find the A1-C2 category
   const category = SENT_CATS.find(cat => cat.id === "a1-c2");
@@ -79,18 +81,32 @@ export default async function PairsPage() {
           <p className="text-sm text-zinc-400">Match A1 phrases with their corresponding phrases at different levels</p>
         </div>
         <div className="space-y-2">
-          {PAIRS_LEVELS.map((level, index) => (
-            <div key={level.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <CategoryCard
-                title={level.name}
-                description={level.description}
-                icon={level.icon}
-                color={level.color}
-                href={locked ? "/premium" : `/sentences/a1-c2/pairs/${level.id}`}
-                locked={locked}
-              />
-            </div>
-          ))}
+          {PAIRS_LEVELS.map((level, index) => {
+            const progressStatus = progress.activityStatuses[
+              buildProgressKey({
+                section: "sentences",
+                categoryId: "a1-c2",
+                topicId: "pairs",
+                subcategoryId: "sentence-pairs",
+                levelId: level.id,
+                activityId: "pairs"
+              })
+            ] ?? "none";
+
+            return (
+              <div key={level.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+                <CategoryCard
+                  title={level.name}
+                  description={level.description}
+                  icon={level.icon}
+                  color={level.color}
+                  href={locked ? "/premium" : `/sentences/a1-c2/pairs/${level.id}`}
+                  locked={locked}
+                  progressStatus={progressStatus}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
