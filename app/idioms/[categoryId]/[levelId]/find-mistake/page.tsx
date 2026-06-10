@@ -227,8 +227,8 @@ export default function FindMistakePage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Hint after wrong answer */}
-        {answerState === 'wrong' && (
+        {/* Hint after answer */}
+        {answerState !== 'idle' && (
           <p className="text-center text-xs text-slate-500 mt-3">
             The correct word is{' '}
             <span className="text-green-400 font-semibold">
