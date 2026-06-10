@@ -10,6 +10,7 @@ import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
 import { getIdiomsByLevel, type IdiomCategory } from '@/lib/idioms';
 import { IDIOM_CATS } from '@/constants/categories';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { usePoints } from '@/lib/usePoints';
 
 interface PageProps {
@@ -70,6 +71,7 @@ export default function FindMistakePage({ params }: PageProps) {
   const router = useRouter();
 
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [idioms, setIdioms] = useState<any[]>([]);
   const [category, setCategory] = useState<any>(null);
@@ -118,7 +120,13 @@ export default function FindMistakePage({ params }: PageProps) {
     const isCorrect = index === mistakeIndex;
 
     setAnswerState(isCorrect ? 'correct' : 'wrong');
-    if (isCorrect) setCorrectCount(prev => prev + 1);
+    
+    if (isCorrect) {
+      playCorrect();
+      setCorrectCount(prev => prev + 1);
+    } else {
+      playWrong();
+    }
 
     setTimeout(() => {
       if (currentIndex < idioms.length - 1) {
@@ -127,7 +135,7 @@ export default function FindMistakePage({ params }: PageProps) {
         setShowCompletion(true);
       }
     }, 1500);
-  }, [answerState, mistakeIndex, currentIndex, idioms]);
+  }, [answerState, mistakeIndex, currentIndex, idioms, playCorrect, playWrong]);
 
   const handleBackToActivities = () => router.push(`/idioms/${categoryId}/${levelId}`);
   const handleBackToLevels = () => router.push(`/idioms/${categoryId}`);
