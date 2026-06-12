@@ -13,7 +13,7 @@ export default async function GamesPage() {
       <div className="content-shell">
         <div className="mb-4">
           <Link 
-            href="/" 
+            href="/home" 
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             ← Back to Home

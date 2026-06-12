@@ -8,7 +8,7 @@ export default async function StorePage() {
   const premium = await isPremium();
 
   const points = profile?.points ?? 0;
-  const premiumExpiresAt = (profile as any)?.premium_expires_at ?? null;
+  const premiumExpiresAt = profile?.premium_expires_at ?? null;
 
   return (
     <>
@@ -16,7 +16,7 @@ export default async function StorePage() {
       <div className="content-shell pb-8">
         <div className="mb-4">
           <Link
-            href="/"
+            href="/home"
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             ← Back to Home

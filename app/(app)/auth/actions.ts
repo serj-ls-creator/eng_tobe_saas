@@ -34,7 +34,7 @@ export async function loginAction(_: { error: string | null }, formData: FormDat
     return { error: error.message };
   }
 
-  redirect("/");
+  redirect("/home");
 }
 
 export async function signupAction(_: { error: string | null }, formData: FormData) {

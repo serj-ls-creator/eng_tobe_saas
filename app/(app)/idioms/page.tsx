@@ -15,7 +15,7 @@ export default async function IdiomsPage() {
       <div className="content-shell pb-4">
         <div className="mb-4">
           <Link 
-            href="/" 
+            href="/home" 
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             ← Back to Home

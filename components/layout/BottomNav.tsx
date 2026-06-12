@@ -9,10 +9,10 @@ import { cn } from "@/lib/utils";
 
 const navItems: NavItem[] = [
   {
-    href: "/",
+    href: "/home",
     label: "Home",
     icon: <Home className="h-5 w-5" />,
-    match: ["/"]
+    match: ["/home"]
   },
   {
     href: "/recall",

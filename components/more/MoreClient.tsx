@@ -24,7 +24,7 @@ export function MoreClient() {
   return (
     <div className="content-shell">
       <div className="mb-4">
-        <Link href="/" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
+        <Link href="/home" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
           ← Back to Home
         </Link>
       </div>

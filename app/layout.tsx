@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
 
-import { BottomNav } from "@/components/layout/BottomNav";
 import { PwaRegister } from "@/components/pwa/PwaRegister";
 import "@/app/globals.css";
 
@@ -47,10 +46,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <body className={inter.className}>
         <PwaRegister />
-        <div className="app-shell bg-background">
-          <main className="flex-1">{children}</main>
-          <BottomNav />
-        </div>
+        {children}
         <Analytics />
       </body>
     </html>

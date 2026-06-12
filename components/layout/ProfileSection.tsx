@@ -86,7 +86,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
       <div className="mx-auto max-w-shell">
         <div className="mb-4">
           <Link 
-            href="/" 
+            href="/home" 
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
             ← Back to Home

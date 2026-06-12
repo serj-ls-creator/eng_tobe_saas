@@ -118,7 +118,7 @@ export default async function RecallPage() {
       <div className="content-shell">
         <div className="mb-4">
           <Link
-            href="/"
+            href="/home"
             className="text-xs text-zinc-500 transition-colors hover:text-zinc-300"
           >
             {"<-"} Back to Home

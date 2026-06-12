@@ -7,7 +7,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { UI_TEXT } from "@/constants/ui";
-import { signInWithGoogle } from "@/app/auth/actions";
+import { signInWithGoogle } from "@/app/(app)/auth/actions";
 
 interface AuthFormProps {
   title: string;

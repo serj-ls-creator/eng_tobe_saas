@@ -1,7 +1,7 @@
 import { TopBar } from "@/components/layout/TopBar";
 import { AuthForm } from "@/components/auth/AuthForm";
 import { UI_TEXT } from "@/constants/ui";
-import { loginAction } from "@/app/auth/actions";
+import { loginAction } from "@/app/(app)/auth/actions";
 
 export default function LoginPage() {
   return (

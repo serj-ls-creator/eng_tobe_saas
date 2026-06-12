@@ -15,12 +15,19 @@ const config: Config = {
         foreground: "#FFFFFF",
         card: "rgba(255,255,255,0.03)",
         border: "rgba(255,255,255,0.06)",
-        accent: {
-          cyan: "#00E5FF",
-          pink: "#FF3D71",
+        dark: "#050505",
+        brand: {
+          pink:   "#FF3D71",
+          cyan:   "#00E5FF",
           yellow: "#FFD93D",
-          purple: "#A855F7"
-        }
+          purple: "#A855F7",
+        },
+        accent: {
+          cyan:   "#00E5FF",
+          pink:   "#FF3D71",
+          yellow: "#FFD93D",
+          purple: "#A855F7",
+        },
       },
       keyframes: {
         fadeUp: {
