@@ -27,7 +27,7 @@ export function ResetPasswordForm() {
       );
 
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: 'https://english-tobe.vercel.app/auth/update-password',
+        redirectTo: `${window.location.origin}/auth/update-password`,
       });
 
       if (error) {

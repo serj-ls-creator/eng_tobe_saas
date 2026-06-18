@@ -49,10 +49,16 @@ export async function signupAction(_: { error: string | null }, formData: FormDa
   }
 
   const supabase = createSupabaseServerClient();
+  const headerStore = await headers();
+  const host = headerStore.get("x-forwarded-host") ?? headerStore.get("host");
+  const protocol = headerStore.get("x-forwarded-proto") ?? (host?.includes("localhost") ? "http" : "https");
+  const siteUrl = host ? `${protocol}://${host}` : (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000");
+
   const { data, error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
     options: {
+      emailRedirectTo: `${siteUrl}/auth/callback`,
       data: {
         full_name: parsed.data.fullName
       }
