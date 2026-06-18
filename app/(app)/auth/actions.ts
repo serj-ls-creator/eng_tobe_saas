@@ -82,11 +82,11 @@ export async function signupAction(_: { error: string | null }, formData: FormDa
 export async function signInWithGoogle() {
   const supabase = createSupabaseServerClient();
   const headerStore = await headers();
-  const forwardedProto = headerStore.get("x-forwarded-proto");
-  const forwardedHost = headerStore.get("x-forwarded-host");
-  const derivedOrigin = forwardedProto && forwardedHost ? `${forwardedProto}://${forwardedHost}` : null;
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_APP_URL ?? derivedOrigin ?? "http://localhost:3000";
+  const host = headerStore.get("x-forwarded-host") ?? headerStore.get("host");
+  const protocol = headerStore.get("x-forwarded-proto") ?? (host?.includes("localhost") ? "http" : "https");
+  
+  // Priorities: dynamic request host > env var > localhost fallback
+  const siteUrl = host ? `${protocol}://${host}` : (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000");
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "google",
