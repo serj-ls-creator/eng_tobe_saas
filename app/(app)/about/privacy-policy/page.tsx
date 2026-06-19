@@ -50,6 +50,12 @@ export default function PrivacyPolicyPage() {
             content: [
               "We retain account data while your account is active. Payment records are kept for 7 years to comply with tax and legal requirements."
             ]
+          },
+          {
+            title: "7. Contact & Support",
+            content: [
+              "For any privacy-related questions, data access or deletion requests, please contact us at support@englishtobe.info — we typically respond within 24–48 hours on business days."
+            ]
           }
         ]}
         footerText="© 2025 English to be. All rights reserved."

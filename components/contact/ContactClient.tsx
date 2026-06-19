@@ -188,6 +188,15 @@ export function ContactClient() {
           <p className="text-zinc-500 text-sm">
             We typically respond within 24-48 hours during business days.
           </p>
+          <p className="mt-3 text-zinc-400 text-sm">
+            You can also reach us directly at{" "}
+            <a
+              href="mailto:support@englishtobe.info"
+              className="text-cyan-400 hover:text-cyan-300 transition-colors underline underline-offset-2"
+            >
+              support@englishtobe.info
+            </a>
+          </p>
         </div>
       </div>
     </div>

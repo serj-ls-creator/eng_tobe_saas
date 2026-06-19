@@ -83,7 +83,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
 
   return (
     <div className="content-shell pb-4">
-      <div className="mx-auto max-w-shell">
+      <div className="mx-auto max-w-[430px]">
         <div className="mb-4">
           <Link 
             href="/home" 

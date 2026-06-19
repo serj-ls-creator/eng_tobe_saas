@@ -60,7 +60,13 @@ export default function TermsOfUsePage() {
           {
             title: "8. Governing Law",
             content: [
-              "These terms are governed by the laws of Ukraine. Any disputes shall be resolved in the courts of this jurisdiction or via binding arbitration as provided by Paddle.com"
+              "These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the laws of Ukraine, without regard to its conflict of law principles. Any disputes arising out of or relating to these terms shall be subject to the exclusive jurisdiction of the competent courts in this jurisdiction."
+            ]
+          },
+          {
+            title: "9. Contact & Support",
+            content: [
+              "If you have any questions about these Terms of Use, please contact us at support@englishtobe.info — we typically respond within 24–48 hours on business days."
             ]
           }
         ]}

@@ -15,7 +15,7 @@ interface TopBarProps {
 export function TopBar({ title, backHref, showBrand = false, points = 0, streak = 0 }: TopBarProps) {
   return (
     <header className="sticky top-0 z-30 border-b border-white/5 bg-[#050505]/90 backdrop-blur-xl">
-      <div className="mx-auto flex h-14 max-w-shell items-center justify-between px-4">
+      <div className="mx-auto flex h-14 max-w-[430px] items-center justify-between px-4">
         <div className="flex items-center gap-2">
           {backHref ? (
             <Link href={backHref} className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-white/5">

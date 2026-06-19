@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -40,11 +40,15 @@ const FLIP_DATA = [
 ];
 
 export default function LandingPage() {
-  const normalRef   = useRef<HTMLSpanElement>(null);
-  const advancedRef = useRef<HTMLSpanElement>(null);
-  const pairIndex   = useRef(0);
-  const navRef      = useRef<HTMLElement>(null);
+  const normalRef    = useRef<HTMLSpanElement>(null);
+  const advancedRef  = useRef<HTMLSpanElement>(null);
+  const pairIndex    = useRef(0);
+  const navRef       = useRef<HTMLElement>(null);
   const flippedCards = useRef<Set<number>>(new Set());
+  // Email assembled client-side only — invisible to scrapers that skip JS
+  const emailUser   = "support";
+  const emailDomain = "englishtobe.info";
+  const fullEmail   = `${emailUser}@${emailDomain}`;
 
   /* ── Text cycling ── */
   useEffect(() => {
@@ -222,7 +226,7 @@ export default function LandingPage() {
             <div className="w-full space-y-3 text-sm text-neutral-400 leading-relaxed bg-zinc-900 border border-white/10 p-5 sm:p-6 rounded-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[50px] pointer-events-none" />
               <p>Are you learning English but feel stuck? You understand — but speaking is hard. You know words — but you still think in your own language.</p>
-              <p><span className="text-white font-semibold">English to Be</span> is made for you.</p>
+              <p><span className="text-white font-semibold">English to be</span> is made for you.</p>
               <p>No translations. No shortcuts. Just real English — through games, words, phrases and idioms that you will actually remember. You don&apos;t just learn English. You start to think in English.</p>
               <p>This works. Because this is how the brain learns.</p>
               <p className="text-[#00E5FF] font-semibold pt-1">Level A2 and above. Make English yours.</p>
@@ -337,7 +341,7 @@ export default function LandingPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Words */}
-            <div className="reveal reveal-delay-1 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden" style={{ ["--glow-color" as string]: "rgba(255,61,113,0.12)", ["--glow-border" as string]: "rgba(255,61,113,0.25)" }}>
+            <Link href="/words" className="reveal reveal-delay-1 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,61,113,0.12)", ["--glow-border" as string]: "rgba(255,61,113,0.25)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF3D71]/5 rounded-full blur-[60px]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
@@ -360,7 +364,7 @@ export default function LandingPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
             {/* Sentences */}
             <div className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[60px]" />
@@ -630,41 +634,86 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── TIKTOK CTA ── */}
-      <section id="download" className="py-12 sm:py-16 relative overflow-hidden">
+      {/* ── SOCIAL CTA ── */}
+      <section id="download" className="py-12 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF3D71]/5 rounded-full blur-[150px]" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#00E5FF]/5 rounded-full blur-[120px]" />
         </div>
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/[0.03] text-sm text-neutral-400 mb-8">
-            {TIKTOK_SVG} @english_tobe
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <h2 className="reveal text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
+              Follow Along,<br />
+              <span className="gradient-text">Learn Every Day</span>
+            </h2>
+            <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">
+              Daily English tips on TikTok and Instagram — then open the app to practise what you learned.
+            </p>
           </div>
-          <h2 className="reveal reveal-delay-1 text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95]">
-            Learn English<br />
-            <span className="gradient-text">On TikTok</span><br />
-            <span className="text-neutral-500">Practice In App</span>
-          </h2>
-          <p className="reveal reveal-delay-2 mt-6 text-neutral-400 max-w-md mx-auto leading-relaxed">
-            Watch daily tips on TikTok. Then open English to be to practice what you learned with streaks, points, and games.
-          </p>
-          <div className="reveal reveal-delay-3 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/home" className="group w-full sm:w-auto px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 text-base">
-              Start Learning <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
-            </Link>
-            <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
-               className="group w-full sm:w-auto px-8 py-4 border border-white/10 rounded-full text-neutral-300 hover:border-white/20 hover:text-white transition-all flex items-center justify-center gap-2.5 text-base">
-              {TIKTOK_SVG_LG} Follow on TikTok
-            </a>
-          </div>
-          <div className="reveal reveal-delay-4 mt-12 flex items-center justify-center gap-8 text-neutral-600 text-sm">
-            <div className="flex -space-x-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF3D71] to-[#A855F7] border-2 border-[#050505] flex items-center justify-center text-[10px] font-bold">A</div>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00E5FF] to-[#A855F7] border-2 border-[#050505] flex items-center justify-center text-[10px] font-bold">M</div>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FFD93D] to-[#FF3D71] border-2 border-[#050505] flex items-center justify-center text-[10px] font-bold">K</div>
-              <div className="w-8 h-8 rounded-full bg-neutral-800 border-2 border-[#050505] flex items-center justify-center text-[10px] text-neutral-400">+</div>
+
+          {/* Two social cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-14">
+            {/* TikTok card */}
+            <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:bg-white/[0.05] transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-xs text-neutral-500 uppercase tracking-wider">TikTok</div>
+                  <div className="font-semibold text-white">@english_tobe</div>
+                </div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-white">224,000+</div>
+                <div className="text-sm text-neutral-400 mt-1">followers on TikTok</div>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed flex-1">
+                Daily vocabulary, idioms and tips — short videos that stick in your memory.
+              </p>
+              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-sm w-fit">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/></svg>
+                Follow on TikTok
+              </a>
             </div>
-            <span>Join <span className="text-neutral-400 font-medium">224,000+</span> learners from TikTok</span>
+
+            {/* Instagram card */}
+            <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:bg-white/[0.05] transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#FF3D71]/20 to-[#A855F7]/20 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-[#FF3D71]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-xs text-neutral-500 uppercase tracking-wider">Instagram</div>
+                  <div className="font-semibold text-white">@english_tobe</div>
+                </div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-white">8,500+</div>
+                <div className="text-sm text-neutral-400 mt-1">followers on Instagram</div>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed flex-1">
+                Vocabulary cards, idiom posts and learning motivation — every day in your feed.
+              </p>
+              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/10 text-neutral-300 font-semibold rounded-full hover:border-white/20 hover:text-white transition-all text-sm w-fit">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Follow on Instagram
+              </a>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <Link href="/auth/signup" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+              Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -688,7 +737,7 @@ export default function LandingPage() {
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
-              <Link href="/home" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Choose Plan</Link>
+              <Link href="/store" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Choose Plan</Link>
             </div>
             {/* 3 Months – popular */}
             <div className="reveal reveal-delay-3 bg-gradient-to-b from-[#00E5FF]/10 to-transparent border border-[#00E5FF]/30 rounded-2xl p-8 text-center relative flex flex-col scale-105 shadow-[0_0_40px_rgba(0,229,255,0.1)]">
@@ -701,7 +750,7 @@ export default function LandingPage() {
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
-              <Link href="/home" className="w-full py-3 bg-[#00E5FF] text-black rounded-xl hover:bg-[#00E5FF]/90 transition-colors font-semibold block text-center">Choose Plan</Link>
+              <Link href="/store" className="w-full py-3 bg-[#00E5FF] text-black rounded-xl hover:bg-[#00E5FF]/90 transition-colors font-semibold block text-center">Choose Plan</Link>
             </div>
             {/* 6 Months */}
             <div className="reveal reveal-delay-4 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
@@ -713,7 +762,7 @@ export default function LandingPage() {
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
-              <Link href="/home" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Choose Plan</Link>
+              <Link href="/store" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Choose Plan</Link>
             </div>
           </div>
         </div>
@@ -722,15 +771,22 @@ export default function LandingPage() {
       {/* ── FOOTER ── */}
       <footer className="border-t border-white/[0.04] py-12">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-2.5">
               <Image src="/logo.svg" alt="English to be" width={28} height={28} />
               <span className="text-sm font-semibold tracking-tight">English to be</span>
             </div>
-            <div className="flex items-center gap-6 text-xs text-neutral-600">
+            <div className="flex flex-wrap items-center justify-center gap-5 text-xs text-neutral-600">
               <Link href="/about/privacy-policy" className="hover:text-neutral-400 transition-colors">Privacy Policy</Link>
               <Link href="/about/terms-of-use"   className="hover:text-neutral-400 transition-colors">Terms of Service</Link>
               <Link href="/contact"              className="hover:text-neutral-400 transition-colors">Contact Us</Link>
+              {/* Email assembled client-side — prevents most spam scrapers */}
+              <a
+                href={`mailto:${fullEmail}`}
+                className="hover:text-neutral-400 transition-colors"
+              >
+                {fullEmail}
+              </a>
             </div>
             <p className="text-xs text-neutral-700">© 2025 English to be. All rights reserved.</p>
           </div>
