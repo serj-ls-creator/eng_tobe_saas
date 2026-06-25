@@ -141,14 +141,14 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
           )}
 
           <Card
-            className={`relative px-6 pb-6 ${plan.popular ? 'pt-8' : 'pt-6'} ${
+            className={`relative overflow-hidden px-6 pb-6 ${plan.popular ? 'pt-8' : 'pt-6'} ${
               plan.popular
                 ? 'border border-cyan-400/30 shadow-[0_0_40px_rgba(0,229,255,0.08)]'
                 : 'border border-white/10'
             }`}
           >
-            <div className="absolute inset-0 rounded-[inherit] overflow-hidden pointer-events-none">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-cyan-500/5" />
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-cyan-500/5 opacity-100" />
             </div>
 
             <div className="relative">
@@ -228,23 +228,17 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                       <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4">
                         <div className="flex items-center justify-between gap-3">
                           <div>
-                            <p className="text-sm font-semibold text-white">Buy with points</p>
+                            <p className="text-sm font-semibold text-white">Purchase with points</p>
                             <p className="text-xs text-zinc-500">Use points for a 1 month premium extension</p>
                           </div>
+                        </div>
+                        <div className="mt-3 flex items-baseline justify-between gap-3">
+                          <div className="text-2xl font-black text-white">{POINTS_COST_1_MONTH.toLocaleString()} pts</div>
                           <div className="text-right">
-                            <p className="text-sm font-bold text-white">{POINTS_COST_1_MONTH.toLocaleString()} pts</p>
-                            <p className="text-xs text-zinc-500">{currentPoints.toLocaleString()} available</p>
+                            <p className="text-xs text-zinc-500">Current balance</p>
+                            <p className="text-sm font-semibold text-white">{currentPoints.toLocaleString()} pts</p>
                           </div>
                         </div>
-                        {!canBuyWithPoints && (
-                          <p className="mt-3 text-xs text-zinc-500">
-                            You need{' '}
-                            <span className="text-yellow-400 font-semibold">
-                              {missing.toLocaleString()} more pts
-                            </span>{' '}
-                            to unlock this option.
-                          </p>
-                        )}
                         <button
                           onClick={handleBuyWithPoints}
                           disabled={!canBuyWithPoints || loading}
@@ -257,6 +251,15 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                         >
                           {loading ? 'Processing...' : canBuyWithPoints ? 'Buy with points - 1 Month' : `Need ${missing.toLocaleString()} more pts`}
                         </button>
+                        {!canBuyWithPoints && (
+                          <p className="mt-3 text-xs text-zinc-500">
+                            You need{' '}
+                            <span className="text-yellow-400 font-semibold">
+                              {missing.toLocaleString()} more pts
+                            </span>{' '}
+                            to unlock this option.
+                          </p>
+                        )}
                       </div>
 
                       {creemProductId ? (
@@ -323,6 +326,66 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
           </Card>
         </div>
       ))}
+
+      <Card className="relative overflow-hidden px-6 pb-6 pt-6 border border-white/10">
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 opacity-100" />
+        </div>
+
+        <div className="relative">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-500/20">
+              <Star className="h-6 w-6 text-yellow-400" />
+            </div>
+            <div>
+              <div className="text-base font-bold text-white">1 Month via Points</div>
+              <div className="text-xs text-zinc-500">Use your earned points for premium access</div>
+            </div>
+          </div>
+
+          <div className="flex items-baseline gap-2 mb-1">
+            <div className="text-2xl font-black text-white">{POINTS_COST_1_MONTH.toLocaleString()} pts</div>
+            <div className="text-xs font-medium text-yellow-400">Points only</div>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4 mt-4">
+            <ul className="mb-4 grid gap-2 text-sm text-zinc-400 sm:grid-cols-2">
+              {PREMIUM_FEATURES.map((feature) => (
+                <li key={feature} className="flex items-center gap-2">
+                  <Zap className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-white">Current balance</p>
+                <p className="text-xs text-zinc-500">Available points in your account</p>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-bold text-white">{currentPoints.toLocaleString()} pts</p>
+                {!canBuyWithPoints && (
+                  <p className="text-xs text-zinc-500">{missing.toLocaleString()} more needed</p>
+                )}
+              </div>
+            </div>
+
+            <button
+              onClick={handleBuyWithPoints}
+              disabled={!canBuyWithPoints || loading}
+              className="mt-4 w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              style={{
+                background: canBuyWithPoints ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
+                backgroundColor: canBuyWithPoints ? undefined : 'rgba(255,255,255,0.05)',
+                color: canBuyWithPoints ? '#000' : '#71717a',
+              }}
+            >
+              {loading ? 'Processing...' : canBuyWithPoints ? 'Buy with points - 1 Month' : `Need ${missing.toLocaleString()} more pts`}
+            </button>
+          </div>
+        </div>
+      </Card>
 
       {error && <p className="text-xs text-red-400 text-center">{error}</p>}
 
