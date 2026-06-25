@@ -3,10 +3,18 @@ import { createSupabaseAdminClient } from "@/lib/supabase";
 
 export const POST = Webhook({
   webhookSecret: process.env.CREEM_WEBHOOK_SECRET!,
-  onGrantAccess: async ({ customer, metadata }) => {
+  onGrantAccess: async ({ reason, customer, metadata }) => {
     const userId = metadata?.referenceId as string;
     if (!userId) {
       console.error("No referenceId found in webhook metadata:", metadata);
+      return;
+    }
+
+    // We only process paid or trialing events.
+    // subscription_active is skipped because it is followed immediately by subscription_paid,
+    // which would cause duplicate premium extensions.
+    if (reason !== "subscription_paid" && reason !== "subscription_trialing") {
+      console.log(`Skipping access grant for reason: ${reason} (will be handled by subscription_paid or subscription_trialing)`);
       return;
     }
 
