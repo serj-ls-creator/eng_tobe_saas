@@ -141,16 +141,12 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
           )}
 
           <Card
-            className={`relative overflow-hidden px-6 pb-6 ${plan.popular ? 'pt-8' : 'pt-6'} ${
+            className={`relative px-6 pb-6 ${plan.popular ? 'pt-8' : 'pt-6'} ${
               plan.popular
                 ? 'border border-cyan-400/30 shadow-[0_0_40px_rgba(0,229,255,0.08)]'
                 : 'border border-white/10'
             }`}
           >
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-cyan-500/5 opacity-100" />
-            </div>
-
             <div className="relative">
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-500/20">
@@ -327,11 +323,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
         </div>
       ))}
 
-      <Card className="relative overflow-hidden px-6 pb-6 pt-6 border border-white/10">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-amber-500/5 opacity-100" />
-        </div>
-
+      <Card className="relative px-6 pb-6 pt-6 border border-white/10">
         <div className="relative">
           <div className="flex items-center gap-3 mb-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-500/20">
@@ -349,7 +341,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
           </div>
 
           <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4 mt-4">
-            <ul className="mb-4 grid gap-2 text-sm text-zinc-400 sm:grid-cols-2">
+            <ul className="mb-4 space-y-2 text-sm text-zinc-400">
               {PREMIUM_FEATURES.map((feature) => (
                 <li key={feature} className="flex items-center gap-2">
                   <Zap className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
@@ -391,6 +383,10 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
 
       <p className="text-xs text-zinc-600 text-center">
         Earn points by completing activities · 10 pts per activity
+      </p>
+
+      <p className="text-xs leading-relaxed text-zinc-500 text-center">
+        Your subscription will automatically renew for the same duration unless canceled at least 24 hours before the end of the current period. You can cancel at any time at no additional cost, and your subscription will remain active until the end of the current billing cycle.
       </p>
 
     </div>
