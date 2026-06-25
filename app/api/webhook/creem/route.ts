@@ -90,10 +90,12 @@ export const POST = Webhook({
       return;
     }
 
-    const subscriptionStatus = (event as { status?: string }).status;
+    const subscriptionStatus = (event.object as { status?: string })?.status;
     if (!subscriptionStatus) {
       return;
     }
+
+    const isPremium = subscriptionStatus === "active" || subscriptionStatus === "trialing" || subscriptionStatus === "scheduled_cancel";
 
     const supabase = createSupabaseAdminClient();
     const { error } = await supabase
@@ -101,6 +103,7 @@ export const POST = Webhook({
       .update({
         creem_customer_id: customer?.id ?? null,
         creem_subscription_status: subscriptionStatus,
+        is_premium: isPremium,
       })
       .eq("user_id", userId);
 
@@ -109,5 +112,27 @@ export const POST = Webhook({
       throw error;
     }
     console.log(`Successfully updated subscription status for user ${userId} to ${subscriptionStatus}`);
+  },
+  onSubscriptionCanceled: async ({ customer, metadata }) => {
+    const userId = metadata?.referenceId as string;
+    if (!userId) {
+      console.error("No referenceId found in webhook metadata:", metadata);
+      return;
+    }
+
+    const supabase = createSupabaseAdminClient();
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        creem_customer_id: customer?.id ?? null,
+        creem_subscription_status: "canceled",
+        is_premium: false,
+      })
+      .eq("user_id", userId);
+
+    if (error) {
+      console.error(`Failed to handle canceled subscription for user ${userId}:`, error);
+      throw error;
+    }
   },
 });

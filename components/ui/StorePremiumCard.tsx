@@ -230,43 +230,6 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4">
-                        <div className="flex items-center justify-between gap-3">
-                          <div>
-                            <p className="text-sm font-semibold text-white">Purchase with points</p>
-                            <p className="text-xs text-zinc-500">Use points for a 1 month premium extension</p>
-                          </div>
-                        </div>
-                        <div className="mt-3 flex items-baseline justify-between gap-3">
-                          <div className="text-2xl font-black text-white">{POINTS_COST_1_MONTH.toLocaleString()} pts</div>
-                          <div className="text-right">
-                            <p className="text-xs text-zinc-500">Current balance</p>
-                            <p className="text-sm font-semibold text-white">{currentPoints.toLocaleString()} pts</p>
-                          </div>
-                        </div>
-                        <button
-                          onClick={handleBuyWithPoints}
-                          disabled={!canBuyWithPoints || loading}
-                          className="mt-3 w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                          style={{
-                            background: canBuyWithPoints ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
-                            backgroundColor: canBuyWithPoints ? undefined : 'rgba(255,255,255,0.05)',
-                            color: canBuyWithPoints ? '#000' : '#71717a',
-                          }}
-                        >
-                          {loading ? 'Processing...' : canBuyWithPoints ? 'Buy with points - 1 Month' : `Need ${missing.toLocaleString()} more pts`}
-                        </button>
-                        {!canBuyWithPoints && (
-                          <p className="mt-3 text-xs text-zinc-500">
-                            You need{' '}
-                            <span className="text-yellow-400 font-semibold">
-                              {missing.toLocaleString()} more pts
-                            </span>{' '}
-                            to unlock this option.
-                          </p>
-                        )}
-                      </div>
-
                       {creemProductId ? (
                         <CreemCheckout
                           productId={creemProductId}
