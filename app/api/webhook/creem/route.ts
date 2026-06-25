@@ -52,7 +52,8 @@ export const POST = Webhook({
       .from("profiles")
       .update({ 
         is_premium: true, 
-        premium_expires_at: newExpiresAt.toISOString() 
+        premium_expires_at: newExpiresAt.toISOString(),
+        creem_customer_id: customer?.id ?? null,
       })
       .eq("user_id", userId);
 
@@ -72,7 +73,7 @@ export const POST = Webhook({
     const supabase = createSupabaseAdminClient();
     const { error } = await supabase
       .from("profiles")
-      .update({ is_premium: false })
+      .update({ is_premium: false, creem_customer_id: customer?.id ?? null })
       .eq("user_id", userId);
 
     if (error) {

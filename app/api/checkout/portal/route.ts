@@ -19,7 +19,7 @@ export async function POST() {
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("display_name")
+      .select("display_name, creem_customer_id")
       .eq("user_id", user.id)
       .maybeSingle();
 
@@ -28,53 +28,19 @@ export async function POST() {
       server: process.env.NODE_ENV === "production" ? "prod" : "test",
     });
 
-    let customerId: string | undefined;
-    let lookupError: unknown = null;
-
-    if (user.email) {
-      try {
-        const customer = await creem.customers.retrieve(undefined, user.email);
-        customerId = customer.id;
-      } catch (error) {
-        lookupError = error;
-        console.log("Creem customer lookup failed, creating a new customer record.", error);
-      }
-    }
+    const customerId = profile?.creem_customer_id;
 
     if (!customerId) {
       if (!user.email) {
         return NextResponse.json({ error: "User email is required to create a portal session" }, { status: 400 });
       }
 
-      try {
-        const customer = await creem.customers.create({
-          email: user.email,
-          name: profile?.display_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email,
-          metadata: { referenceId: user.id },
-        });
-
-        customerId = customer.id;
-      } catch (createError) {
-        console.error("Creem customer creation failed:", createError);
-
-        try {
-          const customer = await creem.customers.retrieve(undefined, user.email);
-          customerId = customer.id;
-        } catch (retryError) {
-          console.error("Creem customer retry lookup failed:", retryError);
-          const message =
-            createError instanceof Error
-              ? createError.message
-              : lookupError instanceof Error
-                ? lookupError.message
-                : "Unknown Creem error";
-
-          return NextResponse.json(
-            { error: `Failed to resolve Creem customer: ${message}` },
-            { status: 500 },
-          );
-        }
-      }
+      return NextResponse.json(
+        {
+          error: "Creem customer is not linked yet for this account. Please re-open the latest subscription email or contact support so we can sync it.",
+        },
+        { status: 409 },
+      );
     }
 
     const links = await creem.customers.generateBillingLinks({

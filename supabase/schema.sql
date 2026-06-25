@@ -5,6 +5,7 @@ create table if not exists public.profiles (
   user_id uuid not null unique references auth.users(id) on delete cascade,
   is_premium boolean not null default false,
   premium_expires_at timestamptz,
+  creem_customer_id text,
   streak integer not null default 0,
   total_streak integer not null default 0,
   points integer not null default 0,
