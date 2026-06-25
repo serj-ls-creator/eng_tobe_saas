@@ -17,18 +17,26 @@ export async function POST() {
       return NextResponse.json({ error: "CREEM_API_KEY is not configured" }, { status: 500 });
     }
 
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("display_name")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
     const creem = new Creem({
       apiKey,
       server: process.env.NODE_ENV === "production" ? "prod" : "test",
     });
 
     let customerId: string | undefined;
+    let lookupError: unknown = null;
 
     if (user.email) {
       try {
         const customer = await creem.customers.retrieve(undefined, user.email);
         customerId = customer.id;
       } catch (error) {
+        lookupError = error;
         console.log("Creem customer lookup failed, creating a new customer record.", error);
       }
     }
@@ -38,13 +46,35 @@ export async function POST() {
         return NextResponse.json({ error: "User email is required to create a portal session" }, { status: 400 });
       }
 
-      const customer = await creem.customers.create({
-        email: user.email,
-        name: user.user_metadata?.full_name || user.user_metadata?.name || user.email,
-        metadata: { referenceId: user.id },
-      });
+      try {
+        const customer = await creem.customers.create({
+          email: user.email,
+          name: profile?.display_name || user.user_metadata?.full_name || user.user_metadata?.name || user.email,
+          metadata: { referenceId: user.id },
+        });
 
-      customerId = customer.id;
+        customerId = customer.id;
+      } catch (createError) {
+        console.error("Creem customer creation failed:", createError);
+
+        try {
+          const customer = await creem.customers.retrieve(undefined, user.email);
+          customerId = customer.id;
+        } catch (retryError) {
+          console.error("Creem customer retry lookup failed:", retryError);
+          const message =
+            createError instanceof Error
+              ? createError.message
+              : lookupError instanceof Error
+                ? lookupError.message
+                : "Unknown Creem error";
+
+          return NextResponse.json(
+            { error: `Failed to resolve Creem customer: ${message}` },
+            { status: 500 },
+          );
+        }
+      }
     }
 
     const links = await creem.customers.generateBillingLinks({
