@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Star, Crown, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
+import { CreemCheckout } from "@creem_io/nextjs";
 
 const POINTS_COST_1_MONTH = 20000;
 
@@ -42,7 +43,10 @@ const PREMIUM_PLANS = [
 interface UserProfile {
   id?: string;
   user_id?: string;
+  email?: string;
 }
+
+const creemProductId = process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID;
 
 interface Props {
   points: number;
@@ -184,16 +188,36 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                       </p>
                     )}
 
-                    <button
-                      disabled
-                      className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                      style={{
-                        background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
-                        color: '#000',
-                      }}
-                    >
-                      Buy Premium — 1 Month
-                    </button>
+                    {creemProductId ? (
+                      <CreemCheckout
+                        productId={creemProductId}
+                        customer={user.email ? { email: user.email } : undefined}
+                        successUrl="/store"
+                        referenceId={user.user_id || user.id || ""}
+                        metadata={{ source: "web" }}
+                      >
+                        <button
+                          className="w-full py-3 rounded-xl font-bold text-sm transition-colors hover:opacity-90 animate-pulse"
+                          style={{
+                            background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                            color: '#000',
+                          }}
+                        >
+                          Buy Premium — 1 Month
+                        </button>
+                      </CreemCheckout>
+                    ) : (
+                      <button
+                        disabled
+                        className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                        style={{
+                          background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                          color: '#000',
+                        }}
+                      >
+                        Buy Premium — 1 Month (Config Error)
+                      </button>
+                    )}
 
                     {success ? (
                       <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
