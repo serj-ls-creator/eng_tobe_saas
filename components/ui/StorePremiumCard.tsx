@@ -186,7 +186,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
               </ul>
 
               {plan.id === '1-month' ? (
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {!user ? (
                     <Link
                       href="/auth/login"
@@ -198,8 +198,8 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                     >
                       Sign in
                     </Link>
-                  ) : currentPremium && newExpiry ? (
-                    <>
+                  ) : currentPremium ? (
+                    <div className="space-y-3">
                       <button
                         onClick={handleManageSubscription}
                         disabled={portalLoading}
@@ -211,12 +211,54 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                       >
                         {portalLoading ? 'Opening...' : 'Manage Subscription'}
                       </button>
-                      <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
-                        Premium active until {formatDate(newExpiry)}
+                      <div className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-center">
+                        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-zinc-500">
+                          Subscription status
+                        </p>
+                        <p className="mt-1 text-sm font-semibold text-green-400">
+                          {newExpiry ? `Next payment on ${formatDate(newExpiry)}` : 'Subscription is active'}
+                        </p>
+                        <p className="mt-1 text-xs leading-relaxed text-zinc-500">
+                          You can cancel anytime. If you do, premium stays active until {newExpiry ? formatDate(newExpiry) : 'the end of the billing cycle'}.
+                        </p>
                       </div>
-                    </>
+                    </div>
                   ) : (
-                    <>
+                    <div className="space-y-4">
+                      <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+                        <div className="flex items-center justify-between gap-3">
+                          <div>
+                            <p className="text-sm font-semibold text-white">Buy with points</p>
+                            <p className="text-xs text-zinc-500">Use points for a 1 month premium extension</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-sm font-bold text-white">{POINTS_COST_1_MONTH.toLocaleString()} pts</p>
+                            <p className="text-xs text-zinc-500">{currentPoints.toLocaleString()} available</p>
+                          </div>
+                        </div>
+                        {!canBuyWithPoints && (
+                          <p className="mt-3 text-xs text-zinc-500">
+                            You need{' '}
+                            <span className="text-yellow-400 font-semibold">
+                              {missing.toLocaleString()} more pts
+                            </span>{' '}
+                            to unlock this option.
+                          </p>
+                        )}
+                        <button
+                          onClick={handleBuyWithPoints}
+                          disabled={!canBuyWithPoints || loading}
+                          className="mt-3 w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                          style={{
+                            background: canBuyWithPoints ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
+                            backgroundColor: canBuyWithPoints ? undefined : 'rgba(255,255,255,0.05)',
+                            color: canBuyWithPoints ? '#000' : '#71717a',
+                          }}
+                        >
+                          {loading ? 'Processing...' : canBuyWithPoints ? 'Buy with points - 1 Month' : `Need ${missing.toLocaleString()} more pts`}
+                        </button>
+                      </div>
+
                       {creemProductId ? (
                         <CreemCheckout
                           productId={creemProductId}
@@ -247,37 +289,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                           Buy Premium - 1 Month (Config Error)
                         </button>
                       )}
-
-                      {success ? (
-                        <div className="w-full py-3 rounded-xl bg-green-500/20 border border-green-500/30 text-green-400 text-sm font-semibold text-center">
-                          Premium activated until {newExpiry ? formatDate(newExpiry) : ''}
-                        </div>
-                      ) : (
-                        <>
-                          {!canBuyWithPoints && (
-                            <p className="text-xs text-zinc-500 text-center">
-                              You need{' '}
-                              <span className="text-yellow-400 font-semibold">
-                                {missing.toLocaleString()} more pts
-                              </span>{' '}
-                              to unlock with points
-                            </p>
-                          )}
-                          <button
-                            onClick={handleBuyWithPoints}
-                            disabled={!canBuyWithPoints || loading}
-                            className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                            style={{
-                              background: canBuyWithPoints ? 'linear-gradient(135deg, #A855F7, #00E5FF)' : undefined,
-                              backgroundColor: canBuyWithPoints ? undefined : 'rgba(255,255,255,0.05)',
-                              color: canBuyWithPoints ? '#000' : '#71717a',
-                            }}
-                          >
-                            {loading ? 'Processing...' : canBuyWithPoints ? 'Buy with points - 1 Month' : `Need ${missing.toLocaleString()} more pts`}
-                          </button>
-                        </>
-                      )}
-                    </>
+                    </div>
                   )}
                 </div>
               ) : (
@@ -318,9 +330,6 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
         Earn points by completing activities · 10 pts per activity
       </p>
 
-      <p className="text-xs leading-relaxed text-zinc-500 text-center">
-        Your subscription will automatically renew for the same duration unless canceled at least 24 hours before the end of the current period. You can cancel at any time at no additional cost, and your subscription will remain active until the end of the current billing cycle.
-      </p>
     </div>
   );
 }
