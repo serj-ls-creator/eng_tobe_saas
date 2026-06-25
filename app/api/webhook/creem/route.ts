@@ -160,7 +160,7 @@ export const POST = Webhook({
     }
     console.log(`Successfully updated subscription status for user ${userId} to ${subscriptionStatus}`);
   },
-  onSubscriptionCanceled: async ({ customer, metadata }) => {
+  onSubscriptionCanceled: async ({ customer, metadata, current_period_end_date }) => {
     const customerId = resolveCustomerId(customer as string | { id: string } | undefined);
     if (!customerId) {
       console.error("No Creem customer found for canceled subscription");
@@ -180,12 +180,16 @@ export const POST = Webhook({
       return;
     }
 
+    const premiumUntil = current_period_end_date ? new Date(current_period_end_date) : null;
+    const shouldRemainPremium = premiumUntil ? premiumUntil > new Date() : true;
+
     const { error } = await supabase
       .from("profiles")
       .update({
         creem_customer_id: customerId,
-        creem_subscription_status: "canceled",
-        is_premium: false,
+        creem_subscription_status: "scheduled_cancel",
+        is_premium: shouldRemainPremium,
+        premium_expires_at: premiumUntil ? premiumUntil.toISOString() : null,
       })
       .eq("user_id", userId);
 
