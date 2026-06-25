@@ -37,9 +37,10 @@ export async function POST() {
       );
     }
 
-    const creemBaseUrl = process.env.NODE_ENV === "production"
-      ? "https://api.creem.io"
-      : "https://test-api.creem.io";
+    const creemTestMode = process.env.CREEM_TEST_MODE !== "false";
+    const creemBaseUrl = creemTestMode
+      ? "https://test-api.creem.io"
+      : "https://api.creem.io";
 
     const response = await fetch(`${creemBaseUrl}/v1/customers/billing`, {
       method: "POST",
