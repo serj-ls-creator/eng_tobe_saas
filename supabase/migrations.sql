@@ -2,7 +2,8 @@
 ALTER TABLE public.profiles 
 ADD COLUMN IF NOT EXISTS display_name TEXT,
 ADD COLUMN IF NOT EXISTS avatar TEXT,
-ADD COLUMN IF NOT EXISTS creem_customer_id TEXT;
+ADD COLUMN IF NOT EXISTS creem_customer_id TEXT,
+ADD COLUMN IF NOT EXISTS creem_subscription_status TEXT;
 
 CREATE TABLE IF NOT EXISTS public.learning_activity_progress (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

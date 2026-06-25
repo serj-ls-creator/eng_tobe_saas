@@ -6,6 +6,7 @@ create table if not exists public.profiles (
   is_premium boolean not null default false,
   premium_expires_at timestamptz,
   creem_customer_id text,
+  creem_subscription_status text,
   streak integer not null default 0,
   total_streak integer not null default 0,
   points integer not null default 0,

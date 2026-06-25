@@ -26,6 +26,7 @@ interface UserProfile {
   id?: string;
   user_id?: string;
   email?: string;
+  creem_subscription_status?: string | null;
 }
 
 const creemProductId = process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID;
@@ -56,6 +57,8 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
 
   const canBuyWithPoints = currentPoints >= POINTS_COST_1_MONTH;
   const missing = POINTS_COST_1_MONTH - currentPoints;
+  const subscriptionStatus = user?.creem_subscription_status ?? null;
+  const isScheduledCancel = subscriptionStatus === 'scheduled_cancel';
 
   const handleBuyWithPoints = async () => {
     setLoading(true);
@@ -108,7 +111,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
 
   return (
     <div className="space-y-4">
-      <Card className="p-4 flex items-center gap-3">
+      <Card className="p-4 flex items-center gap-3 bg-zinc-900/95 border-zinc-700/60">
         <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-500/20">
           <Star className="h-5 w-5 text-yellow-400" />
         </div>
@@ -141,10 +144,10 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
           )}
 
           <Card
-            className={`relative px-6 pb-6 ${plan.popular ? 'pt-8' : 'pt-6'} ${
+            className={`relative px-6 pb-6 bg-zinc-900/95 border-zinc-700/60 ${plan.popular ? 'pt-8' : 'pt-6'} ${
               plan.popular
-                ? 'border border-cyan-400/30 shadow-[0_0_40px_rgba(0,229,255,0.08)]'
-                : 'border border-white/10'
+                ? 'shadow-[0_0_40px_rgba(0,229,255,0.08)]'
+                : ''
             }`}
           >
             <div className="relative">
@@ -212,10 +215,16 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                           Subscription status
                         </p>
                         <p className="mt-1 text-sm font-semibold text-green-400">
-                          {newExpiry ? `Next payment on ${formatDate(newExpiry)}` : 'Subscription is active'}
+                          {newExpiry
+                            ? isScheduledCancel
+                              ? `Premium active until ${formatDate(newExpiry)}`
+                              : `Next payment on ${formatDate(newExpiry)}`
+                            : 'Subscription is active'}
                         </p>
                         <p className="mt-1 text-xs leading-relaxed text-zinc-500">
-                          You can cancel anytime. If you do, premium stays active until {newExpiry ? formatDate(newExpiry) : 'the end of the billing cycle'}.
+                          {isScheduledCancel
+                            ? `Autorenewal is off. Premium stays active until ${newExpiry ? formatDate(newExpiry) : 'the end of the billing cycle'}.`
+                            : `You can cancel anytime. If you do, premium stays active until ${newExpiry ? formatDate(newExpiry) : 'the end of the billing cycle'}.`}
                         </p>
                       </div>
                     </div>
@@ -323,7 +332,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
         </div>
       ))}
 
-      <Card className="relative px-6 pb-6 pt-6 border border-white/10">
+      <Card className="relative px-6 pb-6 pt-6 bg-zinc-900/95 border-zinc-700/60">
         <div className="relative">
           <div className="flex items-center gap-3 mb-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-500/20">
@@ -340,7 +349,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
             <div className="text-xs font-medium text-yellow-400">Points only</div>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-white/5 px-4 py-4 mt-4">
+          <div className="rounded-xl border border-zinc-700/60 bg-zinc-950/70 px-4 py-4 mt-4">
             <ul className="mb-4 space-y-2 text-sm text-zinc-400">
               {PREMIUM_FEATURES.map((feature) => (
                 <li key={feature} className="flex items-center gap-2">
