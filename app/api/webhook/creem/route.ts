@@ -1,8 +1,49 @@
 import { Webhook } from "@creem_io/nextjs";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
+function resolveCustomerId(customer: string | { id: string } | undefined): string | null {
+  if (!customer) return null;
+  return typeof customer === "string" ? customer : customer.id;
+}
+
 export const POST = Webhook({
   webhookSecret: process.env.CREEM_WEBHOOK_SECRET!,
+  onRefundCreated: async ({ customer, transaction, ...refund }) => {
+    const customerId = resolveCustomerId(customer as string | { id: string } | undefined)
+      ?? resolveCustomerId((refund.object as { customer?: string | { id: string } }).customer);
+    if (!customerId) {
+      console.error("No Creem customer found on refund event:", refund);
+      return;
+    }
+
+    const supabase = createSupabaseAdminClient();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("user_id")
+      .eq("creem_customer_id", customerId)
+      .maybeSingle();
+
+    const userId = profile?.user_id;
+    if (!userId) {
+      console.error(`No Supabase profile linked to Creem customer ${customerId}`);
+      return;
+    }
+
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        is_premium: false,
+        creem_customer_id: customerId,
+        creem_subscription_status: "refunded",
+      })
+      .eq("user_id", userId);
+
+    if (error) {
+      console.error(`Failed to revoke premium access after refund for user ${userId}:`, error);
+      throw error;
+    }
+    console.log(`Successfully revoked premium access after refund for user ${userId}`);
+  },
   onGrantAccess: async ({ reason, customer, metadata }) => {
     const userId = metadata?.referenceId as string;
     if (!userId) {
@@ -84,12 +125,8 @@ export const POST = Webhook({
     console.log(`Successfully revoked premium access from user ${userId}`);
   },
   onSubscriptionUpdate: async ({ customer, metadata, ...event }) => {
-    const userId = metadata?.referenceId as string;
-    if (!userId) {
-      console.error("No referenceId found in webhook metadata:", metadata);
-      return;
-    }
-
+    const customerId = resolveCustomerId(customer as string | { id: string } | undefined)
+      ?? resolveCustomerId((event.object as { customer?: string | { id: string } }).customer);
     const subscriptionStatus = (event.object as { status?: string })?.status;
     if (!subscriptionStatus) {
       return;
@@ -98,10 +135,20 @@ export const POST = Webhook({
     const isPremium = subscriptionStatus === "active" || subscriptionStatus === "trialing" || subscriptionStatus === "scheduled_cancel";
 
     const supabase = createSupabaseAdminClient();
+    const profileQuery = customerId
+      ? supabase.from("profiles").select("user_id").eq("creem_customer_id", customerId).maybeSingle()
+      : supabase.from("profiles").select("user_id").eq("user_id", metadata?.referenceId as string).maybeSingle();
+    const { data: profile } = await profileQuery;
+    const userId = profile?.user_id;
+    if (!userId) {
+      console.error(`No Supabase profile linked to Creem customer ${customerId ?? metadata?.referenceId}`);
+      return;
+    }
+
     const { error } = await supabase
       .from("profiles")
       .update({
-        creem_customer_id: customer?.id ?? null,
+        creem_customer_id: customerId,
         creem_subscription_status: subscriptionStatus,
         is_premium: isPremium,
       })
@@ -114,17 +161,29 @@ export const POST = Webhook({
     console.log(`Successfully updated subscription status for user ${userId} to ${subscriptionStatus}`);
   },
   onSubscriptionCanceled: async ({ customer, metadata }) => {
-    const userId = metadata?.referenceId as string;
-    if (!userId) {
-      console.error("No referenceId found in webhook metadata:", metadata);
+    const customerId = resolveCustomerId(customer as string | { id: string } | undefined);
+    if (!customerId) {
+      console.error("No Creem customer found for canceled subscription");
       return;
     }
 
     const supabase = createSupabaseAdminClient();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("user_id")
+      .eq("creem_customer_id", customerId)
+      .maybeSingle();
+
+    const userId = profile?.user_id;
+    if (!userId) {
+      console.error(`No Supabase profile linked to Creem customer ${customerId}`);
+      return;
+    }
+
     const { error } = await supabase
       .from("profiles")
       .update({
-        creem_customer_id: customer?.id ?? null,
+        creem_customer_id: customerId,
         creem_subscription_status: "canceled",
         is_premium: false,
       })
@@ -132,6 +191,40 @@ export const POST = Webhook({
 
     if (error) {
       console.error(`Failed to handle canceled subscription for user ${userId}:`, error);
+      throw error;
+    }
+  },
+  onSubscriptionExpired: async ({ customer, metadata }) => {
+    const customerId = resolveCustomerId(customer as string | { id: string } | undefined);
+    if (!customerId) {
+      console.error("No Creem customer found for expired subscription");
+      return;
+    }
+
+    const supabase = createSupabaseAdminClient();
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("user_id")
+      .eq("creem_customer_id", customerId)
+      .maybeSingle();
+
+    const userId = profile?.user_id;
+    if (!userId) {
+      console.error(`No Supabase profile linked to Creem customer ${customerId}`);
+      return;
+    }
+
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        is_premium: false,
+        creem_customer_id: customerId,
+        creem_subscription_status: "expired",
+      })
+      .eq("user_id", userId);
+
+    if (error) {
+      console.error(`Failed to handle expired subscription for user ${userId}:`, error);
       throw error;
     }
   },
