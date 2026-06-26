@@ -1,6 +1,21 @@
 import { Webhook } from "@creem_io/nextjs";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
+// Creem product IDs — must match the products created in the Creem dashboard
+const CREEM_PRODUCT_1_MONTH  = "prod_5GHCl04MIXY7pARDiJMze8";
+const CREEM_PRODUCT_3_MONTHS = "prod_jmEJOpNMHyECi2AVKm9Is";
+const CREEM_PRODUCT_6_MONTHS = "prod_38mhQ7q6CC4eLbpW0YHssZ";
+
+/** Returns how many months to add based on the Creem product ID. Defaults to 1. */
+function monthsForProduct(productId: string): number {
+  switch (productId) {
+    case CREEM_PRODUCT_3_MONTHS: return 3;
+    case CREEM_PRODUCT_6_MONTHS: return 6;
+    case CREEM_PRODUCT_1_MONTH:
+    default:                     return 1;
+  }
+}
+
 function resolveCustomerId(customer: string | { id: string } | undefined): string | null {
   if (!customer) return null;
   return typeof customer === "string" ? customer : customer.id;
@@ -44,7 +59,7 @@ export const POST = Webhook({
     }
     console.log(`Successfully revoked premium access after refund for user ${userId}`);
   },
-  onGrantAccess: async ({ reason, customer, metadata }) => {
+  onGrantAccess: async ({ reason, customer, metadata, product }) => {
     const userId = metadata?.referenceId as string;
     if (!userId) {
       console.error("No referenceId found in webhook metadata:", metadata);
@@ -73,20 +88,17 @@ export const POST = Webhook({
       throw fetchError;
     }
 
+    const months = monthsForProduct(product.id);
     const now = new Date();
     let currentExpiresAt: Date | null = null;
     if (profile?.premium_expires_at) {
       currentExpiresAt = new Date(profile.premium_expires_at);
     }
 
-    let newExpiresAt: Date;
-    if (currentExpiresAt && currentExpiresAt > now) {
-      newExpiresAt = new Date(currentExpiresAt);
-      newExpiresAt.setMonth(newExpiresAt.getMonth() + 1);
-    } else {
-      newExpiresAt = new Date(now);
-      newExpiresAt.setMonth(newExpiresAt.getMonth() + 1);
-    }
+    // Extend from the current expiry if it's in the future, otherwise extend from now
+    const base = currentExpiresAt && currentExpiresAt > now ? currentExpiresAt : now;
+    const newExpiresAt = new Date(base);
+    newExpiresAt.setMonth(newExpiresAt.getMonth() + months);
 
     // 2. Update profiles table with the new expiry date
     const { error: updateError } = await supabase
@@ -103,7 +115,7 @@ export const POST = Webhook({
       console.error(`Failed to grant premium access to user ${userId}:`, updateError);
       throw updateError;
     }
-    console.log(`Successfully granted premium access to user ${userId} until ${newExpiresAt.toISOString()}`);
+    console.log(`Successfully granted premium access to user ${userId} until ${newExpiresAt.toISOString()} (+${months} month(s), product: ${product.id})`);
   },
   onRevokeAccess: async ({ customer, metadata }) => {
     const userId = metadata?.referenceId as string;

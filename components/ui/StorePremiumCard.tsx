@@ -8,6 +8,13 @@ import { CreemCheckout } from '@creem_io/nextjs';
 
 const POINTS_COST_1_MONTH = 20000;
 
+// Creem product IDs (hardcoded to avoid extra env variables)
+const CREEM_PRODUCT_IDS: Record<string, string> = {
+  '1-month':  'prod_5GHCl04MIXY7pARDiJMze8',
+  '3-month':  'prod_jmEJOpNMHyECi2AVKm9Is',
+  '6-month':  'prod_38mhQ7q6CC4eLbpW0YHssZ',
+};
+
 const PREMIUM_FEATURES = [
   'All Words categories',
   'All Idioms categories',
@@ -277,16 +284,23 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                       Sign in
                     </Link>
                   ) : (
-                    <button
-                      disabled
-                      className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                      style={{
-                        background: plan.popular ? '#00E5FF' : 'rgba(255,255,255,0.1)',
-                        color: plan.popular ? '#000' : '#fff',
-                      }}
+                    <CreemCheckout
+                      productId={CREEM_PRODUCT_IDS[plan.id]}
+                      customer={user.email ? { email: user.email } : undefined}
+                      successUrl="/store"
+                      referenceId={user.user_id || user.id || ''}
+                      metadata={{ source: 'web' }}
                     >
-                      Choose Plan
-                    </button>
+                      <button
+                        className="w-full py-3 rounded-xl font-bold text-sm transition-colors hover:opacity-90 animate-pulse"
+                        style={{
+                          background: plan.popular ? '#00E5FF' : 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                          color: '#000',
+                        }}
+                      >
+                        Buy Premium — {plan.title}
+                      </button>
+                    </CreemCheckout>
                   )}
                 </div>
               )}
