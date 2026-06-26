@@ -2,9 +2,9 @@ import { Webhook } from "@creem_io/nextjs";
 import { createSupabaseAdminClient } from "@/lib/supabase";
 
 // Creem product IDs — must match the products created in the Creem dashboard
-const CREEM_PRODUCT_1_MONTH  = "prod_5GHCl04MIXY7pARDiJMze8";
-const CREEM_PRODUCT_3_MONTHS = "prod_jmEJOpNMHyECi2AVKm9Is";
-const CREEM_PRODUCT_6_MONTHS = "prod_38mhQ7q6CC4eLbpW0YHssZ";
+const CREEM_PRODUCT_1_MONTH  = "prod_1Ta9foRvBsLmyjA4ZkG91H";
+const CREEM_PRODUCT_3_MONTHS = "prod_3ezJTwIxra1Lnq0SNEhmzV";
+const CREEM_PRODUCT_6_MONTHS = "prod_35D8qDdipvktUerPQxZNHu";
 
 /** Returns how many months to add based on the Creem product ID. Defaults to 1. */
 function monthsForProduct(productId: string): number {
