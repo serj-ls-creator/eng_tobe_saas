@@ -36,7 +36,6 @@ interface UserProfile {
   creem_subscription_status?: string | null;
 }
 
-const creemProductId = process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID;
 
 interface Props {
   points: number;
@@ -191,9 +190,10 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                 ))}
               </ul>
 
-              {plan.id === '1-month' ? (
-                <div className="space-y-4">
-                  {!user ? (
+              {(() => {
+                // Not logged in — always show Sign in
+                if (!user) {
+                  return (
                     <Link
                       href="/auth/login"
                       className="w-full py-3 rounded-xl font-bold text-sm transition-colors text-center min-h-[44px] flex items-center justify-center"
@@ -204,7 +204,12 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                     >
                       Sign in
                     </Link>
-                  ) : currentPremium ? (
+                  );
+                }
+
+                // 1-month plan with active subscription — show Manage + status block
+                if (plan.id === '1-month' && currentPremium) {
+                  return (
                     <div className="space-y-3">
                       <button
                         onClick={handleManageSubscription}
@@ -231,79 +236,57 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                         <p className="mt-1 text-xs leading-relaxed text-zinc-500">
                           {isScheduledCancel
                             ? 'Auto-renewal is turned off.'
-                            : `Your subscription is active. You can cancel anytime — premium stays active until the end of the billing cycle.`}
+                            : 'Your subscription is active. You can cancel anytime — premium stays active until the end of the billing cycle.'}
                         </p>
                       </div>
                     </div>
-                  ) : (
-                    <div className="space-y-4">
-                      {creemProductId ? (
-                        <CreemCheckout
-                          productId={creemProductId}
-                          customer={user.email ? { email: user.email } : undefined}
-                          successUrl="/store"
-                          referenceId={user.user_id || user.id || ''}
-                          metadata={{ source: 'web' }}
-                        >
-                          <button
-                            className="w-full py-3 rounded-xl font-bold text-sm transition-colors hover:opacity-90 animate-pulse"
-                            style={{
-                              background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
-                              color: '#000',
-                            }}
-                          >
-                            Buy Premium - 1 Month
-                          </button>
-                        </CreemCheckout>
-                      ) : (
-                        <button
-                          disabled
-                          className="w-full py-3 rounded-xl font-bold text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-                          style={{
-                            background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
-                            color: '#000',
-                          }}
-                        >
-                          Buy Premium - 1 Month (Config Error)
-                        </button>
-                      )}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {!user ? (
-                    <Link
-                      href="/auth/login"
-                      className="w-full py-3 rounded-xl font-bold text-sm transition-colors text-center min-h-[44px] flex items-center justify-center"
-                      style={{
-                        background: plan.popular ? '#00E5FF' : 'rgba(255,255,255,0.1)',
-                        color: plan.popular ? '#000' : '#fff',
-                      }}
-                    >
-                      Sign in
-                    </Link>
-                  ) : (
-                    <CreemCheckout
-                      productId={CREEM_PRODUCT_IDS[plan.id]}
-                      customer={user.email ? { email: user.email } : undefined}
-                      successUrl="/store"
-                      referenceId={user.user_id || user.id || ''}
-                      metadata={{ source: 'web' }}
-                    >
+                  );
+                }
+
+                // Other plans (3-month, 6-month) or 1-month when no active subscription:
+                // If subscription is fully active — disable to prevent double billing
+                if (currentPremium && subscriptionStatus === 'active') {
+                  return (
+                    <div className="space-y-2">
                       <button
-                        className="w-full py-3 rounded-xl font-bold text-sm transition-colors hover:opacity-90 animate-pulse"
+                        disabled
+                        className="w-full py-3 rounded-xl font-bold text-sm disabled:opacity-40 disabled:cursor-not-allowed"
                         style={{
-                          background: plan.popular ? '#00E5FF' : 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                          background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
                           color: '#000',
                         }}
                       >
                         Buy Premium — {plan.title}
                       </button>
-                    </CreemCheckout>
-                  )}
-                </div>
-              )}
+                      <p className="text-xs text-zinc-500 text-center">
+                        You already have an active subscription
+                      </p>
+                    </div>
+                  );
+                }
+
+                // No premium, or scheduled_cancel (renewal off) — allow purchase
+                const productId = CREEM_PRODUCT_IDS[plan.id];
+                return (
+                  <CreemCheckout
+                    productId={productId}
+                    customer={user.email ? { email: user.email } : undefined}
+                    successUrl="/store"
+                    referenceId={user.user_id || user.id || ''}
+                    metadata={{ source: 'web' }}
+                  >
+                    <button
+                      className="w-full py-3 rounded-xl font-bold text-sm transition-colors hover:opacity-90 animate-pulse"
+                      style={{
+                        background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                        color: '#000',
+                      }}
+                    >
+                      Buy Premium — {plan.title}
+                    </button>
+                  </CreemCheckout>
+                );
+              })()}
             </div>
           </Card>
         </div>
