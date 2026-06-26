@@ -37,7 +37,7 @@ export async function POST() {
       );
     }
 
-    const creemTestMode = process.env.CREEM_TEST_MODE !== "false";
+    const creemTestMode = process.env.CREEM_TEST_MODE === "true";
     const creemBaseUrl = creemTestMode
       ? "https://test-api.creem.io"
       : "https://api.creem.io";
