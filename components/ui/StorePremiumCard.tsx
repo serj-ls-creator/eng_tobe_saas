@@ -35,6 +35,7 @@ interface Props {
   points: number;
   isPremium: boolean;
   premiumExpiresAt: string | null;
+  subscriptionStatus: string | null;
   user: UserProfile | null;
 }
 
@@ -46,7 +47,7 @@ function formatDate(iso: string): string {
   });
 }
 
-export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: Props) {
+export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscriptionStatus, user }: Props) {
   const [loading, setLoading] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -57,7 +58,6 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
 
   const canBuyWithPoints = currentPoints >= POINTS_COST_1_MONTH;
   const missing = POINTS_COST_1_MONTH - currentPoints;
-  const subscriptionStatus = user?.creem_subscription_status ?? null;
   const isScheduledCancel = subscriptionStatus === 'scheduled_cancel';
 
   const handleBuyWithPoints = async () => {
@@ -218,13 +218,13 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, user }: 
                           {newExpiry
                             ? isScheduledCancel
                               ? `Premium active until ${formatDate(newExpiry)}`
-                              : `Next payment on ${formatDate(newExpiry)}`
+                              : `Next billing date: ${formatDate(newExpiry)}`
                             : 'Subscription is active'}
                         </p>
                         <p className="mt-1 text-xs leading-relaxed text-zinc-500">
                           {isScheduledCancel
-                            ? `Autorenewal is off. Premium stays active until ${newExpiry ? formatDate(newExpiry) : 'the end of the billing cycle'}.`
-                            : `You can cancel anytime. If you do, premium stays active until ${newExpiry ? formatDate(newExpiry) : 'the end of the billing cycle'}.`}
+                            ? 'Auto-renewal is turned off.'
+                            : `Your subscription is active. You can cancel anytime — premium stays active until the end of the billing cycle.`}
                         </p>
                       </div>
                     </div>

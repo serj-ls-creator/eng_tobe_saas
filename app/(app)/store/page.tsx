@@ -32,6 +32,7 @@ export default async function StorePage() {
           points={points}
           isPremium={premium}
           premiumExpiresAt={premiumExpiresAt}
+          subscriptionStatus={profile?.creem_subscription_status ?? null}
           user={profile}
         />
       </div>
