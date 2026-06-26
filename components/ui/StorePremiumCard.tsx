@@ -34,6 +34,7 @@ interface UserProfile {
   user_id?: string;
   email?: string;
   creem_subscription_status?: string | null;
+  creem_product_id?: string | null;
 }
 
 
@@ -42,6 +43,7 @@ interface Props {
   isPremium: boolean;
   premiumExpiresAt: string | null;
   subscriptionStatus: string | null;
+  activeProductId: string | null;
   user: UserProfile | null;
 }
 
@@ -53,7 +55,7 @@ function formatDate(iso: string): string {
   });
 }
 
-export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscriptionStatus, user }: Props) {
+export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscriptionStatus, activeProductId, user }: Props) {
   const [loading, setLoading] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -207,8 +209,10 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                   );
                 }
 
-                // 1-month plan with active subscription — show Manage + status block
-                if (plan.id === '1-month' && currentPremium) {
+                const isCurrentPlan = currentPremium && activeProductId === CREEM_PRODUCT_IDS[plan.id];
+
+                // This is the plan the user currently holds — show Manage + status block
+                if (isCurrentPlan) {
                   return (
                     <div className="space-y-3">
                       <button
@@ -243,8 +247,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                   );
                 }
 
-                // Other plans (3-month, 6-month) or 1-month when no active subscription:
-                // If subscription is fully active — disable to prevent double billing
+                // Different plan while subscription is fully active — block to prevent double billing
                 if (currentPremium && subscriptionStatus === 'active') {
                   return (
                     <div className="space-y-2">
@@ -265,7 +268,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                   );
                 }
 
-                // No premium, or scheduled_cancel (renewal off) — allow purchase
+                // No premium, or subscription is scheduled_cancel (user can buy another plan)
                 const productId = CREEM_PRODUCT_IDS[plan.id];
                 return (
                   <CreemCheckout

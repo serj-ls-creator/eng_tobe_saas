@@ -108,6 +108,7 @@ export const POST = Webhook({
         premium_expires_at: newExpiresAt.toISOString(),
         creem_customer_id: customer?.id ?? null,
         creem_subscription_status: "active",
+        creem_product_id: product.id,
       })
       .eq("user_id", userId);
 
