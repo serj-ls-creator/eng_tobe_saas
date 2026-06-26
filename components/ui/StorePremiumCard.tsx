@@ -10,9 +10,9 @@ const POINTS_COST_1_MONTH = 20000;
 
 // Creem product IDs (hardcoded to avoid extra env variables)
 const CREEM_PRODUCT_IDS: Record<string, string> = {
-  '1-month':  'prod_5GHCl04MIXY7pARDiJMze8',
-  '3-month':  'prod_jmEJOpNMHyECi2AVKm9Is',
-  '6-month':  'prod_38mhQ7q6CC4eLbpW0YHssZ',
+  '1-month':  'prod_1Ta9foRvBsLmyjA4ZkG91H',
+  '3-month':  'prod_3ezJTwIxra1Lnq0SNEhmzV',
+  '6-month':  'prod_35D8qDdipvktUerPQxZNHu',
 };
 
 const PREMIUM_FEATURES = [
