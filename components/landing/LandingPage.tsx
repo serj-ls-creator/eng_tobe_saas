@@ -720,16 +720,37 @@ export default function LandingPage() {
 
       {/* ── PRICING ── */}
       <section id="pricing" className="py-12 sm:py-16 relative">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="reveal text-3xl sm:text-5xl font-bold tracking-tight">
               <span className="gradient-text">Pricing</span>
             </h2>
-            <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">Get full access to all words, idioms, sentences, and games. No hidden fees.</p>
+            <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">Choose the plan that fits your learning style. Start for free or unlock the full experience.</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {/* 1 Month */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Free Plan */}
             <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
+              <h3 className="text-lg font-semibold mb-2">Free</h3>
+              <div className="text-3xl font-bold text-white mb-2">$0</div>
+              <div className="text-xs text-neutral-500 mb-6">Forever Free</div>
+              <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
+                {[
+                  "300+ Advanced Words",
+                  "Antonyms & Pronunciation topics",
+                  "A1 to C2 Sentences & Phrases",
+                  "2 categories of Idioms",
+                  "2 Games",
+                  "Streaks & progress tracking"
+                ].map(f => (
+                  <li key={f} className="flex items-center gap-2">
+                    <span className="text-[#00E5FF]">✓</span> {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/home" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Start for Free</Link>
+            </div>
+            {/* 1 Month */}
+            <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
               <h3 className="text-lg font-semibold mb-2">1 Month</h3>
               <div className="text-3xl font-bold text-white mb-6">$7.99</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
@@ -740,7 +761,7 @@ export default function LandingPage() {
               <Link href="/store" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Choose Plan</Link>
             </div>
             {/* 3 Months – popular */}
-            <div className="reveal reveal-delay-3 bg-gradient-to-b from-[#00E5FF]/10 to-transparent border border-[#00E5FF]/30 rounded-2xl p-8 text-center relative flex flex-col scale-105 shadow-[0_0_40px_rgba(0,229,255,0.1)]">
+            <div className="reveal reveal-delay-4 bg-gradient-to-b from-[#00E5FF]/10 to-transparent border border-[#00E5FF]/30 rounded-2xl p-8 text-center relative flex flex-col scale-105 shadow-[0_0_40px_rgba(0,229,255,0.1)]">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#00E5FF] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
               <h3 className="text-lg font-semibold mb-2">3 Months</h3>
               <div className="text-4xl font-bold text-white mb-2">$19.99</div>
@@ -753,7 +774,7 @@ export default function LandingPage() {
               <Link href="/store" className="w-full py-3 bg-[#00E5FF] text-black rounded-xl hover:bg-[#00E5FF]/90 transition-colors font-semibold block text-center">Choose Plan</Link>
             </div>
             {/* 6 Months */}
-            <div className="reveal reveal-delay-4 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
+            <div className="reveal reveal-delay-5 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
               <h3 className="text-lg font-semibold mb-2">6 Months</h3>
               <div className="text-3xl font-bold text-white mb-2">$34.99</div>
               <div className="text-xs text-[#FF3D71] mb-6">Save 27%</div>
