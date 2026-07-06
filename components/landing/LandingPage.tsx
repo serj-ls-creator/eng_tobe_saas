@@ -366,7 +366,7 @@ export default function LandingPage() {
               </div>
             </Link>
             {/* Sentences */}
-            <div className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
+            <Link href="/sentences" className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[60px]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
@@ -389,9 +389,9 @@ export default function LandingPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
             {/* Idioms */}
-            <div className="reveal reveal-delay-3 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden" style={{ ["--glow-color" as string]: "rgba(255,217,61,0.1)", ["--glow-border" as string]: "rgba(255,217,61,0.2)" }}>
+            <Link href="/idioms" className="reveal reveal-delay-3 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,217,61,0.1)", ["--glow-border" as string]: "rgba(255,217,61,0.2)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD93D]/5 rounded-full blur-[60px]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
@@ -409,9 +409,9 @@ export default function LandingPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
             {/* Games */}
-            <div className="reveal reveal-delay-4 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden" style={{ ["--glow-color" as string]: "rgba(168,85,247,0.12)", ["--glow-border" as string]: "rgba(168,85,247,0.25)" }}>
+            <Link href="/games" className="reveal reveal-delay-4 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(168,85,247,0.12)", ["--glow-border" as string]: "rgba(168,85,247,0.25)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#A855F7]/5 rounded-full blur-[60px]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
@@ -435,7 +435,7 @@ export default function LandingPage() {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -736,8 +736,8 @@ export default function LandingPage() {
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
                 {[
                   "300+ Advanced Words",
-                  "Antonyms & Pronunciation topics",
-                  "A1 to C2 Sentences & Phrases",
+                  "Antonyms & Pronunciation",
+                  "2 categories of Sentences",
                   "2 categories of Idioms",
                   "2 Games",
                   "Streaks & progress tracking"
@@ -754,7 +754,7 @@ export default function LandingPage() {
               <h3 className="text-lg font-semibold mb-2">1 Month</h3>
               <div className="text-3xl font-bold text-white mb-6">$7.99</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
-                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Future premium updates"].map(f => (
+                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
@@ -767,7 +767,7 @@ export default function LandingPage() {
               <div className="text-4xl font-bold text-white mb-2">$19.99</div>
               <div className="text-xs text-[#00E5FF] mb-6">Save 16%</div>
               <ul className="text-sm text-neutral-300 space-y-3 mb-8 flex-1 text-left">
-                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Future premium updates"].map(f => (
+                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
@@ -779,7 +779,7 @@ export default function LandingPage() {
               <div className="text-3xl font-bold text-white mb-2">$34.99</div>
               <div className="text-xs text-[#FF3D71] mb-6">Save 27%</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
-                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Future premium updates"].map(f => (
+                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
