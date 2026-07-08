@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useFormState, useFormStatus } from "react-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +34,7 @@ function SubmitButton({ label }: { label: string }) {
 export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFormProps) {
   const [state, formAction] = useFormState(action, { error: null, success: false });
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (state.success && mode === "signup") {
@@ -77,7 +79,27 @@ export function AuthForm({ title, subtitle, action, submitLabel, mode }: AuthFor
             </div>
             <div className="space-y-2">
               <label className="text-sm text-zinc-400">{UI_TEXT.passwordLabel}</label>
-              <Input name="password" type="password" placeholder="********" minLength={6} required />
+              <div className="relative">
+                <Input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="********"
+                  minLength={6}
+                  required
+                  className="pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((v) => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition-colors"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword
+                    ? <EyeOff className="h-4 w-4" />
+                    : <Eye className="h-4 w-4" />
+                  }
+                </button>
+              </div>
             </div>
             {state.error ? <p className="text-sm text-pink-400">{state.error}</p> : null}
             <SubmitButton label={submitLabel} />
