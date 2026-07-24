@@ -211,10 +211,10 @@ export default function LandingPage() {
                 Follow on TikTok
               </a>
             </div>
-            <div className="reveal reveal-delay-5 mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-neutral-600">
-              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Free to start</span>
-              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]" /> No ads</span>
-              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#FF3D71]" /> 1500+ words</span>
+            <div className="reveal reveal-delay-5 mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white">
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-green-500" /> <strong>Free to start</strong></span>
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]" /> <strong>No ads</strong></span>
+              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#FF3D71]" /> <strong>1500+ Advanced Words</strong></span>
             </div>
           </div>
 
@@ -628,9 +628,13 @@ export default function LandingPage() {
       {/* ── TICKER ── */}
       <section className="py-12 border-y border-white/[0.04] overflow-hidden">
         <div className="ticker-track flex gap-8 whitespace-nowrap">
-          {["WORDS","SENTENCES","IDIOMS","GAMES","STREAKS","WORDS","SENTENCES","IDIOMS","GAMES","STREAKS"].map((w, i) => (
-            <span key={i} className={`text-4xl sm:text-5xl font-bold tracking-tight ${i % 2 === 0 ? "text-white/[0.03]" : "text-[#FF3D71]/10"}`}>{i % 2 === 0 ? w : "•"}</span>
-          ))}
+          {[...Array(4)].flatMap((_, rep) =>
+            ["WORDS","SENTENCES","IDIOMS","GAMES","STREAKS"].map((w, i) => (
+              <span key={`${rep}-${i}`} className={`text-2xl font-bold tracking-tight ${i % 2 === 0 ? "text-white/40" : "text-[#FF3D71]/50"}`}>
+                {w}
+              </span>
+            ))
+          )}
         </div>
       </section>
 
@@ -695,7 +699,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white">8,500+</div>
+                <div className="text-4xl font-bold text-white">9,000+</div>
                 <div className="text-sm text-neutral-400 mt-1">followers on Instagram</div>
               </div>
               <p className="text-sm text-neutral-400 leading-relaxed flex-1">

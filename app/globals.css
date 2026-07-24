@@ -201,7 +201,7 @@ a {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
   }
-  .ticker-track { animation: ticker 20s linear infinite; }
+  .ticker-track { animation: ticker 30s linear infinite; }
 
   .nav-scrolled {
     background: #050505 !important;
