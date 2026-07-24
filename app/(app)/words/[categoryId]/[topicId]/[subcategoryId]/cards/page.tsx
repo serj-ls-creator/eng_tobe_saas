@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -10,6 +10,7 @@ import { Progress } from '@/components/ui/progress';
 import { FlipCard } from '@/components/cards/FlipCard';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { usePoints } from '@/lib/usePoints';
+import { useAutoFlip } from '@/lib/useAutoFlip';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
@@ -56,6 +57,7 @@ export default function CardsPage({ params }: PageProps) {
   const [words, setWords] = useState<any[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
+  const [autoFlip, setAutoFlip] = useState(true);
   const points = usePoints();
 
   // Prevent hydration issues
@@ -111,9 +113,16 @@ export default function CardsPage({ params }: PageProps) {
     }
   };
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
+  const handleFlip = useCallback(() => {
+    setIsFlipped(v => !v);
+  }, []);
+
+  useAutoFlip({
+    enabled: autoFlip,
+    isFlipped,
+    cardIndex: currentCardIndex,
+    onFlip: handleFlip,
+  });
 
   const handleNextSubcategory = () => {
     // This would navigate to next subcategory
@@ -174,6 +183,24 @@ export default function CardsPage({ params }: PageProps) {
             </span>
           </div>
           <Progress value={((currentCardIndex + 1) / words.length) * 100} />
+        </div>
+
+        {/* Auto-flip toggle */}
+        <div className="mb-4 flex justify-center">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-zinc-400">Auto Flip</span>
+            <button
+              type="button"
+              onClick={() => setAutoFlip(v => !v)}
+              className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
+                autoFlip
+                  ? 'bg-cyan-400 text-black hover:bg-cyan-300'
+                  : 'bg-white/5 text-zinc-400 hover:bg-white/10'
+              }`}
+            >
+              {autoFlip ? 'On' : 'Off'}
+            </button>
+          </div>
         </div>
 
         {/* Card */}

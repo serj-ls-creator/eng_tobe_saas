@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { TopBar } from "@/components/layout/TopBar";
@@ -11,6 +11,7 @@ import { getIdiomsByLevel, getCategoryName, type IdiomCategory } from "@/lib/idi
 import { IDIOM_CATS } from "@/constants/categories";
 import { notFound } from "next/navigation";
 import { usePoints } from "@/lib/usePoints";
+import { useAutoFlip } from "@/lib/useAutoFlip";
 
 interface IdiomCardsPageProps {
   params: {
@@ -28,6 +29,7 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
   const [idioms, setIdioms] = useState<any[]>([]);
   const [category, setCategory] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
+  const [autoFlip, setAutoFlip] = useState(true);
 
   // Prevent hydration issues
   useEffect(() => {
@@ -62,9 +64,16 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
     }
   };
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
+  const handleFlip = useCallback(() => {
+    setIsFlipped(v => !v);
+  }, []);
+
+  useAutoFlip({
+    enabled: autoFlip,
+    isFlipped,
+    cardIndex: currentCardIndex,
+    onFlip: handleFlip,
+  });
 
   const handleBackToActivities = () => {
     router.push(`/idioms/${params.categoryId}/${params.levelId}`);
@@ -124,6 +133,24 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
             </span>
           </div>
           <Progress value={((currentCardIndex + 1) / idioms.length) * 100} />
+        </div>
+
+        {/* Auto-flip toggle */}
+        <div className="mb-4 flex justify-center">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-zinc-400">Auto Flip</span>
+            <button
+              type="button"
+              onClick={() => setAutoFlip(v => !v)}
+              className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
+                autoFlip
+                  ? 'bg-cyan-400 text-black hover:bg-cyan-300'
+                  : 'bg-white/5 text-zinc-400 hover:bg-white/10'
+              }`}
+            >
+              {autoFlip ? 'On' : 'Off'}
+            </button>
+          </div>
         </div>
 
         {/* Card */}

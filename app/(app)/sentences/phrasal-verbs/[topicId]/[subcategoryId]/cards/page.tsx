@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,6 +11,7 @@ import { CompletionModal } from '@/components/ui/CompletionModal';
 import { usePoints } from '@/lib/usePoints';
 import { SENT_CATS } from '@/constants/categories';
 import { WORK_CAREER, RELATIONSHIPS_SOCIAL, MIND_EMOTIONS, DAILY_LIFE, PhrasalVerb, Subcategory } from '@/data/sentences/phrasal-verbs';
+import { useAutoFlip } from '@/lib/useAutoFlip';
 
 interface PageProps {
   params: {
@@ -30,6 +31,7 @@ export default function CardsPage({ params }: PageProps) {
   const [words, setWords] = useState<PhrasalVerb[]>([]);
   const [subcategory, setSubcategory] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
+  const [autoFlip, setAutoFlip] = useState(true);
   const points = usePoints();
 
   // Prevent hydration issues
@@ -83,9 +85,16 @@ export default function CardsPage({ params }: PageProps) {
     }
   };
 
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
+  const handleFlip = useCallback(() => {
+    setIsFlipped(v => !v);
+  }, []);
+
+  useAutoFlip({
+    enabled: autoFlip,
+    isFlipped,
+    cardIndex: currentCardIndex,
+    onFlip: handleFlip,
+  });
 
   const handleNextSubcategory = () => {
     router.push(`/sentences/phrasal-verbs/${topicId}/${subcategoryId}`);
@@ -144,6 +153,24 @@ export default function CardsPage({ params }: PageProps) {
             </span>
           </div>
           <Progress value={((currentCardIndex + 1) / words.length) * 100} />
+        </div>
+
+        {/* Auto-flip toggle */}
+        <div className="mb-4 flex justify-center">
+          <div className="flex items-center gap-3">
+            <span className="text-sm text-zinc-400">Auto Flip</span>
+            <button
+              type="button"
+              onClick={() => setAutoFlip(v => !v)}
+              className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
+                autoFlip
+                  ? 'bg-cyan-400 text-black hover:bg-cyan-300'
+                  : 'bg-white/5 text-zinc-400 hover:bg-white/10'
+              }`}
+            >
+              {autoFlip ? 'On' : 'Off'}
+            </button>
+          </div>
         </div>
 
         {/* Card */}
