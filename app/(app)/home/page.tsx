@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { BookOpenText, MessageCircleMore, Lightbulb, Gamepad2 } from "lucide-react";
 
-import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
+import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
 import { StreakBar } from "@/components/ui/StreakBar";
 import { UI_TEXT } from "@/constants/ui";
-import { getCurrentProfile, isPremium } from "@/lib/isPremium";
+import { getCurrentProfileWithPremium } from "@/lib/isPremium";
 import { getWordOfTheDay } from "@/data/wordsOfTheDay";
 
 const quickLinks = [
@@ -16,13 +16,12 @@ const quickLinks = [
 ];
 
 export default async function AppHomePage() {
-  const profile = await getCurrentProfile();
-  const premium = await isPremium();
+  const { profile, premium } = await getCurrentProfileWithPremium();
   const wordOfTheDay = getWordOfTheDay();
 
   return (
     <>
-      <TopBar showBrand />
+      <TopBar showBrand points={profile?.points ?? 0} streak={profile?.total_streak ?? 0} />
 
       <div className="content-shell relative z-10 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">

@@ -2,6 +2,34 @@ import { cache } from "react";
 
 import { createSupabaseServerClient } from "@/lib/supabase";
 
+const PROFILE_SELECT =
+  "id, user_id, is_premium, premium_expires_at, creem_customer_id, creem_subscription_status, creem_product_id, streak, total_streak, last_activity_date, daily_activities, created_at, display_name, avatar, points";
+
+function normalizeProfileStreak<T extends { streak: number | null; total_streak: number | null; last_activity_date: string | null; daily_activities: number | null }>(data: T) {
+  let streak = data.streak ?? 0;
+  let totalStreak = data.total_streak ?? 0;
+  const lastDate = data.last_activity_date;
+  const rawDailyActivities = data.daily_activities ?? 0;
+
+  if (lastDate) {
+    const today = new Date().toISOString().slice(0, 10);
+    const last = new Date(lastDate + 'T00:00:00Z');
+    const todayDate = new Date(today + 'T00:00:00Z');
+    const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
+    
+    if (diffDays > 1 || (diffDays === 1 && rawDailyActivities < 4)) {
+      streak = 0;
+      totalStreak = 0;
+    }
+  } else {
+    streak = 0;
+    totalStreak = 0;
+  }
+
+  data.streak = streak;
+  data.total_streak = totalStreak;
+}
+
 export const isPremium = cache(async (): Promise<boolean> => {
   const supabase = createSupabaseServerClient();
   const {
@@ -48,32 +76,12 @@ export const getCurrentProfile = cache(async () => {
 
   const { data } = await supabase
     .from("profiles")
-    .select("id, user_id, is_premium, premium_expires_at, creem_customer_id, creem_subscription_status, creem_product_id, streak, total_streak, last_activity_date, daily_activities, created_at, display_name, avatar, points")
+    .select(PROFILE_SELECT)
     .eq("user_id", user.id)
     .maybeSingle();
 
   if (data) {
-    let streak = data.streak ?? 0;
-    let totalStreak = data.total_streak ?? 0;
-    const lastDate = data.last_activity_date;
-    const rawDailyActivities = data.daily_activities ?? 0;
-
-    if (lastDate) {
-      const today = new Date().toISOString().slice(0, 10);
-      const last = new Date(lastDate + 'T00:00:00Z');
-      const todayDate = new Date(today + 'T00:00:00Z');
-      const diffDays = Math.round((todayDate.getTime() - last.getTime()) / 86400000);
-      
-      if (diffDays > 1 || (diffDays === 1 && rawDailyActivities < 4)) {
-        streak = 0;
-        totalStreak = 0;
-      }
-    } else {
-      streak = 0;
-      totalStreak = 0;
-    }
-    data.streak = streak;
-    data.total_streak = totalStreak;
+    normalizeProfileStreak(data);
   }
 
   // Add email from auth user
@@ -82,6 +90,46 @@ export const getCurrentProfile = cache(async () => {
   }
 
   return data;
+});
+
+export const getCurrentProfileWithPremium = cache(async () => {
+  const supabase = createSupabaseServerClient();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return { profile: null, premium: false };
+  }
+
+  const { data } = await supabase
+    .from("profiles")
+    .select(PROFILE_SELECT)
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (!data) {
+    return { profile: null, premium: false };
+  }
+
+  normalizeProfileStreak(data);
+
+  let premium = data.is_premium ?? false;
+  if (premium && data.premium_expires_at) {
+    const expired = new Date(data.premium_expires_at) < new Date();
+    if (expired) {
+      await supabase
+        .from('profiles')
+        .update({ is_premium: false })
+        .eq('user_id', user.id);
+      premium = false;
+      data.is_premium = false;
+    }
+  }
+
+  const profile = user.email ? { ...data, email: user.email } : data;
+
+  return { profile, premium };
 });
 
 export const getWeeklyStreak = cache(async () => {

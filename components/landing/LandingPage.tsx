@@ -715,7 +715,7 @@ export default function LandingPage() {
 
           {/* CTA */}
           <div className="text-center">
-            <Link href="/auth/signup" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+            <Link href="/home" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
               Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
             </Link>
           </div>
