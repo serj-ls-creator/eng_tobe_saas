@@ -7,6 +7,8 @@ import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } f
 import Link from "next/link";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: {
     topicId: string;

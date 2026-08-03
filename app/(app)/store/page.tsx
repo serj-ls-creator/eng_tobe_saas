@@ -25,7 +25,6 @@ export default async function StorePage() {
 
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-white mb-1">Store</h1>
-          <p className="text-zinc-500 text-sm">Spend your points on premium access</p>
         </div>
 
         <StorePremiumCard

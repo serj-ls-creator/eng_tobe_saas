@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 
+export const dynamic = 'force-dynamic';
+
 export default async function PhrasesPage() {
   const progress = await getLearningProgressSnapshot();
 

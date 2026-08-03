@@ -4,6 +4,8 @@ import { Card } from "@/components/ui/card";
 import { SENT_CATS } from "@/constants/categories";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 
+export const dynamic = 'force-dynamic';
+
 const A1_C2_ACTIVITIES = [
   {
     id: "phrases",

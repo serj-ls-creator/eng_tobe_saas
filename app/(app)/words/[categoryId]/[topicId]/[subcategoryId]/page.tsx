@@ -7,6 +7,8 @@ import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } f
 import Link from "next/link";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 
+export const dynamic = 'force-dynamic';
+
 type Activity = {
   id: string;
   name: string;

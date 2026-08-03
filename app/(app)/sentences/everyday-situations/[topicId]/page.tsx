@@ -6,6 +6,8 @@ import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: {
     topicId: string;

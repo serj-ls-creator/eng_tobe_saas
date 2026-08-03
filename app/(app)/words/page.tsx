@@ -5,6 +5,8 @@ import { CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { getLearningProgressSnapshot } from "@/lib/learning-progress";
 
+export const dynamic = 'force-dynamic';
+
 export default async function WordsPage() {
   const premium = await isPremium();
   const progress = await getLearningProgressSnapshot();

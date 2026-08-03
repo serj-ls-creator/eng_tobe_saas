@@ -8,6 +8,8 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
   params: {
     categoryId: string;

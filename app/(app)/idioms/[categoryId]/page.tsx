@@ -6,6 +6,8 @@ import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 import { notFound } from "next/navigation";
 
+export const dynamic = 'force-dynamic';
+
 const IDIOM_LEVELS = [
   {
     id: "level-1",

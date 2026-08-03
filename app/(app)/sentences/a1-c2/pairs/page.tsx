@@ -6,6 +6,8 @@ import { isPremium } from "@/lib/isPremium";
 import Link from "next/link";
 import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 
+export const dynamic = 'force-dynamic';
+
 const PAIRS_LEVELS = [
   {
     id: "a2",

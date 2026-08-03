@@ -5,6 +5,8 @@ import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 
+export const dynamic = 'force-dynamic';
+
 export default async function IdiomsPage() {
   const premium = await isPremium();
   const progress = await getLearningProgressSnapshot();

@@ -5,6 +5,8 @@ import { Card } from '@/components/ui/card';
 import { SILENT_WORD_LEVELS } from '@/data/words/pronounce/silent_words';
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from '@/lib/learning-progress';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DontPronouncePage() {
   const progress = await getLearningProgressSnapshot();
 

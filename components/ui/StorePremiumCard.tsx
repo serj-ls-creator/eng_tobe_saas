@@ -119,15 +119,6 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
 
   return (
     <div className="space-y-4">
-      <Card className="p-4 flex items-center gap-3 bg-zinc-900/95 border-zinc-700/60">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-yellow-500/20">
-          <Star className="h-5 w-5 text-yellow-400" />
-        </div>
-        <div>
-          <div className="text-xs text-zinc-500 mb-0.5">Your balance</div>
-          <div className="text-lg font-bold text-white">{currentPoints.toLocaleString()} pts</div>
-        </div>
-      </Card>
 
       {currentPremium && newExpiry && (
         <div className="flex min-h-[52px] items-center justify-center rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3 text-center text-sm text-green-400">

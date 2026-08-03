@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { getIcon } from "@/lib/icons";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 
+export const dynamic = 'force-dynamic';
+
 const IDIOM_ACTIVITIES = [
   {
     id: "cards",
