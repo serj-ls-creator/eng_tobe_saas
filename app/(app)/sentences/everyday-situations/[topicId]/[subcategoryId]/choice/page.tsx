@@ -28,7 +28,7 @@ export default async function ChoicePlaceholderPage({ params }: PageProps) {
   const subcategory = topic.subcategories?.find(sub => sub.id === subcategoryId);
   if (!subcategory) notFound();
 
-  const locked = !category.isFree && !premium;
+  const locked = !topic.isFree && !premium;
 
   return (
     <>

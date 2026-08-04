@@ -28,7 +28,7 @@ export default async function FindTheMistakePlaceholderPage({ params }: PageProp
   const subcategory = topic.subcategories?.find(sub => sub.id === subcategoryId);
   if (!subcategory) notFound();
 
-  const locked = !category.isFree && !premium;
+  const locked = !topic.isFree && !premium;
 
   return (
     <>

@@ -27,7 +27,7 @@ export default async function TopicPage({ params }: PageProps) {
   const topic = category.topics?.find(t => t.id === topicId);
   if (!topic) notFound();
 
-  const locked = !category.isFree && !premium;
+  const locked = !topic.isFree && !premium;
 
   return (
     <>

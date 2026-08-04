@@ -788,8 +788,8 @@ export const SENT_CATS: SentenceCategory[] = [
     color: UI_COLORS.cyan,
     section: "sentences",
     href: "/sentences#everyday-situations",
-    access: "premium",
-    isFree: false,
+    access: "free",
+    isFree: true,
     order: 3,
     level: "B1",
     topics: [
@@ -797,8 +797,8 @@ export const SENT_CATS: SentenceCategory[] = [
         id: "dining-out",
         name: "Dining Out",
         description: "Restaurant phrases: table requests, allergies, separate bills, ordering & recommendations",
-        access: "premium",
-        isFree: false,
+        access: "free",
+        isFree: true,
         subcategories: [
           { id: "table-requests", name: "Table Requests", description: "How to ask for a table by the window" },
           { id: "allergies", name: "Allergies", description: "How to inform about food allergies" },
