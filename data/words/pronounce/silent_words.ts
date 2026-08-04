@@ -55,7 +55,7 @@ export const SILENT_WORD_LEVELS: SilentWordLevel[] = [
       { word: "heir", silentLetter: "h", silentIndex: 0 },
       { word: "herb", silentLetter: "h", silentIndex: 0 },
       { word: "honor", silentLetter: "h", silentIndex: 0 },
-      { word: "island", silentLetter: "s", silentIndex: 2 },
+      { word: "island", silentLetter: "s", silentIndex: 1 },
       { word: "castle", silentLetter: "t", silentIndex: 3 },
     ],
   },
