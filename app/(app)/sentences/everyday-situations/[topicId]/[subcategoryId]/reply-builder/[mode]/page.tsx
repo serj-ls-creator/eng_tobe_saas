@@ -39,9 +39,29 @@ function shuffleArray<T>(arr: T[]): T[] {
   return shuffled;
 }
 
-// Tokenise a sentence into words (preserves punctuation attached to word)
-function tokenise(sentence: string): string[] {
-  return sentence.split(/\s+/).filter(Boolean);
+// Split a sentence into chunks of 2-4 words
+function chunkSentence(sentence: string): string[] {
+  const words = sentence.split(/\s+/).filter(Boolean);
+  const chunks: string[] = [];
+  let i = 0;
+  while (i < words.length) {
+    const remaining = words.length - i;
+    // Choose chunk size 2-3, but don't leave a single word at the end
+    let size: number;
+    if (remaining <= 2) {
+      size = remaining;
+    } else if (remaining === 3) {
+      size = 3;
+    } else {
+      // Pick 2 or 3 — avoid leaving 1 word stranded
+      const maxSize = Math.min(3, remaining);
+      const wouldLeave1 = (remaining - maxSize) === 1;
+      size = wouldLeave1 ? maxSize - 1 : maxSize;
+    }
+    chunks.push(words.slice(i, i + size).join(' '));
+    i += size;
+  }
+  return chunks;
 }
 
 const MODE_LABELS: Record<ResponseType, { label: string; color: string }> = {
@@ -108,9 +128,9 @@ export default function ReplyBuilderGamePage({ params }: PageProps) {
     const round = rounds[currentIndex];
     if (!round) return;
 
-    const words = tokenise(round.targetSentence);
-    setShuffledWords(shuffleArray(words));
-    setPlacedWords(Array(words.length).fill(null));
+    const chunks = chunkSentence(round.targetSentence);
+    setShuffledWords(shuffleArray(chunks));
+    setPlacedWords(Array(chunks.length).fill(null));
     setUsedIndices([]);
     setAnswerState('idle');
   }, [currentIndex, rounds]);
@@ -128,7 +148,7 @@ export default function ReplyBuilderGamePage({ params }: PageProps) {
     newPlaced[nextSlot] = shuffledWords[wordIndex];
     setPlacedWords(newPlaced);
 
-    // Check if all words placed
+    // Check if all chunks placed
     if (newPlaced.every(slot => slot !== null)) {
       const assembled = newPlaced.join(' ');
       const target = rounds[currentIndex].targetSentence;
@@ -191,13 +211,13 @@ export default function ReplyBuilderGamePage({ params }: PageProps) {
 
   const round = rounds[currentIndex];
   const { label: typeLabel, color: typeColor } = MODE_LABELS[round.responseType];
-  const targetWords = tokenise(round.targetSentence);
+  const targetChunks = chunkSentence(round.targetSentence);
 
   const getSlotColor = (index: number) => {
     if (answerState === 'correct') return 'bg-green-500/20 border-green-500/40 text-green-400';
     if (answerState === 'wrong') {
-      const correctWord = targetWords[index];
-      return placedWords[index] === correctWord
+      const correctChunk = targetChunks[index];
+      return placedWords[index] === correctChunk
         ? 'bg-green-500/20 border-green-500/40 text-green-400'
         : 'bg-red-500/20 border-red-500/40 text-red-400';
     }
