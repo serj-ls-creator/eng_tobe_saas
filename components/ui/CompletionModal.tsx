@@ -139,6 +139,7 @@ export function CompletionModal({
 }: CompletionModalProps) {
   const [mounted, setMounted] = useState(false);
   const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
+  const [progressSaved, setProgressSaved] = useState(false);
   const pointsHandledRef = useRef(false);
   const progressSavedRef = useRef(false);
   const pathname = usePathname();
@@ -173,8 +174,27 @@ export function CompletionModal({
   useEffect(() => {
     if (!mounted || !effectiveProgressPayload || progressSavedRef.current) return;
     progressSavedRef.current = true;
-    recordLearningProgress(effectiveProgressPayload);
+    recordLearningProgress(effectiveProgressPayload).finally(() => {
+      setProgressSaved(true);
+    });
   }, [effectiveProgressPayload, mounted]);
+
+  const handleNavigate = (callback: () => void) => {
+    const navigate = () => { router.refresh(); callback(); };
+    if (progressSaved) {
+      navigate();
+    } else {
+      // Wait up to 1.5s for save, then navigate regardless
+      const timeout = setTimeout(navigate, 1500);
+      const interval = setInterval(() => {
+        if (progressSaved) {
+          clearTimeout(timeout);
+          clearInterval(interval);
+          navigate();
+        }
+      }, 50);
+    }
+  };
 
   if (!mounted) return null;
 
@@ -272,7 +292,7 @@ export function CompletionModal({
         <div className="space-y-3">
           {onNextSubcategory && (
             <button
-              onClick={() => { router.refresh(); onNextSubcategory(); }}
+              onClick={() => handleNavigate(onNextSubcategory)}
               className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
             >
               Next Subcategory
@@ -281,7 +301,7 @@ export function CompletionModal({
           
           {onBackToTopics && (
             <button
-              onClick={() => { router.refresh(); onBackToTopics(); }}
+              onClick={() => handleNavigate(onBackToTopics)}
               className="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl transition-colors"
             >
               Back to Topics
