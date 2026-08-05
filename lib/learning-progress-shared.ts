@@ -68,7 +68,7 @@ export interface SectionProgressPercentages {
 
 const WORD_ACTIVITY_IDS = WORD_GAME_ACTIVITIES.map((activity) => activity.id);
 const PHRASAL_VERB_ACTIVITY_IDS = ["cards", "multiple-choice", "synonym-pair", "letter-hunt", "unscramble", "pair-match"];
-const EVERYDAY_ACTIVITY_IDS = ["cards", "reply-builder", "choice", "pairs", "find-the-mistake"];
+const EVERYDAY_ACTIVITY_IDS = ["cards", "reply-builder", "fill-the-gap", "choice", "pairs", "find-the-mistake"];
 const IDIOM_ACTIVITY_IDS = ["cards", "multiple-choice", "synonym-pair", "fill-blanks", "find-mistake", "sentence-builder"];
 const A1_C2_TOPIC_IDS = ["phrases", "error-hunt", "pairs", "level-match"];
 const IDIOM_LEVEL_IDS = ["level-1", "level-2", "level-3"];
