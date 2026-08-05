@@ -272,7 +272,7 @@ export function CompletionModal({
         <div className="space-y-3">
           {onNextSubcategory && (
             <button
-              onClick={onNextSubcategory}
+              onClick={() => { router.refresh(); onNextSubcategory(); }}
               className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
             >
               Next Subcategory
@@ -281,7 +281,7 @@ export function CompletionModal({
           
           {onBackToTopics && (
             <button
-              onClick={onBackToTopics}
+              onClick={() => { router.refresh(); onBackToTopics(); }}
               className="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl transition-colors"
             >
               Back to Topics
