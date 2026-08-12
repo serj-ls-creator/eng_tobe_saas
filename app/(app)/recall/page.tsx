@@ -3,13 +3,14 @@ import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
-import { getRecallSnapshot, type LearningSection } from "@/lib/learning-progress";
+import { getRecallSnapshot, type RecallSection } from "@/lib/learning-progress";
 import { isPremium } from "@/lib/isPremium";
 import { isRecallItemPremiumLocked, type RecallItem } from "@/lib/learning-progress-shared";
 import { CATS, IDIOM_CATS, ALL_SENTENCE_CATS } from "@/constants/categories";
 
-const SECTION_TITLES: Record<LearningSection, string> = {
+const SECTION_TITLES: Record<RecallSection, string> = {
   words: "Words",
+  "phrasal-verbs": "Phrasal verbs",
   sentences: "Sentences",
   idioms: "Idioms"
 };
@@ -150,7 +151,7 @@ export default async function RecallPage() {
           </Card>
         ) : (
           <div className="space-y-5 pb-4">
-            {(Object.keys(SECTION_TITLES) as LearningSection[]).map((section) => (
+            {(Object.keys(SECTION_TITLES) as RecallSection[]).map((section) => (
               <section key={section}>
                 <details className="group" open={false}>
                   <summary className="mb-3 flex cursor-pointer list-none items-center justify-between rounded-2xl border border-zinc-600 bg-zinc-800/80 px-4 py-3">

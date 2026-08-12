@@ -949,12 +949,11 @@ export const GRAMMAR_CATS: Category[] = [
     description: "a, an, the and zero article",
     icon: "FileText",
     color: UI_COLORS.cyan,
-    section: "grammar" as any,
-    href: "#",
+    section: "grammar",
+    href: "/grammar/articles",
     access: "free",
     isFree: true,
-    order: 1,
-    badge: "Coming Soon"
+    order: 1
   },
   {
     id: "prepositions",
@@ -962,7 +961,7 @@ export const GRAMMAR_CATS: Category[] = [
     description: "in, on, at and dependent prepositions",
     icon: "Compass",
     color: UI_COLORS.yellow,
-    section: "grammar" as any,
+    section: "grammar",
     href: "#",
     access: "free",
     isFree: true,
@@ -975,7 +974,7 @@ export const GRAMMAR_CATS: Category[] = [
     description: "V1, V2, V3 forms and usage",
     icon: "Zap",
     color: UI_COLORS.purple,
-    section: "grammar" as any,
+    section: "grammar",
     href: "#",
     access: "free",
     isFree: true,

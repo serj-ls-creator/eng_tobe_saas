@@ -3,7 +3,8 @@ import { SILENT_WORD_LEVELS } from "@/data/words/pronounce/silent_words";
 import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
 
 export type ProgressStatus = "none" | "completed" | "perfect";
-export type LearningSection = "words" | "sentences" | "idioms";
+export type LearningSection = "words" | "sentences" | "idioms" | "grammar";
+export type RecallSection = Exclude<LearningSection, "grammar"> | "phrasal-verbs";
 
 export interface RecordLearningProgressPayload {
   section: LearningSection;
@@ -57,7 +58,7 @@ export interface LearningProgressSnapshot {
 
 export interface RecallSnapshot {
   isLoggedIn: boolean;
-  sections: Record<LearningSection, RecallItem[]>;
+  sections: Record<RecallSection, RecallItem[]>;
 }
 
 export interface SectionProgressPercentages {
@@ -360,9 +361,11 @@ function formatScoreLabel(row: LearningProgressRow): string {
 }
 
 export function buildRecallSnapshot(rows: LearningProgressRow[], isLoggedIn = true): RecallSnapshot {
-  const sections: Record<LearningSection, RecallItem[]> = { words: [], sentences: [], idioms: [] };
+  const sections: Record<RecallSection, RecallItem[]> = { words: [], "phrasal-verbs": [], sentences: [], idioms: [] };
 
   rows.forEach((row) => {
+    if (row.section === "grammar") return;
+
     const key = buildProgressKey({
       section: row.section,
       categoryId: row.category_id,
@@ -372,7 +375,12 @@ export function buildRecallSnapshot(rows: LearningProgressRow[], isLoggedIn = tr
       activityId: row.activity_id
     });
 
-    sections[row.section].push({
+    const recallSection: RecallSection =
+      row.section === "sentences" && row.category_id === "phrasal-verbs"
+        ? "phrasal-verbs"
+        : row.section;
+
+    sections[recallSection].push({
       key,
       section: row.section,
       categoryId: row.category_id,
