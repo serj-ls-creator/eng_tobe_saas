@@ -3,11 +3,13 @@ import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { GRAMMAR_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
+import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 
 export const dynamic = 'force-dynamic';
 
 export default async function GrammarPage() {
   const premium = await isPremium();
+  const progress = await getLearningProgressSnapshot();
 
   return (
     <>
@@ -41,6 +43,9 @@ export default async function GrammarPage() {
                 href={category.href}
                 locked={!category.isFree && !premium}
                 badge={category.badge}
+                progressStatus={
+                  progress.containerStatuses[buildProgressKey({ section: "grammar", categoryId: category.id })] ?? "none"
+                }
               />
             </div>
           ))}

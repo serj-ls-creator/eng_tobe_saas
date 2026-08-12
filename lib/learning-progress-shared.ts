@@ -73,6 +73,7 @@ const EVERYDAY_ACTIVITY_IDS = ["cards", "reply-builder", "fill-the-gap", "choice
 const IDIOM_ACTIVITY_IDS = ["cards", "multiple-choice", "synonym-pair", "fill-blanks", "find-mistake", "sentence-builder"];
 const A1_C2_TOPIC_IDS = ["phrases", "error-hunt", "pairs", "level-match"];
 const IDIOM_LEVEL_IDS = ["level-1", "level-2", "level-3"];
+const GRAMMAR_ARTICLES_ACTIVITY_IDS = ["rule"];
 
 export function buildProgressKey(input: {
   section: LearningSection;
@@ -351,6 +352,20 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
     });
     containerStatuses[categoryKey] = aggregateStatuses(levelStatuses);
   });
+
+  const articlesActivityStatuses = GRAMMAR_ARTICLES_ACTIVITY_IDS.map((activityId) => {
+    const key = buildProgressKey({
+      section: "grammar",
+      categoryId: "articles",
+      topicId: activityId,
+      activityId
+    });
+
+    return activityStatuses[key] ?? "none";
+  });
+  const articlesStatus = aggregateStatuses(articlesActivityStatuses);
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles" })] =
+    articlesStatus === "none" ? "none" : "completed";
 
   return { isLoggedIn, activityStatuses, containerStatuses };
 }
