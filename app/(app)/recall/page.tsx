@@ -6,7 +6,7 @@ import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import { getRecallSnapshot, type LearningSection } from "@/lib/learning-progress";
 import { isPremium } from "@/lib/isPremium";
 import { isRecallItemPremiumLocked, type RecallItem } from "@/lib/learning-progress-shared";
-import { CATS, IDIOM_CATS, SENT_CATS } from "@/constants/categories";
+import { CATS, IDIOM_CATS, ALL_SENTENCE_CATS } from "@/constants/categories";
 
 const SECTION_TITLES: Record<LearningSection, string> = {
   words: "Words",
@@ -45,9 +45,17 @@ function getRecallGroup(item: RecallItem): { key: string; label: string } {
   }
 
   if (item.section === "sentences") {
-    const category = SENT_CATS.find((entry) => entry.id === item.categoryId);
+    const category = ALL_SENTENCE_CATS.find((entry) => entry.id === item.categoryId);
     const topic = category?.topics?.find((entry) => entry.id === item.topicId);
     const subcategory = topic?.subcategories?.find((entry) => entry.id === item.subcategoryId);
+
+    if (item.categoryId === "phrasal-verbs") {
+      const label = ["Phrasal verbs", topic?.name, subcategory?.name ?? item.title].filter(Boolean).join(" / ");
+      return {
+        key: `${item.section}:${item.categoryId}:${item.topicId ?? ""}:${item.subcategoryId ?? ""}`,
+        label: label || item.title
+      };
+    }
 
     if (item.categoryId === "a1-c2" && item.topicId === "phrases") {
       return {

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
-import { SENT_CATS } from "@/constants/categories";
+import { ALL_SENTENCE_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
@@ -21,7 +21,7 @@ export default async function TopicPage({ params }: PageProps) {
   const progress = await getLearningProgressSnapshot();
 
   // Find the phrasal-verbs category
-  const category = SENT_CATS.find(cat => cat.id === "phrasal-verbs");
+  const category = ALL_SENTENCE_CATS.find(cat => cat.id === "phrasal-verbs");
   if (!category) notFound();
 
   // Find the topic
@@ -36,10 +36,10 @@ export default async function TopicPage({ params }: PageProps) {
       <div className="content-shell">
         <div className="mb-4">
           <Link 
-            href="/sentences" 
+            href="/phrasal-verbs" 
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
-            ← Back to Sentences
+            ← Back to Phrasal verbs
           </Link>
         </div>
 

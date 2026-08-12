@@ -649,6 +649,82 @@ export const IDIOM_CATS: Category[] = [
   }
 ];
 
+export const PHRASAL_VERBS_CAT: SentenceCategory = {
+  id: "phrasal-verbs",
+  name: "Phrasal verbs",
+  description: "Natural verb combinations",
+  icon: "Rocket",
+  color: UI_COLORS.pink,
+  section: "sentences",
+  href: "/phrasal-verbs",
+  access: "free",
+  isFree: true,
+  order: 2,
+  level: "B2",
+  topics: [
+    {
+      id: "work-career",
+      name: "Work & Career",
+      description: "Professional phrasal verbs for workplace||60 words",
+      access: "free",
+      isFree: true,
+      subcategories: [
+        { id: "getting_started", name: "Getting started", description: "Beginning work and projects||10 words" },
+        { id: "daily_tasks", name: "Daily tasks", description: "Routine work activities||10 words" },
+        { id: "communication", name: "Communication", description: "Workplace interactions||10 words" },
+        { id: "problems", name: "Problems", description: "Dealing with issues||10 words" },
+        { id: "progress", name: "Progress", description: "Career advancement||10 words" },
+        { id: "leaving", name: "Leaving", description: "Exiting jobs and projects||10 words" }
+      ]
+    },
+    {
+      id: "relationships-social",
+      name: "Relationships & Social",
+      description: "Phrasal verbs for social interactions||60 words",
+      access: "free",
+      isFree: true,
+      subcategories: [
+        { id: "meeting_people", name: "Meeting people", description: "Making new connections||10 words" },
+        { id: "friendship", name: "Friendship", description: "Building relationships||10 words" },
+        { id: "conflict", name: "Conflict", description: "Handling disagreements||10 words" },
+        { id: "romance", name: "Romance", description: "Dating and romantic relationships||10 words" },
+        { id: "family", name: "Family", description: "Family interactions||10 words" },
+        { id: "community", name: "Community", description: "Social groups and activities||10 words" }
+      ]
+    },
+    {
+      id: "mind-emotions",
+      name: "Mind & Emotions",
+      description: "Phrasal verbs for feelings and thoughts||60 words",
+      access: "premium",
+      isFree: false,
+      subcategories: [
+        { id: "feeling_good", name: "Feeling good", description: "Positive emotions||10 words" },
+        { id: "feeling_bad", name: "Feeling bad", description: "Negative emotions||10 words" },
+        { id: "thinking", name: "Thinking", description: "Mental processes||10 words" },
+        { id: "decision_making", name: "Decision making", description: "Making choices||10 words" },
+        { id: "stress", name: "Stress", description: "Pressure and tension||10 words" },
+        { id: "motivation", name: "Motivation", description: "Drive and inspiration||10 words" }
+      ]
+    },
+    {
+      id: "daily-life",
+      name: "Daily Life",
+      description: "Everyday phrasal verbs||60 words",
+      access: "premium",
+      isFree: false,
+      subcategories: [
+        { id: "morning_routine", name: "Morning routine", description: "Starting the day||10 words" },
+        { id: "money", name: "Money", description: "Financial matters||10 words" },
+        { id: "travel", name: "Travel", description: "Journeys and transportation||10 words" },
+        { id: "health", name: "Health", description: "Wellness and illness||10 words" },
+        { id: "home", name: "Home", description: "House and living||10 words" },
+        { id: "technology", name: "Technology", description: "Digital life||10 words" }
+      ]
+    }
+  ]
+};
+
 export const SENT_CATS: SentenceCategory[] = [
   {
     id: "a1-c2",
@@ -706,81 +782,6 @@ export const SENT_CATS: SentenceCategory[] = [
     ]
   },
   {
-    id: "phrasal-verbs",
-    name: "Phrasal verbs",
-    description: "Natural verb combinations",
-    icon: "Rocket",
-    color: UI_COLORS.pink,
-    section: "sentences",
-    href: "/sentences/phrasal-verbs",
-    access: "free",
-    isFree: true,
-    order: 2,
-    level: "B2",
-    topics: [
-      {
-        id: "work-career",
-        name: "Work & Career",
-        description: "Professional phrasal verbs for workplace||60 words",
-        access: "free",
-        isFree: true,
-        subcategories: [
-          { id: "getting_started", name: "Getting started", description: "Beginning work and projects||10 words" },
-          { id: "daily_tasks", name: "Daily tasks", description: "Routine work activities||10 words" },
-          { id: "communication", name: "Communication", description: "Workplace interactions||10 words" },
-          { id: "problems", name: "Problems", description: "Dealing with issues||10 words" },
-          { id: "progress", name: "Progress", description: "Career advancement||10 words" },
-          { id: "leaving", name: "Leaving", description: "Exiting jobs and projects||10 words" }
-        ]
-      },
-      {
-        id: "relationships-social",
-        name: "Relationships & Social",
-        description: "Phrasal verbs for social interactions||60 words",
-        access: "free",
-        isFree: true,
-        subcategories: [
-          { id: "meeting_people", name: "Meeting people", description: "Making new connections||10 words" },
-          { id: "friendship", name: "Friendship", description: "Building relationships||10 words" },
-          { id: "conflict", name: "Conflict", description: "Handling disagreements||10 words" },
-          { id: "romance", name: "Romance", description: "Dating and romantic relationships||10 words" },
-          { id: "family", name: "Family", description: "Family interactions||10 words" },
-          { id: "community", name: "Community", description: "Social groups and activities||10 words" }
-        ]
-      },
-      {
-        id: "mind-emotions",
-        name: "Mind & Emotions",
-        description: "Phrasal verbs for feelings and thoughts||60 words",
-        access: "premium",
-        isFree: false,
-        subcategories: [
-          { id: "feeling_good", name: "Feeling good", description: "Positive emotions||10 words" },
-          { id: "feeling_bad", name: "Feeling bad", description: "Negative emotions||10 words" },
-          { id: "thinking", name: "Thinking", description: "Mental processes||10 words" },
-          { id: "decision_making", name: "Decision making", description: "Making choices||10 words" },
-          { id: "stress", name: "Stress", description: "Pressure and tension||10 words" },
-          { id: "motivation", name: "Motivation", description: "Drive and inspiration||10 words" }
-        ]
-      },
-      {
-        id: "daily-life",
-        name: "Daily Life",
-        description: "Everyday phrasal verbs||60 words",
-        access: "premium",
-        isFree: false,
-        subcategories: [
-          { id: "morning_routine", name: "Morning routine", description: "Starting the day||10 words" },
-          { id: "money", name: "Money", description: "Financial matters||10 words" },
-          { id: "travel", name: "Travel", description: "Journeys and transportation||10 words" },
-          { id: "health", name: "Health", description: "Wellness and illness||10 words" },
-          { id: "home", name: "Home", description: "House and living||10 words" },
-          { id: "technology", name: "Technology", description: "Digital life||10 words" }
-        ]
-      }
-    ]
-  },
-  {
     id: "everyday-situations",
     name: "Everyday Situations",
     description: "Master real-life English dialogues",
@@ -790,7 +791,7 @@ export const SENT_CATS: SentenceCategory[] = [
     href: "/sentences#everyday-situations",
     access: "free",
     isFree: true,
-    order: 3,
+    order: 2,
     level: "B1",
     topics: [
       {
@@ -935,7 +936,51 @@ export const SENT_CATS: SentenceCategory[] = [
     href: "/sentences#slang-modern-english",
     access: "premium",
     isFree: false,
-    order: 4
+    order: 3
+  }
+];
+
+export const ALL_SENTENCE_CATS: SentenceCategory[] = [...SENT_CATS, PHRASAL_VERBS_CAT];
+
+export const GRAMMAR_CATS: Category[] = [
+  {
+    id: "articles",
+    name: "Articles",
+    description: "a, an, the and zero article",
+    icon: "FileText",
+    color: UI_COLORS.cyan,
+    section: "grammar" as any,
+    href: "#",
+    access: "free",
+    isFree: true,
+    order: 1,
+    badge: "Coming Soon"
+  },
+  {
+    id: "prepositions",
+    name: "Prepositions",
+    description: "in, on, at and dependent prepositions",
+    icon: "Compass",
+    color: UI_COLORS.yellow,
+    section: "grammar" as any,
+    href: "#",
+    access: "free",
+    isFree: true,
+    order: 2,
+    badge: "Coming Soon"
+  },
+  {
+    id: "irregular-verbs",
+    name: "Irregular Verbs",
+    description: "V1, V2, V3 forms and usage",
+    icon: "Zap",
+    color: UI_COLORS.purple,
+    section: "grammar" as any,
+    href: "#",
+    access: "free",
+    isFree: true,
+    order: 3,
+    badge: "Coming Soon"
   }
 ];
 

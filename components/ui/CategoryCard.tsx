@@ -48,7 +48,7 @@ export function CategoryCard({
               {description?.includes('||') ? (
                 <>
                   <div className="text-zinc-500 truncate">{description.split('||')[0]}</div>
-                  <div className="text-cyan-400 font-medium">10 words</div>
+                  <div className="text-cyan-400 font-medium">{description.split('||')[1]}</div>
                 </>
               ) : (
                 <div className="text-zinc-500 truncate">{description}</div>

@@ -9,7 +9,7 @@ import { PhrasalVerbFlipCard } from '@/components/cards/PhrasalVerbFlipCard';
 import { Progress } from '@/components/ui/progress';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { usePoints } from '@/lib/usePoints';
-import { SENT_CATS } from '@/constants/categories';
+import { SENT_CATS, ALL_SENTENCE_CATS } from '@/constants/categories';
 import { WORK_CAREER, RELATIONSHIPS_SOCIAL, MIND_EMOTIONS, DAILY_LIFE, PhrasalVerb, Subcategory } from '@/data/sentences/phrasal-verbs';
 import { useAutoFlip } from '@/lib/useAutoFlip';
 
@@ -43,8 +43,8 @@ export default function CardsPage({ params }: PageProps) {
   useEffect(() => {
     if (!mounted) return;
     
-    // Find category and topic
-    const category = SENT_CATS.find(cat => cat.id === "phrasal-verbs");
+    // Find category and topic details
+    const category = ALL_SENTENCE_CATS.find(cat => cat.id === "phrasal-verbs");
     if (!category) return;
 
     const topic = category.topics?.find(t => t.id === topicId);

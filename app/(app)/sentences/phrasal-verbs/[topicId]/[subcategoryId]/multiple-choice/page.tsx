@@ -10,7 +10,7 @@ import { CompletionModal } from '@/components/ui/CompletionModal';
 import { FlyingWords } from '@/components/ui/FlyingWords';
 import { useSoundEffects } from '@/hooks/useSoundEffects';
 import { usePoints } from '@/lib/usePoints';
-import { SENT_CATS } from '@/constants/categories';
+import { ALL_SENTENCE_CATS } from '@/constants/categories';
 import { WORK_CAREER, RELATIONSHIPS_SOCIAL, MIND_EMOTIONS, DAILY_LIFE, PhrasalVerb, Subcategory } from '@/data/sentences/phrasal-verbs';
 
 interface PageProps {
@@ -48,7 +48,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
     if (!mounted) return;
 
     // Find category and topic
-    const category = SENT_CATS.find(cat => cat.id === "phrasal-verbs");
+    const category = ALL_SENTENCE_CATS.find(cat => cat.id === "phrasal-verbs");
     if (!category) return;
 
     const topic = category.topics?.find(t => t.id === topicId);

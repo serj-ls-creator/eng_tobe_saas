@@ -1,4 +1,4 @@
-import { CATS, IDIOM_CATS, SENT_CATS, WORD_GAME_ACTIVITIES } from "@/constants/categories";
+import { CATS, IDIOM_CATS, SENT_CATS, ALL_SENTENCE_CATS, PHRASAL_VERBS_CAT, WORD_GAME_ACTIVITIES } from "@/constants/categories";
 import { SILENT_WORD_LEVELS } from "@/data/words/pronounce/silent_words";
 import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
 
@@ -185,7 +185,7 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
     containerStatuses[categoryKey] = aggregateStatuses(topicStatuses);
   });
 
-  const phrasalCategory = SENT_CATS.find((category) => category.id === "phrasal-verbs");
+  const phrasalCategory = PHRASAL_VERBS_CAT;
   if (phrasalCategory?.topics?.length) {
     const topicStatuses = phrasalCategory.topics.map((topic) => {
       const topicKey = buildProgressKey({ section: "sentences", categoryId: "phrasal-verbs", topicId: topic.id });
@@ -432,7 +432,7 @@ function buildWordsActivityKeys(): string[] {
 function buildSentencesActivityKeys(): string[] {
   const keys: string[] = [];
 
-  SENT_CATS.forEach((category) => {
+  ALL_SENTENCE_CATS.forEach((category) => {
     if (category.id === "phrasal-verbs") {
       category.topics?.forEach((topic) => {
         topic.subcategories?.forEach((subcategory) => {
@@ -574,7 +574,7 @@ export function isRecallItemPremiumLocked(
   }
 
   if (item.section === "sentences") {
-    const category = SENT_CATS.find((entry) => entry.id === item.categoryId);
+    const category = ALL_SENTENCE_CATS.find((entry) => entry.id === item.categoryId);
     if (!category) {
       return false;
     }

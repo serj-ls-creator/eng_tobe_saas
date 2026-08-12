@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 
-export type SectionKey = "words" | "sentences" | "idioms" | "games";
+export type SectionKey = "words" | "sentences" | "phrasal-verbs" | "idioms" | "grammar" | "games";
 export type AccessTier = "free" | "premium";
 export type SentenceLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";
 
