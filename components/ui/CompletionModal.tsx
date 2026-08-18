@@ -123,6 +123,21 @@ function inferProgressPayload({
     };
   }
 
+  if (segments[0] === 'grammar' && segments[1] === 'articles' && segments[2] === 'fill-the-gap' && segments[3]) {
+    return {
+      section: 'grammar',
+      categoryId: 'articles',
+      topicId: 'fill-the-gap',
+      levelId: segments[3],
+      activityId: 'fill-the-gap',
+      activityName: 'Fill the Gap',
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
   return null;
 }
 

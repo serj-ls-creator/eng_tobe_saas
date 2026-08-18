@@ -23,8 +23,10 @@ interface ProfileSectionProps {
   };
   progress: {
     words: number;
+    phrasalVerbs: number;
     sentences: number;
     idioms: number;
+    grammar: number;
   };
 }
 
@@ -171,6 +173,15 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
+                    <span className="text-sm text-zinc-400">Phrasal verbs</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.phrasalVerbs}%` }}></div>
+                      </div>
+                      <span className="text-xs text-zinc-500">{progress.phrasalVerbs}%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Sentences</span>
                     <div className="flex items-center gap-2">
                       <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
@@ -186,6 +197,15 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                         <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.idioms}%` }}></div>
                       </div>
                       <span className="text-xs text-zinc-500">{progress.idioms}%</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-zinc-400">Grammar</span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.grammar}%` }}></div>
+                      </div>
+                      <span className="text-xs text-zinc-500">{progress.grammar}%</span>
                     </div>
                   </div>
                 </div>

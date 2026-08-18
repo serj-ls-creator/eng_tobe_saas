@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Clock } from "lucide-react";
+import { BookOpen, Clock, PenLine, type LucideIcon } from "lucide-react";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
@@ -13,12 +13,14 @@ type ArticlesActivity =
       title: string;
       description: string;
       href: string;
+      icon: LucideIcon;
       available: true;
     }
   | {
       id: string;
       title: string;
       description: string;
+      icon?: LucideIcon;
       available: false;
     };
 
@@ -28,9 +30,17 @@ const ACTIVITIES: ArticlesActivity[] = [
     title: "Rule",
     description: "A, an, the &mdash; made simple",
     href: "/grammar/articles/rule",
+    icon: BookOpen,
     available: true
   },
-  { id: "fill-the-gap", title: "Fill-the-gap", description: "Coming Soon", available: false },
+  {
+    id: "fill-the-gap",
+    title: "Fill-the-gap",
+    description: "a, an, the &amp; zero article",
+    href: "/grammar/articles/fill-the-gap",
+    icon: PenLine,
+    available: true
+  },
   { id: "find-the-mistake", title: "Find the Mistake", description: "Coming Soon", available: false },
   { id: "swipe-game", title: "Swipe game", description: "Coming Soon", available: false },
   { id: "category-sort", title: "Category Sort", description: "Coming Soon", available: false },
@@ -39,15 +49,33 @@ const ACTIVITIES: ArticlesActivity[] = [
 
 export default async function ArticlesPage() {
   const progress = await getLearningProgressSnapshot();
-  const ruleStatus =
-    progress.activityStatuses[
-      buildProgressKey({
-        section: "grammar",
-        categoryId: "articles",
-        topicId: "rule",
-        activityId: "rule"
-      })
-    ] ?? "none";
+
+  const getActivityStatus = (activityId: string) => {
+    if (activityId === "rule") {
+      return (
+        progress.activityStatuses[
+          buildProgressKey({
+            section: "grammar",
+            categoryId: "articles",
+            topicId: "rule",
+            activityId: "rule"
+          })
+        ] ?? "none"
+      );
+    }
+    if (activityId === "fill-the-gap") {
+      return (
+        progress.containerStatuses[
+          buildProgressKey({
+            section: "grammar",
+            categoryId: "articles",
+            topicId: "fill-the-gap"
+          })
+        ] ?? "none"
+      );
+    }
+    return "none";
+  };
 
   return (
     <>
@@ -71,16 +99,21 @@ export default async function ArticlesPage() {
 
         <div className="grid grid-cols-2 gap-3">
           {ACTIVITIES.map((activity, index) => {
+            const status = getActivityStatus(activity.id);
             const card = (
               <Card
                 className={`fade-up fade-up-d${Math.min(index + 1, 5)} min-h-[126px] overflow-hidden rounded-[24px] border p-4 transition-all ${
                   activity.available
-                    ? `${getProgressCardClass(ruleStatus) || "border-white/10"} hover:border-cyan-300/40 hover:bg-white/[0.08]`
+                    ? `${getProgressCardClass(status) || "border-white/10"} hover:border-cyan-300/40 hover:bg-white/[0.08]`
                     : "border-white/10 opacity-55"
                 }`}
               >
                 <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-300/10 text-cyan-200">
-                  {activity.available ? <BookOpen className="h-5 w-5" /> : <Clock className="h-5 w-5" />}
+                  {activity.available && activity.icon ? (
+                    <activity.icon className="h-5 w-5" />
+                  ) : (
+                    <Clock className="h-5 w-5" />
+                  )}
                 </div>
                 <div className="mb-2 text-sm font-semibold text-white">{activity.title}</div>
                 <div

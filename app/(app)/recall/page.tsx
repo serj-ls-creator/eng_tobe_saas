@@ -6,13 +6,14 @@ import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import { getRecallSnapshot, type RecallSection } from "@/lib/learning-progress";
 import { isPremium } from "@/lib/isPremium";
 import { isRecallItemPremiumLocked, type RecallItem } from "@/lib/learning-progress-shared";
-import { CATS, IDIOM_CATS, ALL_SENTENCE_CATS } from "@/constants/categories";
+import { CATS, IDIOM_CATS, ALL_SENTENCE_CATS, GRAMMAR_CATS } from "@/constants/categories";
 
 const SECTION_TITLES: Record<RecallSection, string> = {
   words: "Words",
   "phrasal-verbs": "Phrasal verbs",
   sentences: "Sentences",
-  idioms: "Idioms"
+  idioms: "Idioms",
+  grammar: "Grammar"
 };
 
 function getDueLabel(dueAt: string): string {
@@ -78,6 +79,16 @@ function getRecallGroup(item: RecallItem): { key: string; label: string } {
     return {
       key: `${item.section}:${item.categoryId}:${item.levelId ?? ""}`,
       label: [category?.name, levelLabel].filter(Boolean).join(" / ")
+    };
+  }
+
+  if (item.section === "grammar") {
+    const category = GRAMMAR_CATS.find((entry) => entry.id === item.categoryId);
+    const levelLabel = item.levelId ? item.levelId.replace("level-", "Level ") : null;
+    const label = [category?.name ?? "Grammar", item.topicId === "rule" ? "Rule" : (levelLabel ?? item.title)].filter(Boolean).join(" / ");
+    return {
+      key: `${item.section}:${item.categoryId}:${item.topicId ?? ""}:${item.levelId ?? ""}`,
+      label: label || item.title
     };
   }
 

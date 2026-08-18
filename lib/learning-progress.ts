@@ -48,7 +48,7 @@ export async function getRecallSnapshot(): Promise<RecallSnapshot> {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return { isLoggedIn: false, sections: { words: [], "phrasal-verbs": [], sentences: [], idioms: [] } };
+    return { isLoggedIn: false, sections: { words: [], "phrasal-verbs": [], sentences: [], idioms: [], grammar: [] } };
   }
 
   const { data, error } = await supabase
@@ -63,7 +63,7 @@ export async function getRecallSnapshot(): Promise<RecallSnapshot> {
 
   if (error) {
     console.error("Failed to load recall queue", error);
-    return { isLoggedIn: true, sections: { words: [], "phrasal-verbs": [], sentences: [], idioms: [] } };
+    return { isLoggedIn: true, sections: { words: [], "phrasal-verbs": [], sentences: [], idioms: [], grammar: [] } };
   }
 
   return buildRecallSnapshot((data ?? []) as LearningProgressRow[], true);

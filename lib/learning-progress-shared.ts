@@ -1,10 +1,10 @@
-import { CATS, IDIOM_CATS, SENT_CATS, ALL_SENTENCE_CATS, PHRASAL_VERBS_CAT, WORD_GAME_ACTIVITIES } from "@/constants/categories";
+import { CATS, IDIOM_CATS, SENT_CATS, ALL_SENTENCE_CATS, PHRASAL_VERBS_CAT, WORD_GAME_ACTIVITIES, GRAMMAR_CATS } from "@/constants/categories";
 import { SILENT_WORD_LEVELS } from "@/data/words/pronounce/silent_words";
 import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
 
 export type ProgressStatus = "none" | "completed" | "perfect";
 export type LearningSection = "words" | "sentences" | "idioms" | "grammar";
-export type RecallSection = Exclude<LearningSection, "grammar"> | "phrasal-verbs";
+export type RecallSection = LearningSection | "phrasal-verbs";
 
 export interface RecordLearningProgressPayload {
   section: LearningSection;
@@ -63,8 +63,10 @@ export interface RecallSnapshot {
 
 export interface SectionProgressPercentages {
   words: number;
+  phrasalVerbs: number;
   sentences: number;
   idioms: number;
+  grammar: number;
 }
 
 const WORD_ACTIVITY_IDS = WORD_GAME_ACTIVITIES.map((activity) => activity.id);
@@ -74,6 +76,7 @@ const IDIOM_ACTIVITY_IDS = ["cards", "multiple-choice", "synonym-pair", "fill-bl
 const A1_C2_TOPIC_IDS = ["phrases", "error-hunt", "pairs", "level-match"];
 const IDIOM_LEVEL_IDS = ["level-1", "level-2", "level-3"];
 const GRAMMAR_ARTICLES_ACTIVITY_IDS = ["rule"];
+const GRAMMAR_ARTICLES_FILL_GAP_LEVEL_IDS = ["level-1", "level-2", "level-3", "level-4", "level-5"];
 
 export function buildProgressKey(input: {
   section: LearningSection;
@@ -353,19 +356,29 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
     containerStatuses[categoryKey] = aggregateStatuses(levelStatuses);
   });
 
-  const articlesActivityStatuses = GRAMMAR_ARTICLES_ACTIVITY_IDS.map((activityId) => {
+  const ruleKey = buildProgressKey({
+    section: "grammar",
+    categoryId: "articles",
+    topicId: "rule",
+    activityId: "rule"
+  });
+  const ruleStatus = activityStatuses[ruleKey] ?? "none";
+
+  const fillGapLevelStatuses = GRAMMAR_ARTICLES_FILL_GAP_LEVEL_IDS.map((levelId) => {
     const key = buildProgressKey({
       section: "grammar",
       categoryId: "articles",
-      topicId: activityId,
-      activityId
+      topicId: "fill-the-gap",
+      levelId,
+      activityId: "fill-the-gap"
     });
-
     return activityStatuses[key] ?? "none";
   });
-  const articlesStatus = aggregateStatuses(articlesActivityStatuses);
-  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles" })] =
-    articlesStatus === "none" ? "none" : "completed";
+  const fillGapStatus = aggregateStatuses(fillGapLevelStatuses);
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles", topicId: "fill-the-gap" })] = fillGapStatus;
+
+  const articlesStatus = aggregateStatuses([ruleStatus, fillGapStatus]);
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles" })] = articlesStatus;
 
   return { isLoggedIn, activityStatuses, containerStatuses };
 }
@@ -376,11 +389,15 @@ function formatScoreLabel(row: LearningProgressRow): string {
 }
 
 export function buildRecallSnapshot(rows: LearningProgressRow[], isLoggedIn = true): RecallSnapshot {
-  const sections: Record<RecallSection, RecallItem[]> = { words: [], "phrasal-verbs": [], sentences: [], idioms: [] };
+  const sections: Record<RecallSection, RecallItem[]> = {
+    words: [],
+    "phrasal-verbs": [],
+    sentences: [],
+    idioms: [],
+    grammar: []
+  };
 
   rows.forEach((row) => {
-    if (row.section === "grammar") return;
-
     const key = buildProgressKey({
       section: row.section,
       categoryId: row.category_id,
@@ -452,29 +469,32 @@ function buildWordsActivityKeys(): string[] {
   return keys;
 }
 
+function buildPhrasalVerbsActivityKeys(): string[] {
+  const keys: string[] = [];
+
+  PHRASAL_VERBS_CAT.topics?.forEach((topic) => {
+    topic.subcategories?.forEach((subcategory) => {
+      PHRASAL_VERB_ACTIVITY_IDS.forEach((activityId) => {
+        keys.push(
+          buildProgressKey({
+            section: "sentences",
+            categoryId: "phrasal-verbs",
+            topicId: topic.id,
+            subcategoryId: subcategory.id,
+            activityId
+          })
+        );
+      });
+    });
+  });
+
+  return keys;
+}
+
 function buildSentencesActivityKeys(): string[] {
   const keys: string[] = [];
 
-  ALL_SENTENCE_CATS.forEach((category) => {
-    if (category.id === "phrasal-verbs") {
-      category.topics?.forEach((topic) => {
-        topic.subcategories?.forEach((subcategory) => {
-          PHRASAL_VERB_ACTIVITY_IDS.forEach((activityId) => {
-            keys.push(
-              buildProgressKey({
-                section: "sentences",
-                categoryId: "phrasal-verbs",
-                topicId: topic.id,
-                subcategoryId: subcategory.id,
-                activityId
-              })
-            );
-          });
-        });
-      });
-      return;
-    }
-
+  SENT_CATS.forEach((category) => {
     if (category.id === "everyday-situations") {
       category.topics?.forEach((topic) => {
         topic.subcategories?.forEach((subcategory) => {
@@ -548,6 +568,33 @@ function buildIdiomsActivityKeys(): string[] {
   return keys;
 }
 
+function buildGrammarActivityKeys(): string[] {
+  const keys: string[] = [];
+
+  keys.push(
+    buildProgressKey({
+      section: "grammar",
+      categoryId: "articles",
+      topicId: "rule",
+      activityId: "rule"
+    })
+  );
+
+  GRAMMAR_ARTICLES_FILL_GAP_LEVEL_IDS.forEach((levelId) => {
+    keys.push(
+      buildProgressKey({
+        section: "grammar",
+        categoryId: "articles",
+        topicId: "fill-the-gap",
+        levelId,
+        activityId: "fill-the-gap"
+      })
+    );
+  });
+
+  return keys;
+}
+
 function scoreStatus(status: ProgressStatus): number {
   if (status === "perfect") return 1;
   if (status === "completed") return 0.5;
@@ -563,8 +610,10 @@ function toPercent(keys: string[], activityStatuses: Record<string, ProgressStat
 export function buildSectionProgressPercentages(snapshot: LearningProgressSnapshot): SectionProgressPercentages {
   return {
     words: toPercent(buildWordsActivityKeys(), snapshot.activityStatuses),
+    phrasalVerbs: toPercent(buildPhrasalVerbsActivityKeys(), snapshot.activityStatuses),
     sentences: toPercent(buildSentencesActivityKeys(), snapshot.activityStatuses),
-    idioms: toPercent(buildIdiomsActivityKeys(), snapshot.activityStatuses)
+    idioms: toPercent(buildIdiomsActivityKeys(), snapshot.activityStatuses),
+    grammar: toPercent(buildGrammarActivityKeys(), snapshot.activityStatuses)
   };
 }
 
@@ -618,6 +667,11 @@ export function isRecallItemPremiumLocked(
 
   if (item.section === "idioms") {
     const category = IDIOM_CATS.find((entry) => entry.id === item.categoryId);
+    return category ? !category.isFree : false;
+  }
+
+  if (item.section === "grammar") {
+    const category = GRAMMAR_CATS.find((entry) => entry.id === item.categoryId);
     return category ? !category.isFree : false;
   }
 
