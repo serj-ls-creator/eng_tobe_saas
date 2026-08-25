@@ -956,6 +956,18 @@ export const GRAMMAR_CATS: Category[] = [
     order: 1
   },
   {
+    id: "adjective-order",
+    name: "Adjective Order",
+    description: "opinion, size, age, shape, colour...",
+    icon: "Layers",
+    color: UI_COLORS.purple,
+    section: "grammar",
+    href: "/grammar/adjective-order",
+    access: "free",
+    isFree: true,
+    order: 2
+  },
+  {
     id: "prepositions",
     name: "Prepositions",
     description: "in, on, at and dependent prepositions",
@@ -965,7 +977,7 @@ export const GRAMMAR_CATS: Category[] = [
     href: "#",
     access: "free",
     isFree: true,
-    order: 2,
+    order: 3,
     badge: "Coming Soon"
   },
   {
@@ -978,7 +990,7 @@ export const GRAMMAR_CATS: Category[] = [
     href: "#",
     access: "free",
     isFree: true,
-    order: 3,
+    order: 4,
     badge: "Coming Soon"
   }
 ];

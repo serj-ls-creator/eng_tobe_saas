@@ -138,6 +138,20 @@ function inferProgressPayload({
     };
   }
 
+  if (segments[0] === 'grammar' && segments[1] && segments[2] === 'rule') {
+    return {
+      section: 'grammar',
+      categoryId: segments[1],
+      topicId: 'rule',
+      activityId: 'rule',
+      activityName: 'Rule',
+      title: subcategoryName || 'Rule',
+      href: pathname,
+      score: 1,
+      total: 1,
+    };
+  }
+
   return null;
 }
 

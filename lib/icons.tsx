@@ -6,14 +6,17 @@ import {
   BriefcaseBusiness,
   Clock3,
   CloudSun,
+  Compass,
   Drama,
   Dumbbell,
+  FileText,
   Gamepad2,
   GraduationCap,
   Handshake,
   Hash,
   Home,
   Laugh,
+  Layers,
   Lightbulb,
   Lock,
   MessageCircleMore,
@@ -28,7 +31,8 @@ import {
   Sparkles,
   TrendingUp,
   Trophy,
-  Type
+  Type,
+  Zap
 } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -38,14 +42,17 @@ const iconMap: Record<string, LucideIcon> = {
   BriefcaseBusiness,
   Clock3,
   CloudSun,
+  Compass,
   Drama,
   Dumbbell,
+  FileText,
   Gamepad2,
   GraduationCap,
   Handshake,
   Hash,
   Home,
   Laugh,
+  Layers,
   Lightbulb,
   Lock,
   MessageCircleMore,
@@ -60,7 +67,8 @@ const iconMap: Record<string, LucideIcon> = {
   Sparkles,
   TrendingUp,
   Trophy,
-  Type
+  Type,
+  Zap
 };
 
 export function getIcon(name: string): LucideIcon {
