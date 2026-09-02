@@ -77,6 +77,7 @@ const A1_C2_TOPIC_IDS = ["phrases", "error-hunt", "pairs", "level-match"];
 const IDIOM_LEVEL_IDS = ["level-1", "level-2", "level-3"];
 const GRAMMAR_ARTICLES_ACTIVITY_IDS = ["rule"];
 const GRAMMAR_ARTICLES_FILL_GAP_LEVEL_IDS = ["level-1", "level-2", "level-3", "level-4", "level-5"];
+export const GRAMMAR_ADJECTIVE_ORDER_BUILDER_LEVEL_IDS = ["level-1", "level-2", "level-3"] as const;
 
 export function buildProgressKey(input: {
   section: LearningSection;
@@ -387,7 +388,24 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
     activityId: "rule"
   });
   const adjOrderRuleStatus = activityStatuses[adjOrderRuleKey] ?? "none";
-  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "adjective-order" })] = adjOrderRuleStatus;
+
+  const adjOrderBuilderLevelStatuses = GRAMMAR_ADJECTIVE_ORDER_BUILDER_LEVEL_IDS.map((levelId) => {
+    const key = buildProgressKey({
+      section: "grammar",
+      categoryId: "adjective-order",
+      topicId: "sentence-builder",
+      levelId,
+      activityId: "sentence-builder"
+    });
+    return activityStatuses[key] ?? "none";
+  });
+  const adjOrderBuilderStatus = aggregateStatuses(adjOrderBuilderLevelStatuses);
+  containerStatuses[
+    buildProgressKey({ section: "grammar", categoryId: "adjective-order", topicId: "sentence-builder" })
+  ] = adjOrderBuilderStatus;
+
+  const adjOrderStatus = aggregateStatuses([adjOrderRuleStatus, adjOrderBuilderStatus]);
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "adjective-order" })] = adjOrderStatus;
 
   return { isLoggedIn, activityStatuses, containerStatuses };
 }
@@ -609,6 +627,18 @@ function buildGrammarActivityKeys(): string[] {
       activityId: "rule"
     })
   );
+
+  GRAMMAR_ADJECTIVE_ORDER_BUILDER_LEVEL_IDS.forEach((levelId) => {
+    keys.push(
+      buildProgressKey({
+        section: "grammar",
+        categoryId: "adjective-order",
+        topicId: "sentence-builder",
+        levelId,
+        activityId: "sentence-builder"
+      })
+    );
+  });
 
   return keys;
 }

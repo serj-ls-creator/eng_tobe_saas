@@ -138,6 +138,21 @@ function inferProgressPayload({
     };
   }
 
+  if (segments[0] === 'grammar' && segments[1] === 'adjective-order' && segments[2] === 'sentence-builder' && segments[3]) {
+    return {
+      section: 'grammar',
+      categoryId: 'adjective-order',
+      topicId: 'sentence-builder',
+      levelId: segments[3],
+      activityId: 'sentence-builder',
+      activityName: 'Sentence builder',
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
   if (segments[0] === 'grammar' && segments[1] && segments[2] === 'rule') {
     return {
       section: 'grammar',

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Clock, type LucideIcon } from "lucide-react";
+import { BookOpen, Clock, PenLine, type LucideIcon } from "lucide-react";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
@@ -33,8 +33,15 @@ const ACTIVITIES: AdjectiveOrderActivity[] = [
     icon: BookOpen,
     available: true
   },
+  {
+    id: "sentence-builder",
+    title: "Sentence builder",
+    description: "Arrange adjectives in order",
+    href: "/grammar/adjective-order/sentence-builder",
+    icon: PenLine,
+    available: true
+  },
   { id: "find-the-mistake", title: "Find the Mistake", description: "Coming Soon", available: false },
-  { id: "sentence-builder", title: "Sentence builder", description: "Coming Soon", available: false },
   { id: "multiple-choice", title: "Multiple Choice", description: "Coming Soon", available: false }
 ];
 
@@ -50,6 +57,17 @@ export default async function AdjectiveOrderPage() {
             categoryId: "adjective-order",
             topicId: "rule",
             activityId: "rule"
+          })
+        ] ?? "none"
+      );
+    }
+    if (activityId === "sentence-builder") {
+      return (
+        progress.containerStatuses[
+          buildProgressKey({
+            section: "grammar",
+            categoryId: "adjective-order",
+            topicId: "sentence-builder"
           })
         ] ?? "none"
       );
