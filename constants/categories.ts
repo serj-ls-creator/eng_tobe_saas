@@ -968,6 +968,18 @@ export const GRAMMAR_CATS: Category[] = [
     order: 2
   },
   {
+    id: "word-order",
+    name: "Word Order",
+    description: "SVO, manner, place, time & questions",
+    icon: "ListOrdered",
+    color: UI_COLORS.cyan,
+    section: "grammar",
+    href: "/grammar/word-order",
+    access: "free",
+    isFree: true,
+    order: 3
+  },
+  {
     id: "prepositions",
     name: "Prepositions",
     description: "in, on, at and dependent prepositions",
@@ -977,7 +989,7 @@ export const GRAMMAR_CATS: Category[] = [
     href: "#",
     access: "free",
     isFree: true,
-    order: 3,
+    order: 4,
     badge: "Coming Soon"
   },
   {
@@ -990,7 +1002,7 @@ export const GRAMMAR_CATS: Category[] = [
     href: "#",
     access: "free",
     isFree: true,
-    order: 4,
+    order: 5,
     badge: "Coming Soon"
   }
 ];

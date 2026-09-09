@@ -407,6 +407,15 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
   const adjOrderStatus = aggregateStatuses([adjOrderRuleStatus, adjOrderBuilderStatus]);
   containerStatuses[buildProgressKey({ section: "grammar", categoryId: "adjective-order" })] = adjOrderStatus;
 
+  const wordOrderRuleKey = buildProgressKey({
+    section: "grammar",
+    categoryId: "word-order",
+    topicId: "rule",
+    activityId: "rule"
+  });
+  const wordOrderRuleStatus = activityStatuses[wordOrderRuleKey] ?? "none";
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "word-order" })] = wordOrderRuleStatus;
+
   return { isLoggedIn, activityStatuses, containerStatuses };
 }
 
@@ -639,6 +648,15 @@ function buildGrammarActivityKeys(): string[] {
       })
     );
   });
+
+  keys.push(
+    buildProgressKey({
+      section: "grammar",
+      categoryId: "word-order",
+      topicId: "rule",
+      activityId: "rule"
+    })
+  );
 
   return keys;
 }
