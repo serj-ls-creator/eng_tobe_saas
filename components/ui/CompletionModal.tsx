@@ -153,6 +153,21 @@ function inferProgressPayload({
     };
   }
 
+  if (segments[0] === 'grammar' && segments[1] === 'word-order' && segments[2] === 'find-the-mistake' && segments[3]) {
+    return {
+      section: 'grammar',
+      categoryId: 'word-order',
+      topicId: 'find-the-mistake',
+      levelId: segments[3],
+      activityId: 'find-the-mistake',
+      activityName: 'Find the Mistake',
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
   if (segments[0] === 'grammar' && segments[1] && segments[2] === 'rule') {
     return {
       section: 'grammar',

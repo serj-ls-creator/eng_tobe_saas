@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Clock, type LucideIcon } from "lucide-react";
+import { BookOpen, Clock, Search, type LucideIcon } from "lucide-react";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
@@ -33,7 +33,14 @@ const ACTIVITIES: WordOrderActivity[] = [
     icon: BookOpen,
     available: true
   },
-  { id: "find-the-mistake", title: "Find the Mistake", description: "Coming Soon", available: false },
+  {
+    id: "find-the-mistake",
+    title: "Find the Mistake",
+    description: "Spot words out of position",
+    href: "/grammar/word-order/find-the-mistake",
+    icon: Search,
+    available: true
+  },
   { id: "sentence-builder", title: "Sentence builder", description: "Coming Soon", available: false },
   { id: "multiple-choice", title: "Multiple Choice", description: "Coming Soon", available: false }
 ];
@@ -50,6 +57,17 @@ export default async function WordOrderPage() {
             categoryId: "word-order",
             topicId: "rule",
             activityId: "rule"
+          })
+        ] ?? "none"
+      );
+    }
+    if (activityId === "find-the-mistake") {
+      return (
+        progress.containerStatuses[
+          buildProgressKey({
+            section: "grammar",
+            categoryId: "word-order",
+            topicId: "find-the-mistake"
           })
         ] ?? "none"
       );

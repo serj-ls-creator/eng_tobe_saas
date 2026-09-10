@@ -78,6 +78,7 @@ const IDIOM_LEVEL_IDS = ["level-1", "level-2", "level-3"];
 const GRAMMAR_ARTICLES_ACTIVITY_IDS = ["rule"];
 const GRAMMAR_ARTICLES_FILL_GAP_LEVEL_IDS = ["level-1", "level-2", "level-3", "level-4", "level-5"];
 export const GRAMMAR_ADJECTIVE_ORDER_BUILDER_LEVEL_IDS = ["level-1", "level-2", "level-3"] as const;
+export const GRAMMAR_WORD_ORDER_MISTAKE_LEVEL_IDS = ["level-1", "level-2", "level-3", "level-4"] as const;
 
 export function buildProgressKey(input: {
   section: LearningSection;
@@ -414,7 +415,24 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
     activityId: "rule"
   });
   const wordOrderRuleStatus = activityStatuses[wordOrderRuleKey] ?? "none";
-  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "word-order" })] = wordOrderRuleStatus;
+
+  const wordOrderMistakeLevelStatuses = GRAMMAR_WORD_ORDER_MISTAKE_LEVEL_IDS.map((levelId) => {
+    const key = buildProgressKey({
+      section: "grammar",
+      categoryId: "word-order",
+      topicId: "find-the-mistake",
+      levelId,
+      activityId: "find-the-mistake"
+    });
+    return activityStatuses[key] ?? "none";
+  });
+  const wordOrderMistakeStatus = aggregateStatuses(wordOrderMistakeLevelStatuses);
+  containerStatuses[
+    buildProgressKey({ section: "grammar", categoryId: "word-order", topicId: "find-the-mistake" })
+  ] = wordOrderMistakeStatus;
+
+  const wordOrderStatus = aggregateStatuses([wordOrderRuleStatus, wordOrderMistakeStatus]);
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "word-order" })] = wordOrderStatus;
 
   return { isLoggedIn, activityStatuses, containerStatuses };
 }
@@ -657,6 +675,18 @@ function buildGrammarActivityKeys(): string[] {
       activityId: "rule"
     })
   );
+
+  GRAMMAR_WORD_ORDER_MISTAKE_LEVEL_IDS.forEach((levelId) => {
+    keys.push(
+      buildProgressKey({
+        section: "grammar",
+        categoryId: "word-order",
+        topicId: "find-the-mistake",
+        levelId,
+        activityId: "find-the-mistake"
+      })
+    );
+  });
 
   return keys;
 }
