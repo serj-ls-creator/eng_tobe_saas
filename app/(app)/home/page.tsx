@@ -3,6 +3,7 @@ import { BookOpenText, MessageCircleMore, Lightbulb, Gamepad2, Rocket, BookOpen 
 
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
+import { GlowBorder } from "@/components/ui/GlowBorder";
 import { StreakBar } from "@/components/ui/StreakBar";
 import { UI_TEXT } from "@/constants/ui";
 import { getCurrentProfileWithPremium } from "@/lib/isPremium";
@@ -65,21 +66,18 @@ export default async function AppHomePage() {
 
           <section className="fade-up fade-up-d4">
             <Link href="/words" className="block cursor-pointer">
-              <div className="relative group overflow-hidden rounded-2xl p-[1px]">
-                <div className="absolute inset-[-500%] animate-[spin_6s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#00f2ff_0%,#7000ff_50%,#00f2ff_100%)]" />
-                <Card className="relative h-full w-full rounded-[14px] overflow-hidden border-2 border-transparent bg-[linear-gradient(#0a0a0a,#0a0a0a),conic-gradient(from_0deg,#FF3D71,#A855F7,#00E5FF,#FF3D71)] bg-origin-border bg-clip-padding p-4 hover:opacity-90 transition-opacity">
-                  <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-500">{UI_TEXT.wordOfDayTitle}</div>
-                  <div className="mb-1 flex items-center gap-2">
-                    <span className="text-sm text-zinc-500 line-through">{wordOfTheDay.simple}</span>
-                    <span className="text-cyan-400">-&gt;</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="text-lg font-semibold">{wordOfTheDay.synonym}</div>
-                    <span className="text-[11px] text-zinc-400">{wordOfTheDay.transcription}</span>
-                  </div>
-                  <div className="mt-1 text-[11px] text-zinc-500">{wordOfTheDay.explanation}</div>
-                </Card>
-              </div>
+              <GlowBorder innerClassName="hover:opacity-90 transition-opacity">
+                <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-500">{UI_TEXT.wordOfDayTitle}</div>
+                <div className="mb-1 flex items-center gap-2">
+                  <span className="text-sm text-zinc-500 line-through">{wordOfTheDay.simple}</span>
+                  <span className="text-cyan-400">-&gt;</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="text-lg font-semibold">{wordOfTheDay.synonym}</div>
+                  <span className="text-[11px] text-zinc-400">{wordOfTheDay.transcription}</span>
+                </div>
+                <div className="mt-1 text-[11px] text-zinc-500">{wordOfTheDay.explanation}</div>
+              </GlowBorder>
             </Link>
           </section>
 
