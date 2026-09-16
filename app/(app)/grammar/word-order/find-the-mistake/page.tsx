@@ -53,7 +53,7 @@ export default async function WordOrderFindMistakeLevelsPage() {
           <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Word Order &middot; Practice</div>
           <h1 className="mb-2 text-3xl font-black text-white">Find the Mistake</h1>
           <p className="text-sm text-zinc-200">
-            Choose a difficulty level and tap the word or phrase that is placed in the wrong position in the sentence.
+            Choose a difficulty level and tap the 2 words or phrases that need to swap places to fix the word order.
           </p>
         </div>
 

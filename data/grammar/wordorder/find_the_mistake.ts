@@ -2,17 +2,16 @@
  * Find the Mistake content for Word Order in Grammar.
  *
  * 4 levels, 10 sentences each (40 items total).
- * In each sentence, one token/chunk is in the wrong position.
- * The player taps the token that is out of order.
+ * In each sentence, a pair of tokens is in swapped/incorrect positions.
+ * The player selects the 2 tokens that should swap places to correct the word order.
  */
 
 export interface WordOrderMistakeItem {
   id: string;
   tokens: string[];
-  mistakeIndex: number;
+  swapPair: [number, number];
   correctSentence: string;
   explanation: string;
-  translation?: string;
 }
 
 export interface WordOrderMistakeLevel {
@@ -29,87 +28,77 @@ export const wordOrderMistakeLevels: WordOrderMistakeLevel[] = [
   {
     level: 1,
     title: "Basic SVO & Frequency Adverbs",
-    description: "Spot misplaced adverbs of frequency and broken Subject-Verb-Object order",
+    description: "Find the 2 words that need to swap places (frequency adverbs and SVO order)",
     items: [
       {
         id: "l1-1",
         tokens: ["I", "drink", "always", "coffee", "in the morning."],
-        mistakeIndex: 2,
+        swapPair: [1, 2],
         correctSentence: "I always drink coffee in the morning.",
-        explanation: "Adverbs of frequency (always) go before the main verb: 'I always drink coffee'.",
-        translation: "Я всегда пью кофе по утрам."
+        explanation: "Adverbs of frequency (always) go before the main verb: 'I always drink coffee'."
       },
       {
         id: "l1-2",
         tokens: ["He", "plays", "never", "video games", "on weekdays."],
-        mistakeIndex: 2,
+        swapPair: [1, 2],
         correctSentence: "He never plays video games on weekdays.",
-        explanation: "Adverbs of frequency (never) go before the main verb: 'He never plays'.",
-        translation: "Он никогда не играет в видеоигры по будням."
+        explanation: "Adverbs of frequency (never) go before the main verb: 'He never plays'."
       },
       {
         id: "l1-3",
         tokens: ["She", "usually", "is", "tired", "after work."],
-        mistakeIndex: 1,
+        swapPair: [1, 2],
         correctSentence: "She is usually tired after work.",
-        explanation: "Adverbs of frequency go AFTER the verb 'to be': 'She is usually tired'.",
-        translation: "Она обычно уставшая после работы."
+        explanation: "Adverbs of frequency go AFTER the verb 'to be': 'She is usually tired'."
       },
       {
         id: "l1-4",
         tokens: ["They", "pizza", "eat", "every Friday night."],
-        mistakeIndex: 1,
+        swapPair: [1, 2],
         correctSentence: "They eat pizza every Friday night.",
-        explanation: "In English, the basic order is Subject + Verb + Object (SVO): 'They eat pizza'.",
-        translation: "Они едят пиццу каждую пятницу вечером."
+        explanation: "In English, the basic order is Subject + Verb + Object (SVO): 'They eat pizza'."
       },
       {
         id: "l1-5",
         tokens: ["We", "sometimes", "are", "late", "for class."],
-        mistakeIndex: 1,
+        swapPair: [1, 2],
         correctSentence: "We are sometimes late for class.",
-        explanation: "Adverbs of frequency go AFTER the verb 'to be': 'We are sometimes late'.",
-        translation: "Мы иногда опаздываем на занятия."
+        explanation: "Adverbs of frequency go AFTER the verb 'to be': 'We are sometimes late'."
       },
       {
         id: "l1-6",
         tokens: ["Tom", "watches", "often", "documentaries", "in the evening."],
-        mistakeIndex: 2,
+        swapPair: [1, 2],
         correctSentence: "Tom often watches documentaries in the evening.",
-        explanation: "Adverbs of frequency (often) go before the main verb: 'Tom often watches'.",
-        translation: "Том часто смотрит документальные фильмы по вечерам."
+        explanation: "Adverbs of frequency (often) go before the main verb: 'Tom often watches'."
       },
       {
         id: "l1-7",
         tokens: ["Anna", "a new car", "bought", "last week."],
-        mistakeIndex: 1,
+        swapPair: [1, 2],
         correctSentence: "Anna bought a new car last week.",
-        explanation: "Verb comes before Object: 'Anna bought a new car'.",
-        translation: "Анна купила новую машину на прошлой неделе."
+        explanation: "Verb comes before Object: 'Anna bought a new car'."
       },
       {
         id: "l1-8",
         tokens: ["My brother", "reads", "rarely", "books", "at home."],
-        mistakeIndex: 2,
+        swapPair: [1, 2],
         correctSentence: "My brother rarely reads books at home.",
-        explanation: "Adverbs of frequency (rarely) go before the main verb: 'rarely reads'.",
-        translation: "Мой брат редко читает книги дома."
+        explanation: "Adverbs of frequency (rarely) go before the main verb: 'rarely reads'."
       },
       {
         id: "l1-9",
         tokens: ["The children", "always", "are", "happy", "at the playground."],
-        mistakeIndex: 1,
+        swapPair: [1, 2],
         correctSentence: "The children are always happy at the playground.",
-        explanation: "Adverbs of frequency go after the verb 'to be': 'are always'.",
-        translation: "Дети всегда счастливы на детской площадке."
+        explanation: "Adverbs of frequency go after the verb 'to be': 'are always'."
       },
       {
         id: "l1-10",
         tokens: ["He", "German", "speaks", "very well."],
-        mistakeIndex: 1,
+        swapPair: [1, 2],
         correctSentence: "He speaks German very well.",
-        explanation: "Subject + Verb + Object (SVO): 'He speaks German'.",
-        translation: "Он очень хорошо говорит по-немецки."
+        explanation: "Subject + Verb + Object (SVO): 'He speaks German'."
       }
     ]
   },
@@ -120,87 +109,77 @@ export const wordOrderMistakeLevels: WordOrderMistakeLevel[] = [
   {
     level: 2,
     title: "Manner, Place & Time",
-    description: "Identify misplaced adverbs of manner (how), place (where), and time (when)",
+    description: "Swap the 2 parts in longer sentences to follow the natural Manner (how) → Place (where) → Time (when) order",
     items: [
       {
         id: "l2-1",
-        tokens: ["She", "ate", "breakfast", "in the kitchen", "quickly", "this morning."],
-        mistakeIndex: 3,
-        correctSentence: "She ate breakfast quickly in the kitchen this morning.",
-        explanation: "Order of adverbs is Manner → Place → Time: 'quickly (manner) in the kitchen (place)'.",
-        translation: "Она быстро позавтракала на кухне этим утром."
+        tokens: ["During the morning rush,", "she", "ate", "her breakfast", "in the kitchen", "quickly", "before leaving for work."],
+        swapPair: [4, 5],
+        correctSentence: "During the morning rush, she ate her breakfast quickly in the kitchen before leaving for work.",
+        explanation: "Manner (quickly) precedes Place (in the kitchen) and Time: Manner → Place → Time."
       },
       {
         id: "l2-2",
-        tokens: ["The boy", "played", "at 9 o'clock", "happily", "in the park."],
-        mistakeIndex: 2,
-        correctSentence: "The boy played happily in the park at 9 o'clock.",
-        explanation: "Manner (happily) → Place (in the park) → Time (at 9 o'clock).",
-        translation: "Мальчик радостно играл в парке в 9 часов."
+        tokens: ["The children", "played", "all afternoon", "in the sunny park", "cheerfully", "with their new friends."],
+        swapPair: [2, 4],
+        correctSentence: "The children played cheerfully in the sunny park all afternoon with their new friends.",
+        explanation: "Manner (cheerfully) comes before Place (in the sunny park) and Time (all afternoon)."
       },
       {
         id: "l2-3",
-        tokens: ["We", "walked", "yesterday", "slowly", "along the beach."],
-        mistakeIndex: 2,
-        correctSentence: "We walked slowly along the beach yesterday.",
-        explanation: "Manner (slowly) → Place (along the beach) → Time (yesterday).",
-        translation: "Вчера мы медленно гуляли по пляжу."
+        tokens: ["After a long day,", "the weary travelers", "arrived", "at midnight", "at the mountain cabin", "feeling exhausted."],
+        swapPair: [3, 4],
+        correctSentence: "After a long day, the weary travelers arrived at the mountain cabin at midnight feeling exhausted.",
+        explanation: "Place (at the mountain cabin) precedes Time (at midnight): Place → Time."
       },
       {
         id: "l2-4",
-        tokens: ["He", "drove", "to the office", "carefully", "in the snow."],
-        mistakeIndex: 2,
-        correctSentence: "He drove carefully to the office in the snow.",
-        explanation: "Manner (carefully) comes before Place (to the office).",
-        translation: "Он осторожно поехал на машине в офис по снегу."
+        tokens: ["The dedicated team", "completed", "the complex project", "in the conference room", "successfully", "ahead of schedule."],
+        swapPair: [3, 4],
+        correctSentence: "The dedicated team completed the complex project successfully in the conference room ahead of schedule.",
+        explanation: "Manner (successfully) goes before Place (in the conference room) and Time (ahead of schedule)."
       },
       {
         id: "l2-5",
-        tokens: ["The band", "performed", "last night", "brilliantly", "at the concert."],
-        mistakeIndex: 2,
-        correctSentence: "The band performed brilliantly at the concert last night.",
-        explanation: "Manner (brilliantly) → Place (at the concert) → Time (last night).",
-        translation: "Группа блестяще выступила на концерте прошлым вечером."
+        tokens: ["The renowned pianist", "performed", "at the royal theatre", "magnificently", "during the grand opening ceremony."],
+        swapPair: [2, 3],
+        correctSentence: "The renowned pianist performed magnificently at the royal theatre during the grand opening ceremony.",
+        explanation: "Manner (magnificently) comes before Place (at the royal theatre) and Time."
       },
       {
         id: "l2-6",
-        tokens: ["She", "slept", "all night", "peacefully", "in her bed."],
-        mistakeIndex: 2,
-        correctSentence: "She slept peacefully in her bed all night.",
-        explanation: "Manner (peacefully) → Place (in her bed) → Time (all night).",
-        translation: "Она спокойно спала в своей кровати всю ночь."
+        tokens: ["Every morning before sunrise,", "she", "runs", "along the river bank", "energetically", "to stay in shape."],
+        swapPair: [3, 4],
+        correctSentence: "Every morning before sunrise, she runs energetically along the river bank to stay in shape.",
+        explanation: "Manner (energetically) precedes Place (along the river bank)."
       },
       {
         id: "l2-7",
-        tokens: ["They", "studied", "at the library", "hard", "before the exam."],
-        mistakeIndex: 2,
-        correctSentence: "They studied hard at the library before the exam.",
-        explanation: "Manner (hard) comes before Place (at the library).",
-        translation: "Они усердно занимались в библиотеке перед экзаменом."
+        tokens: ["The architecture students", "studied", "the ancient blueprints", "in the archive", "intently", "all afternoon."],
+        swapPair: [3, 4],
+        correctSentence: "The architecture students studied the ancient blueprints intently in the archive all afternoon.",
+        explanation: "Manner (intently) comes before Place (in the archive) and Time (all afternoon)."
       },
       {
         id: "l2-8",
-        tokens: ["The birds", "sang", "at dawn", "sweetly", "in the trees."],
-        mistakeIndex: 2,
-        correctSentence: "The birds sang sweetly in the trees at dawn.",
-        explanation: "Manner (sweetly) → Place (in the trees) → Time (at dawn).",
-        translation: "Птицы сладко пели на деревьях на рассвете."
+        tokens: ["Last weekend,", "my grandparents", "sat", "until dusk", "on the front porch", "talking about old times."],
+        swapPair: [3, 4],
+        correctSentence: "Last weekend, my grandparents sat on the front porch until dusk talking about old times.",
+        explanation: "Place (on the front porch) goes before Time (until dusk): Place → Time."
       },
       {
         id: "l2-9",
-        tokens: ["He", "worked", "last week", "diligently", "at his desk."],
-        mistakeIndex: 2,
-        correctSentence: "He worked diligently at his desk last week.",
-        explanation: "Manner (diligently) → Place (at his desk) → Time (last week).",
-        translation: "На прошлой неделе он прилежно работал за своим столом."
+        tokens: ["Despite the pouring rain,", "he", "cycled", "this morning", "through the dense forest", "bravely."],
+        swapPair: [3, 5],
+        correctSentence: "Despite the pouring rain, he cycled bravely through the dense forest this morning.",
+        explanation: "Manner (bravely) comes before Place (through the dense forest) and Time (this morning)."
       },
       {
         id: "l2-10",
-        tokens: ["We", "sat", "in the garden", "quietly", "after dinner."],
-        mistakeIndex: 2,
-        correctSentence: "We sat quietly in the garden after dinner.",
-        explanation: "Manner (quietly) comes before Place (in the garden).",
-        translation: "Мы тихо сидели в саду после ужина."
+        tokens: ["The young artist", "painted", "in her private studio", "passionately", "while listening to classical music."],
+        swapPair: [2, 3],
+        correctSentence: "The young artist painted passionately in her private studio while listening to classical music.",
+        explanation: "Manner (passionately) comes before Place (in her private studio)."
       }
     ]
   },
@@ -211,87 +190,77 @@ export const wordOrderMistakeLevels: WordOrderMistakeLevel[] = [
   {
     level: 3,
     title: "Verb & Object Separation",
-    description: "Detect words incorrectly splitting the verb from its direct object",
+    description: "Swap the 2 parts so the direct object stays directly with its verb",
     items: [
       {
         id: "l3-1",
-        tokens: ["She", "speaks", "fluently", "English", "and French."],
-        mistakeIndex: 2,
+        tokens: ["She", "speaks", "fluently", "English and French."],
+        swapPair: [2, 3],
         correctSentence: "She speaks English and French fluently.",
-        explanation: "Never separate a verb from its direct object: 'speaks English fluently'.",
-        translation: "Она свободно говорит по-английски и по-французски."
+        explanation: "Never separate a verb from its direct object: 'speaks English and French fluently'."
       },
       {
         id: "l3-2",
         tokens: ["I", "like", "very much", "Italian food."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "I like Italian food very much.",
-        explanation: "Do not put 'very much' between the verb and object: 'like Italian food very much'.",
-        translation: "Мне очень нравится итальянская еда."
+        explanation: "Do not put 'very much' between the verb and object: 'like Italian food very much'."
       },
       {
         id: "l3-3",
         tokens: ["He", "finished", "quickly", "his homework", "before dinner."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "He finished his homework quickly before dinner.",
-        explanation: "The direct object follows the verb directly: 'finished his homework quickly'.",
-        translation: "Он быстро закончил домашнее задание перед ужином."
+        explanation: "The direct object follows the verb directly: 'finished his homework quickly'."
       },
       {
         id: "l3-4",
-        tokens: ["They", "watched", "last night", "a great movie", "together."],
-        mistakeIndex: 2,
-        correctSentence: "They watched a great movie together last night.",
-        explanation: "Time cannot separate the verb from its object: 'watched a great movie'.",
-        translation: "Прошлым вечером они вместе смотрели отличный фильм."
+        tokens: ["They", "watched", "last night", "a great movie."],
+        swapPair: [2, 3],
+        correctSentence: "They watched a great movie last night.",
+        explanation: "Time cannot separate the verb from its object: 'watched a great movie last night'."
       },
       {
         id: "l3-5",
         tokens: ["She", "opened", "carefully", "the old envelope."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "She opened the old envelope carefully.",
-        explanation: "Verb and object stay together: 'opened the old envelope carefully'.",
-        translation: "Она осторожно открыла старый конверт."
+        explanation: "Verb and object stay together: 'opened the old envelope carefully'."
       },
       {
         id: "l3-6",
         tokens: ["We", "cleaned", "yesterday", "the entire house."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "We cleaned the entire house yesterday.",
-        explanation: "Verb and object cannot be split by time: 'cleaned the entire house'.",
-        translation: "Вчера мы убрали весь дом."
+        explanation: "Verb and object cannot be split by time: 'cleaned the entire house yesterday'."
       },
       {
         id: "l3-7",
         tokens: ["He", "lost", "in the park", "his keys", "this afternoon."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "He lost his keys in the park this afternoon.",
-        explanation: "Object directly follows verb: 'lost his keys in the park'.",
-        translation: "Сегодня днем он потерял ключи в парке."
+        explanation: "Object directly follows verb: 'lost his keys in the park'."
       },
       {
         id: "l3-8",
         tokens: ["I", "enjoy", "a lot", "playing chess", "with my grandfather."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "I enjoy playing chess a lot with my grandfather.",
-        explanation: "Verb and object must not be separated: 'enjoy playing chess a lot'.",
-        translation: "Мне очень нравится играть в шахматы с дедушкой."
+        explanation: "Verb and object must not be separated: 'enjoy playing chess a lot'."
       },
       {
         id: "l3-9",
         tokens: ["She", "bought", "at the market", "fresh vegetables", "this morning."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "She bought fresh vegetables at the market this morning.",
-        explanation: "Object comes before place: 'bought fresh vegetables at the market'.",
-        translation: "Она купила свежие овощи на рынке этим утром."
+        explanation: "Object comes before place: 'bought fresh vegetables at the market'."
       },
       {
         id: "l3-10",
         tokens: ["He", "understood", "immediately", "the lesson."],
-        mistakeIndex: 2,
+        swapPair: [2, 3],
         correctSentence: "He understood the lesson immediately.",
-        explanation: "Do not put adverb between verb and object: 'understood the lesson immediately'.",
-        translation: "Он сразу понял урок."
+        explanation: "Do not put adverb between verb and object: 'understood the lesson immediately'."
       }
     ]
   },
@@ -302,87 +271,77 @@ export const wordOrderMistakeLevels: WordOrderMistakeLevel[] = [
   {
     level: 4,
     title: "Advanced Mixed Challenge",
-    description: "Tackle complex sentence structures: embedded questions, inversion, phrasal verbs, and multi-part adverbs",
+    description: "Swap the 2 misplaced parts across complex structures (inversion, embedded questions, compound verbs)",
     items: [
       {
         id: "l4-1",
-        tokens: ["Can you tell me", "where", "does the director", "work", "during the week?"],
-        mistakeIndex: 2,
-        correctSentence: "Can you tell me where the director works during the week?",
-        explanation: "In indirect questions, use normal statement word order (Subject + Verb) without auxiliary 'does': 'where the director works'.",
-        translation: "Можете ли вы подсказать, где директор работает в течение недели?"
+        tokens: ["Can you tell me", "where", "is", "the director", "working this week?"],
+        swapPair: [2, 3],
+        correctSentence: "Can you tell me where the director is working this week?",
+        explanation: "In indirect questions, use normal statement word order (Subject + Verb): 'where the director is working'."
       },
       {
         id: "l4-2",
-        tokens: ["Rarely", "she has seen", "such an impressive", "performance", "at the opera."],
-        mistakeIndex: 1,
-        correctSentence: "Rarely has she seen such an impressive performance at the opera.",
-        explanation: "When starting with a negative adverb (Rarely, Seldom, Never), the auxiliary must precede the subject: 'Rarely has she seen'.",
-        translation: "Редко ей доводилось видеть столь впечатляющее представление в опере."
+        tokens: ["Rarely", "she", "has", "seen such an impressive", "opera performance."],
+        swapPair: [1, 2],
+        correctSentence: "Rarely has she seen such an impressive opera performance.",
+        explanation: "When starting with a negative adverb (Rarely, Seldom, Never), the auxiliary must precede the subject: 'Rarely has she seen'."
       },
       {
         id: "l4-3",
-        tokens: ["The committee", "discussed", "thoroughly in great detail", "the proposed", "environmental budget."],
-        mistakeIndex: 2,
-        correctSentence: "The committee discussed the proposed environmental budget thoroughly in great detail.",
-        explanation: "Never separate a transitive verb ('discussed') from its direct object ('the proposed environmental budget') with an adverbial phrase.",
-        translation: "Комитет подробно и во всех деталях обсудил предложенный экологический бюджет."
+        tokens: ["The committee", "discussed", "thoroughly", "the environmental budget", "at the meeting."],
+        swapPair: [2, 3],
+        correctSentence: "The committee discussed the environmental budget thoroughly at the meeting.",
+        explanation: "Never separate a transitive verb ('discussed') from its direct object ('the environmental budget') with an adverb."
       },
       {
         id: "l4-4",
-        tokens: ["The senior engineer", "has been always", "dedicated to", "finding", "innovative solutions."],
-        mistakeIndex: 1,
-        correctSentence: "The senior engineer has always been dedicated to finding innovative solutions.",
-        explanation: "In compound tenses (has been), frequency adverbs go directly after the FIRST auxiliary verb: 'has always been'.",
-        translation: "Ведущий инженер всегда был предан поиску инновационных решений."
+        tokens: ["The senior engineer", "has", "been", "always", "dedicated to his team."],
+        swapPair: [2, 3],
+        correctSentence: "The senior engineer has always been dedicated to his team.",
+        explanation: "In compound tenses (has been), frequency adverbs go directly after the FIRST auxiliary verb: 'has always been'."
       },
       {
         id: "l4-5",
-        tokens: ["The orchestra", "performed", "in the cathedral", "wonderfully", "at the annual festival yesterday."],
-        mistakeIndex: 2,
-        correctSentence: "The orchestra performed wonderfully in the cathedral at the annual festival yesterday.",
-        explanation: "Follow the MPT rule: Manner ('wonderfully') comes before Place ('in the cathedral') and Time ('yesterday').",
-        translation: "Оркестр чудесно выступил в соборе на ежегодном фестивале вчера."
+        tokens: ["The orchestra", "performed", "in the cathedral", "wonderfully", "yesterday evening."],
+        swapPair: [2, 3],
+        correctSentence: "The orchestra performed wonderfully in the cathedral yesterday evening.",
+        explanation: "Follow the MPT rule: Manner ('wonderfully') comes before Place ('in the cathedral') and Time ('yesterday evening')."
       },
       {
         id: "l4-6",
-        tokens: ["After years of hesitation,", "he gave", "eventually", "up", "his stressful corporate job."],
-        mistakeIndex: 2,
-        correctSentence: "After years of hesitation, he eventually gave up his stressful corporate job.",
-        explanation: "Adverbs cannot split a verb from its phrasal particle: 'he eventually gave up'.",
-        translation: "После долгих лет сомнений он в конце концов бросил свою стрессовую работу в корпорации."
+        tokens: ["After months of doubt,", "he", "gave", "eventually", "up his stressful job."],
+        swapPair: [2, 3],
+        correctSentence: "After months of doubt, he eventually gave up his stressful job.",
+        explanation: "Adverbs cannot split a verb from its phrasal particle: 'he eventually gave up'."
       },
       {
         id: "l4-7",
-        tokens: ["I wonder", "what", "did the research team", "discover", "during their expedition."],
-        mistakeIndex: 2,
-        correctSentence: "I wonder what the research team discovered during their expedition.",
-        explanation: "Indirect questions use statement order without auxiliary 'did': 'what the research team discovered'.",
-        translation: "Интересно, что исследовательская группа обнаружила во время своей экспедиции."
+        tokens: ["Do you know", "why", "is", "the manager", "leaving the company?"],
+        swapPair: [2, 3],
+        correctSentence: "Do you know why the manager is leaving the company?",
+        explanation: "Indirect questions use statement order (Subject + Verb): 'why the manager is leaving'."
       },
       {
         id: "l4-8",
-        tokens: ["No sooner", "the flight had landed", "than the heavy storm", "started across", "the city."],
-        mistakeIndex: 1,
-        correctSentence: "No sooner had the flight landed than the heavy storm started across the city.",
-        explanation: "Sentences starting with 'No sooner' require inverted auxiliary order: 'No sooner had the flight landed'.",
-        translation: "Не успел самолет приземлиться, как по всему городу началась сильная буря."
+        tokens: ["No sooner", "the flight", "had", "landed than the storm", "began."],
+        swapPair: [1, 2],
+        correctSentence: "No sooner had the flight landed than the storm began.",
+        explanation: "Sentences starting with 'No sooner' require inverted auxiliary order: 'No sooner had the flight landed'."
       },
       {
         id: "l4-9",
-        tokens: ["The manager", "explained", "the new employees", "the complete", "onboarding process."],
-        mistakeIndex: 2,
-        correctSentence: "The manager explained the complete onboarding process to the new employees.",
-        explanation: "Verbs like 'explain' cannot take a person direct object without a preposition: 'explained the process to the new employees'.",
-        translation: "Менеджер объяснил новым сотрудникам весь процесс адаптации."
+        tokens: ["The manager", "explained", "to the team", "the new project", "in detail."],
+        swapPair: [2, 3],
+        correctSentence: "The manager explained the new project to the team in detail.",
+        explanation: "Put the direct object before the prepositional phrase: 'explained the new project to the team'."
       },
       {
         id: "l4-10",
-        tokens: ["What project", "they have been", "working on tirelessly", "for the past", "six months?"],
-        mistakeIndex: 1,
-        correctSentence: "What project have they been working on tirelessly for the past six months?",
-        explanation: "In questions, the auxiliary verb must precede the subject: 'have they been working on'.",
-        translation: "Над каким проектом они без устали работали последние шесть месяцев?"
+        tokens: ["What project", "they", "have", "been working on", "all afternoon?"],
+        swapPair: [1, 2],
+        correctSentence: "What project have they been working on all afternoon?",
+        explanation: "In questions, the auxiliary verb must precede the subject: 'have they been working on'."
       }
     ]
   }

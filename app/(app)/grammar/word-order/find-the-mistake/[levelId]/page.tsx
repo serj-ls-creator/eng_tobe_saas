@@ -43,7 +43,7 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
   const [rounds, setRounds] = useState<WordOrderMistakeItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answerState, setAnswerState] = useState<AnswerState>('idle');
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
   const [correctCount, setCorrectCount] = useState(0);
   const [showCompletion, setShowCompletion] = useState(false);
 
@@ -60,7 +60,7 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
   }, [mounted, level]);
 
   useEffect(() => {
-    setSelectedIndex(null);
+    setSelectedIndices([]);
     setAnswerState('idle');
   }, [currentIndex]);
 
@@ -70,8 +70,26 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
     (index: number) => {
       if (answerState !== 'idle' || !currentRound) return;
 
-      setSelectedIndex(index);
-      const isCorrect = index === currentRound.mistakeIndex;
+      // If already selected, deselect it
+      if (selectedIndices.includes(index)) {
+        setSelectedIndices((prev) => prev.filter((i) => i !== index));
+        return;
+      }
+
+      // If selecting the first item
+      if (selectedIndices.length === 0) {
+        setSelectedIndices([index]);
+        return;
+      }
+
+      // Selecting the second item -> evaluate the pair
+      const newSelected = [selectedIndices[0], index];
+      setSelectedIndices(newSelected);
+
+      const sortedSelected = [...newSelected].sort((a, b) => a - b);
+      const sortedTarget = [...currentRound.swapPair].sort((a, b) => a - b);
+      const isCorrect =
+        sortedSelected[0] === sortedTarget[0] && sortedSelected[1] === sortedTarget[1];
 
       if (isCorrect) {
         setAnswerState('correct');
@@ -90,7 +108,7 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
         playWrong();
       }
     },
-    [answerState, currentIndex, currentRound, playCorrect, playWrong, rounds.length]
+    [answerState, currentIndex, currentRound, playCorrect, playWrong, rounds.length, selectedIndices]
   );
 
   const handleNextAfterError = () => {
@@ -128,17 +146,29 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
 
   const getTokenStyle = (index: number) => {
     if (answerState === 'idle') {
+      if (selectedIndices.includes(index)) {
+        return 'bg-cyan-500/20 border-cyan-400 text-cyan-200 shadow-[0_0_12px_rgba(34,211,238,0.35)] scale-[1.03] font-bold';
+      }
       return 'bg-white/[0.06] border-white/15 text-white hover:bg-white/[0.12] hover:border-cyan-400/60 hover:text-cyan-200 active:scale-95 shadow-sm';
     }
 
-    if (index === currentRound.mistakeIndex) {
+    const isTargetPair = currentRound.swapPair.includes(index);
+    const isUserSelected = selectedIndices.includes(index);
+
+    if (answerState === 'correct') {
+      if (isTargetPair) {
+        return 'bg-emerald-500/20 border-emerald-400 text-emerald-300 shadow-[0_0_12px_rgba(52,211,153,0.35)] font-bold';
+      }
+      return 'bg-white/[0.02] border-white/5 text-zinc-500 opacity-40 cursor-default';
+    }
+
+    // answerState === 'wrong'
+    if (isTargetPair) {
       return 'bg-emerald-500/20 border-emerald-400 text-emerald-300 shadow-[0_0_12px_rgba(52,211,153,0.35)] font-bold';
     }
-
-    if (answerState === 'wrong' && index === selectedIndex) {
+    if (isUserSelected) {
       return 'bg-rose-500/20 border-rose-400 text-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.35)] font-bold';
     }
-
     return 'bg-white/[0.02] border-white/5 text-zinc-500 opacity-40 cursor-default';
   };
 
@@ -173,10 +203,15 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
         {/* Main Exercise Card */}
         <Card className="mb-6 p-6 border-white/10 bg-slate-900/60 backdrop-blur">
           <div className="mb-2 text-[11px] font-bold uppercase tracking-wider text-cyan-400">
-            Find the Mistake
+            Find the Mistake &middot; Swap Pair
           </div>
-          <p className="text-xs text-zinc-400 mb-5">
-            Tap the word or phrase that is in the wrong position:
+          <p className="text-xs text-zinc-300 mb-5">
+            Tap the <span className="font-semibold text-cyan-300">2 words or phrases</span> that need to swap places:
+            {selectedIndices.length === 1 && (
+              <span className="ml-1.5 text-cyan-400 font-medium animate-pulse">
+                (1 of 2 selected &mdash; tap second word)
+              </span>
+            )}
           </p>
 
           {/* Interactive sentence tokens */}
@@ -196,18 +231,11 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
             ))}
           </div>
 
-          {/* Translation hint if available */}
-          {currentRound.translation && (
-            <div className="mt-4 text-xs italic text-zinc-400 border-t border-white/5 pt-3">
-              {currentRound.translation}
-            </div>
-          )}
-
           {/* Error explanation and correct sentence reveal */}
           {answerState === 'wrong' && (
             <div className="mt-5 rounded-2xl border border-rose-500/30 bg-rose-500/10 p-4 fade-up">
               <div className="text-xs font-bold uppercase tracking-wider text-rose-300 mb-1">
-                Misplaced: &quot;{currentRound.tokens[currentRound.mistakeIndex]}&quot;
+                Words to swap: &quot;{currentRound.tokens[currentRound.swapPair[0]]}&quot; &harr; &quot;{currentRound.tokens[currentRound.swapPair[1]]}&quot;
               </div>
               <div className="text-xs text-zinc-400 mb-1">Correct sentence:</div>
               <div className="text-sm sm:text-base font-bold text-white mb-2">

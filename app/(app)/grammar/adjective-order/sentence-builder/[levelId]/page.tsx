@@ -30,7 +30,6 @@ interface RoundItem {
   tokens: Token[];
   adjectives: string[];
   explanation: string;
-  translation?: string;
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -110,7 +109,6 @@ export default function AdjectiveOrderSentenceBuilderGamePage({ params }: PagePr
         tokens,
         adjectives: item.adjectives,
         explanation: item.explanation,
-        translation: item.translation,
       };
     });
     setRounds(built);
@@ -332,13 +330,6 @@ export default function AdjectiveOrderSentenceBuilderGamePage({ params }: PagePr
               );
             })}
           </div>
-
-          {/* Translation hint if available */}
-          {currentRound.translation && (
-            <div className="mt-4 text-xs italic text-zinc-400 border-t border-white/5 pt-3">
-              {currentRound.translation}
-            </div>
-          )}
 
           {/* Error explanation and correct answer reveal */}
           {answerState === 'wrong' && (
