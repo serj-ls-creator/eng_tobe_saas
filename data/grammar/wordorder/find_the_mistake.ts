@@ -28,77 +28,77 @@ export const wordOrderMistakeLevels: WordOrderMistakeLevel[] = [
   {
     level: 1,
     title: "Basic SVO & Frequency Adverbs",
-    description: "Find the 2 words that need to swap places (frequency adverbs and SVO order)",
+    description: "Swap the 2 parts to correct basic SVO word order, frequency adverbs, and modal verbs",
     items: [
       {
         id: "l1-1",
-        tokens: ["I", "drink", "always", "coffee", "in the morning."],
-        swapPair: [1, 2],
-        correctSentence: "I always drink coffee in the morning.",
-        explanation: "Adverbs of frequency (always) go before the main verb: 'I always drink coffee'."
+        tokens: ["On busy weekdays,", "our office manager", "can", "prepare", "always", "fresh coffee for the team."],
+        swapPair: [3, 4],
+        correctSentence: "On busy weekdays, our office manager can always prepare fresh coffee for the team.",
+        explanation: "Frequency adverbs go between the modal verb ('can') and the main verb ('prepare'): 'can always prepare'."
       },
       {
         id: "l1-2",
-        tokens: ["He", "plays", "never", "video games", "on weekdays."],
-        swapPair: [1, 2],
-        correctSentence: "He never plays video games on weekdays.",
-        explanation: "Adverbs of frequency (never) go before the main verb: 'He never plays'."
+        tokens: ["During the winter season,", "the local trains", "usually", "are", "crowded in the morning."],
+        swapPair: [2, 3],
+        correctSentence: "During the winter season, the local trains are usually crowded in the morning.",
+        explanation: "Adverbs of frequency go AFTER the verb 'to be': 'are usually crowded'."
       },
       {
         id: "l1-3",
-        tokens: ["She", "usually", "is", "tired", "after work."],
-        swapPair: [1, 2],
-        correctSentence: "She is usually tired after work.",
-        explanation: "Adverbs of frequency go AFTER the verb 'to be': 'She is usually tired'."
+        tokens: ["Before going to bed,", "the little boy", "his teeth", "brushes", "thoroughly."],
+        swapPair: [2, 3],
+        correctSentence: "Before going to bed, the little boy brushes his teeth thoroughly.",
+        explanation: "In English, the verb precedes the object (SVO): 'brushes his teeth'."
       },
       {
         id: "l1-4",
-        tokens: ["They", "pizza", "eat", "every Friday night."],
-        swapPair: [1, 2],
-        correctSentence: "They eat pizza every Friday night.",
-        explanation: "In English, the basic order is Subject + Verb + Object (SVO): 'They eat pizza'."
+        tokens: ["My grandfather", "is", "forgetting", "constantly", "where he placed his glasses."],
+        swapPair: [2, 3],
+        correctSentence: "My grandfather is constantly forgetting where he placed his glasses.",
+        explanation: "Adverbs of frequency go directly after the auxiliary verb: 'is constantly forgetting'."
       },
       {
         id: "l1-5",
-        tokens: ["We", "sometimes", "are", "late", "for class."],
+        tokens: ["Sarah and her sister", "visit", "rarely", "their cousins", "during the school semester."],
         swapPair: [1, 2],
-        correctSentence: "We are sometimes late for class.",
-        explanation: "Adverbs of frequency go AFTER the verb 'to be': 'We are sometimes late'."
+        correctSentence: "Sarah and her sister rarely visit their cousins during the school semester.",
+        explanation: "Adverbs of frequency (rarely) go before the main verb: 'rarely visit'."
       },
       {
         id: "l1-6",
-        tokens: ["Tom", "watches", "often", "documentaries", "in the evening."],
-        swapPair: [1, 2],
-        correctSentence: "Tom often watches documentaries in the evening.",
-        explanation: "Adverbs of frequency (often) go before the main verb: 'Tom often watches'."
+        tokens: ["Every Sunday morning,", "my uncle", "delicious pancakes", "makes", "for the whole family."],
+        swapPair: [2, 3],
+        correctSentence: "Every Sunday morning, my uncle makes delicious pancakes for the whole family.",
+        explanation: "Subject + Verb + Object (SVO): 'makes (verb) delicious pancakes (object)'."
       },
       {
         id: "l1-7",
-        tokens: ["Anna", "a new car", "bought", "last week."],
-        swapPair: [1, 2],
-        correctSentence: "Anna bought a new car last week.",
-        explanation: "Verb comes before Object: 'Anna bought a new car'."
+        tokens: ["During exam week,", "the students", "sleep", "hardly", "ever", "more than five hours."],
+        swapPair: [2, 3],
+        correctSentence: "During exam week, the students hardly ever sleep more than five hours.",
+        explanation: "Adverbs of frequency (hardly ever) go before the main verb: 'hardly ever sleep'."
       },
       {
         id: "l1-8",
-        tokens: ["My brother", "reads", "rarely", "books", "at home."],
-        swapPair: [1, 2],
-        correctSentence: "My brother rarely reads books at home.",
-        explanation: "Adverbs of frequency (rarely) go before the main verb: 'rarely reads'."
-      },
-      {
-        id: "l1-9",
-        tokens: ["The children", "always", "are", "happy", "at the playground."],
-        swapPair: [1, 2],
-        correctSentence: "The children are always happy at the playground.",
+        tokens: ["The customer service agents", "in our branch", "always", "are", "friendly and patient with clients."],
+        swapPair: [2, 3],
+        correctSentence: "The customer service agents in our branch are always friendly and patient with clients.",
         explanation: "Adverbs of frequency go after the verb 'to be': 'are always'."
       },
       {
+        id: "l1-9",
+        tokens: ["When driving in thick fog,", "you", "forget", "never", "should", "to turn on your headlights."],
+        swapPair: [2, 4],
+        correctSentence: "When driving in thick fog, you should never forget to turn on your headlights.",
+        explanation: "The modal verb comes before the frequency adverb: 'should never forget'."
+      },
+      {
         id: "l1-10",
-        tokens: ["He", "German", "speaks", "very well."],
-        swapPair: [1, 2],
-        correctSentence: "He speaks German very well.",
-        explanation: "Subject + Verb + Object (SVO): 'He speaks German'."
+        tokens: ["After a hard workout,", "the athletes", "drink", "sometimes", "a protein shake at the gym."],
+        swapPair: [2, 3],
+        correctSentence: "After a hard workout, the athletes sometimes drink a protein shake at the gym.",
+        explanation: "Adverbs of frequency go before the main verb: 'sometimes drink'."
       }
     ]
   },
@@ -190,77 +190,77 @@ export const wordOrderMistakeLevels: WordOrderMistakeLevel[] = [
   {
     level: 3,
     title: "Verb & Object Separation",
-    description: "Swap the 2 parts so the direct object stays directly with its verb",
+    description: "Swap the 2 parts across diverse sentence positions so direct objects remain directly connected to their verbs",
     items: [
       {
         id: "l3-1",
-        tokens: ["She", "speaks", "fluently", "English and French."],
-        swapPair: [2, 3],
-        correctSentence: "She speaks English and French fluently.",
-        explanation: "Never separate a verb from its direct object: 'speaks English and French fluently'."
+        tokens: ["The experienced surgeon", "the complex operation", "performed", "without any complications", "this morning."],
+        swapPair: [1, 2],
+        correctSentence: "The experienced surgeon performed the complex operation without any complications this morning.",
+        explanation: "In English, the verb must precede its direct object (SVO): 'performed the complex operation'."
       },
       {
         id: "l3-2",
-        tokens: ["I", "like", "very much", "Italian food."],
+        tokens: ["The foreign delegate", "spoke", "fluently", "three European languages", "at the global summit."],
         swapPair: [2, 3],
-        correctSentence: "I like Italian food very much.",
-        explanation: "Do not put 'very much' between the verb and object: 'like Italian food very much'."
+        correctSentence: "The foreign delegate spoke three European languages fluently at the global summit.",
+        explanation: "Do not separate the transitive verb ('spoke') from its direct object ('three European languages') with an adverb."
       },
       {
         id: "l3-3",
-        tokens: ["He", "finished", "quickly", "his homework", "before dinner."],
-        swapPair: [2, 3],
-        correctSentence: "He finished his homework quickly before dinner.",
-        explanation: "The direct object follows the verb directly: 'finished his homework quickly'."
+        tokens: ["During the annual meeting,", "the board of directors", "unanimously", "approved", "without any hesitation", "the revised budget proposal."],
+        swapPair: [4, 5],
+        correctSentence: "During the annual meeting, the board of directors unanimously approved the revised budget proposal without any hesitation.",
+        explanation: "Prepositional adverbial phrases ('without any hesitation') cannot split the verb from its direct object."
       },
       {
         id: "l3-4",
-        tokens: ["They", "watched", "last night", "a great movie."],
-        swapPair: [2, 3],
-        correctSentence: "They watched a great movie last night.",
-        explanation: "Time cannot separate the verb from its object: 'watched a great movie last night'."
+        tokens: ["After reviewing the feedback,", "the chief architect", "modified", "immediately", "the preliminary blueprints", "to satisfy safety codes."],
+        swapPair: [3, 4],
+        correctSentence: "After reviewing the feedback, the chief architect modified the preliminary blueprints immediately to satisfy safety codes.",
+        explanation: "Keep the verb ('modified') and its direct object ('the preliminary blueprints') together without inserting adverbs."
       },
       {
         id: "l3-5",
-        tokens: ["She", "opened", "carefully", "the old envelope."],
-        swapPair: [2, 3],
-        correctSentence: "She opened the old envelope carefully.",
-        explanation: "Verb and object stay together: 'opened the old envelope carefully'."
+        tokens: ["At the ancient ruins,", "the archaeology team", "unearthed", "in the deep cave", "a golden artifact", "dating back centuries."],
+        swapPair: [3, 4],
+        correctSentence: "At the ancient ruins, the archaeology team unearthed a golden artifact in the deep cave dating back centuries.",
+        explanation: "The direct object ('a golden artifact') directly follows the transitive verb ('unearthed') before location phrases."
       },
       {
         id: "l3-6",
-        tokens: ["We", "cleaned", "yesterday", "the entire house."],
-        swapPair: [2, 3],
-        correctSentence: "We cleaned the entire house yesterday.",
-        explanation: "Verb and object cannot be split by time: 'cleaned the entire house yesterday'."
+        tokens: ["Despite the pouring rain,", "the enthusiastic spectators", "at the stadium", "watched", "intently", "the entire tennis match."],
+        swapPair: [4, 5],
+        correctSentence: "Despite the pouring rain, the enthusiastic spectators at the stadium watched the entire tennis match intently.",
+        explanation: "The adverb ('intently') goes after the direct object: 'watched the entire tennis match intently'."
       },
       {
         id: "l3-7",
-        tokens: ["He", "lost", "in the park", "his keys", "this afternoon."],
+        tokens: ["The software development company", "launched", "in international markets", "its cloud platform", "last quarter."],
         swapPair: [2, 3],
-        correctSentence: "He lost his keys in the park this afternoon.",
-        explanation: "Object directly follows verb: 'lost his keys in the park'."
+        correctSentence: "The software development company launched its cloud platform in international markets last quarter.",
+        explanation: "The direct object ('its cloud platform') precedes the prepositional phrase of location."
       },
       {
         id: "l3-8",
-        tokens: ["I", "enjoy", "a lot", "playing chess", "with my grandfather."],
-        swapPair: [2, 3],
-        correctSentence: "I enjoy playing chess a lot with my grandfather.",
-        explanation: "Verb and object must not be separated: 'enjoy playing chess a lot'."
+        tokens: ["Throughout the winter season,", "our family", "enjoys", "very much", "preparing hot cocoa", "together by the fireplace."],
+        swapPair: [3, 4],
+        correctSentence: "Throughout the winter season, our family enjoys preparing hot cocoa very much together by the fireplace.",
+        explanation: "Place 'very much' after the complete direct object ('preparing hot cocoa'), not between the verb and object."
       },
       {
         id: "l3-9",
-        tokens: ["She", "bought", "at the market", "fresh vegetables", "this morning."],
-        swapPair: [2, 3],
-        correctSentence: "She bought fresh vegetables at the market this morning.",
-        explanation: "Object comes before place: 'bought fresh vegetables at the market'."
+        tokens: ["The careless commuter", "his leather wallet", "lost", "in the crowded subway station", "this morning."],
+        swapPair: [1, 2],
+        correctSentence: "The careless commuter lost his leather wallet in the crowded subway station this morning.",
+        explanation: "The verb must precede the direct object (SVO): 'lost (verb) his leather wallet (object)'."
       },
       {
         id: "l3-10",
-        tokens: ["He", "understood", "immediately", "the lesson."],
-        swapPair: [2, 3],
-        correctSentence: "He understood the lesson immediately.",
-        explanation: "Do not put adverb between verb and object: 'understood the lesson immediately'."
+        tokens: ["During the heated debate,", "neither spokesperson", "addressed", "directly", "the most critical question", "asked by journalists."],
+        swapPair: [3, 4],
+        correctSentence: "During the heated debate, neither spokesperson addressed the most critical question directly asked by journalists.",
+        explanation: "The direct object directly follows the transitive verb 'addressed' before manner adverbs like 'directly'."
       }
     ]
   },
@@ -275,73 +275,73 @@ export const wordOrderMistakeLevels: WordOrderMistakeLevel[] = [
     items: [
       {
         id: "l4-1",
-        tokens: ["Can you tell me", "where", "is", "the director", "working this week?"],
+        tokens: ["Could you please explain", "why", "is", "the executive committee", "delaying the financial announcement until next month?"],
         swapPair: [2, 3],
-        correctSentence: "Can you tell me where the director is working this week?",
-        explanation: "In indirect questions, use normal statement word order (Subject + Verb): 'where the director is working'."
+        correctSentence: "Could you please explain why the executive committee is delaying the financial announcement until next month?",
+        explanation: "In embedded clauses after 'why', use statement word order (Subject before auxiliary): 'why the executive committee is delaying'."
       },
       {
         id: "l4-2",
-        tokens: ["Rarely", "she", "has", "seen such an impressive", "opera performance."],
+        tokens: ["Under no circumstances", "employees", "should", "disclose confidential client data", "to unauthorized third parties."],
         swapPair: [1, 2],
-        correctSentence: "Rarely has she seen such an impressive opera performance.",
-        explanation: "When starting with a negative adverb (Rarely, Seldom, Never), the auxiliary must precede the subject: 'Rarely has she seen'."
+        correctSentence: "Under no circumstances should employees disclose confidential client data to unauthorized third parties.",
+        explanation: "Prepositional negative phrases ('Under no circumstances') require subject-auxiliary inversion: 'should employees disclose'."
       },
       {
         id: "l4-3",
-        tokens: ["The committee", "discussed", "thoroughly", "the environmental budget", "at the meeting."],
-        swapPair: [2, 3],
-        correctSentence: "The committee discussed the environmental budget thoroughly at the meeting.",
-        explanation: "Never separate a transitive verb ('discussed') from its direct object ('the environmental budget') with an adverb."
+        tokens: ["At the international summit,", "the president", "negotiated", "throughout the entire night", "behind closed doors", "with determination."],
+        swapPair: [3, 5],
+        correctSentence: "At the international summit, the president negotiated with determination behind closed doors throughout the entire night.",
+        explanation: "Follow the MPT order: Manner ('with determination') → Place ('behind closed doors') → Time ('throughout the entire night')."
       },
       {
         id: "l4-4",
-        tokens: ["The senior engineer", "has", "been", "always", "dedicated to his team."],
-        swapPair: [2, 3],
-        correctSentence: "The senior engineer has always been dedicated to his team.",
-        explanation: "In compound tenses (has been), frequency adverbs go directly after the FIRST auxiliary verb: 'has always been'."
+        tokens: ["The dedicated research scientists", "should", "have", "been", "always", "consulted prior to major policy changes."],
+        swapPair: [3, 4],
+        correctSentence: "The dedicated research scientists should have always been consulted prior to major policy changes.",
+        explanation: "In complex verb chains ('should have been'), the adverb goes after the auxiliary verbs: 'should have always been'."
       },
       {
         id: "l4-5",
-        tokens: ["The orchestra", "performed", "in the cathedral", "wonderfully", "yesterday evening."],
-        swapPair: [2, 3],
-        correctSentence: "The orchestra performed wonderfully in the cathedral yesterday evening.",
-        explanation: "Follow the MPT rule: Manner ('wonderfully') comes before Place ('in the cathedral') and Time ('yesterday evening')."
+        tokens: ["Not only", "the corporation", "did", "expand into overseas markets,", "but it also doubled its workforce."],
+        swapPair: [1, 2],
+        correctSentence: "Not only did the corporation expand into overseas markets, but it also doubled its workforce.",
+        explanation: "Negative coordinator 'Not only' triggers subject-auxiliary inversion: 'Not only did the corporation expand'."
       },
       {
         id: "l4-6",
-        tokens: ["After months of doubt,", "he", "gave", "eventually", "up his stressful job."],
-        swapPair: [2, 3],
-        correctSentence: "After months of doubt, he eventually gave up his stressful job.",
-        explanation: "Adverbs cannot split a verb from its phrasal particle: 'he eventually gave up'."
+        tokens: ["After reviewing the survey results,", "the board", "put", "until next quarter", "off", "the decision to restructure."],
+        swapPair: [3, 4],
+        correctSentence: "After reviewing the survey results, the board put off the decision to restructure until next quarter.",
+        explanation: "Do not separate the phrasal verb particle ('off') from its verb with an adverbial phrase: 'put off the decision'."
       },
       {
         id: "l4-7",
-        tokens: ["Do you know", "why", "is", "the manager", "leaving the company?"],
-        swapPair: [2, 3],
-        correctSentence: "Do you know why the manager is leaving the company?",
-        explanation: "Indirect questions use statement order (Subject + Verb): 'why the manager is leaving'."
+        tokens: ["Hardly", "the distinguished keynote speaker", "had", "stepped onto the stage", "when the audience erupted in applause."],
+        swapPair: [1, 2],
+        correctSentence: "Hardly had the distinguished keynote speaker stepped onto the stage when the audience erupted in applause.",
+        explanation: "Negative restrictive adverb 'Hardly' requires inversion: 'Hardly had the speaker stepped'."
       },
       {
         id: "l4-8",
-        tokens: ["No sooner", "the flight", "had", "landed than the storm", "began."],
-        swapPair: [1, 2],
-        correctSentence: "No sooner had the flight landed than the storm began.",
-        explanation: "Sentences starting with 'No sooner' require inverted auxiliary order: 'No sooner had the flight landed'."
+        tokens: ["In the final presentation,", "the consultant", "described", "to all stakeholders", "the recovery strategy", "in great detail."],
+        swapPair: [3, 4],
+        correctSentence: "In the final presentation, the consultant described the recovery strategy to all stakeholders in great detail.",
+        explanation: "Place the direct object ('the recovery strategy') directly after 'described' before the prepositional phrase ('to all stakeholders')."
       },
       {
         id: "l4-9",
-        tokens: ["The manager", "explained", "to the team", "the new project", "in detail."],
-        swapPair: [2, 3],
-        correctSentence: "The manager explained the new project to the team in detail.",
-        explanation: "Put the direct object before the prepositional phrase: 'explained the new project to the team'."
+        tokens: ["We would appreciate it", "if you could clarify", "how much", "will", "the proposed construction project", "cost the city."],
+        swapPair: [3, 4],
+        correctSentence: "We would appreciate it if you could clarify how much the proposed construction project will cost the city.",
+        explanation: "Embedded clauses introduced by 'how much' use statement order (Subject before modal auxiliary): 'how much the project will cost'."
       },
       {
         id: "l4-10",
-        tokens: ["What project", "they", "have", "been working on", "all afternoon?"],
+        tokens: ["Only after completing thorough background checks", "the security agency", "will", "grant access", "to the classified database."],
         swapPair: [1, 2],
-        correctSentence: "What project have they been working on all afternoon?",
-        explanation: "In questions, the auxiliary verb must precede the subject: 'have they been working on'."
+        correctSentence: "Only after completing thorough background checks will the security agency grant access to the classified database.",
+        explanation: "Clauses beginning with 'Only after...' require inversion in the main clause: 'will the security agency grant'."
       }
     ]
   }
