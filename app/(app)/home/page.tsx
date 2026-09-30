@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpenText, MessageCircleMore, Lightbulb, Gamepad2, Rocket, BookOpen } from "lucide-react";
+import { BookOpenText, MessageCircleMore, Lightbulb, Gamepad2, Rocket, BookOpen, BookMarked, ChevronRight } from "lucide-react";
 
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
@@ -61,6 +61,26 @@ export default async function AppHomePage() {
                   </Card>
                 </Link>
               ))}
+
+              <Link href="/vocabulary" className="col-span-2">
+                <Card className="fade-up fade-up-d5 relative overflow-hidden border border-cyan-400/20 bg-gradient-to-br from-cyan-950/40 via-zinc-900/90 to-purple-950/40 p-4 transition-all hover:border-cyan-400/40 hover:shadow-lg hover:shadow-cyan-500/10">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 text-cyan-300 ring-1 ring-cyan-400/30">
+                        <BookMarked className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-base font-semibold text-white">My Vocabulary</span>
+                          <span className="rounded-full bg-cyan-400/10 px-2 py-0.5 text-[10px] font-semibold text-cyan-400">Personal</span>
+                        </div>
+                        <div className="text-xs text-zinc-400">Save custom words, search dictionary & practice</div>
+                      </div>
+                    </div>
+                    <ChevronRight className="h-5 w-5 text-zinc-500" />
+                  </div>
+                </Card>
+              </Link>
             </div>
           </section>
 
