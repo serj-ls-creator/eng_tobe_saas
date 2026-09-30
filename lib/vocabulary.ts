@@ -507,3 +507,88 @@ export async function createVocabularySet(name: string): Promise<VocabularySet |
 
   return newSet;
 }
+
+// Rename category / set and update all words associated with it
+export async function renameVocabularySet(oldName: string, newName: string): Promise<boolean> {
+  const trimmedNew = newName.trim();
+  if (!trimmedNew || oldName === trimmedNew) return false;
+
+  const supabase = createSupabaseBrowserClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    try {
+      // 1. Update set in user_vocabulary_sets
+      await supabase
+        .from("user_vocabulary_sets")
+        .update({ name: trimmedNew })
+        .eq("user_id", user.id)
+        .eq("name", oldName);
+
+      // 2. Update words with this set_name in user_vocabulary
+      await supabase
+        .from("user_vocabulary")
+        .update({ set_name: trimmedNew, updated_at: new Date().toISOString() })
+        .eq("user_id", user.id)
+        .eq("set_name", oldName);
+    } catch (err) {
+      console.warn("Supabase rename set error:", err);
+    }
+  }
+
+  // Update local sets
+  const sets = getLocalSets();
+  const updatedSets = sets.map((s) => (s.name === oldName ? { ...s, name: trimmedNew } : s));
+  saveLocalSets(updatedSets);
+
+  // Update local words
+  const words = getLocalWords();
+  const updatedWords = words.map((w) => (w.set_name === oldName ? { ...w, set_name: trimmedNew } : w));
+  saveLocalWords(updatedWords);
+
+  return true;
+}
+
+// Delete category / set and move all its words to 'General'
+export async function deleteVocabularySet(name: string): Promise<boolean> {
+  if (!name || name === "General") return false;
+
+  const supabase = createSupabaseBrowserClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    try {
+      // 1. Delete set from user_vocabulary_sets
+      await supabase
+        .from("user_vocabulary_sets")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("name", name);
+
+      // 2. Move words in user_vocabulary from this set to 'General'
+      await supabase
+        .from("user_vocabulary")
+        .update({ set_name: "General", updated_at: new Date().toISOString() })
+        .eq("user_id", user.id)
+        .eq("set_name", name);
+    } catch (err) {
+      console.warn("Supabase delete set error:", err);
+    }
+  }
+
+  // Remove from local sets
+  const sets = getLocalSets();
+  const updatedSets = sets.filter((s) => s.name !== name);
+  saveLocalSets(updatedSets);
+
+  // Move local words to 'General'
+  const words = getLocalWords();
+  const updatedWords = words.map((w) => (w.set_name === name ? { ...w, set_name: "General" } : w));
+  saveLocalWords(updatedWords);
+
+  return true;
+}
