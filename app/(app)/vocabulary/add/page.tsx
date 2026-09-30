@@ -310,7 +310,7 @@ function AddWordForm() {
                       className="w-full text-left flex items-center justify-between rounded-lg px-2.5 py-1.5 text-xs hover:bg-zinc-800 transition-colors"
                     >
                       <span className="font-bold text-cyan-300">{item.word}</span>
-                      {item.ipa && <span className="text-zinc-500 font-mono text-[11px]">{item.ipa}</span>}
+                      {item.ipa && <span className="text-zinc-400 font-ipa text-[11px]">{item.ipa}</span>}
                     </button>
                   ))}
                 </div>
@@ -328,7 +328,7 @@ function AddWordForm() {
                   value={ipa}
                   onChange={(e) => setIpa(e.target.value)}
                   placeholder="/ æbˈdʌkt /"
-                  className="flex-1 rounded-xl border border-white/10 bg-zinc-800 px-3.5 py-2.5 text-sm font-mono text-zinc-300 placeholder-zinc-600 focus:border-cyan-400 focus:outline-none"
+                  className="flex-1 rounded-xl border border-white/10 bg-zinc-800 px-3.5 py-2.5 text-sm font-ipa text-zinc-200 placeholder-zinc-600 focus:border-cyan-400 focus:outline-none"
                 />
                 {word.trim() && (
                   <div className="shrink-0">

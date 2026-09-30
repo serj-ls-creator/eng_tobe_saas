@@ -182,7 +182,7 @@ export default function VocabularySettingsPage() {
                     {sample.word}
                   </span>
                   {settings.showIpa && (
-                    <span className="text-xs text-zinc-400 font-mono">
+                    <span className="text-xs text-zinc-400 font-ipa tracking-wide">
                       {sample.ipa}
                     </span>
                   )}

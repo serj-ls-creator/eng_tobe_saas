@@ -306,7 +306,7 @@ export default function VocabularyListPage() {
                         {word.word}
                       </span>
                       {displaySettings.showIpa && word.ipa && (
-                        <span className="text-xs text-zinc-400 font-mono">
+                        <span className="text-xs text-zinc-400 font-ipa tracking-wide">
                           {word.ipa}
                         </span>
                       )}

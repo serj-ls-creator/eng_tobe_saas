@@ -296,7 +296,7 @@ function VocabularyCardsContent() {
                       )}
 
                       {flashcardSettings.front.ipa && currentWord.ipa && (
-                        <div className="text-sm font-mono text-cyan-300">
+                        <div className="text-sm font-ipa tracking-wide text-cyan-300">
                           {currentWord.ipa}
                         </div>
                       )}
@@ -360,7 +360,7 @@ function VocabularyCardsContent() {
                       )}
 
                       {flashcardSettings.back.ipa && currentWord.ipa && (
-                        <div className="text-sm font-mono text-purple-300">
+                        <div className="text-sm font-ipa tracking-wide text-purple-300">
                           {currentWord.ipa}
                         </div>
                       )}
