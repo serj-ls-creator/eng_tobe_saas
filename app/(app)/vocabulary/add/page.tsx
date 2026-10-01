@@ -19,6 +19,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
 import { StrictEnglishTTS } from "@/components/audio/StrictEnglishTTS";
 import { usePoints } from "@/lib/usePoints";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import { 
   fetchUserVocabulary, 
   fetchUserVocabularySets, 
@@ -50,12 +51,15 @@ function AddWordForm() {
   const [status, setStatus] = useState<"new" | "learning" | "learned">("new");
 
   const [sets, setSets] = useState<VocabularySet[]>([]);
+  const [wordCount, setWordCount] = useState(0);
+  const [isPremium, setIsPremium] = useState(false);
   const [isSearchingDb, setIsSearchingDb] = useState(false);
   const [dbFoundStatus, setDbFoundStatus] = useState<"idle" | "found" | "not_found">("idle");
   const [suggestions, setSuggestions] = useState<DictionarySearchResult[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setError] = useState<string | null>(null);
   const [limitModalOpen, setLimitModalOpen] = useState(false);
   const [showCreateSetModal, setShowCreateSetModal] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
@@ -65,11 +69,29 @@ function AddWordForm() {
   useEffect(() => {
     async function init() {
       try {
+        const supabase = createSupabaseBrowserClient();
+        const { data: { user } } = await supabase.auth.getUser();
+
         const [loadedSets, loadedWords] = await Promise.all([
           fetchUserVocabularySets(),
           fetchUserVocabulary(),
         ]);
         setSets(loadedSets);
+        setWordCount(loadedWords.length);
+
+        if (user) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("is_premium, premium_expires_at")
+            .eq("user_id", user.id)
+            .maybeSingle();
+          if (profile?.is_premium) {
+            const notExpired = profile.premium_expires_at
+              ? new Date(profile.premium_expires_at) > new Date()
+              : true;
+            setIsPremium(notExpired);
+          }
+        }
 
         if (editId) {
           const target = loadedWords.find((w) => w.id === editId);
@@ -192,11 +214,13 @@ function AddWordForm() {
           synonyms: synonyms.trim(),
           notes: notes.trim(),
           set_name: setName,
-          status,
+          status: "new", // always new when adding
         });
 
         if (res.limitReached) {
           setLimitModalOpen(true);
+        } else if (res.duplicate) {
+          setError(`"${word.trim()}" is already in your dictionary.`);
         } else if (res.success) {
           router.push("/vocabulary/list");
         }
@@ -233,6 +257,35 @@ function AddWordForm() {
           <p className="text-xs text-zinc-400 mt-1">
             Fill in the details or search dictionary to autofill definitions and pronunciation.
           </p>
+          {!editId && !isPremium && (
+            <div className="mt-3">
+              <div className="flex items-center gap-3">
+                <span className={`text-xs font-medium whitespace-nowrap ${wordCount >= FREE_WORDS_LIMIT ? 'text-amber-400' : 'text-zinc-500'}`}>
+                  {wordCount} / {FREE_WORDS_LIMIT} free words used
+                </span>
+                {wordCount < FREE_WORDS_LIMIT ? (
+                  <Link
+                    href="/store"
+                    className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 px-3 py-1.5 text-xs font-bold text-black shadow-md shadow-cyan-500/10 transition-transform active:scale-95 hover:opacity-90 whitespace-nowrap"
+                  >
+                    Get Premium — no limits
+                  </Link>
+                ) : (
+                  <div className="flex items-center justify-between gap-3 rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2.5 flex-1">
+                    <div className="text-xs text-amber-300 leading-snug">
+                      <span className="font-bold">Limit reached.</span> Upgrade to Premium for unlimited words.
+                    </div>
+                    <Link
+                      href="/store"
+                      className="shrink-0 rounded-lg bg-gradient-to-r from-amber-400 to-yellow-400 px-3 py-1.5 text-xs font-extrabold text-black shadow-md shadow-amber-500/20 hover:opacity-90 transition-opacity"
+                    >
+                      Go Premium
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
           <div className="mt-3 h-0.5 w-16 rounded-full bg-gradient-to-r from-cyan-400 to-purple-400" />
         </div>
 
@@ -258,6 +311,7 @@ function AddWordForm() {
                   onChange={(e) => {
                     setWord(e.target.value);
                     setDbFoundStatus("idle");
+                    setError(null);
                   }}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
@@ -403,17 +457,17 @@ function AddWordForm() {
             </div>
           </Card>
 
-          {/* Card: Category / Set & Status */}
+          {/* Card: Category / Set */}
           <Card className="border-white/10 bg-zinc-900/90 p-4">
             <div className="flex items-center gap-2 mb-3">
               <span className="h-2 w-2 rounded-full bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]" />
               <span className="text-xs font-bold uppercase tracking-wider text-amber-400">
-                Category & Learning Status
+                Category
               </span>
             </div>
 
             {/* Set Selection */}
-            <div className="mb-4">
+            <div>
               <label className="block text-xs font-semibold text-zinc-400 mb-1.5">
                 Category (Set)
               </label>
@@ -442,49 +496,14 @@ function AddWordForm() {
                 </button>
               </div>
             </div>
-
-            {/* Status Selection */}
-            <div>
-              <label className="block text-xs font-semibold text-zinc-400 mb-1.5">
-                Status
-              </label>
-              <div className="grid grid-cols-3 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setStatus("new")}
-                  className={`rounded-xl py-2 text-xs font-bold transition-all ${
-                    status === "new"
-                      ? "bg-cyan-400 text-black shadow-md shadow-cyan-500/10"
-                      : "border border-white/10 bg-zinc-800 text-zinc-400"
-                  }`}
-                >
-                  ● New
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setStatus("learning")}
-                  className={`rounded-xl py-2 text-xs font-bold transition-all ${
-                    status === "learning"
-                      ? "bg-amber-400 text-black shadow-md shadow-amber-500/10"
-                      : "border border-white/10 bg-zinc-800 text-zinc-400"
-                  }`}
-                >
-                  ◐ Learning
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setStatus("learned")}
-                  className={`rounded-xl py-2 text-xs font-bold transition-all ${
-                    status === "learned"
-                      ? "bg-emerald-400 text-black shadow-md shadow-emerald-500/10"
-                      : "border border-white/10 bg-zinc-800 text-zinc-400"
-                  }`}
-                >
-                  ✓ Learned
-                </button>
-              </div>
-            </div>
           </Card>
+
+          {/* Submit Error */}
+          {submitError && (
+            <div className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-xs text-rose-400">
+              {submitError}
+            </div>
+          )}
 
           {/* Submit Button */}
           <button

@@ -28,6 +28,7 @@ import {
   fetchUserVocabularySets, 
   getStoredFlashcardSettings, 
   saveStoredFlashcardSettings, 
+  updateUserVocabularyWord,
   UserWord, 
   VocabularySet, 
   FlashcardSettings, 
@@ -105,10 +106,25 @@ function VocabularyCardsContent() {
   });
 
   const handleNext = () => {
+    const word = practiceWords[currentIndex];
+
+    // new → learning when first viewed
+    if (word && word.status === "new") {
+      setWords(prev => prev.map(w => w.id === word.id ? { ...w, status: "learning" } : w));
+      updateUserVocabularyWord(word.id, { status: "learning" });
+    }
+
     if (currentIndex < practiceWords.length - 1) {
       setCurrentIndex(currentIndex + 1);
       setIsFlipped(false);
     } else {
+      // Completed full set → mark all "learning" words in this session as "learned"
+      practiceWords.forEach(w => {
+        if (w.status === "learning" || w.status === "new") {
+          setWords(prev => prev.map(pw => pw.id === w.id ? { ...pw, status: "learned" } : pw));
+          updateUserVocabularyWord(w.id, { status: "learned" });
+        }
+      });
       setShowCompletion(true);
     }
   };

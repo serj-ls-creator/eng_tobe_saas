@@ -250,7 +250,10 @@ export async function fetchUserVocabulary(): Promise<UserWord[]> {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return getLocalWords();
+    // Not logged in — clear any leftover data and return empty
+    saveLocalWords([]);
+    saveLocalSets([]);
+    return [];
   }
 
   try {
@@ -261,20 +264,16 @@ export async function fetchUserVocabulary(): Promise<UserWord[]> {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.warn("Error fetching vocabulary from Supabase, fallback to local:", error);
-      return getLocalWords();
+      console.warn("Error fetching vocabulary from Supabase:", error);
+      return [];
     }
 
-    if (data && data.length > 0) {
-      saveLocalWords(data as UserWord[]);
-      return data as UserWord[];
-    } else {
-      // If Supabase has 0 words but local has words from guest, we can keep or sync
-      const local = getLocalWords();
-      return local;
-    }
+    // Always sync local storage to exactly what Supabase returns for this user
+    saveLocalWords((data ?? []) as UserWord[]);
+    return (data ?? []) as UserWord[];
   } catch (err) {
-    return getLocalWords();
+    console.warn("fetchUserVocabulary error:", err);
+    return [];
   }
 }
 
@@ -286,7 +285,8 @@ export async function fetchUserVocabularySets(): Promise<VocabularySet[]> {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return getLocalSets();
+    saveLocalSets([]);
+    return [];
   }
 
   try {
@@ -297,23 +297,23 @@ export async function fetchUserVocabularySets(): Promise<VocabularySet[]> {
       .order("created_at", { ascending: true });
 
     if (error) {
-      return getLocalSets();
+      console.warn("fetchUserVocabularySets error:", error);
+      return [];
     }
 
-    if (data) {
-      saveLocalSets(data as VocabularySet[]);
-      return data as VocabularySet[];
-    }
-    return getLocalSets();
+    // Always sync local storage to exactly what Supabase returns for this user
+    saveLocalSets((data ?? []) as VocabularySet[]);
+    return (data ?? []) as VocabularySet[];
   } catch (err) {
-    return getLocalSets();
+    console.warn("fetchUserVocabularySets error:", err);
+    return [];
   }
 }
 
 // Add word
 export async function addUserVocabularyWord(
   wordData: Omit<UserWord, "id" | "created_at">
-): Promise<{ success: boolean; word?: UserWord; error?: string; limitReached?: boolean }> {
+): Promise<{ success: boolean; word?: UserWord; error?: string; limitReached?: boolean; duplicate?: boolean }> {
   const supabase = createSupabaseBrowserClient();
   const {
     data: { user },
@@ -344,6 +344,18 @@ export async function addUserVocabularyWord(
       success: false,
       limitReached: true,
       error: `Free limit of ${FREE_WORDS_LIMIT} words reached. Upgrade to Premium for unlimited vocabulary.`,
+    };
+  }
+
+  // Check for duplicate word (case-insensitive)
+  const duplicate = currentWords.find(
+    (w) => w.word.toLowerCase().trim() === wordData.word.toLowerCase().trim()
+  );
+  if (duplicate) {
+    return {
+      success: false,
+      duplicate: true,
+      error: `"${wordData.word}" is already in your dictionary.`,
     };
   }
 
@@ -509,7 +521,7 @@ export async function createVocabularySet(name: string): Promise<VocabularySet |
 }
 
 // Rename category / set and update all words associated with it
-export async function renameVocabularySet(oldName: string, newName: string): Promise<boolean> {
+export async function renameVocabularySet(setId: string, oldName: string, newName: string): Promise<boolean> {
   const trimmedNew = newName.trim();
   if (!trimmedNew || oldName === trimmedNew) return false;
 
@@ -520,27 +532,38 @@ export async function renameVocabularySet(oldName: string, newName: string): Pro
 
   if (user) {
     try {
-      // 1. Update set in user_vocabulary_sets
-      await supabase
+      // 1. Update set name by ID (more reliable than matching by name)
+      const { error: setError } = await supabase
         .from("user_vocabulary_sets")
         .update({ name: trimmedNew })
-        .eq("user_id", user.id)
-        .eq("name", oldName);
+        .eq("id", setId)
+        .eq("user_id", user.id);
 
-      // 2. Update words with this set_name in user_vocabulary
-      await supabase
+      if (setError) {
+        console.warn("Supabase rename set error:", setError);
+        return false;
+      }
+
+      // 2. Update all words that reference this set
+      const { error: wordsError } = await supabase
         .from("user_vocabulary")
         .update({ set_name: trimmedNew, updated_at: new Date().toISOString() })
         .eq("user_id", user.id)
-        .eq("set_name", oldName);
+        .eq("set_name", oldName)
+        .select("id");
+
+      if (wordsError) {
+        console.warn("Supabase rename set words error:", wordsError);
+      }
     } catch (err) {
       console.warn("Supabase rename set error:", err);
+      return false;
     }
   }
 
   // Update local sets
   const sets = getLocalSets();
-  const updatedSets = sets.map((s) => (s.name === oldName ? { ...s, name: trimmedNew } : s));
+  const updatedSets = sets.map((s) => (s.id === setId ? { ...s, name: trimmedNew } : s));
   saveLocalSets(updatedSets);
 
   // Update local words

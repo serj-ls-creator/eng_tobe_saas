@@ -148,7 +148,7 @@ export default function VocabularySettingsPage() {
     if (!setToRename || !renamedName.trim() || isRenaming) return;
     setIsRenaming(true);
     try {
-      const ok = await renameVocabularySet(setToRename.name, renamedName.trim());
+      const ok = await renameVocabularySet(setToRename.id, setToRename.name, renamedName.trim());
       if (ok) {
         setSetToRename(null);
         setRenamedName("");
