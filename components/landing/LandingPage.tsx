@@ -743,6 +743,7 @@ export default function LandingPage() {
                   "Antonyms & Pronunciation",
                   "2 categories of Sentences",
                   "2 categories of Idioms",
+                  "My Vocabulary (20 words)",
                   "2 Games",
                   "Streaks & progress tracking"
                 ].map(f => (
@@ -758,7 +759,7 @@ export default function LandingPage() {
               <h3 className="text-lg font-semibold mb-2">1 Month</h3>
               <div className="text-3xl font-bold text-white mb-6">$7.99</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
-                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
+                {["All Words categories","All Idioms categories","All Sentences categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
@@ -771,7 +772,7 @@ export default function LandingPage() {
               <div className="text-4xl font-bold text-white mb-2">$19.99</div>
               <div className="text-xs text-[#00E5FF] mb-6">Save 16%</div>
               <ul className="text-sm text-neutral-300 space-y-3 mb-8 flex-1 text-left">
-                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
+                {["All Words categories","All Idioms categories","All Sentences categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
@@ -783,7 +784,7 @@ export default function LandingPage() {
               <div className="text-3xl font-bold text-white mb-2">$34.99</div>
               <div className="text-xs text-[#FF3D71] mb-6">Save 27%</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
-                {["All Words categories","All Idioms categories","Sentences A1-C2","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
+                {["All Words categories","All Idioms categories","All Sentences categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>

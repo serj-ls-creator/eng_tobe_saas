@@ -18,7 +18,9 @@ const CREEM_PRODUCT_IDS: Record<string, string> = {
 const PREMIUM_FEATURES = [
   'All Words categories',
   'All Idioms categories',
-  'Sentences A1-C2',
+  'All Sentences categories',
+  'My Vocabulary (unlimited words)',
+  'Streaks & progress tracking',
   'All Games',
   'Future premium updates',
 ];
