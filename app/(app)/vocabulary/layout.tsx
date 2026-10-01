@@ -1,13 +1,25 @@
-import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/lib/supabase";
+"use client";
 
-export default async function VocabularyLayout({ children }: { children: React.ReactNode }) {
-  const supabase = createSupabaseServerClient();
-  const { data: { user } } = await supabase.auth.getUser();
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createSupabaseBrowserClient } from "@/lib/supabase";
 
-  if (!user) {
-    redirect("/auth/login");
-  }
+export default function VocabularyLayout({ children }: { children: React.ReactNode }) {
+  const router = useRouter();
+  const [checked, setChecked] = useState(false);
+
+  useEffect(() => {
+    const supabase = createSupabaseBrowserClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!user) {
+        router.replace("/auth/login");
+      } else {
+        setChecked(true);
+      }
+    });
+  }, [router]);
+
+  if (!checked) return null;
 
   return <>{children}</>;
 }
