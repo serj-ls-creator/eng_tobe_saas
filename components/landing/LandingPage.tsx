@@ -757,7 +757,7 @@ export default function LandingPage() {
             {/* 1 Month */}
             <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
               <h3 className="text-lg font-semibold mb-2">1 Month</h3>
-              <div className="text-3xl font-bold text-white mb-6">$7.99</div>
+              <div className="text-3xl font-bold text-white mb-6">$4.99</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
                 {["All Words categories","All Idioms categories","All Sentences categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
@@ -769,8 +769,8 @@ export default function LandingPage() {
             <div className="reveal reveal-delay-4 bg-gradient-to-b from-[#00E5FF]/10 to-transparent border border-[#00E5FF]/30 rounded-2xl p-8 text-center relative flex flex-col scale-105 shadow-[0_0_40px_rgba(0,229,255,0.1)]">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#00E5FF] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
               <h3 className="text-lg font-semibold mb-2">3 Months</h3>
-              <div className="text-4xl font-bold text-white mb-2">$19.99</div>
-              <div className="text-xs text-[#00E5FF] mb-6">Save 16%</div>
+              <div className="text-4xl font-bold text-white mb-2">$11.99</div>
+              <div className="text-xs text-[#00E5FF] mb-6">Save 20%</div>
               <ul className="text-sm text-neutral-300 space-y-3 mb-8 flex-1 text-left">
                 {["All Words categories","All Idioms categories","All Sentences categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
@@ -781,8 +781,8 @@ export default function LandingPage() {
             {/* 6 Months */}
             <div className="reveal reveal-delay-5 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
               <h3 className="text-lg font-semibold mb-2">6 Months</h3>
-              <div className="text-3xl font-bold text-white mb-2">$34.99</div>
-              <div className="text-xs text-[#FF3D71] mb-6">Save 27%</div>
+              <div className="text-3xl font-bold text-white mb-2">$19.99</div>
+              <div className="text-xs text-[#FF3D71] mb-6">Save 33%</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
                 {["All Words categories","All Idioms categories","All Sentences categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
