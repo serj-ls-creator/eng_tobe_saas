@@ -184,7 +184,7 @@ export default function VocabularyHubPage() {
                   </span>
                 </div>
                 <div className="text-xs text-zinc-400 mt-0.5 line-clamp-1">
-                  Practice your words: cards, multiple choice, unscramble.
+                  Practice your words: cards, unscramble, type the word.
                 </div>
               </div>
               <ChevronRight className="h-5 w-5 text-zinc-500 group-hover:text-white transition-colors shrink-0" />

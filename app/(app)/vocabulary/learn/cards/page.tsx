@@ -29,6 +29,7 @@ import {
   getStoredFlashcardSettings, 
   saveStoredFlashcardSettings, 
   updateUserVocabularyWord,
+  recordWordActivityProgress,
   UserWord, 
   VocabularySet, 
   FlashcardSettings, 
@@ -105,26 +106,21 @@ function VocabularyCardsContent() {
     onFlip: handleFlip,
   });
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const word = practiceWords[currentIndex];
 
-    // new → learning when first viewed
-    if (word && word.status === "new") {
-      setWords(prev => prev.map(w => w.id === word.id ? { ...w, status: "learning" } : w));
-      updateUserVocabularyWord(word.id, { status: "learning" });
+    // Record that card activity was passed/reviewed for this word
+    if (word) {
+      const res = await recordWordActivityProgress(word.id, "cards", true);
+      setWords((prev) =>
+        prev.map((w) => (w.id === word.id ? { ...w, status: res.status } : w))
+      );
     }
 
     if (currentIndex < practiceWords.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex((prev) => prev + 1);
       setIsFlipped(false);
     } else {
-      // Completed full set → mark all "learning" words in this session as "learned"
-      practiceWords.forEach(w => {
-        if (w.status === "learning" || w.status === "new") {
-          setWords(prev => prev.map(pw => pw.id === w.id ? { ...pw, status: "learned" } : pw));
-          updateUserVocabularyWord(w.id, { status: "learned" });
-        }
-      });
       setShowCompletion(true);
     }
   };

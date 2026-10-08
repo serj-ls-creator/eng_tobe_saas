@@ -59,6 +59,14 @@ export default function VocabularyLearnPage() {
     ? "/vocabulary/learn/cards" 
     : `/vocabulary/learn/cards?set=${encodeURIComponent(selectedSet)}`;
 
+  const unscrambleHref = selectedSet === "all"
+    ? "/vocabulary/learn/unscramble"
+    : `/vocabulary/learn/unscramble?set=${encodeURIComponent(selectedSet)}`;
+
+  const typeHref = selectedSet === "all"
+    ? "/vocabulary/learn/type-the-word"
+    : `/vocabulary/learn/type-the-word?set=${encodeURIComponent(selectedSet)}`;
+
   return (
     <div className="min-h-screen bg-black text-white">
       <TopBar points={points} />
@@ -177,55 +185,55 @@ export default function VocabularyLearnPage() {
             </Card>
           </div>
 
-          {/* 3. Unscramble (Coming Soon) */}
-          <div className="fade-up fade-up-d3">
-            <Card className="relative overflow-hidden border-white/5 bg-zinc-900/50 p-4 opacity-70">
+          {/* 3. Unscramble (Active) */}
+          <Link href={unscrambleHref} className="block">
+            <Card className="fade-up fade-up-d3 group relative overflow-hidden border-purple-400/30 bg-gradient-to-br from-purple-950/30 via-zinc-900/90 to-zinc-900 p-4 transition-all hover:border-purple-400/60 hover:shadow-lg hover:shadow-purple-500/10 active:scale-[0.99]">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-zinc-800 text-zinc-500">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-400 to-pink-500 text-black shadow-md shadow-purple-500/20">
                   <Shuffle className="h-6 w-6" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-bold text-zinc-300">
+                    <span className="text-base font-bold text-white group-hover:text-purple-300 transition-colors">
                       Unscramble
                     </span>
-                    <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-zinc-400">
-                      Coming Soon
+                    <span className="rounded-full bg-purple-400/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-purple-400">
+                      {activeWords.length} {activeWords.length === 1 ? "word" : "words"}
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-500 mt-1 line-clamp-1">
+                  <p className="text-xs text-zinc-400 mt-1 line-clamp-1">
                     Rearrange letters to spell your vocabulary words correctly.
                   </p>
                 </div>
-                <Lock className="h-4 w-4 text-zinc-600 shrink-0" />
+                <ChevronRight className="h-5 w-5 text-purple-400 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
             </Card>
-          </div>
+          </Link>
 
-          {/* 4. Type the Word (Coming Soon) */}
-          <div className="fade-up fade-up-d4">
-            <Card className="relative overflow-hidden border-white/5 bg-zinc-900/50 p-4 opacity-70">
+          {/* 4. Type the Word (Active) */}
+          <Link href={typeHref} className="block">
+            <Card className="fade-up fade-up-d4 group relative overflow-hidden border-pink-400/30 bg-gradient-to-br from-pink-950/30 via-zinc-900/90 to-zinc-900 p-4 transition-all hover:border-pink-400/60 hover:shadow-lg hover:shadow-pink-500/10 active:scale-[0.99]">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-zinc-800 text-zinc-500">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-400 to-purple-500 text-black shadow-md shadow-pink-500/20">
                   <Keyboard className="h-6 w-6" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-bold text-zinc-300">
+                    <span className="text-base font-bold text-white group-hover:text-pink-300 transition-colors">
                       Type the Word
                     </span>
-                    <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-zinc-400">
-                      Coming Soon
+                    <span className="rounded-full bg-pink-400/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-pink-400">
+                      {activeWords.length} {activeWords.length === 1 ? "word" : "words"}
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-500 mt-1 line-clamp-1">
+                  <p className="text-xs text-zinc-400 mt-1 line-clamp-1">
                     Type words from memory based on definitions or translations.
                   </p>
                 </div>
-                <Lock className="h-4 w-4 text-zinc-600 shrink-0" />
+                <ChevronRight className="h-5 w-5 text-pink-400 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
             </Card>
-          </div>
+          </Link>
         </div>
 
         {/* Empty state alert if set has 0 words */}

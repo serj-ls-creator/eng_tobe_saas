@@ -10,6 +10,7 @@ export interface UserWord {
   notes?: string;
   set_name: string;
   status: "new" | "learning" | "learned";
+  passed_activities?: string[];
   created_at: string;
   updated_at?: string;
 }
@@ -81,6 +82,48 @@ export const DEFAULT_FLASHCARD_SETTINGS: FlashcardSettings = {
   },
 };
 
+export interface UnscrambleSettings {
+  showDefinition: boolean;
+  showTranslation: boolean;
+  showSynonyms: boolean;
+  showNotes: boolean;
+  showIpa: boolean;
+  showAudio: boolean;
+}
+
+export const DEFAULT_UNSCRAMBLE_SETTINGS: UnscrambleSettings = {
+  showDefinition: true,
+  showTranslation: true,
+  showSynonyms: false,
+  showNotes: false,
+  showIpa: false,
+  showAudio: true,
+};
+
+export type TypeWordSettings = UnscrambleSettings;
+export const DEFAULT_TYPE_WORD_SETTINGS: TypeWordSettings = DEFAULT_UNSCRAMBLE_SETTINGS;
+
+// Activity Mastery & State Transitions
+export type VocabularyActivityId = "cards" | "unscramble" | "multiple-choice" | "type-the-word";
+
+/**
+ * List of currently active required activities that must all be completed
+ * for a word to automatically transition from 'learning' to 'learned'.
+ * When new activities (like 'multiple-choice') are enabled,
+ * simply add their ID to this array.
+ */
+export const ACTIVE_VOCABULARY_ACTIVITIES: VocabularyActivityId[] = [
+  "cards",
+  "unscramble",
+  "type-the-word",
+];
+
+const LOCAL_STORAGE_WORD_PROGRESS_KEY = "eng_tobe_my_vocabulary_word_progress";
+
+export interface WordActivityProgressMap {
+  [wordId: string]: VocabularyActivityId[];
+}
+
 // Legacy interface alias for compatibility if needed
 export type VocabularySettings = VocabularyCardDisplaySettings;
 export const DEFAULT_VOCABULARY_SETTINGS = DEFAULT_VOCABULARY_CARD_SETTINGS;
@@ -89,6 +132,8 @@ const LOCAL_STORAGE_WORDS_KEY = "eng_tobe_my_vocabulary_words";
 const LOCAL_STORAGE_SETS_KEY = "eng_tobe_my_vocabulary_sets";
 const LOCAL_STORAGE_SETTINGS_KEY = "eng_tobe_my_vocabulary_settings";
 const LOCAL_STORAGE_FLASHCARD_SETTINGS_KEY = "eng_tobe_my_vocabulary_flashcard_settings";
+const LOCAL_STORAGE_UNSCRAMBLE_SETTINGS_KEY = "eng_tobe_my_vocabulary_unscramble_settings";
+const LOCAL_STORAGE_TYPE_WORD_SETTINGS_KEY = "eng_tobe_my_vocabulary_type_word_settings";
 export const FREE_WORDS_LIMIT = 20;
 
 // Helper to get local words
@@ -184,6 +229,54 @@ export function saveStoredFlashcardSettings(settings: FlashcardSettings) {
     localStorage.setItem(LOCAL_STORAGE_FLASHCARD_SETTINGS_KEY, JSON.stringify(settings));
   } catch (e) {
     console.error("Failed to save flashcard settings", e);
+  }
+}
+
+export function getStoredUnscrambleSettings(): UnscrambleSettings {
+  if (typeof window === "undefined") return DEFAULT_UNSCRAMBLE_SETTINGS;
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_UNSCRAMBLE_SETTINGS_KEY);
+    if (!raw) return DEFAULT_UNSCRAMBLE_SETTINGS;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed.showDefinition === "boolean") {
+      return { ...DEFAULT_UNSCRAMBLE_SETTINGS, ...parsed };
+    }
+    return DEFAULT_UNSCRAMBLE_SETTINGS;
+  } catch (e) {
+    return DEFAULT_UNSCRAMBLE_SETTINGS;
+  }
+}
+
+export function saveStoredUnscrambleSettings(settings: UnscrambleSettings) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(LOCAL_STORAGE_UNSCRAMBLE_SETTINGS_KEY, JSON.stringify(settings));
+  } catch (e) {
+    console.error("Failed to save unscramble settings", e);
+  }
+}
+
+export function getStoredTypeWordSettings(): TypeWordSettings {
+  if (typeof window === "undefined") return DEFAULT_TYPE_WORD_SETTINGS;
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_TYPE_WORD_SETTINGS_KEY);
+    if (!raw) return DEFAULT_TYPE_WORD_SETTINGS;
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed.showDefinition === "boolean") {
+      return { ...DEFAULT_TYPE_WORD_SETTINGS, ...parsed };
+    }
+    return DEFAULT_TYPE_WORD_SETTINGS;
+  } catch (e) {
+    return DEFAULT_TYPE_WORD_SETTINGS;
+  }
+}
+
+export function saveStoredTypeWordSettings(settings: TypeWordSettings) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(LOCAL_STORAGE_TYPE_WORD_SETTINGS_KEY, JSON.stringify(settings));
+  } catch (e) {
+    console.error("Failed to save type word settings", e);
   }
 }
 
@@ -381,6 +474,7 @@ export async function addUserVocabularyWord(
           notes: wordData.notes || null,
           set_name: wordData.set_name || "General",
           status: wordData.status || "new",
+          passed_activities: wordData.passed_activities || [],
         })
         .select()
         .single();
@@ -438,6 +532,7 @@ export async function updateUserVocabularyWord(
           notes: updatedWord.notes || null,
           set_name: updatedWord.set_name || "General",
           status: updatedWord.status,
+          passed_activities: updatedWord.passed_activities || [],
           updated_at: now,
         })
         .eq("id", id)
@@ -615,3 +710,87 @@ export async function deleteVocabularySet(name: string): Promise<boolean> {
 
   return true;
 }
+
+// ---------------------------------------------------------------------------
+// Word Activity Progress & Automatic Mastery
+// ---------------------------------------------------------------------------
+
+export function getAllWordActivityProgress(): WordActivityProgressMap {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_WORD_PROGRESS_KEY);
+    return raw ? JSON.parse(raw) : {};
+  } catch (e) {
+    console.error("Failed to parse word progress", e);
+    return {};
+  }
+}
+
+export function getWordCompletedActivities(wordId: string): VocabularyActivityId[] {
+  const currentWords = getLocalWords();
+  const word = currentWords.find((w) => w.id === wordId);
+  if (word && Array.isArray(word.passed_activities)) {
+    return word.passed_activities as VocabularyActivityId[];
+  }
+  const map = getAllWordActivityProgress();
+  return map[wordId] || [];
+}
+
+/**
+ * Record progress for a word in a specific activity.
+ * - When an activity is passed, it is added to the word's completed activities in Supabase database.
+ * - If the word is 'new', it is promoted to 'learning'.
+ * - If ALL active required activities (e.g. ['cards', 'unscramble']) are completed,
+ *   the word is automatically promoted to 'learned'.
+ * - Stored directly in Supabase `user_vocabulary` table with local cache fallback.
+ */
+export async function recordWordActivityProgress(
+  wordId: string,
+  activityId: VocabularyActivityId,
+  passed: boolean = true
+): Promise<{ status: "new" | "learning" | "learned"; passedActivities: VocabularyActivityId[] }> {
+  const currentWords = getLocalWords();
+  const word = currentWords.find((w) => w.id === wordId);
+
+  const existingActivities: VocabularyActivityId[] = Array.isArray(word?.passed_activities)
+    ? (word!.passed_activities as VocabularyActivityId[])
+    : (getAllWordActivityProgress()[wordId] || []);
+
+  let updatedActivities = [...existingActivities];
+  if (passed && !updatedActivities.includes(activityId)) {
+    updatedActivities.push(activityId);
+  }
+
+  // Also sync local storage progress map
+  if (typeof window !== "undefined") {
+    try {
+      const progressMap = getAllWordActivityProgress();
+      progressMap[wordId] = updatedActivities;
+      localStorage.setItem(LOCAL_STORAGE_WORD_PROGRESS_KEY, JSON.stringify(progressMap));
+    } catch (e) {
+      console.error("Failed to save word progress cache", e);
+    }
+  }
+
+  // Check if all currently required active activities are completed
+  const hasCompletedAllActive = ACTIVE_VOCABULARY_ACTIVITIES.every((req) =>
+    updatedActivities.includes(req)
+  );
+
+  let newStatus: "new" | "learning" | "learned" = word?.status || "new";
+
+  if (hasCompletedAllActive) {
+    newStatus = "learned";
+  } else if (newStatus === "new") {
+    newStatus = "learning";
+  }
+
+  // Persist directly to Supabase DB and local storage
+  await updateUserVocabularyWord(wordId, {
+    status: newStatus,
+    passed_activities: updatedActivities,
+  });
+
+  return { status: newStatus, passedActivities: updatedActivities };
+}
+

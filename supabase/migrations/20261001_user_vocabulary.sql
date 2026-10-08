@@ -18,6 +18,7 @@ create table if not exists public.user_vocabulary (
   notes text,
   set_name text not null default 'General',
   status text not null default 'new' check (status in ('new', 'learning', 'learned')),
+  passed_activities text[] not null default '{}',
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
