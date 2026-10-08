@@ -65,18 +65,18 @@ export interface FlashcardSettings {
 
 export const DEFAULT_FLASHCARD_SETTINGS: FlashcardSettings = {
   front: {
-    word: true,
-    ipa: true,
-    definition: false,
-    translation: false,
+    word: false,
+    ipa: false,
+    definition: true,
+    translation: true,
     synonyms: false,
     notes: false,
   },
   back: {
-    word: false,
+    word: true,
     ipa: true,
-    definition: true,
-    translation: true,
+    definition: false,
+    translation: false,
     synonyms: true,
     notes: true,
   },

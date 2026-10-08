@@ -537,6 +537,16 @@ function VocabularyCardsContent() {
             >
               Done
             </button>
+            <button
+              type="button"
+              onClick={() => {
+                setFlashcardSettings(DEFAULT_FLASHCARD_SETTINGS);
+                saveStoredFlashcardSettings(DEFAULT_FLASHCARD_SETTINGS);
+              }}
+              className="mt-2 w-full rounded-xl border border-white/10 py-2 text-xs font-semibold text-zinc-400 hover:text-white transition-colors"
+            >
+              Reset to defaults
+            </button>
           </div>
         </div>
       )}
