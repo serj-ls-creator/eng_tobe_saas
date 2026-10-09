@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { Idiom } from '@/lib/idioms';
+import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
 
 interface IdiomFlipCardProps {
   idiom: Idiom;
@@ -51,9 +51,14 @@ export function IdiomFlipCard({ idiom, isFlipped, onFlip }: IdiomFlipCardProps) 
             backgroundColor: '#0F172A'
           }}
         >
-          <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            Idiom
-          </span>
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
+            <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
+              Idiom
+            </span>
+            <div onClick={(e) => e.stopPropagation()} className="shrink-0">
+              <StrictEnglishTTS text={idiom.idiom} />
+            </div>
+          </div>
           <p className="text-[clamp(20px,5vw,24px)] text-[#cbd5e1] text-center m-0 leading-relaxed">
             {idiom.idiom}
           </p>
@@ -76,9 +81,14 @@ export function IdiomFlipCard({ idiom, isFlipped, onFlip }: IdiomFlipCardProps) 
             animation: isFlipped ? 'gradientMove 6s ease infinite, shake 0.3s ease-in-out' : 'none'
           }}
         >
-          <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            Meaning
-          </span>
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
+            <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
+              Meaning
+            </span>
+            <div onClick={(e) => e.stopPropagation()} className="shrink-0">
+              <StrictEnglishTTS text={idiom.meaning} />
+            </div>
+          </div>
           <p className="text-[clamp(16px,4vw,20px)] font-medium text-white text-center m-0 leading-tight">
             {idiom.meaning}
           </p>

@@ -1,6 +1,7 @@
 'use client';
 
 import { PhrasalVerb } from '@/data/sentences/phrasal-verbs';
+import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
 
 interface PhrasalVerbFlipCardProps {
   verb: PhrasalVerb;
@@ -58,9 +59,14 @@ export function PhrasalVerbFlipCard({
             backgroundColor: '#0F172A'
           }}
         >
-          <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            {frontLabel}
-          </span>
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
+            <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
+              {frontLabel}
+            </span>
+            <div onClick={(e) => e.stopPropagation()} className="shrink-0">
+              <StrictEnglishTTS text={verb.basic} />
+            </div>
+          </div>
           <p className="text-[clamp(22px,6vw,26px)] text-[#cbd5e1] text-center m-0 leading-relaxed">
             {verb.basic}
           </p>
@@ -83,9 +89,14 @@ export function PhrasalVerbFlipCard({
             animation: isFlipped ? 'gradientMove 6s ease infinite, shake 0.3s ease-in-out' : 'none'
           }}
         >
-          <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            {backLabel}
-          </span>
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
+            <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
+              {backLabel}
+            </span>
+            <div onClick={(e) => e.stopPropagation()} className="shrink-0">
+              <StrictEnglishTTS text={verb.advanced} />
+            </div>
+          </div>
           <p className="text-[clamp(18px,4vw,24px)] font-black text-white text-center m-0 leading-tight tracking-[-0.02em] px-4">
             {verb.advanced}
           </p>

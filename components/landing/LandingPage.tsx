@@ -27,6 +27,14 @@ const TEXT_PAIRS = [
   ['"Help me"', '"I would appreciate your assistance"'],
 ];
 
+const LANDING_NAV_LINKS = [
+  { href: "#features", label: "Features" },
+  { href: "#streaks", label: "Streaks" },
+  { href: "#upgrade", label: "Practice" },
+  { href: "#vocabulary", label: "My Vocabulary" },
+  { href: "#pricing", label: "Pricing" },
+];
+
 const FLIP_DATA = [
   { normal: "I think",        advanced: "I am of the opinion",              category: "Basic → Advanced" },
   { normal: "Bad idea",       advanced: "That is ill-advised",              category: "Basic → Advanced" },
@@ -45,6 +53,7 @@ export default function LandingPage() {
   const pairIndex    = useRef(0);
   const navRef       = useRef<HTMLElement>(null);
   const flippedCards = useRef<Set<number>>(new Set());
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   // Email assembled client-side only — invisible to scrapers that skip JS
   const emailUser   = "support";
   const emailDomain = "englishtobe.info";
@@ -88,6 +97,22 @@ export default function LandingPage() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileNavOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileNavOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileNavOpen]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const close = () => setMobileNavOpen(false);
+    mq.addEventListener("change", close);
+    return () => mq.removeEventListener("change", close);
   }, []);
 
   /* ── Counter animation ── */
@@ -155,26 +180,74 @@ export default function LandingPage() {
     <div className="font-sans text-white antialiased bg-[#050505] overflow-x-hidden">
       {/* ── NAVBAR ── */}
       <nav ref={navRef} id="navbar" className="fixed top-0 w-full z-50 transition-all duration-300 bg-[#050505] border-b border-white/[0.08]">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-2.5">
-            <Image src="/logo.svg" alt="English to be" width={32} height={32} />
-            <span className="text-lg font-semibold tracking-tight">English to be</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+          <a href="#" className="flex items-center gap-2 min-w-0 shrink">
+            <Image src="/logo.svg" alt="English to be" width={32} height={32} className="shrink-0" />
+            <span className="text-base sm:text-lg font-semibold tracking-tight truncate">English to be</span>
           </a>
           <div className="hidden md:flex items-center gap-8 text-sm text-neutral-400">
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#streaks"  className="hover:text-white transition-colors">Streaks</a>
-            <a href="#upgrade"    className="hover:text-white transition-colors">Practice</a>
-            <a href="#vocabulary" className="hover:text-white transition-colors">My Vocabulary</a>
-            <a href="#pricing"    className="hover:text-white transition-colors">Pricing</a>
+            {LANDING_NAV_LINKS.map((item) => (
+              <a key={item.href} href={item.href} className="hover:text-white transition-colors">
+                {item.label}
+              </a>
+            ))}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
                className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full border border-white/10 text-neutral-400 hover:text-white hover:border-white/20 transition-all">
               {TIKTOK_SVG}
             </a>
-            <Link href="/home" className="px-5 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-neutral-200 transition-colors">
+            <Link
+              href="/home"
+              className="px-3.5 py-2 sm:px-5 bg-white text-black text-xs sm:text-sm font-medium rounded-full hover:bg-neutral-200 transition-colors whitespace-nowrap"
+            >
               Start Learning
             </Link>
+            <div className="relative md:hidden">
+              <button
+                type="button"
+                aria-expanded={mobileNavOpen}
+                aria-controls="landing-mobile-nav"
+                aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
+                onClick={() => setMobileNavOpen((open) => !open)}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-neutral-300 hover:border-white/20 hover:text-white transition-all"
+              >
+                {mobileNavOpen ? (
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                    <path strokeLinecap="round" d="M6 6l12 12M18 6L6 18" />
+                  </svg>
+                ) : (
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                    <path strokeLinecap="round" d="M4 7h16M4 12h16M4 17h16" />
+                  </svg>
+                )}
+              </button>
+              {mobileNavOpen && (
+                <>
+                  <button
+                    type="button"
+                    aria-label="Close menu"
+                    className="fixed inset-0 top-16 z-40 bg-black/60 backdrop-blur-[2px]"
+                    onClick={() => setMobileNavOpen(false)}
+                  />
+                  <div
+                    id="landing-mobile-nav"
+                    className="absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl border border-white/10 bg-zinc-900 py-2 shadow-xl shadow-black/40"
+                  >
+                    {LANDING_NAV_LINKS.map((item) => (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        className="block px-4 py-3 text-sm text-neutral-300 hover:bg-white/[0.06] hover:text-white transition-colors"
+                        onClick={() => setMobileNavOpen(false)}
+                      >
+                        {item.label}
+                      </a>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </nav>
