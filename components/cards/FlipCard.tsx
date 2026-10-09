@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { WordItem } from '@/data/words/basicadvanced/people';
+import { StrictEnglishTTS } from '@/components/audio/StrictEnglishTTS';
 
 interface FlipCardProps {
   word: WordItem;
@@ -53,9 +53,17 @@ export function FlipCard({ word, isFlipped, onFlip, frontLabel = 'Basic', backLa
             backgroundColor: '#0F172A'
           }}
         >
-          <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            {frontLabel}
-          </span>
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
+            <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
+              {frontLabel}
+            </span>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="shrink-0"
+            >
+              <StrictEnglishTTS text={word.basic} />
+            </div>
+          </div>
           <p className="text-[clamp(20px,5vw,24px)] text-[#cbd5e1] text-center m-0 leading-relaxed">
             {word.basic}
           </p>
@@ -78,9 +86,17 @@ export function FlipCard({ word, isFlipped, onFlip, frontLabel = 'Basic', backLa
             animation: isFlipped ? 'gradientMove 6s ease infinite, shake 0.3s ease-in-out' : 'none'
           }}
         >
-          <span className="absolute top-6 text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
-            {backLabel}
-          </span>
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between">
+            <span className="text-[10px] font-bold text-[#64748b] uppercase tracking-[0.2em]">
+              {backLabel}
+            </span>
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="shrink-0"
+            >
+              <StrictEnglishTTS text={word.advanced} />
+            </div>
+          </div>
           <p className="text-[clamp(24px,6vw,32px)] font-black text-white text-center m-0 leading-tight tracking-[-0.02em]">
             {word.advanced}
           </p>

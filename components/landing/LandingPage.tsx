@@ -163,8 +163,9 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-8 text-sm text-neutral-400">
             <a href="#features" className="hover:text-white transition-colors">Features</a>
             <a href="#streaks"  className="hover:text-white transition-colors">Streaks</a>
-            <a href="#upgrade"  className="hover:text-white transition-colors">Practice</a>
-            <a href="#pricing"  className="hover:text-white transition-colors">Pricing</a>
+            <a href="#upgrade"    className="hover:text-white transition-colors">Practice</a>
+            <a href="#vocabulary" className="hover:text-white transition-colors">My Vocabulary</a>
+            <a href="#pricing"    className="hover:text-white transition-colors">Pricing</a>
           </div>
           <div className="flex items-center gap-3">
             <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
@@ -200,15 +201,15 @@ export default function LandingPage() {
             <p className="reveal reveal-delay-3 mt-4 text-neutral-500 text-sm sm:text-base max-w-md leading-relaxed">
               Words, idioms, sentences &amp; games — all in one place. Stop sounding basic. Start sounding brilliant.
             </p>
-            <div className="reveal reveal-delay-4 mt-10 flex flex-col sm:flex-row gap-4">
-              <Link href="/home" className="group px-7 py-3.5 bg-white text-black font-medium rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-2 text-sm w-fit">
+            <div className="reveal reveal-delay-4 mt-10 flex flex-row flex-nowrap items-center gap-2 sm:gap-4 w-full max-w-md sm:max-w-none">
+              <Link href="/home" className="group flex-1 min-w-0 px-3 py-2.5 sm:flex-none sm:w-fit sm:px-7 sm:py-3.5 bg-white text-black font-medium rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-sm whitespace-nowrap">
                 Start for Free
-                <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
+                <span className="group-hover:translate-x-0.5 transition-transform inline-block shrink-0">→</span>
               </Link>
               <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
-                 className="px-7 py-3.5 border border-white/10 rounded-full text-neutral-300 hover:border-white/20 hover:text-white transition-all flex items-center justify-center gap-2.5 text-sm w-fit">
-                {TIKTOK_SVG}
-                Follow on TikTok
+                 className="flex-1 min-w-0 px-3 py-2.5 sm:flex-none sm:w-fit sm:px-7 sm:py-3.5 border border-white/10 rounded-full text-neutral-300 hover:border-white/20 hover:text-white transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-sm whitespace-nowrap">
+                <span className="shrink-0">{TIKTOK_SVG}</span>
+                <span className="truncate">Follow on TikTok</span>
               </a>
             </div>
             <div className="reveal reveal-delay-5 mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white">
@@ -715,6 +716,161 @@ export default function LandingPage() {
 
           {/* CTA */}
           <div className="text-center">
+            <Link href="/home" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+              Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── MY VOCABULARY ── */}
+      <section id="vocabulary" className="py-12 sm:py-16 relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-1/4 right-0 w-[350px] h-[350px] rounded-full bg-purple-500/[0.06] blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] rounded-full bg-cyan-500/[0.05] blur-[90px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-400/25 bg-gradient-to-r from-cyan-400/10 to-purple-500/10 text-cyan-300 text-xs font-medium mb-6">
+              📒 Your words, your list
+            </div>
+            <h2 className="reveal reveal-delay-1 text-3xl sm:text-5xl font-bold tracking-tight">
+              Build <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">My Vocabulary</span>
+            </h2>
+            <p className="reveal reveal-delay-2 mt-4 text-neutral-400 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+              Save words you need for work, travel, or exams. Put them in categories. Then train with simple games.
+            </p>
+            <div className="reveal reveal-delay-2 mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 opacity-80" />
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <div className="space-y-5">
+              <div className="reveal reveal-delay-1 bg-zinc-900 border border-white/10 rounded-2xl p-5 sm:p-6 hover:border-cyan-400/20 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-black text-lg font-bold shadow-lg shadow-purple-500/20">
+                    +
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">Add your words</h3>
+                    <p className="text-sm text-neutral-400 leading-relaxed">
+                      Type a word and meaning. You can also search our dictionary and fill the form fast. Add translation, notes, and how to say the word (IPA).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-5 sm:p-6 hover:border-purple-400/20 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 shrink-0 rounded-xl border border-white/10 bg-zinc-800 flex items-center justify-center text-purple-300 text-xl">
+                    📁
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">Make categories</h3>
+                    <p className="text-sm text-neutral-400 leading-relaxed">
+                      Group words like &quot;Travel&quot;, &quot;Job&quot;, or &quot;Books&quot;. Practice one group or all words together.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-5 sm:p-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 shrink-0 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-lg">
+                    ✓
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white mb-2">See your progress</h3>
+                    <p className="text-sm text-neutral-400 leading-relaxed mb-3">
+                      Each word can be <span className="text-white">new</span>, <span className="text-amber-400">learning</span>, or <span className="text-emerald-400">learned</span>. Watch the bar grow when you practice.
+                    </p>
+                    <div className="h-2 w-full rounded-full bg-zinc-800 overflow-hidden">
+                      <div className="h-full w-[62%] rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
+                    </div>
+                    <p className="text-[11px] text-neutral-500 mt-2">Example: 62% learned</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="reveal reveal-delay-4 flex flex-wrap gap-2">
+                {["Flashcards", "Unscramble", "Type the word"].map((mode) => (
+                  <span key={mode} className="px-3 py-1.5 rounded-full text-[11px] font-medium bg-gradient-to-r from-cyan-400/10 to-purple-500/10 border border-cyan-400/20 text-cyan-200">
+                    {mode}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Mini mock — vocabulary hub style */}
+            <div className="reveal reveal-delay-2 max-w-sm mx-auto lg:max-w-none w-full">
+              <div className="relative rounded-3xl border border-white/10 bg-zinc-900/95 p-5 shadow-2xl overflow-hidden">
+                <div className="absolute -right-8 -top-8 h-28 w-28 rounded-full bg-purple-500/15 blur-2xl pointer-events-none" />
+                <div className="absolute -left-8 -bottom-8 h-28 w-28 rounded-full bg-cyan-500/15 blur-2xl pointer-events-none" />
+
+                <div className="relative z-10 text-center mb-4">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">My Vocabulary</div>
+                  <div className="mt-1 text-xl font-extrabold bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    My Dictionary
+                  </div>
+                </div>
+
+                <div className="relative z-10 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/40 p-4 mb-3">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-purple-500 text-black text-lg">
+                    📒
+                  </div>
+                  <div>
+                    <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">24</div>
+                    <div className="text-[11px] text-neutral-500">words in your dictionary</div>
+                  </div>
+                </div>
+
+                <div className="relative z-10 grid grid-cols-2 gap-2 mb-3">
+                  <div className="rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 py-2.5 text-center text-[11px] font-bold text-black">
+                    Add word
+                  </div>
+                  <div className="rounded-xl border border-white/10 py-2.5 text-center text-[11px] font-semibold text-neutral-300">
+                    New category
+                  </div>
+                </div>
+
+                <div className="relative z-10 space-y-2 mb-3">
+                  {[
+                    ["📖", "My Dictionary", "All words by category"],
+                    ["🎮", "Learn", "Cards · Unscramble · Type"],
+                  ].map(([icon, title, sub]) => (
+                    <div key={title} className="flex items-center gap-3 rounded-xl border border-white/10 bg-black/30 p-3">
+                      <span className="text-lg">{icon}</span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-white">{title}</div>
+                        <div className="text-[10px] text-neutral-500 truncate">{sub}</div>
+                      </div>
+                      <span className="text-neutral-600 text-sm">›</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="relative z-10 rounded-xl border border-white/10 p-3">
+                  <div className="flex justify-between text-[11px] mb-2">
+                    <span className="font-semibold text-white">Your progress</span>
+                    <span className="text-emerald-400 font-semibold">62% learned</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-zinc-800 mb-3 overflow-hidden">
+                    <div className="h-full w-[62%] rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
+                  </div>
+                  <div className="grid grid-cols-3 gap-1.5 text-center">
+                    {[["15", "Learned", "text-emerald-400"], ["6", "Learning", "text-amber-400"], ["24", "Total", "text-white"]].map(([n, label, color]) => (
+                      <div key={label} className="rounded-lg bg-zinc-800/80 py-2">
+                        <div className={`text-sm font-extrabold ${color}`}>{n}</div>
+                        <div className="text-[9px] text-neutral-500">{label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <p className="text-center text-[11px] text-neutral-600 mt-3">Free plan: up to 20 words. Premium: unlimited.</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-10 sm:mt-12">
             <Link href="/home" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
               Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
             </Link>
