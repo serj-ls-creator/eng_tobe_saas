@@ -34,6 +34,7 @@ import {
 } from "@/lib/vocabulary";
 
 type StatusFilter = "all" | "new" | "learning" | "learned";
+type WordSortMode = "alphabetical" | "alphabetical-reverse" | "newest-first" | "oldest-first";
 
 export default function VocabularyListPage() {
   const points = usePoints();
@@ -48,6 +49,7 @@ export default function VocabularyListPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [selectedSet, setSelectedSet] = useState<string>("all");
+  const [sortMode, setSortMode] = useState<WordSortMode>("newest-first");
 
   const [wordToDelete, setWordToDelete] = useState<UserWord | null>(null);
 
@@ -83,7 +85,7 @@ export default function VocabularyListPage() {
 
   // Filtered words
   const filteredWords = useMemo(() => {
-    return words.filter((w) => {
+    const matchingWords = words.filter((w) => {
       // Status filter
       if (statusFilter !== "all" && w.status !== statusFilter) {
         return false;
@@ -106,7 +108,19 @@ export default function VocabularyListPage() {
       }
       return true;
     });
-  }, [words, statusFilter, selectedSet, searchQuery]);
+
+    return matchingWords.sort((a, b) => {
+      if (sortMode === "alphabetical") {
+        return a.word.localeCompare(b.word, undefined, { sensitivity: "base" });
+      }
+      if (sortMode === "alphabetical-reverse") {
+        return b.word.localeCompare(a.word, undefined, { sensitivity: "base" });
+      }
+      const dateA = new Date(a.created_at).getTime();
+      const dateB = new Date(b.created_at).getTime();
+      return sortMode === "newest-first" ? dateB - dateA : dateA - dateB;
+    });
+  }, [words, statusFilter, selectedSet, searchQuery, sortMode]);
 
   // Cycle status on pill click: new -> learning -> learned -> new
   const handleCycleStatus = async (word: UserWord) => {
@@ -223,26 +237,41 @@ export default function VocabularyListPage() {
           </button>
         </div>
 
-        {/* Set Row & Settings Icon */}
+        {/* Category, Sort & Settings */}
         <div className="flex items-center gap-2 mb-4">
-          <div className="relative min-w-0 flex-1">
+          <div className="relative min-w-0 flex-[0.9]">
             <select
               value={selectedSet}
               onChange={(event) => setSelectedSet(event.target.value)}
               aria-label="Filter by category"
-              className={`w-full appearance-none rounded-full border py-1.5 pl-3.5 pr-9 text-xs font-bold shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
+              className={`w-full appearance-none rounded-full border py-1.5 pl-2.5 pr-7 text-[11px] font-bold shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
                 selectedSet === "all"
                   ? "border-cyan-300/60 bg-zinc-900 text-cyan-100 shadow-cyan-500/10"
                   : "border-purple-400/60 bg-zinc-900 text-purple-200 shadow-purple-500/10"
               }`}
             >
-              <option className="bg-zinc-900 text-white" value="all">All Words ({words.length})</option>
+              <option className="bg-zinc-900 text-white" value="all">All Categories ({words.length})</option>
               {sets.map((set) => {
                 const count = words.filter((word) => word.set_name === set.name).length;
                 return <option className="bg-zinc-900 text-white" key={set.id} value={set.name}>{set.name} ({count})</option>;
               })}
             </select>
-            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-cyan-300" />
+            <ChevronDown className="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-cyan-300" />
+          </div>
+
+          <div className="relative min-w-0 flex-[1.1]">
+            <select
+              value={sortMode}
+              onChange={(event) => setSortMode(event.target.value as WordSortMode)}
+              aria-label="Sort words"
+              className="w-full appearance-none rounded-full border border-cyan-300/40 bg-zinc-900 py-1.5 pl-2.5 pr-7 text-[11px] font-bold text-cyan-100 shadow-md shadow-cyan-500/5 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400/50"
+            >
+              <option className="bg-zinc-900 text-white" value="alphabetical">A–Z</option>
+              <option className="bg-zinc-900 text-white" value="alphabetical-reverse">Z–A</option>
+              <option className="bg-zinc-900 text-white" value="newest-first">Newest first</option>
+              <option className="bg-zinc-900 text-white" value="oldest-first">Oldest first</option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-cyan-300" />
           </div>
 
           <Link
