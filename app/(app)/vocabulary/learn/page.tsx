@@ -8,7 +8,6 @@ import {
   Shuffle, 
   Keyboard, 
   ChevronRight, 
-  Lock, 
   BookMarked,
   Sparkles
 } from "lucide-react";
@@ -62,6 +61,10 @@ export default function VocabularyLearnPage() {
   const unscrambleHref = selectedSet === "all"
     ? "/vocabulary/learn/unscramble"
     : `/vocabulary/learn/unscramble?set=${encodeURIComponent(selectedSet)}`;
+
+  const multipleChoiceHref = selectedSet === "all"
+    ? "/vocabulary/learn/multiple-choice"
+    : `/vocabulary/learn/multiple-choice?set=${encodeURIComponent(selectedSet)}`;
 
   const typeHref = selectedSet === "all"
     ? "/vocabulary/learn/type-the-word"
@@ -160,30 +163,30 @@ export default function VocabularyLearnPage() {
             </Card>
           </Link>
 
-          {/* 2. Multiple Choice (Coming Soon) */}
-          <div className="fade-up fade-up-d2">
-            <Card className="relative overflow-hidden border-white/5 bg-zinc-900/50 p-4 opacity-70">
+          {/* 2. Multiple Choice */}
+          <Link href={multipleChoiceHref} className="block">
+            <Card className="fade-up fade-up-d2 group relative overflow-hidden border-emerald-400/30 bg-gradient-to-br from-emerald-950/30 via-zinc-900/90 to-zinc-900 p-4 transition-all hover:border-emerald-400/60 hover:shadow-lg hover:shadow-emerald-500/10 active:scale-[0.99]">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-zinc-800 text-zinc-500">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-500 text-black shadow-md shadow-emerald-500/20">
                   <HelpCircle className="h-6 w-6" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-bold text-zinc-300">
+                    <span className="text-base font-bold text-white group-hover:text-emerald-300 transition-colors">
                       Multiple Choice
                     </span>
-                    <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-zinc-400">
-                      Coming Soon
+                    <span className="rounded-full bg-emerald-400/15 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-400">
+                      {activeWords.length} {activeWords.length === 1 ? "word" : "words"}
                     </span>
                   </div>
                   <p className="text-xs text-zinc-500 mt-1 line-clamp-1">
                     Test your recall by selecting the right definition or translation.
                   </p>
                 </div>
-                <Lock className="h-4 w-4 text-zinc-600 shrink-0" />
+                <ChevronRight className="h-5 w-5 text-emerald-400 group-hover:translate-x-0.5 transition-all shrink-0" />
               </div>
             </Card>
-          </div>
+          </Link>
 
           {/* 3. Unscramble (Active) */}
           <Link href={unscrambleHref} className="block">

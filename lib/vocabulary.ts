@@ -115,6 +115,7 @@ export type VocabularyActivityId = "cards" | "unscramble" | "multiple-choice" | 
 export const ACTIVE_VOCABULARY_ACTIVITIES: VocabularyActivityId[] = [
   "cards",
   "unscramble",
+  "multiple-choice",
   "type-the-word",
 ];
 
