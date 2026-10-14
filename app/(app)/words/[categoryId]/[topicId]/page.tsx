@@ -6,9 +6,28 @@ import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { getIcon } from "@/lib/icons";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 
 export const dynamic = 'force-dynamic';
+
+const BASIC_ADVANCED_SUBCATEGORY_ICONS: Record<string, string> = {
+  appearance: "Shirt", thinking: "Brain", emotions: "Laugh", relationships: "Handshake",
+  actions: "Zap", speech: "MessageCircleMore", personality: "Drama", social: "Users",
+  energy: "Battery", identity: "Fingerprint",
+  home: "Home", neighbourhood: "MapPin", nature: "Flower2", weather: "CloudSun",
+  travel: "Compass", architecture: "Building2", objects: "Package", materials: "Layers",
+  space: "Orbit", atmosphere: "Wind",
+  devices: "Smartphone", internet: "Globe", "social-media": "Share2", startup: "Rocket",
+  communication: "MessagesSquare", data: "ChartNoAxesColumn", security: "ShieldCheck",
+  automation: "Workflow", trends: "TrendingUp", "work-tools": "Wrench",
+  food: "Pizza", drinks: "CupSoda", cooking: "CookingPot", restaurant: "Utensils",
+  hobbies: "Palette", sports: "Dumbbell", routine: "CalendarDays", beauty: "Sparkles",
+  health: "HeartPulse", shopping: "ShoppingBag",
+  logic: "Network", learning: "GraduationCap", "problem-solving": "Puzzle",
+  creativity: "Lightbulb", focus: "Focus", planning: "ListTodo", habits: "Repeat2",
+  growth: "Sprout", leadership: "Crown", philosophy: "BookOpenText"
+};
 
 interface PageProps {
   params: {
@@ -79,7 +98,13 @@ export default async function TopicPage({ params }: PageProps) {
                       )
                     }`}
                   >
-                    <div className="mb-2 text-sm font-semibold">{subcategory.name}</div>
+                    <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
+                      {categoryId === "basic-advanced" && (() => {
+                        const Icon = getIcon(BASIC_ADVANCED_SUBCATEGORY_ICONS[subcategory.id] ?? "Sparkles");
+                        return <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-400/15"><Icon className="h-4 w-4 text-cyan-300" /></span>;
+                      })()}
+                      <span>{subcategory.name}</span>
+                    </div>
                     <div className="text-[11px] leading-relaxed">
                     {subcategory.description?.includes('||') ? (
                       <>
