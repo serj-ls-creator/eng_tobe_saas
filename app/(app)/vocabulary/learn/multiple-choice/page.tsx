@@ -13,7 +13,7 @@ import { StrictEnglishTTS } from "@/components/audio/StrictEnglishTTS";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 import { usePoints } from "@/lib/usePoints";
 import {
-  fetchUserVocabulary,
+  fetchVisibleUserVocabulary,
   fetchUserVocabularySets,
   getStoredUnscrambleSettings,
   saveStoredUnscrambleSettings,
@@ -60,12 +60,12 @@ function VocabularyMultipleChoiceContent() {
     async function load() {
       try {
         setSettings(getStoredUnscrambleSettings());
-        const [loadedWords, loadedSets] = await Promise.all([
-          fetchUserVocabulary(),
+        const [vocabulary, loadedSets] = await Promise.all([
+          fetchVisibleUserVocabulary(),
           fetchUserVocabularySets(),
         ]);
         if (!cancelled) {
-          setWords(loadedWords);
+          setWords(vocabulary.words);
           setSets(loadedSets);
         }
       } catch (error) {

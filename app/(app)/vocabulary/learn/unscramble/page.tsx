@@ -26,7 +26,7 @@ import { CompletionModal } from "@/components/ui/CompletionModal";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 import { usePoints } from "@/lib/usePoints";
 import { 
-  fetchUserVocabulary, 
+  fetchVisibleUserVocabulary,
   fetchUserVocabularySets, 
   getStoredUnscrambleSettings, 
   saveStoredUnscrambleSettings, 
@@ -85,11 +85,11 @@ function VocabularyUnscrambleContent() {
     async function loadData() {
       try {
         setSettings(getStoredUnscrambleSettings());
-        const [loadedWords, loadedSets] = await Promise.all([
-          fetchUserVocabulary(),
+        const [vocabulary, loadedSets] = await Promise.all([
+          fetchVisibleUserVocabulary(),
           fetchUserVocabularySets(),
         ]);
-        setWords(loadedWords);
+        setWords(vocabulary.words);
         setSets(loadedSets);
       } catch (err) {
         console.error("Failed to load unscramble data:", err);

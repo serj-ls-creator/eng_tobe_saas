@@ -25,7 +25,7 @@ import {
   getStoredVocabularySettings, 
   saveStoredVocabularySettings, 
   fetchUserVocabularySets,
-  fetchUserVocabulary,
+  fetchVisibleUserVocabulary,
   createVocabularySet,
   renameVocabularySet,
   deleteVocabularySet,
@@ -92,12 +92,12 @@ export default function VocabularySettingsPage() {
   const loadData = async () => {
     try {
       setSettings(getStoredVocabularySettings());
-      const [loadedSets, loadedWords] = await Promise.all([
+      const [loadedSets, vocabulary] = await Promise.all([
         fetchUserVocabularySets(),
-        fetchUserVocabulary(),
+        fetchVisibleUserVocabulary(),
       ]);
       setSets(loadedSets);
-      setWords(loadedWords);
+      setWords(vocabulary.words);
     } catch (e) {
       console.error(e);
     }

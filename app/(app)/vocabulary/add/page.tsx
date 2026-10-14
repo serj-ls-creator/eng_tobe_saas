@@ -77,7 +77,12 @@ function AddWordForm() {
           fetchUserVocabulary(),
         ]);
         setSets(loadedSets);
-        setWordCount(loadedWords.length);
+        const assignedFreeSlots = new Set(
+          loadedWords
+            .map((entry) => entry.free_slot)
+            .filter((slot): slot is number => Number.isInteger(slot)),
+        );
+        setWordCount(assignedFreeSlots.size || Math.min(loadedWords.length, FREE_WORDS_LIMIT));
 
         if (user) {
           const { data: profile } = await supabase
@@ -204,6 +209,8 @@ function AddWordForm() {
         });
         if (res.success) {
           router.push("/vocabulary/list");
+        } else if (res.error) {
+          setError(res.error);
         }
       } else {
         const res = await addUserVocabularyWord({
@@ -223,10 +230,13 @@ function AddWordForm() {
           setError(`"${word.trim()}" is already in your dictionary.`);
         } else if (res.success) {
           router.push("/vocabulary/list");
+        } else if (res.error) {
+          setError(res.error);
         }
       }
     } catch (err) {
       console.error(err);
+      setError("We couldn't save this word. Please try again.");
     } finally {
       setSubmitting(false);
     }

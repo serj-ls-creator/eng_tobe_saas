@@ -24,7 +24,7 @@ import { StrictEnglishTTS } from "@/components/audio/StrictEnglishTTS";
 import { usePoints } from "@/lib/usePoints";
 import { useAutoFlip } from "@/lib/useAutoFlip";
 import { 
-  fetchUserVocabulary, 
+  fetchVisibleUserVocabulary,
   fetchUserVocabularySets, 
   getStoredFlashcardSettings, 
   saveStoredFlashcardSettings, 
@@ -71,11 +71,11 @@ function VocabularyCardsContent() {
     async function loadData() {
       try {
         setFlashcardSettings(getStoredFlashcardSettings());
-        const [loadedWords, loadedSets] = await Promise.all([
-          fetchUserVocabulary(),
+        const [vocabulary, loadedSets] = await Promise.all([
+          fetchVisibleUserVocabulary(),
           fetchUserVocabularySets(),
         ]);
-        setWords(loadedWords);
+        setWords(vocabulary.words);
         setSets(loadedSets);
       } catch (err) {
         console.error("Failed to load cards data:", err);

@@ -8,6 +8,7 @@ import {
   Shuffle, 
   Keyboard, 
   ChevronRight, 
+  ChevronDown,
   BookMarked,
   Sparkles
 } from "lucide-react";
@@ -16,7 +17,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
 import { usePoints } from "@/lib/usePoints";
 import { 
-  fetchUserVocabulary, 
+  fetchVisibleUserVocabulary,
   fetchUserVocabularySets, 
   UserWord, 
   VocabularySet 
@@ -33,11 +34,11 @@ export default function VocabularyLearnPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const [loadedWords, loadedSets] = await Promise.all([
-          fetchUserVocabulary(),
+        const [vocabulary, loadedSets] = await Promise.all([
+          fetchVisibleUserVocabulary(),
           fetchUserVocabularySets(),
         ]);
-        setWords(loadedWords);
+        setWords(vocabulary.words);
         setSets(loadedSets);
       } catch (err) {
         console.error("Failed to load vocabulary:", err);
@@ -106,33 +107,24 @@ export default function VocabularyLearnPage() {
           <label className="block text-xs font-semibold text-zinc-400 mb-2">
             Select Category to Practice
           </label>
-          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <button
-              onClick={() => setSelectedSet("all")}
-              className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
+          <div className="relative w-fit max-w-full">
+            <select
+              value={selectedSet}
+              onChange={(event) => setSelectedSet(event.target.value)}
+              aria-label="Select category to practice"
+              className={`max-w-full appearance-none rounded-full border py-1.5 pl-3.5 pr-9 text-xs font-bold shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
                 selectedSet === "all"
-                  ? "bg-gradient-to-r from-cyan-400 to-purple-500 text-black shadow-md shadow-cyan-500/10"
-                  : "border border-white/10 bg-zinc-900 text-zinc-400 hover:text-white"
+                  ? "border-cyan-300/60 bg-zinc-900 text-cyan-100 shadow-cyan-500/10"
+                  : "border-purple-400/60 bg-zinc-900 text-purple-200 shadow-purple-500/10"
               }`}
             >
-              All Words <span className="opacity-75 ml-1">({words.length})</span>
-            </button>
-            {sets.map((s) => {
-              const count = words.filter((w) => w.set_name === s.name).length;
-              return (
-                <button
-                  key={s.id}
-                  onClick={() => setSelectedSet(s.name)}
-                  className={`shrink-0 rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
-                    selectedSet === s.name
-                      ? "bg-purple-500 text-white shadow-md shadow-purple-500/20"
-                      : "border border-white/10 bg-zinc-900 text-zinc-400 hover:text-white"
-                  }`}
-                >
-                  {s.name} <span className="opacity-75 ml-1">({count})</span>
-                </button>
-              );
-            })}
+              <option className="bg-zinc-900 text-white" value="all">All Words ({words.length})</option>
+              {sets.map((set) => {
+                const count = words.filter((word) => word.set_name === set.name).length;
+                return <option className="bg-zinc-900 text-white" key={set.id} value={set.name}>{set.name} ({count})</option>;
+              })}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-cyan-300" />
           </div>
         </div>
 

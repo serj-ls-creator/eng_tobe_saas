@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { 
   Search, 
+  ChevronDown,
   Settings, 
   Plus, 
   Pencil, 
@@ -21,7 +22,7 @@ import { Card } from "@/components/ui/card";
 import { StrictEnglishTTS } from "@/components/audio/StrictEnglishTTS";
 import { usePoints } from "@/lib/usePoints";
 import { 
-  fetchUserVocabulary, 
+  fetchVisibleUserVocabulary,
   fetchUserVocabularySets, 
   updateUserVocabularyWord, 
   deleteUserVocabularyWord, 
@@ -39,6 +40,7 @@ export default function VocabularyListPage() {
   const router = useRouter();
 
   const [words, setWords] = useState<UserWord[]>([]);
+  const [lockedWordCount, setLockedWordCount] = useState(0);
   const [sets, setSets] = useState<VocabularySet[]>([]);
   const [displaySettings, setDisplaySettings] = useState<VocabularyCardDisplaySettings>(DEFAULT_VOCABULARY_CARD_SETTINGS);
   const [loading, setLoading] = useState(true);
@@ -53,11 +55,12 @@ export default function VocabularyListPage() {
     async function loadData() {
       try {
         setDisplaySettings(getStoredVocabularySettings());
-        const [loadedWords, loadedSets] = await Promise.all([
-          fetchUserVocabulary(),
+        const [vocabulary, loadedSets] = await Promise.all([
+          fetchVisibleUserVocabulary(),
           fetchUserVocabularySets(),
         ]);
-        setWords(loadedWords);
+        setWords(vocabulary.words);
+        setLockedWordCount(vocabulary.lockedCount);
         setSets(loadedSets);
       } catch (err) {
         console.error("Failed to load vocabulary data:", err);
@@ -157,6 +160,13 @@ export default function VocabularyListPage() {
           </p>
         </div>
 
+        {lockedWordCount > 0 && (
+          <Link href="/store" className="mb-4 block rounded-2xl border border-amber-400/25 bg-amber-950/20 p-4 transition-colors hover:border-amber-400/50">
+            <div className="text-sm font-bold text-amber-300">{lockedWordCount} more {lockedWordCount === 1 ? "word is" : "words are"} locked</div>
+            <p className="mt-1 text-xs text-zinc-300">Upgrade to Premium to unlock all your words.</p>
+          </Link>
+        )}
+
         {/* Search Bar */}
         <div className="relative mb-3">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" />
@@ -215,30 +225,24 @@ export default function VocabularyListPage() {
 
         {/* Set Row & Settings Icon */}
         <div className="flex items-center gap-2 mb-4">
-          <div className="flex flex-1 gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <button
-              onClick={() => setSelectedSet("all")}
-              className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all ${
+          <div className="relative min-w-0 flex-1">
+            <select
+              value={selectedSet}
+              onChange={(event) => setSelectedSet(event.target.value)}
+              aria-label="Filter by category"
+              className={`w-full appearance-none rounded-full border py-1.5 pl-3.5 pr-9 text-xs font-bold shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
                 selectedSet === "all"
-                  ? "border border-purple-400/50 bg-purple-500/15 text-purple-300"
-                  : "border border-white/10 bg-zinc-900 text-zinc-400 hover:text-white"
+                  ? "border-cyan-300/60 bg-zinc-900 text-cyan-100 shadow-cyan-500/10"
+                  : "border-purple-400/60 bg-zinc-900 text-purple-200 shadow-purple-500/10"
               }`}
             >
-              All sets
-            </button>
-            {sets.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => setSelectedSet(s.name)}
-                className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-medium transition-all ${
-                  selectedSet === s.name
-                    ? "border border-purple-400/50 bg-purple-500/15 text-purple-300"
-                    : "border border-white/10 bg-zinc-900 text-zinc-400 hover:text-white"
-                }`}
-              >
-                {s.name}
-              </button>
-            ))}
+              <option className="bg-zinc-900 text-white" value="all">All Words ({words.length})</option>
+              {sets.map((set) => {
+                const count = words.filter((word) => word.set_name === set.name).length;
+                return <option className="bg-zinc-900 text-white" key={set.id} value={set.name}>{set.name} ({count})</option>;
+              })}
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-cyan-300" />
           </div>
 
           <Link

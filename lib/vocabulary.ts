@@ -11,6 +11,8 @@ export interface UserWord {
   set_name: string;
   status: "new" | "learning" | "learned";
   passed_activities?: string[];
+  /** Reserved free-tier slot (1-20); null means the word requires Premium. */
+  free_slot?: number | null;
   created_at: string;
   updated_at?: string;
 }
@@ -136,6 +138,13 @@ const LOCAL_STORAGE_FLASHCARD_SETTINGS_KEY = "eng_tobe_my_vocabulary_flashcard_s
 const LOCAL_STORAGE_UNSCRAMBLE_SETTINGS_KEY = "eng_tobe_my_vocabulary_unscramble_settings";
 const LOCAL_STORAGE_TYPE_WORD_SETTINGS_KEY = "eng_tobe_my_vocabulary_type_word_settings";
 export const FREE_WORDS_LIMIT = 20;
+
+export interface VisibleUserVocabulary {
+  words: UserWord[];
+  isPremium: boolean;
+  lockedCount: number;
+  totalCount: number;
+}
 
 // Helper to get local words
 export function getLocalWords(): UserWord[] {
@@ -371,6 +380,46 @@ export async function fetchUserVocabulary(): Promise<UserWord[]> {
   }
 }
 
+/** Fetches all words, then applies the account-wide free-tier visibility limit. */
+export async function fetchVisibleUserVocabulary(): Promise<VisibleUserVocabulary> {
+  const allWords = await fetchUserVocabulary();
+  const supabase = createSupabaseBrowserClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { words: [], isPremium: false, lockedCount: 0, totalCount: 0 };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("is_premium, premium_expires_at")
+    .eq("user_id", user.id)
+    .maybeSingle();
+  const isPremium = Boolean(
+    profile?.is_premium &&
+    (!profile.premium_expires_at || new Date(profile.premium_expires_at) > new Date()),
+  );
+
+  if (isPremium || allWords.length <= FREE_WORDS_LIMIT) {
+    return { words: allWords, isPremium, lockedCount: 0, totalCount: allWords.length };
+  }
+
+  // The migration assigns stable slots to the original 20 free words. Fallback
+  // to the oldest words while older deployments are waiting for that migration.
+  const hasAssignedSlots = allWords.some((word) => Number.isInteger(word.free_slot));
+  const visibleWords = hasAssignedSlots
+    ? allWords
+        .filter((word) => Number.isInteger(word.free_slot))
+        .sort((a, b) => (a.free_slot ?? 0) - (b.free_slot ?? 0))
+    : [...allWords]
+        .sort((a, b) => a.created_at.localeCompare(b.created_at))
+        .slice(0, FREE_WORDS_LIMIT);
+
+  return {
+    words: visibleWords,
+    isPremium: false,
+    lockedCount: allWords.length - visibleWords.length,
+    totalCount: allWords.length,
+  };
+}
+
 // Fetch all user vocabulary sets
 export async function fetchUserVocabularySets(): Promise<VocabularySet[]> {
   const supabase = createSupabaseBrowserClient();
@@ -433,7 +482,21 @@ export async function addUserVocabularyWord(
 
   // Check word limit for non-premium
   const currentWords = await fetchUserVocabulary();
-  if (!isUserPremium && currentWords.length >= FREE_WORDS_LIMIT) {
+  const occupiedFreeSlots = new Set(
+    currentWords
+      .map((word) => word.free_slot)
+      .filter((slot): slot is number => Number.isInteger(slot)),
+  );
+  if (currentWords.length > 0 && !currentWords.some((word) => Number.isInteger(word.free_slot))) {
+    // Until the free-slot migration is applied, conservatively treat the
+    // oldest 20 existing words as occupying the allowance.
+    for (let slot = 1; slot <= Math.min(currentWords.length, FREE_WORDS_LIMIT); slot++) {
+      occupiedFreeSlots.add(slot);
+    }
+  }
+  const freeSlot = Array.from({ length: FREE_WORDS_LIMIT }, (_, index) => index + 1)
+    .find((slot) => !occupiedFreeSlots.has(slot));
+  if (!isUserPremium && freeSlot === undefined) {
     return {
       success: false,
       limitReached: true,
@@ -457,36 +520,55 @@ export async function addUserVocabularyWord(
   const newWord: UserWord = {
     ...wordData,
     id: typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    free_slot: freeSlot ?? null,
     created_at: now,
     updated_at: now,
   };
 
   if (user) {
     try {
-      const { data, error } = await supabase
+      const insertPayload = {
+        user_id: user.id,
+        word: wordData.word.trim(),
+        ipa: wordData.ipa || null,
+        definition: wordData.definition || null,
+        translation: wordData.translation || null,
+        synonyms: wordData.synonyms || null,
+        notes: wordData.notes || null,
+        set_name: wordData.set_name || "General",
+        status: wordData.status || "new",
+        passed_activities: wordData.passed_activities || [],
+        free_slot: newWord.free_slot,
+      };
+      let { data, error } = await supabase
         .from("user_vocabulary")
-        .insert({
-          user_id: user.id,
-          word: wordData.word.trim(),
-          ipa: wordData.ipa || null,
-          definition: wordData.definition || null,
-          translation: wordData.translation || null,
-          synonyms: wordData.synonyms || null,
-          notes: wordData.notes || null,
-          set_name: wordData.set_name || "General",
-          status: wordData.status || "new",
-          passed_activities: wordData.passed_activities || [],
-        })
+        .insert(insertPayload)
         .select()
         .single();
 
       if (error) {
-        console.warn("Failed to insert into Supabase, saving locally:", error);
-      } else if (data) {
-        newWord.id = data.id;
+        // Let additions keep working during rollout if the app is deployed
+        // before the free-slot migration reaches the database.
+        if (error.code === "42703" || error.code === "PGRST204") {
+          const { free_slot: _freeSlot, ...legacyPayload } = insertPayload;
+          const retry = await supabase
+            .from("user_vocabulary")
+            .insert(legacyPayload)
+            .select()
+            .single();
+          data = retry.data;
+          error = retry.error;
+        }
+        if (error || !data) {
+          console.error("Failed to save vocabulary word:", error);
+          return { success: false, error: "We couldn't save this word. Please try again." };
+        }
       }
+      newWord.id = data.id;
+      if (typeof data.free_slot === "number") newWord.free_slot = data.free_slot;
     } catch (err) {
-      console.warn("Supabase insert error:", err);
+      console.error("Supabase insert error:", err);
+      return { success: false, error: "We couldn't save this word. Please check your connection and try again." };
     }
   }
 

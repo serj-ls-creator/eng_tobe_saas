@@ -19,7 +19,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
 import { usePoints } from "@/lib/usePoints";
 import { 
-  fetchUserVocabulary, 
+  fetchVisibleUserVocabulary,
   createVocabularySet, 
   UserWord 
 } from "@/lib/vocabulary";
@@ -27,6 +27,7 @@ import {
 export default function VocabularyHubPage() {
   const points = usePoints();
   const [words, setWords] = useState<UserWord[]>([]);
+  const [lockedWordCount, setLockedWordCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showNewSetModal, setShowNewSetModal] = useState(false);
   const [newSetName, setNewSetName] = useState("");
@@ -37,8 +38,9 @@ export default function VocabularyHubPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const userWords = await fetchUserVocabulary();
-        setWords(userWords);
+        const vocabulary = await fetchVisibleUserVocabulary();
+        setWords(vocabulary.words);
+        setLockedWordCount(vocabulary.lockedCount);
       } catch (err) {
         console.error("Failed to load vocabulary words:", err);
       } finally {
@@ -128,6 +130,13 @@ export default function VocabularyHubPage() {
             </div>
           </div>
         </div>
+
+        {lockedWordCount > 0 && (
+          <Link href="/store" className="mb-3 block rounded-2xl border border-amber-400/25 bg-amber-950/20 p-4 transition-colors hover:border-amber-400/50">
+            <div className="text-sm font-bold text-amber-300">{lockedWordCount} more {lockedWordCount === 1 ? "word is" : "words are"} locked</div>
+            <p className="mt-1 text-xs text-zinc-300">Upgrade to Premium to unlock all your words.</p>
+          </Link>
+        )}
 
         {/* Action Buttons */}
         <div className="fade-up fade-up-d1 mb-4 grid grid-cols-2 gap-3">

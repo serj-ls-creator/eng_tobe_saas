@@ -22,7 +22,7 @@ import { CompletionModal } from "@/components/ui/CompletionModal";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 import { usePoints } from "@/lib/usePoints";
 import { 
-  fetchUserVocabulary, 
+  fetchVisibleUserVocabulary,
   fetchUserVocabularySets, 
   getStoredTypeWordSettings, 
   saveStoredTypeWordSettings, 
@@ -70,11 +70,11 @@ function VocabularyTypeWordContent() {
     async function loadData() {
       try {
         setSettings(getStoredTypeWordSettings());
-        const [loadedWords, loadedSets] = await Promise.all([
-          fetchUserVocabulary(),
+        const [vocabulary, loadedSets] = await Promise.all([
+          fetchVisibleUserVocabulary(),
           fetchUserVocabularySets(),
         ]);
-        setWords(loadedWords);
+        setWords(vocabulary.words);
         setSets(loadedSets);
       } catch (err) {
         console.error("Failed to load vocabulary data:", err);
