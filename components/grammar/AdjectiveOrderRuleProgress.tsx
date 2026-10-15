@@ -8,12 +8,12 @@ export function AdjectiveOrderRuleProgress() {
   useEffect(() => {
     void recordLearningProgress({
       section: "grammar",
-      categoryId: "adjective-order",
-      topicId: "rule",
+      categoryId: "adjectives",
+      topicId: "adjective-order",
       activityId: "rule",
       activityName: "Rule",
       title: "Adjective Order Rule",
-      href: "/grammar/adjective-order/rule",
+      href: "/grammar/adjectives/adjective-order/rule",
       score: 1,
       total: 1
     });

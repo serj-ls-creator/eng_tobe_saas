@@ -1,14 +1,12 @@
 import Link from "next/link";
-import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
-import { GRAMMAR_CATS } from "@/constants/categories";
-import { isPremium } from "@/lib/isPremium";
-import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
+import { GRAMMAR_SECTIONS } from "@/constants/grammar";
+import { GrammarTree } from "@/components/grammar/GrammarTree";
+import { getLearningProgressSnapshot } from "@/lib/learning-progress";
 
 export const dynamic = 'force-dynamic';
 
 export default async function GrammarPage() {
-  const premium = await isPremium();
   const progress = await getLearningProgressSnapshot();
 
   return (
@@ -28,28 +26,11 @@ export default async function GrammarPage() {
           <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Practice</div>
           <h1 className="mb-2 text-3xl font-black text-white">Grammar</h1>
           <p className="max-w-md text-sm leading-6 text-zinc-200">
-            Master English grammar rules, articles, prepositions, and irregular verb forms
+            Learn the rules that help you build clear, accurate English sentences.
           </p>
         </div>
 
-        <div className="space-y-3">
-          {GRAMMAR_CATS.map((category, index) => (
-            <div key={category.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <CategoryCard
-                title={category.name}
-                description={category.description}
-                icon={category.icon}
-                color={category.color}
-                href={category.href}
-                locked={!category.isFree && !premium}
-                badge={category.badge}
-                progressStatus={
-                  progress.containerStatuses[buildProgressKey({ section: "grammar", categoryId: category.id })] ?? "none"
-                }
-              />
-            </div>
-          ))}
-        </div>
+        <GrammarTree sections={GRAMMAR_SECTIONS} progress={progress} />
       </div>
     </>
   );

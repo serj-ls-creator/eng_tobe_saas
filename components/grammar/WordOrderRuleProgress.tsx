@@ -8,12 +8,12 @@ export function WordOrderRuleProgress() {
   useEffect(() => {
     void recordLearningProgress({
       section: "grammar",
-      categoryId: "word-order",
-      topicId: "rule",
+      categoryId: "sentences",
+      topicId: "word-order",
       activityId: "rule",
       activityName: "Rule",
       title: "Word Order Rule",
-      href: "/grammar/word-order/rule",
+      href: "/grammar/sentences/word-order/rule",
       score: 1,
       total: 1
     });

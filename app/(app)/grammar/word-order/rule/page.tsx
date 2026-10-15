@@ -31,8 +31,8 @@ export default function WordOrderRulePage() {
       <TopBar title="Word Order Rule" />
       <div className="content-shell pb-10">
         <div className="mb-4">
-          <Link href="/grammar/word-order" className="text-xs text-zinc-500 transition-colors hover:text-zinc-300">
-            &larr; Back to Word Order
+          <Link href="/grammar" className="text-xs text-zinc-500 transition-colors hover:text-zinc-300">
+            &larr; Back to Grammar
           </Link>
         </div>
 
