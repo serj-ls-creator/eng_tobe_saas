@@ -31,6 +31,7 @@ const LANDING_NAV_LINKS = [
   { href: "#features", label: "Features" },
   { href: "#streaks", label: "Streaks" },
   { href: "#upgrade", label: "Practice" },
+  { href: "#grammar", label: "Grammar" },
   { href: "#vocabulary", label: "My Vocabulary" },
   { href: "#pricing", label: "Pricing" },
 ];
@@ -712,85 +713,83 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── SOCIAL CTA ── */}
-      <section id="download" className="py-12 sm:py-20 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF3D71]/5 rounded-full blur-[150px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#00E5FF]/5 rounded-full blur-[120px]" />
-        </div>
-        <div className="max-w-5xl mx-auto px-6 relative z-10">
-          {/* Heading */}
-          <div className="text-center mb-14">
-            <h2 className="reveal text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
-              Follow Along,<br />
-              <span className="gradient-text">Learn Every Day</span>
+      {/* ── GRAMMAR ── */}
+      <section id="grammar" className="py-12 sm:py-16 relative overflow-hidden">
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-1/4 left-0 w-[350px] h-[350px] rounded-full bg-violet-500/[0.07] blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-cyan-500/[0.05] blur-[90px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-12 sm:mb-16">
+            <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-violet-400/25 bg-gradient-to-r from-violet-400/10 to-cyan-500/10 text-violet-200 text-xs font-medium mb-6">
+              ✍️ Grammar that makes your English clear
+            </div>
+            <h2 className="reveal reveal-delay-1 text-3xl sm:text-5xl font-bold tracking-tight">
+              Build stronger <span className="bg-gradient-to-r from-violet-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent">sentences</span>
             </h2>
-            <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">
-              Daily English tips on TikTok and Instagram — then open the app to practise what you learned.
+            <p className="reveal reveal-delay-2 mt-4 text-neutral-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+              Explore 17 grammar categories, learn a rule in context, and put it into practice with interactive exercises.
             </p>
+            <div className="reveal reveal-delay-2 mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-violet-400 to-cyan-400 opacity-80" />
           </div>
 
-          {/* Two social cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-14">
-            {/* TikTok card */}
-            <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:bg-white/[0.05] transition-all duration-300">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-xs text-neutral-500 uppercase tracking-wider">TikTok</div>
-                  <div className="font-semibold text-white">@english_tobe</div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-5">
+              <div className="reveal reveal-delay-1 bg-zinc-900 border border-white/10 rounded-2xl p-5 sm:p-6 hover:border-violet-400/20 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 shrink-0 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-300 text-xl">📚</div>
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">Learn grammar by topic</h3>
+                    <p className="text-sm text-neutral-400 leading-relaxed">Browse clear explanations for adjectives, articles, conditionals, modals, prepositions, questions, reported speech, and more.</p>
+                  </div>
                 </div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-white">224,000+</div>
-                <div className="text-sm text-neutral-400 mt-1">followers on TikTok</div>
+              <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-5 sm:p-6 hover:border-cyan-400/20 transition-colors">
+                <div className="flex items-start gap-4">
+                  <div className="w-11 h-11 shrink-0 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-300 text-xl">🧩</div>
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">Practice what you learn</h3>
+                    <p className="text-sm text-neutral-400 leading-relaxed">Try fill-in-the-gap questions, spot mistakes in word order, and build sentences with adjective order.</p>
+                  </div>
+                </div>
               </div>
-              <p className="text-sm text-neutral-400 leading-relaxed flex-1">
-                Daily vocabulary, idioms and tips — short videos that stick in your memory.
-              </p>
-              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-sm w-fit">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/></svg>
-                Follow on TikTok
-              </a>
+              <div className="reveal reveal-delay-3 flex flex-wrap gap-2">
+                {["Adjectives", "Articles", "Conditionals", "Modals", "Prepositions", "Questions", "Reported Speech", "Sentence Structure"].map((topic) => (
+                  <span key={topic} className="px-3 py-1.5 rounded-full text-[11px] font-medium bg-gradient-to-r from-violet-400/10 to-cyan-400/10 border border-violet-400/20 text-violet-100">{topic}</span>
+                ))}
+              </div>
             </div>
 
-            {/* Instagram card */}
-            <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:bg-white/[0.05] transition-all duration-300">
-              <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#FF3D71]/20 to-[#A855F7]/20 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-[#FF3D71]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
+            <div className="reveal reveal-delay-2 max-w-md mx-auto lg:max-w-none w-full">
+              <div className="relative rounded-3xl border border-violet-400/15 bg-zinc-900/95 p-5 sm:p-6 shadow-2xl overflow-hidden">
+                <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-violet-500/15 blur-2xl pointer-events-none" />
+                <div className="relative z-10 flex items-center justify-between mb-5">
+                  <div>
+                    <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500">Grammar practice</div>
+                    <div className="mt-1 text-xl font-extrabold text-white">Articles</div>
+                  </div>
+                  <div className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] font-semibold text-cyan-200">Fill the Gap</div>
                 </div>
-                <div>
-                  <div className="text-xs text-neutral-500 uppercase tracking-wider">Instagram</div>
-                  <div className="font-semibold text-white">@english_tobe</div>
+                <div className="relative z-10 rounded-2xl border border-white/10 bg-black/40 p-5 sm:p-6">
+                  <p className="text-sm sm:text-base leading-7 text-neutral-200">She is <span className="inline-block min-w-12 border-b-2 border-cyan-300 px-2 text-center text-cyan-200">…</span> engineer at a technology company.</p>
+                  <div className="mt-5 grid grid-cols-3 gap-2 text-center text-sm">
+                    {["a", "an", "the"].map((answer, index) => (
+                      <div key={answer} className={`rounded-xl border py-2.5 font-semibold ${index === 1 ? "border-cyan-300/50 bg-cyan-400/10 text-cyan-200" : "border-white/10 bg-white/[0.03] text-neutral-400"}`}>{answer}</div>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative z-10 mt-4 flex flex-wrap gap-2">
+                  {["Clear rules", "Guided practice", "Track your progress"].map((label) => (
+                    <span key={label} className="rounded-lg bg-white/[0.04] px-2.5 py-1.5 text-[10px] text-neutral-400">{label}</span>
+                  ))}
                 </div>
               </div>
-              <div>
-                <div className="text-4xl font-bold text-white">9,000+</div>
-                <div className="text-sm text-neutral-400 mt-1">followers on Instagram</div>
-              </div>
-              <p className="text-sm text-neutral-400 leading-relaxed flex-1">
-                Vocabulary cards, idiom posts and learning motivation — every day in your feed.
-              </p>
-              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/10 text-neutral-300 font-semibold rounded-full hover:border-white/20 hover:text-white transition-all text-sm w-fit">
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                Follow on Instagram
-              </a>
             </div>
           </div>
 
-          {/* CTA */}
-          <div className="text-center">
-            <Link href="/home" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
-              Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
+          <div className="text-center mt-10 sm:mt-12">
+            <Link href="/grammar" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+              Explore Grammar <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
             </Link>
           </div>
         </div>
@@ -1022,6 +1021,91 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* ── SOCIAL CTA ── */}
+      <section id="download" className="py-12 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FF3D71]/5 rounded-full blur-[150px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-[#00E5FF]/5 rounded-full blur-[120px]" />
+        </div>
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
+          {/* Heading */}
+          <div className="text-center mb-14">
+            <h2 className="reveal text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
+              Follow Along,<br />
+              <span className="gradient-text">Learn Every Day</span>
+            </h2>
+            <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">
+              Daily English tips on TikTok and Instagram — then open the app to practise what you learned.
+            </p>
+          </div>
+
+          {/* Two social cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-14">
+            {/* TikTok card */}
+            <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:bg-white/[0.05] transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-xs text-neutral-500 uppercase tracking-wider">TikTok</div>
+                  <div className="font-semibold text-white">@english_tobe</div>
+                </div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-white">224,000+</div>
+                <div className="text-sm text-neutral-400 mt-1">followers on TikTok</div>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed flex-1">
+                Daily vocabulary, idioms and tips — short videos that stick in your memory.
+              </p>
+              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-sm w-fit">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/></svg>
+                Follow on TikTok
+              </a>
+            </div>
+
+            {/* Instagram card */}
+            <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 flex flex-col gap-5 hover:bg-white/[0.05] transition-all duration-300">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#FF3D71]/20 to-[#A855F7]/20 flex items-center justify-center">
+                  <svg className="w-6 h-6 text-[#FF3D71]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </div>
+                <div>
+                  <div className="text-xs text-neutral-500 uppercase tracking-wider">Instagram</div>
+                  <div className="font-semibold text-white">@english_tobe</div>
+                </div>
+              </div>
+              <div>
+                <div className="text-4xl font-bold text-white">9,000+</div>
+                <div className="text-sm text-neutral-400 mt-1">followers on Instagram</div>
+              </div>
+              <p className="text-sm text-neutral-400 leading-relaxed flex-1">
+                Vocabulary cards, idiom posts and learning motivation — every day in your feed.
+              </p>
+              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer"
+                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/10 text-neutral-300 font-semibold rounded-full hover:border-white/20 hover:text-white transition-all text-sm w-fit">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                Follow on Instagram
+              </a>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <Link href="/home" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+              Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
 
       {/* ── FOOTER ── */}
       <footer className="border-t border-white/[0.04] py-12">
