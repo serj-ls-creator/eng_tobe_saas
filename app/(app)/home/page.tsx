@@ -14,7 +14,7 @@ const quickLinks = [
   { href: "/sentences", title: "Sentences", subtitle: "A1 to C2", icon: <MessageCircleMore className="h-5 w-5" /> },
   { href: "/phrasal-verbs", title: "Phrasal verbs", subtitle: "4 topics", icon: <Rocket className="h-5 w-5" /> },
   { href: "/idioms", title: "Idioms", subtitle: "7 topics", icon: <Lightbulb className="h-5 w-5" /> },
-  { href: "/grammar", title: "Grammar", subtitle: "141 topics", icon: <BookOpen className="h-5 w-5" /> },
+  { href: "/grammar", title: "Grammar", subtitle: "17 topics", icon: <BookOpen className="h-5 w-5" /> },
   { href: "/games", title: "Games", subtitle: "Wordle & more", icon: <Gamepad2 className="h-5 w-5" /> },
 ];
 
