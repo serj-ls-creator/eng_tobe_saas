@@ -15,9 +15,9 @@ const overview = (highlightCells: string[] = []): LessonBlock => ({
   highlightCells,
 });
 
-const lesson = (intro: string, highlightCells: string[], blocks: LessonBlock[], review: string[]): GrammarLesson => ({
+const lesson = (intro: string, highlightCells: string[], blocks: LessonBlock[], review: string[], includeOverview = false): GrammarLesson => ({
   intro,
-  blocks: [overview(highlightCells), ...blocks],
+  blocks: [...(includeOverview ? [overview(highlightCells)] : []), ...blocks],
   review,
 });
 
@@ -426,7 +426,7 @@ const basics: Record<string, GrammarLesson> = {
     text("Time and viewpoint", "Time answers when: past, present or future. The form also gives a viewpoint. A simple form can describe a habit or event; a continuous form shows an activity in progress; a perfect form connects two times; a perfect continuous form stresses duration.", [{ text: "I walk to work. (a habit)" }, { text: "I am walking to work. (now)" }, { text: "I have walked five kilometres. (a result up to now)" }, { text: "I have been walking for an hour. (duration)" }]),
     text("Tense and context", "A time word can help, but it does not choose the tense by itself. The speaker's meaning and the situation matter too. For example, tomorrow can appear with will, going to, the present continuous or the present simple.", [{ text: "I'll call you tomorrow. (decision or promise)" }, { text: "I'm meeting Jo tomorrow. (arrangement)" }, { text: "The train leaves tomorrow at six. (schedule)" }]),
     tip("First ask when the event happens. Then ask whether it is a habit, in progress, complete or continuing for a period."),
-  ], ["Tense forms help show time and viewpoint.", "Simple, continuous and perfect forms give different information about an action.", "Use context as well as time expressions to choose a form."]),
+  ], ["Tense forms help show time and viewpoint.", "Simple, continuous and perfect forms give different information about an action.", "Use context as well as time expressions to choose a form."], true),
   "present-past-future": lesson("English sentences can refer to present, past or future time. Verb forms and time expressions work together to make the time clear.", [], [
     table("A simple time map", ["Time", "Common form", "Example"], [["Present", "present simple / continuous / perfect", "I work. / I am working. / I have worked."], ["Past", "past simple / continuous / perfect", "I worked. / I was working. / I had worked."], ["Future", "will / going to / other forms", "I will work. / I am going to work."]]),
     text("Present time", "Use present forms for things true now, habits, activities happening around now, or past events connected to the present. The present simple is common for routines; the present continuous is common for actions in progress.", [{ text: "I take the bus every day." }, { text: "I am taking the bus today because my car is at the garage." }, { text: "I have taken the bus three times this week." }]),
@@ -506,6 +506,140 @@ function lessonHash(value: string): number {
   return [...value].reduce((hash, character) => hash + character.charCodeAt(0), 0);
 }
 
+function futureTopicTable(topicId: string): LessonBlock | undefined {
+  const tables: Record<string, LessonBlock> = {
+    "be-going-to-basics": table("Be going to: form and meaning", ["Use", "Form", "Example"], [
+      ["Plan or intention", "subject + am/is/are + going to + base verb", "I'm going to study tonight."],
+      ["Prediction from evidence", "subject + am/is/are + going to + base verb", "Look at the clouds. It's going to rain."],
+      ["Negative", "subject + am/is/are + not + going to + base verb", "She isn't going to drive."],
+      ["Question", "Am/Is/Are + subject + going to + base verb?", "Are they going to move?"],
+    ], "Use going to for a plan made before speaking or a prediction based on what you can see or know now."),
+    "be-going-to-forms": table("Be going to sentence forms", ["Type", "Pattern", "Example"], [
+      ["Positive", "subject + am/is/are + going to + base verb", "He is going to call."],
+      ["Negative", "subject + am/is/are + not + going to + base verb", "He isn't going to call."],
+      ["Question", "Am/Is/Are + subject + going to + base verb?", "Is he going to call?"],
+      ["Short answer", "Yes/No + subject + be", "Yes, he is. / No, he isn't."],
+    ]),
+    "be-going-to-plans": table("Plans and intentions", ["Meaning", "Example", "Why going to?"], [
+      ["A plan made before speaking", "We're going to visit our aunt on Sunday.", "The decision already exists."],
+      ["An intention", "I'm going to save money for a bike.", "It is something I intend to do."],
+      ["Decision made now", "I'll open the window.", "Use will for a new decision or offer."],
+    ]),
+    "be-going-to-evidence": table("Predictions from present evidence", ["What you see or know now", "Prediction"], [
+      ["The sky is very dark.", "It is going to rain."],
+      ["The child is running towards the road.", "He's going to fall."],
+      ["I think our team will win.", "Will gives an opinion, not a visible clue."],
+    ]),
+    "will-vs-going-to": table("Will or going to?", ["Form", "Common use", "Example"], [
+      ["will + base verb", "Decision now, offer, promise or opinion", "The phone is ringing. I'll answer."],
+      ["am/is/are going to + base verb", "Earlier plan or prediction from present evidence", "We are going to move next month."],
+      ["am/is/are going to + base verb", "Prediction from something visible", "Look out! You're going to drop it."],
+    ]),
+    "future-present-continuous-arrangements": table("Present continuous for arrangements", ["Pattern", "Use", "Example"], [
+      ["subject + am/is/are + verb-ing", "A fixed personal arrangement", "I'm meeting Ana at six."],
+      ["subject + am/is/are + not + verb-ing", "A plan that is not happening", "We aren't travelling tomorrow."],
+      ["Am/Is/Are + subject + verb-ing?", "Ask about an arrangement", "Are you seeing the doctor today?"],
+    ], "A future time phrase often makes the future meaning clear."),
+    "present-continuous-vs-going-to": table("Arrangement or intention?", ["Form", "Focus", "Example"], [
+      ["Present continuous", "A fixed arrangement, often with a time or another person", "I'm having lunch with Mia at one."],
+      ["Going to", "A plan or intention; details may not be fixed", "I'm going to have more lunches at home."],
+    ]),
+    "future-arrangement-time-expressions": table("Time expressions for arrangements", ["Expression", "Example"], [
+      ["at + time", "I'm meeting Lee at 5:30."], ["on + day/date", "We're leaving on Friday."], ["this / next + time period", "She's visiting us next week."],
+    ], "Use a clear future time expression when the context does not already show when the arrangement happens."),
+    "present-simple-timetables": table("Present simple for timetables", ["Subject", "Example"], [
+      ["Transport", "The train leaves at 8:10 tomorrow."], ["Classes and events", "The lesson starts next Monday."], ["Questions about a schedule", "What time does the bus arrive?"],
+    ], "Use the present simple for fixed schedules, even when the time is in the future."),
+    "present-simple-fixed-events": table("Fixed events and programmes", ["Fixed event", "Example"], [
+      ["A programme", "The concert begins at 7 p.m."], ["A course", "Our course ends in June."], ["A public schedule", "The museum opens at ten tomorrow."],
+    ]),
+    "present-simple-vs-continuous-future": table("Schedule or personal arrangement?", ["Form", "Use", "Example"], [
+      ["Present simple", "An official timetable or fixed programme", "The bus leaves at nine."],
+      ["Present continuous", "A personal arrangement", "I'm taking the bus with Sam at nine."],
+    ]),
+    "future-will-predictions-opinions": table("Will for predictions and opinions", ["Pattern", "Example"], [
+      ["think / expect / hope + will + base verb", "I think our team will win."],
+      ["will probably + base verb", "It will probably rain later."],
+      ["will not / won't + base verb", "I don't think the shop will open today."],
+    ]),
+    "future-will-decisions": table("Will for a decision now", ["Situation now", "Offer or decision"], [
+      ["The phone is ringing.", "I'll answer it."], ["This box is heavy.", "I'll help you."], ["I forgot to call Sam.", "I'll call him now."],
+    ], "Use will when you decide at the moment of speaking."),
+    "future-will-promises-offers-requests": table("Will, offers and requests", ["Purpose", "Example"], [
+      ["Offer help", "I'll carry that for you."], ["Make a promise", "I will call you tonight."], ["Ask someone to do something", "Will you open the window, please?"],
+    ]),
+    "future-continuous-in-progress": table("Future continuous at a future time", ["Future point", "Action in progress"], [
+      ["At 8 tonight", "I will be studying."], ["This time tomorrow", "They will be flying to Rome."], ["When you arrive", "We will be waiting outside."],
+    ], "Use will be + verb-ing to show what will be happening around that time."),
+    "future-continuous-vs-simple": table("Future continuous or will?", ["Form", "Focus", "Example"], [
+      ["will + base verb", "Decision, offer, promise or prediction", "I'll call the taxi now."],
+      ["will be + verb-ing", "An activity in progress at a future time", "At six, I'll be travelling home."],
+    ]),
+    "future-perfect-completed": table("Complete before a future point", ["Future deadline", "Completed action"], [
+      ["by Friday", "I will have finished the report by Friday."], ["before the guests arrive", "We will have cooked dinner before the guests arrive."], ["by next year", "She will have saved enough by next year."],
+    ]),
+    "future-perfect-by-time": table("By, by the time and until", ["Expression", "Meaning", "Example"], [
+      ["by + time", "No later than a deadline", "I'll have finished by six."],
+      ["by the time + event", "Before another event happens", "They'll have left by the time we arrive."],
+      ["until + time", "An action continues up to a time", "I'll wait until six."],
+    ]),
+    "future-perfect-vs-simple": table("Future perfect or will?", ["Form", "Focus", "Example"], [
+      ["will + base verb", "A future event or decision", "She will finish the report tomorrow."],
+      ["will have + past participle", "An action complete before a future point", "She will have finished by tomorrow."],
+    ]),
+    "future-perfect-continuous-duration": table("Duration up to a future point", ["Form", "Question", "Example"], [
+      ["will have been + verb-ing", "How long?", "By June, I will have been working here for a year."],
+      ["will have + past participle", "How much / what result?", "By June, I will have finished the course."],
+    ]),
+    "future-perfect-simple-vs-continuous": table("Future perfect: result or duration?", ["Form", "Focus", "Example"], [
+      ["will have + past participle", "A completed result or amount", "By six, I will have written ten pages."],
+      ["will have been + verb-ing", "The time spent on an activity", "By six, I will have been writing for three hours."],
+    ]),
+    "compare-past-simple-present-perfect": table("Past simple or present perfect?", ["Form", "Use", "Example"], [
+      ["Past simple", "Finished, named past time", "I saw her yesterday."],
+      ["Present perfect", "Experience or a connection to now", "I have seen her before."],
+    ]),
+    "compare-present-perfect-simple-continuous": table("Present perfect: result or activity?", ["Form", "Focus", "Example"], [
+      ["have/has + past participle", "Completed result or amount", "She has painted two rooms."],
+      ["have/has been + verb-ing", "Activity or duration", "She has been painting all morning."],
+    ]),
+    "compare-past-simple-continuous": table("Past simple or past continuous?", ["Form", "Use", "Example"], [
+      ["Past simple", "A finished event", "The phone rang."],
+      ["Past continuous", "An action in progress then", "I was cooking when the phone rang."],
+    ]),
+    "compare-past-simple-perfect": table("Past simple or past perfect?", ["Form", "Time order", "Example"], [
+      ["Past simple", "The later past event", "The train left at six."],
+      ["Past perfect", "An earlier event before another past time", "The train had left before we arrived."],
+    ]),
+    "compare-past-perfect-continuous": table("Past perfect: completion or duration?", ["Form", "Focus", "Example"], [
+      ["had + past participle", "A completed result before a past time", "She had finished before lunch."],
+      ["had been + verb-ing", "An activity and its duration before a past time", "She had been working for hours."],
+    ]),
+    "comparing-will-vs-going-to": table("Will or going to?", ["Form", "Common use", "Example"], [
+      ["will + base verb", "Decision now or opinion", "I'll answer the phone."],
+      ["be going to + base verb", "Earlier plan or evidence-based prediction", "It's going to rain."],
+    ]),
+    "compare-will-present-continuous-future": table("Will or present continuous?", ["Form", "Common use", "Example"], [
+      ["will + base verb", "Decision now, offer, promise or opinion", "I'll meet you at the station."],
+      ["present continuous", "An arrangement already made", "I'm meeting Jo at the station at six."],
+    ]),
+    "compare-present-simple-continuous-future": table("Present simple or continuous for the future?", ["Form", "Common use", "Example"], [
+      ["Present simple", "Timetable or fixed programme", "The train leaves at nine."],
+      ["Present continuous", "Personal arrangement", "I'm leaving with Sam at nine."],
+    ]),
+    "compare-future-simple-continuous": table("Will or future continuous?", ["Form", "Focus", "Example"], [
+      ["will + base verb", "Decision, offer or prediction", "I'll work late tonight."],
+      ["will be + verb-ing", "Activity in progress at a future time", "At eight, I'll be working."],
+    ]),
+    "compare-future-perfect-continuous": table("Future perfect: result or duration?", ["Form", "Focus", "Example"], [
+      ["will have + past participle", "Completion before a future point", "By noon, she will have finished."],
+      ["will have been + verb-ing", "Duration up to a future point", "By noon, she will have been working for four hours."],
+    ]),
+  };
+
+  return tables[topicId];
+}
+
 function makeFocusedLesson(topicId: string, title: string, summary: string, sourceId: string, path: string[]): GrammarLesson {
   const source = TENSE_LESSONS[sourceId];
   const titleWords = `${title} ${summary}`.toLowerCase().split(/[^a-z]+/).filter((word) => word.length > 3);
@@ -518,12 +652,21 @@ function makeFocusedLesson(topicId: string, title: string, summary: string, sour
   const chosenExamples = examples.length ? Array.from({ length: Math.min(4, examples.length) }, (_, index) => examples[(start + index) % examples.length]) : [];
   const sourceMistakes = source.blocks.find((block) => block.type === "mistakes");
   const sourceTip = source.blocks.find((block) => block.type === "tip");
-  const body = `${summary} ${source.intro} For this point, first decide what time you are talking about, then check whether the action is usual, in progress, complete or continuing. Keep the subject and auxiliary together in the correct order. The examples show how the form works in everyday situations. A time expression can help, but meaning and context are the main guide.`;
+  const body = topicId === "be-going-to-basics"
+    ? "Use be going to + the base verb for plans and intentions you already have. Use it also for a prediction based on evidence you can see or know now. Choose am, is or are to match the subject. For a negative, put not after be. For a question, put be before the subject."
+    : `${summary} ${source.intro} For this point, first decide what time you are talking about, then check whether the action is usual, in progress, complete or continuing. Keep the subject and auxiliary together in the correct order. The examples show how the form works in everyday situations. A time expression can help, but meaning and context are the main guide.`;
   const highlights = COMPARISON_HIGHLIGHTS[topicId] ?? OVERVIEW_FOR_SOURCE[sourceId] ?? [];
   const contextBlocks: LessonBlock[] = [];
   const formation = source.blocks.find((block, index) => index > 0 && block.type === "table" && block.title.toLowerCase().includes("form"));
-  if (/form|positive|negative|question|spelling|third-person|auxiliary|verb form/i.test(title) && formation) contextBlocks.push(formation);
+  const topicTable = futureTopicTable(topicId);
+  if (topicTable) contextBlocks.push(topicTable);
+  else if (/form|positive|negative|question|spelling|third-person|auxiliary|verb form/i.test(title) && formation) contextBlocks.push(formation);
   if (detail && detail.title !== title) contextBlocks.push(detail);
+  if (topicId === "be-going-to-basics") contextBlocks.push(text("Going to and will", "Use will for a decision made now, an offer or a prediction based on what you think. Use going to for an earlier plan or a prediction based on present evidence.", [
+    { text: "The phone is ringing. I'll answer it. (decision now)" },
+    { text: "I'm going to call Sam tonight. (plan made earlier)" },
+    { text: "Look at those clouds. It's going to rain. (evidence now)" },
+  ]));
   const mistakeBlock: LessonBlock = sourceMistakes ?? mistakes([{ incorrect: "She have finished.", correct: "She has finished.", explanation: "Match the auxiliary to the subject and use the correct verb form." }]);
   const review = [summary, ...source.review.slice(0, 2)];
   return lesson(body, highlights, [
