@@ -4,13 +4,14 @@ export interface GrammarTopic {
   id: string;
   name: string;
   rule: string;
+  topics?: GrammarTopic[];
 }
 
 export interface GrammarSection extends Category {
   topics?: GrammarTopic[];
 }
 
-const topic = (id: string, name: string, rule: string): GrammarTopic => ({ id, name, rule });
+const topic = (id: string, name: string, rule: string, topics?: GrammarTopic[]): GrammarTopic => ({ id, name, rule, topics });
 
 export const GRAMMAR_SECTIONS: GrammarSection[] = [
   { id: "adjectives", name: "Adjectives", description: "Describe people, places and things", icon: "Layers", color: "#a855f7", section: "grammar", href: "/grammar/adjectives", access: "free", isFree: true, order: 1, topics: [
@@ -187,4 +188,185 @@ export const GRAMMAR_SECTIONS: GrammarSection[] = [
     topic("causative-verbs", "Causative Verbs", "Use have/get + object + past participle to say that someone arranges for another person to do something."),
     topic("common-verb-patterns", "Common Verb Patterns", "Some verbs are followed by -ing; others are followed by to + verb: enjoy reading, want to read."),
   ] },
+  { id: "tenses", name: "Tenses", description: "Learn how English verb forms show time and the way an action happens", icon: "Clock3", color: "#fb7185", section: "grammar", href: "/grammar/tenses", access: "free", isFree: true, order: 18, topics: [
+    topic("tense-basics", "Tense Basics", "Learn how English shows time and builds verb forms.", [
+      topic("what-are-tenses", "What Are Tenses?", "Understand how verb forms show time and viewpoint."),
+      topic("present-past-future", "Present, Past and Future", "Place events in present, past or future time."),
+      topic("tense-aspects", "Simple, Continuous, Perfect and Perfect Continuous", "See four common ways to view an action in time."),
+      topic("verb-forms-tense-basics", "Verb Forms: Base, Past Simple and Past Participle", "Learn the forms used to build many English tenses."),
+      topic("regular-irregular-verbs-tenses", "Regular and Irregular Verbs", "Learn how regular and irregular verbs form the past and participles."),
+      topic("positive-negative-question-forms", "How to Build Positive, Negative and Question Forms", "Use auxiliaries and word order to make sentences and questions."),
+      topic("auxiliary-verbs-be-do-have", "Auxiliary Verbs: Be, Do and Have", "Use be, do and have to build common tense forms."),
+    ]),
+    topic("present-tenses", "Present Tenses", "Study present forms for habits, current actions and past events connected to now.", [
+      topic("present-simple-group", "Present Simple", "Learn the forms and uses of the present simple.", [
+        topic("present-simple", "Present Simple: Basic Rules", "Use the present simple for habits, facts and states."),
+        topic("present-simple-positive", "Positive Sentences", "Build positive present simple sentences with the correct verb form."),
+        topic("present-simple-negative", "Negative Sentences", "Use don't and doesn't to make most present simple negatives."),
+        topic("present-simple-questions", "Questions and Short Answers", "Form questions and short answers with do and does."),
+        topic("present-simple-third-person", "Third-Person Singular: -s and -es", "Spell the he, she and it verb form correctly."),
+        topic("present-simple-uses", "Uses of Present Simple", "Use the present simple for routines, facts, states and schedules."),
+        topic("present-simple-frequency", "Adverbs of Frequency", "Place always, usually, often and other frequency words."),
+        topic("present-simple-stative", "Stative Verbs", "Use simple forms for many thoughts, feelings and states."),
+      ]),
+      topic("present-continuous-group", "Present Continuous", "Learn be + -ing for actions now, temporary situations and arrangements.", [
+        topic("present-continuous", "Present Continuous: Basic Rules", "Use be + verb-ing for actions happening now and temporary situations."),
+        topic("present-continuous-forms", "Positive, Negative and Question Forms", "Build statements, negatives and questions with am, is and are."),
+        topic("present-continuous-spelling", "Spelling Rules: -ing", "Apply common spelling changes before adding -ing."),
+        topic("present-continuous-now", "Actions Happening Now", "Describe an action in progress at the moment of speaking."),
+        topic("present-continuous-temporary", "Temporary Situations", "Describe temporary situations around the present time."),
+        topic("present-continuous-arrangements", "Future Arrangements", "Use the present continuous for planned future arrangements."),
+        topic("present-continuous-stative", "Stative Verbs and Common Exceptions", "Know which verbs usually do not take a continuous form."),
+      ]),
+      topic("present-perfect-group", "Present Perfect", "Learn have/has + past participle for experience and present connections.", [
+        topic("present-perfect", "Present Perfect: Basic Rules", "Use have/has + a past participle for past events connected to now."),
+        topic("present-perfect-forms", "Positive, Negative and Question Forms", "Build present perfect statements, negatives and questions."),
+        topic("present-perfect-have-has", "Have and Has", "Choose have or has and use it as an auxiliary."),
+        topic("present-perfect-experiences", "Past Experiences", "Talk about experience without naming a finished time."),
+        topic("present-perfect-recent-results", "Recent Actions and Results", "Connect a recent action with a result that matters now."),
+        topic("present-perfect-unfinished-time", "Unfinished Time Periods", "Talk about events in a time period that is still open."),
+        topic("present-perfect-for-since", "For and Since", "Use for with a duration and since with a starting point."),
+        topic("present-perfect-already-yet-just-ever-never", "Already, Yet, Just, Ever and Never", "Place common time adverbs correctly with the present perfect."),
+        topic("present-perfect-been-gone", "Been and Gone", "Choose been or gone to describe visits and movement."),
+      ]),
+      topic("present-perfect-continuous-group", "Present Perfect Continuous", "Learn have/has been + -ing for continuing activities and duration.", [
+        topic("present-perfect-continuous", "Present Perfect Continuous: Basic Rules", "Use have/has been + verb-ing for an activity continuing until now."),
+        topic("present-perfect-continuous-forms", "Positive, Negative and Question Forms", "Build this tense with have/has, been and an -ing verb."),
+        topic("present-perfect-continuous-until-now", "Actions Continuing Until Now", "Describe an activity that began earlier and continues now."),
+        topic("present-perfect-continuous-for-since", "Duration: For and Since", "Say how long an activity has continued or when it began."),
+        topic("present-perfect-continuous-results", "Recent Activities and Visible Results", "Explain a present result of a recent or continuing activity."),
+        topic("present-perfect-simple-vs-continuous", "Present Perfect Simple vs Continuous", "Compare completed results with activities and duration."),
+      ]),
+    ]),
+    topic("past-tenses", "Past Tenses", "Study past forms for finished actions, background events and earlier events.", [
+      topic("past-simple-group", "Past Simple", "Learn the forms and uses of the past simple.", [
+        topic("past-simple", "Past Simple: Basic Rules", "Use the past simple for finished events at a finished time in the past."),
+        topic("past-simple-positive", "Positive Sentences", "Use a past form of the main verb in positive sentences."),
+        topic("past-simple-negative", "Negative Sentences", "Use didn't + base verb for most negative past sentences."),
+        topic("past-simple-questions", "Questions and Short Answers", "Use did + subject + base verb for most past questions."),
+        topic("past-simple-ed", "Regular Verbs: -ed", "Learn -ed spelling and pronunciation in regular past forms."),
+        topic("past-simple-irregular", "Irregular Verbs", "Learn common irregular past forms and participles."),
+        topic("past-simple-was-were", "Was and Were", "Use was and were for past forms of be."),
+        topic("past-simple-finished-actions", "Finished Past Actions", "Tell about completed events in the past."),
+        topic("past-simple-time-expressions", "Time Expressions with Past Simple", "Use common expressions for finished past time."),
+      ]),
+      topic("past-continuous-group", "Past Continuous", "Learn was/were + -ing for actions in progress in the past.", [
+        topic("past-continuous", "Past Continuous: Basic Rules", "Use was/were + verb-ing for an action in progress at a past time."),
+        topic("past-continuous-forms", "Positive, Negative and Question Forms", "Build the past continuous with was or were."),
+        topic("past-continuous-in-progress", "Actions in Progress in the Past", "Describe what was happening at a past moment."),
+        topic("past-continuous-interrupted", "Interrupted Actions", "Use a longer past action with a shorter event."),
+        topic("past-continuous-while-when", "While and When", "Use while and when to connect past actions and events."),
+        topic("past-continuous-simultaneous", "Two Actions Happening at the Same Time", "Describe parallel activities in progress in the past."),
+        topic("past-simple-vs-past-continuous", "Past Simple vs Past Continuous", "Compare completed events with actions in progress."),
+      ]),
+      topic("past-perfect-group", "Past Perfect", "Learn had + past participle for events before another past time.", [
+        topic("past-perfect", "Past Perfect: Basic Rules", "Use had + a past participle for an event before another past event."),
+        topic("past-perfect-forms", "Positive, Negative and Question Forms", "Build the past perfect with had and a past participle."),
+        topic("past-perfect-earlier-action", "An Earlier Past Action", "Show that one past event happened before another."),
+        topic("past-perfect-sequence", "Sequence of Past Events", "Make the order of past events clear in a story."),
+        topic("past-perfect-before-after-by-time", "Before, After and By the Time", "Use time linkers to show the order of past events."),
+        topic("past-simple-vs-past-perfect", "Past Simple vs Past Perfect", "Choose whether a past event needs a past-before-past form."),
+      ]),
+      topic("past-perfect-continuous-group", "Past Perfect Continuous", "Learn had been + -ing for duration before a past event.", [
+        topic("past-perfect-continuous", "Past Perfect Continuous: Basic Rules", "Use had been + verb-ing for an activity before a past time."),
+        topic("past-perfect-continuous-forms", "Positive, Negative and Question Forms", "Build this tense with had been and an -ing verb."),
+        topic("past-perfect-continuous-duration", "Duration Before a Past Event", "Say how long an activity continued before something happened."),
+        topic("past-perfect-continuous-causes-results", "Causes and Results in the Past", "Explain a past result with an earlier continuing activity."),
+        topic("past-perfect-simple-vs-continuous", "Past Perfect Simple vs Continuous", "Compare completed results with duration before a past point."),
+      ]),
+    ]),
+    topic("future-forms-category", "Future Forms", "Choose from common English forms for plans, predictions, arrangements and schedules.", [
+      topic("future-will-group", "Future Simple: Will", "Learn will + base verb for several future meanings.", [
+        topic("future-simple", "Will: Basic Rules", "Use will + base verb for decisions, offers, promises and predictions."),
+        topic("future-will-forms", "Positive, Negative and Question Forms", "Build statements, negatives and questions with will."),
+        topic("future-will-predictions-opinions", "Predictions and Opinions", "Use will to express a belief or opinion about the future."),
+        topic("future-will-decisions", "Spontaneous Decisions", "Use will for a decision made at the moment of speaking."),
+        topic("future-will-promises-offers-requests", "Promises, Offers and Requests", "Use will and related forms for promises, help and requests."),
+        topic("future-forms", "Will vs Going To", "Compare decisions and opinions with plans and evidence-based predictions."),
+      ]),
+      topic("be-going-to-group", "Be Going To", "Learn be going to for plans and predictions based on evidence.", [
+        topic("be-going-to-basics", "Be Going To: Basic Rules", "Use be going to + base verb for plans and predictions."),
+        topic("be-going-to-forms", "Positive, Negative and Question Forms", "Build this form with am, is or are + going to."),
+        topic("be-going-to-plans", "Plans and Intentions", "Talk about a plan or decision made before now."),
+        topic("be-going-to-evidence", "Predictions Based on Evidence", "Predict a result from something visible or known now."),
+        topic("will-vs-going-to", "Will vs Going To", "Choose between a decision now, an intention and evidence."),
+      ]),
+      topic("present-continuous-future-group", "Present Continuous for Future", "Use present continuous forms for arranged future events.", [
+        topic("future-present-continuous-arrangements", "Future Arrangements", "Describe a planned meeting or event with a fixed arrangement."),
+        topic("present-continuous-vs-going-to", "Present Continuous vs Going To", "Compare arrangements with plans and intentions."),
+        topic("future-arrangement-time-expressions", "Time Expressions for Arrangements", "Add a clear future time to an arrangement."),
+      ]),
+      topic("present-simple-future-group", "Present Simple for Future", "Use present simple forms for timetables and fixed schedules.", [
+        topic("present-simple-timetables", "Timetables and Schedules", "Describe official transport, class and event times."),
+        topic("present-simple-fixed-events", "Fixed Events", "Talk about planned events that follow a fixed programme."),
+        topic("present-simple-vs-continuous-future", "Present Simple vs Present Continuous for Future", "Compare a schedule with a personal arrangement."),
+      ]),
+      topic("future-continuous-group", "Future Continuous", "Learn will be + -ing for actions in progress at a future time.", [
+        topic("future-continuous", "Future Continuous: Basic Rules", "Use will be + verb-ing for an action in progress at a future time."),
+        topic("future-continuous-forms", "Positive, Negative and Question Forms", "Build this tense with will be and an -ing verb."),
+        topic("future-continuous-in-progress", "Actions in Progress at a Future Time", "Picture an activity happening around a future moment."),
+        topic("future-continuous-vs-simple", "Future Continuous vs Future Simple", "Compare an action in progress with a decision or prediction."),
+      ]),
+      topic("future-perfect-group", "Future Perfect", "Learn will have + past participle for completion before a future point.", [
+        topic("future-perfect", "Future Perfect: Basic Rules", "Use will have + a past participle for something finished before a future time."),
+        topic("future-perfect-forms", "Positive, Negative and Question Forms", "Build this form with will have and a past participle."),
+        topic("future-perfect-completed", "Actions Completed Before a Future Time", "Say what will be complete by a future point."),
+        topic("future-perfect-by-time", "By and By the Time", "Use deadline phrases with future perfect forms."),
+        topic("future-perfect-vs-simple", "Future Perfect vs Future Simple", "Compare completion before a deadline with a future event."),
+      ]),
+      topic("future-perfect-continuous-group", "Future Perfect Continuous", "Learn will have been + -ing to talk about duration up to a future point.", [
+        topic("future-perfect-continuous", "Future Perfect Continuous: Basic Rules", "Use will have been + verb-ing for an activity continuing to a future time."),
+        topic("future-perfect-continuous-forms", "Positive, Negative and Question Forms", "Build this form with will have been and an -ing verb."),
+        topic("future-perfect-continuous-duration", "Duration Up to a Future Point", "Measure how long an activity will have continued by a future time."),
+        topic("future-perfect-simple-vs-continuous", "Future Perfect Simple vs Continuous", "Compare a completed result with the duration of an activity."),
+      ]),
+    ]),
+    topic("tense-comparisons", "Comparing Tenses", "Compare forms that learners often confuse.", [
+      topic("comparing-tenses", "Present Simple vs Present Continuous", "Compare habits and facts with actions now or temporary situations."),
+      topic("compare-past-simple-present-perfect", "Past Simple vs Present Perfect", "Compare finished past time with a connection to now."),
+      topic("compare-present-perfect-simple-continuous", "Present Perfect vs Present Perfect Continuous", "Compare results or amounts with activity and duration."),
+      topic("compare-past-simple-continuous", "Past Simple vs Past Continuous", "Compare completed events with actions in progress in the past."),
+      topic("compare-past-simple-perfect", "Past Simple vs Past Perfect", "Compare event order in past stories."),
+      topic("compare-past-perfect-continuous", "Past Perfect vs Past Perfect Continuous", "Compare past completion with duration before a past point."),
+      topic("comparing-will-vs-going-to", "Will vs Going To", "Compare decisions, predictions, intentions and evidence."),
+      topic("compare-will-present-continuous-future", "Will vs Present Continuous for Future", "Compare a decision or prediction with an arrangement."),
+      topic("compare-present-simple-continuous-future", "Present Simple vs Present Continuous for Future", "Compare timetables with personal arrangements."),
+      topic("compare-future-simple-continuous", "Future Simple vs Future Continuous", "Compare future events with activities in progress at a future time."),
+      topic("compare-future-perfect-continuous", "Future Perfect vs Future Perfect Continuous", "Compare completion before a deadline with duration up to it."),
+      topic("choosing-a-tense", "Choosing the Correct Tense", "Use time and meaning to choose a suitable form."),
+    ]),
+    topic("time-expressions", "Time Expressions", "Learn time words that often help explain when actions happen.", [
+      topic("time-expressions-present", "Time Expressions for Present Tenses", "Use common expressions with present forms and open time periods."),
+      topic("time-expressions-past", "Time Expressions for Past Tenses", "Use expressions for finished and earlier past times."),
+      topic("time-expressions-future", "Time Expressions for Future Forms", "Place future events and deadlines in time."),
+      topic("time-expressions-for-since", "For and Since", "Use for with a length of time and since with a starting point."),
+      topic("time-expressions-already-yet-just", "Already, Yet and Just", "Place these adverbs with common perfect forms."),
+      topic("time-expressions-ever-never", "Ever and Never", "Ask about experience and say that something has not happened."),
+      topic("time-expressions-still-no-longer", "Still and No Longer", "Show that a situation continues or has ended."),
+      topic("time-expressions-ago-before-earlier", "Ago, Before and Earlier", "Refer to a past time or an event before another time."),
+      topic("time-expressions-by-until-by-time", "By, Until and By the Time", "Distinguish deadlines from actions that continue up to a time."),
+      topic("time-expressions-when-while-as", "When, While and As", "Connect actions and events happening at related times."),
+    ]),
+    topic("common-tense-mistakes", "Common Tense Mistakes", "Notice frequent tense errors and learn how to correct them.", [
+      topic("mistakes-present-simple-continuous", "Present Simple vs Present Continuous Mistakes", "Correct errors with routines, temporary situations and actions now."),
+      topic("mistakes-past-simple-forms", "Past Simple: Regular and Irregular Verbs", "Correct common mistakes with -ed and irregular past forms."),
+      topic("mistakes-do-does-did", "Questions and Negatives with Do, Does and Did", "Use the correct auxiliary and base verb in questions and negatives."),
+      topic("mistakes-was-were-did", "Was and Were vs Did", "Choose be or do-support to form past sentences and questions."),
+      topic("mistakes-present-perfect-past-simple", "Present Perfect vs Past Simple Mistakes", "Correct errors with finished times and present connections."),
+      topic("mistakes-for-since", "For and Since Mistakes", "Choose the duration word or the starting-point word."),
+      topic("mistakes-will-going-to", "Will vs Going To Mistakes", "Match future forms to decisions, plans and evidence."),
+      topic("mistakes-stative-continuous", "Stative Verbs in Continuous Forms", "Correct continuous forms of verbs that usually describe states."),
+      topic("mistakes-wrong-verb-form", "Using the Wrong Verb Form", "Check the verb form after auxiliaries, modals and to."),
+      topic("mistakes-everyday-english", "Common Tense Mistakes in Everyday English", "Review frequent tense problems in natural conversations."),
+    ]),
+  ] },
 ];
+
+export function findGrammarTopic(topics: GrammarTopic[] | undefined, topicId: string): GrammarTopic | undefined {
+  for (const item of topics ?? []) {
+    if (item.id === topicId) return item;
+    const nested = findGrammarTopic(item.topics, topicId);
+    if (nested) return nested;
+  }
+  return undefined;
+}

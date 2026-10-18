@@ -2,12 +2,17 @@ import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { GRAMMAR_SECTIONS } from "@/constants/grammar";
 import { GrammarTree } from "@/components/grammar/GrammarTree";
+import { TensesSection } from "@/components/grammar/TensesSection";
 import { getLearningProgressSnapshot } from "@/lib/learning-progress";
+import { isPremium } from "@/lib/isPremium";
 
 export const dynamic = 'force-dynamic';
 
 export default async function GrammarPage() {
   const progress = await getLearningProgressSnapshot();
+  const premium = await isPremium();
+  const grammarSections = GRAMMAR_SECTIONS.filter((section) => section.id !== "tenses");
+  const tensesSection = GRAMMAR_SECTIONS.find((section) => section.id === "tenses");
 
   return (
     <>
@@ -30,7 +35,8 @@ export default async function GrammarPage() {
           </p>
         </div>
 
-        <GrammarTree sections={GRAMMAR_SECTIONS} progress={progress} />
+        <GrammarTree sections={grammarSections} progress={progress} />
+        {tensesSection ? <TensesSection section={tensesSection} progress={progress} isPremium={premium} /> : null}
       </div>
     </>
   );

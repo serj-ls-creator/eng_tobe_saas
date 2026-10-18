@@ -25,4 +25,15 @@ The lesson request covers 141 subtopics. Work is being completed by category so 
 
 ## Remaining (0 lessons)
 
-All 141 requested lessons are complete.
+All 141 lessons from the original Grammar request are complete. The additional Tenses section has seven categories and 126 individual lessons.
+
+## Tenses (126 lessons)
+
+- Tense Basics: 7 lessons.
+- Present Tenses: 30 lessons across Present Simple, Present Continuous, Present Perfect and Present Perfect Continuous.
+- Past Tenses: 27 lessons across Past Simple, Past Continuous, Past Perfect and Past Perfect Continuous.
+- Future Forms: 30 lessons across seven future form groups.
+- Comparing Tenses: 12 lessons.
+- Time Expressions: 10 lessons.
+- Common Tense Mistakes: 10 lessons.
+- All 126 lessons include the shared tense overview table. Specific tense lessons highlight the relevant form in red; overview lessons keep a neutral table.

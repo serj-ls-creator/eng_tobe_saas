@@ -1,14 +1,16 @@
 import Link from "next/link";
 import { BookOpenText, CircleHelp, PenLine } from "lucide-react";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
-import { GRAMMAR_SECTIONS } from "@/constants/grammar";
+import { findGrammarTopic, GRAMMAR_SECTIONS } from "@/constants/grammar";
+import { isPremium } from "@/lib/isPremium";
 
-export default function GrammarTopicPage({ params }: { params: { categoryId: string; topicId: string } }) {
+export default async function GrammarTopicPage({ params }: { params: { categoryId: string; topicId: string } }) {
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
-  const topic = section?.topics?.find((item) => item.id === params.topicId);
+  const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();
+  if (section.id === "tenses" && !(await isPremium())) redirect("/premium");
 
   return (
     <>

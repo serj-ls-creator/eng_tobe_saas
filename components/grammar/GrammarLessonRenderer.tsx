@@ -39,7 +39,7 @@ function LessonCard({ block, index }: { block: LessonBlock; index: number }) {
         <div className="overflow-x-auto rounded-xl border border-[#262b38]">
           <table className="w-full min-w-[420px] border-collapse text-left text-[12px]">
             <thead className="bg-[#10131c] text-[#8b93a5]"><tr>{block.headings.map((heading) => <th key={heading} className="border-b border-[#262b38] px-3 py-2 font-semibold">{heading}</th>)}</tr></thead>
-            <tbody>{block.rows.map((row, rowIndex) => <tr key={rowIndex} className={rowIndex % 2 ? "bg-[#181c27]" : "bg-[#1b1f2b]"}>{row.map((cell, cellIndex) => <td key={cellIndex} className={`border-b border-[#262b38] px-3 py-2.5 leading-5 ${cellIndex === 0 ? "font-semibold text-[#eef0f5]" : "text-[#c0c5d1]"}`}>{cell}</td>)}</tr>)}</tbody>
+            <tbody>{block.rows.map((row, rowIndex) => <tr key={rowIndex} className={rowIndex % 2 ? "bg-[#181c27]" : "bg-[#1b1f2b]"}>{row.map((cell, cellIndex) => <td key={cellIndex} className={`border-b border-[#262b38] px-3 py-2.5 leading-5 ${block.highlightCells?.includes(cell) ? "font-bold text-[#fb7185]" : cellIndex === 0 ? "font-semibold text-[#eef0f5]" : "text-[#c0c5d1]"}`}>{cell}</td>)}</tr>)}</tbody>
           </table>
         </div>
       </> : null}

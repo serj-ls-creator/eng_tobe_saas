@@ -44,6 +44,7 @@ export const PREMIUM_FEATURES = [
   "All Words categories",
   "All Idioms categories",
   "All Sentences categories",
+  "All Grammar + Tenses categories",
   "My Vocabulary (unlimited words)",
   "Streaks & progress tracking",
   "All Games",

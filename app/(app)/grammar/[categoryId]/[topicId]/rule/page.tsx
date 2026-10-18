@@ -5,7 +5,7 @@ import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { AdjectiveOrderLesson } from "@/components/grammar/AdjectiveOrderLesson";
 import { AdjectiveOrderRuleProgress } from "@/components/grammar/AdjectiveOrderRuleProgress";
 import { GrammarLessonRenderer } from "@/components/grammar/GrammarLessonRenderer";
-import { GRAMMAR_SECTIONS } from "@/constants/grammar";
+import { findGrammarTopic, GRAMMAR_SECTIONS } from "@/constants/grammar";
 import { GRAMMAR_EXAMPLES } from "@/constants/grammar-examples";
 import { ADJECTIVE_LESSONS } from "@/constants/grammar-lessons/adjectives";
 import { ADVERB_LESSONS } from "@/constants/grammar-lessons/adverbs";
@@ -23,11 +23,14 @@ import { QUESTION_LESSONS } from "@/constants/grammar-lessons/questions";
 import { REPORTED_SPEECH_LESSONS } from "@/constants/grammar-lessons/reported-speech";
 import { SENTENCE_LESSONS } from "@/constants/grammar-lessons/sentences";
 import { VERB_LESSONS } from "@/constants/grammar-lessons/verbs";
+import { TENSE_LESSONS } from "@/constants/grammar-lessons/tenses";
+import { isPremium } from "@/lib/isPremium";
 
-export default function GrammarRulePage({ params }: { params: { categoryId: string; topicId: string } }) {
+export default async function GrammarRulePage({ params }: { params: { categoryId: string; topicId: string } }) {
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
-  const topic = section?.topics?.find((item) => item.id === params.topicId);
+  const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();
+  if (section.id === "tenses" && !(await isPremium())) redirect("/premium");
   const examples = GRAMMAR_EXAMPLES[topic.id] ?? [];
   const lesson = section.id === "adjectives" ? ADJECTIVE_LESSONS[topic.id]
     : section.id === "adverbs" ? ADVERB_LESSONS[topic.id]
@@ -44,7 +47,8 @@ export default function GrammarRulePage({ params }: { params: { categoryId: stri
     : section.id === "questions" ? QUESTION_LESSONS[topic.id]
     : section.id === "reported-speech" ? REPORTED_SPEECH_LESSONS[topic.id]
     : section.id === "sentences" ? SENTENCE_LESSONS[topic.id]
-    : section.id === "verbs" ? VERB_LESSONS[topic.id] : undefined;
+    : section.id === "verbs" ? VERB_LESSONS[topic.id]
+    : section.id === "tenses" ? TENSE_LESSONS[topic.id] : undefined;
 
   if (topic.id === "word-order") redirect("/grammar/word-order/rule");
   if (topic.id === "adjective-order") {

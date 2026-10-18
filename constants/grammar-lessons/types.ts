@@ -12,7 +12,7 @@ export interface LessonMistake {
 
 export type LessonBlock =
   | { type: "text"; title: string; body: string; examples?: LessonExample[] }
-  | { type: "table"; title: string; intro?: string; headings: string[]; rows: string[][] }
+  | { type: "table"; title: string; intro?: string; headings: string[]; rows: string[][]; highlightCells?: string[] }
   | { type: "mistakes"; title: string; items: LessonMistake[] }
   | { type: "examples"; title: string; intro?: string; examples: LessonExample[] }
   | { type: "tip"; title: string; body: string };
