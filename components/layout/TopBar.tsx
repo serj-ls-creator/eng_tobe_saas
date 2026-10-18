@@ -23,7 +23,7 @@ export function TopBar({ title, backHref, showBrand = false, points = 0, streak 
     { label: "Sentences", href: "/sentences" },
     { label: "Phrasal verbs", href: "/phrasal-verbs" },
     { label: "Idioms", href: "/idioms" },
-    { label: "Grammar", href: "/grammar" },
+    { label: "Grammar + Tenses", href: "/grammar" },
     { label: "Games", href: "/games" },
     { label: "My Vocabulary", href: "/vocabulary" },
     { label: "Recall", href: "/recall" },
