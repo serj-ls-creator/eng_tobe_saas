@@ -1,12 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { Flame } from 'lucide-react';
 import { TopBar } from '@/components/layout/TopBar';
 import { usePoints } from '@/lib/usePoints';
 import { addPoints } from '@/lib/add-points';
-import { completeActivity } from '@/lib/complete-activity';
+import { completeActivity, type ActivityResult } from '@/lib/complete-activity';
 import { createMixedPuzzle, createPuzzle, GRID_COLS, GRID_ROWS, type Cell, type Puzzle } from '@/data/games/wordsearch/generator';
 import words4 from '@/data/games/wordsearch/words-4';
 import words5 from '@/data/games/wordsearch/words-5';
@@ -38,6 +39,7 @@ function getStraightPath(start: Cell, end: Cell): Cell[] {
 
 export default function WordsearchGamePage() {
   const params = useParams<{ length: string }>();
+  const router = useRouter();
   const wordLength = Number(params.length);
   const isMix = params.length === 'mix';
   const sourceWords = WORD_LISTS[wordLength] ?? words4;
@@ -48,14 +50,16 @@ export default function WordsearchGamePage() {
   const [isSelecting, setIsSelecting] = useState(false);
   const [showResult, setShowResult] = useState(false);
   const [gameId, setGameId] = useState(0);
-  const [recorded, setRecorded] = useState(false);
+  const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
+  const recordedRef = useRef(false);
 
   const newPuzzle = useCallback(() => {
     setPuzzle(isMix ? createMixedPuzzle(WORD_LISTS) : createPuzzle(sourceWords));
     setSelection([]);
     setFoundWords([]);
     setShowResult(false);
-    setRecorded(false);
+    setActivityResult(null);
+    recordedRef.current = false;
     setGameId((id) => id + 1);
   }, [isMix, sourceWords]);
 
@@ -82,11 +86,11 @@ export default function WordsearchGamePage() {
   }, [puzzle, foundWords]);
 
   useEffect(() => {
-    if (!showResult || recorded) return;
-    setRecorded(true);
-    addPoints(10, 'wordsearch');
-    completeActivity();
-  }, [showResult, recorded]);
+    if (!showResult || recordedRef.current) return;
+    recordedRef.current = true;
+    void addPoints(10, 'wordsearch');
+    completeActivity().then(setActivityResult);
+  }, [showResult]);
 
   useEffect(() => {
     const stopSelection = () => setIsSelecting(false);
@@ -187,7 +191,23 @@ export default function WordsearchGamePage() {
             <div className="mb-3 text-4xl">🎉</div>
             <h2 className="mb-2 text-2xl font-bold text-emerald-400">Great work!</h2>
             <p className="mb-6 text-sm text-zinc-400">You found all the words.</p>
-            <button onClick={newPuzzle} className="w-full rounded-xl bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300">Play again</button>
+            <div className="mb-4 rounded-xl border border-yellow-400/20 bg-yellow-400/10 px-4 py-3 text-sm font-bold text-yellow-300">+10 points</div>
+            {activityResult && (
+              <div className={`mb-5 flex items-center justify-between rounded-xl border px-4 py-3 ${activityResult.dailyActivities >= 4 ? 'border-yellow-400/30 bg-yellow-400/10' : 'border-white/10 bg-white/[0.04]'}`}>
+                <div className="flex items-center gap-2">
+                  <Flame className={`h-4 w-4 ${activityResult.dailyActivities >= 4 ? 'text-yellow-300' : 'text-zinc-500'}`} />
+                  <span className={`text-sm font-medium ${activityResult.dailyActivities >= 4 ? 'text-yellow-200' : 'text-zinc-300'}`}>
+                    {activityResult.dailyActivities >= 4 ? 'Daily streak completed' : 'Daily progress'}
+                  </span>
+                </div>
+                <span className="text-sm font-bold text-cyan-300">{Math.min(activityResult.dailyActivities, 4)}/4</span>
+              </div>
+            )}
+            <div className="space-y-3">
+              <button onClick={newPuzzle} className="w-full rounded-xl bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300">Play Again</button>
+              <button onClick={() => router.push('/games/wordsearch')} className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 font-medium text-white hover:bg-white/[0.08]">Choose Level</button>
+              <button onClick={() => router.push('/home')} className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 font-medium text-white hover:bg-white/[0.08]">Back to Home</button>
+            </div>
           </div>
         </div>
       )}
