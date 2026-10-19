@@ -182,6 +182,7 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
 
   return (
     <button
+      type="button"
       onClick={isSpeaking ? stopSpeaking : speak}
       className={`flex items-center justify-center w-8 h-8 rounded-lg bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 transition-colors ${className}`}
       title={isSpeaking ? 'Stop speaking' : 'Speak text (English Only)'}

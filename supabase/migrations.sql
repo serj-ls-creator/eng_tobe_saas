@@ -61,6 +61,37 @@ ADD COLUMN IF NOT EXISTS points INTEGER NOT NULL DEFAULT 0,
 ADD COLUMN IF NOT EXISTS last_activity_date TEXT,
 ADD COLUMN IF NOT EXISTS daily_activities INTEGER NOT NULL DEFAULT 0;
 
+-- One free Wordle and one free Wordsearch per user each UTC day.
+CREATE TABLE IF NOT EXISTS public.game_daily_plays (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  game_type TEXT NOT NULL CHECK (game_type IN ('wordle', 'wordsearch')),
+  played_on DATE NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (user_id, game_type, played_on)
+);
+
+ALTER TABLE public.game_daily_plays ENABLE ROW LEVEL SECURITY;
+GRANT INSERT ON public.game_daily_plays TO authenticated;
+
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1
+    FROM pg_policies
+    WHERE schemaname = 'public'
+      AND tablename = 'game_daily_plays'
+      AND policyname = 'game_daily_plays_insert_own'
+  ) THEN
+    CREATE POLICY "game_daily_plays_insert_own"
+    ON public.game_daily_plays
+    FOR INSERT
+    TO authenticated
+    WITH CHECK (auth.uid() = user_id);
+  END IF;
+END;
+$$;
+
 -- Migration: Create weekly_streak table if not exists
 CREATE TABLE IF NOT EXISTS public.weekly_streak (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

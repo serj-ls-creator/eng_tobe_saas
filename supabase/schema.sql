@@ -17,6 +17,15 @@ create table if not exists public.profiles (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.game_daily_plays (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  game_type text not null check (game_type in ('wordle', 'wordsearch')),
+  played_on date not null,
+  created_at timestamptz not null default now(),
+  unique (user_id, game_type, played_on)
+);
+
 create table if not exists public.categories (
   id uuid primary key default gen_random_uuid(),
   section text not null check (section in ('words', 'sentences', 'idioms', 'games')),
@@ -59,6 +68,8 @@ create table if not exists public.learning_activity_progress (
 );
 
 alter table public.profiles enable row level security;
+alter table public.game_daily_plays enable row level security;
+grant insert on public.game_daily_plays to authenticated;
 alter table public.categories enable row level security;
 alter table public.content enable row level security;
 alter table public.learning_activity_progress enable row level security;
@@ -80,6 +91,12 @@ on public.profiles
 for update
 to authenticated
 using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+create policy "game_daily_plays_insert_own"
+on public.game_daily_plays
+for insert
+to authenticated
 with check (auth.uid() = user_id);
 
 create policy "categories_read_authenticated"

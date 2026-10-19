@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Flame } from 'lucide-react';
 import { TopBar } from '@/components/layout/TopBar';
 import { WORDS_5, WORDS_6, WORDS_7, WORDS_8 } from '@/data/games/wordle-words';
 import { usePoints } from '@/lib/usePoints';
 import { addPoints } from '@/lib/add-points';
-import { completeActivity } from '@/lib/complete-activity';
+import { completeActivity, type ActivityResult } from '@/lib/complete-activity';
 
 interface PageProps {
   params: { length: string };
@@ -40,12 +41,16 @@ function pickRandom(arr: string[]): string {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+type DailyAccess = 'checking' | 'allowed' | 'blocked' | 'sign-in' | 'error';
+
 export default function WordleGamePage({ params }: PageProps) {
   const router = useRouter();
   const wordLength = parseInt(params.length) || 5;
   const MAX_GUESSES = 6;
 
   const points = usePoints();
+  const [dailyAccess, setDailyAccess] = useState<DailyAccess>('checking');
+  const [isPremium, setIsPremium] = useState(false);
   const [targetWord, setTargetWord] = useState('');
   const [guesses, setGuesses] = useState<GuessLetter[][]>([]);
   const [currentGuess, setCurrentGuess] = useState('');
@@ -58,12 +63,61 @@ export default function WordleGamePage({ params }: PageProps) {
   const [keyStates, setKeyStates] = useState<Record<string, LetterState>>({});
   const [hintLetter, setHintLetter] = useState<string | null>(null);
   const [hintUsed, setHintUsed] = useState(false);
+  const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
+  const awardedRef = useRef(false);
+
+  const startGame = useCallback(async () => {
+    setDailyAccess('checking');
+    try {
+      const response = await fetch('/api/games/daily-play', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameType: 'wordle' }),
+      });
+      const access = await response.json();
+      if (response.status === 401) {
+        setDailyAccess('sign-in');
+        return;
+      }
+      if (!response.ok) throw new Error(access.error || 'Could not check game access');
+      if (!access.allowed) {
+        setIsPremium(false);
+        setDailyAccess('blocked');
+        return;
+      }
+
+      setIsPremium(Boolean(access.premium));
+      setTargetWord(pickRandom(getWordList(wordLength)));
+      setGuesses([]);
+      setCurrentGuess('');
+      setGameOver(false);
+      setWon(false);
+      setShowResult(false);
+      setKeyStates({});
+      setHintLetter(null);
+      setHintUsed(false);
+      setActivityResult(null);
+      awardedRef.current = false;
+      setMounted(true);
+      setDailyAccess('allowed');
+    } catch {
+      setDailyAccess('error');
+    }
+  }, [wordLength]);
+
+  const initialRouteRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (initialRouteRef.current === params.length) return;
+    initialRouteRef.current = params.length;
+    void startGame();
+  }, [params.length, startGame]);
 
   useEffect(() => {
-    setMounted(true);
-    const words = getWordList(wordLength);
-    setTargetWord(pickRandom(words));
-  }, [wordLength]);
+    if (!showResult || !won || awardedRef.current) return;
+    awardedRef.current = true;
+    void addPoints(10, 'wordle');
+    completeActivity().then(setActivityResult);
+  }, [showResult, won]);
 
   const evaluateGuess = useCallback(
     (guess: string, target: string): GuessLetter[] => {
@@ -132,11 +186,10 @@ export default function WordleGamePage({ params }: PageProps) {
 
     setCurrentGuess('');
 
-    const isWin = currentGuess === targetWord;    if (isWin) {
+    const isWin = currentGuess === targetWord;
+    if (isWin) {
       setWon(true);
       setGameOver(true);
-      addPoints(10, 'wordle');
-      completeActivity();
       setTimeout(() => setShowResult(true), 1500);
     } else if (newGuesses.length >= MAX_GUESSES) {
       setGameOver(true);
@@ -146,7 +199,7 @@ export default function WordleGamePage({ params }: PageProps) {
 
   const handleKey = useCallback(
     (key: string) => {
-      if (gameOver) return;
+      if (gameOver || dailyAccess !== 'allowed') return;
       if (key === 'ENTER') {
         submitGuess();
         return;
@@ -159,7 +212,7 @@ export default function WordleGamePage({ params }: PageProps) {
         setCurrentGuess((prev) => prev + key);
       }
     },
-    [gameOver, submitGuess, currentGuess, wordLength],
+    [gameOver, dailyAccess, submitGuess, currentGuess, wordLength],
   );
 
   useEffect(() => {
@@ -224,11 +277,34 @@ export default function WordleGamePage({ params }: PageProps) {
     }
   };
 
-  if (!mounted || !targetWord) {
+  if (dailyAccess !== 'allowed' || !mounted || !targetWord) {
+    const gateTitle = dailyAccess === 'checking'
+      ? 'Checking your daily game…'
+      : dailyAccess === 'blocked'
+        ? 'Free game used'
+        : dailyAccess === 'sign-in'
+          ? 'Sign in to play'
+          : dailyAccess === 'error'
+            ? 'Could not start the game'
+            : 'Loading…';
+    const gateMessage = dailyAccess === 'blocked'
+      ? 'You have used your free Wordle today. Come back tomorrow or get Premium to play more.'
+      : dailyAccess === 'sign-in'
+        ? 'Sign in to play and save your daily progress.'
+        : dailyAccess === 'error'
+          ? 'Please try again.'
+          : '';
     return (
       <div className="min-h-screen bg-black text-white">
         <TopBar points={points} />
-        <div className="text-center pt-20 text-zinc-500">Loading…</div>
+        <div className="mx-auto max-w-sm px-4 pt-20 text-center">
+          <h1 className="mb-3 text-xl font-bold text-white">{gateTitle}</h1>
+          {gateMessage && <p className="mb-5 text-sm leading-6 text-zinc-400">{gateMessage}</p>}
+          {dailyAccess === 'blocked' && <Link href="/premium" className="mb-3 block rounded-xl bg-cyan-400 px-5 py-3 font-bold text-black">Get Premium</Link>}
+          {dailyAccess === 'sign-in' && <Link href="/auth/login" className="mb-3 block rounded-xl bg-cyan-400 px-5 py-3 font-bold text-black">Sign in</Link>}
+          {dailyAccess === 'error' && <button onClick={() => void startGame()} className="mb-3 w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-black">Try again</button>}
+          <Link href="/games" className="block rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 font-medium text-white">Back to Games</Link>
+        </div>
       </div>
     );
   }
@@ -378,30 +454,31 @@ export default function WordleGamePage({ params }: PageProps) {
                 <span className="text-cyan-400">{targetWord}</span>
               </p>
             )}
+            {won && <div className="mb-4 rounded-xl border border-yellow-400/20 bg-yellow-400/10 px-4 py-3 text-sm font-bold text-yellow-300">+10 points</div>}
+            {won && activityResult && (
+              <div className={`mb-5 flex items-center justify-between rounded-xl border px-4 py-3 ${activityResult.dailyActivities >= 4 ? 'border-yellow-400/30 bg-yellow-400/10' : 'border-white/10 bg-white/[0.04]'}`}>
+                <div className="flex items-center gap-2">
+                  <Flame className={`h-4 w-4 ${activityResult.dailyActivities >= 4 ? 'text-yellow-300' : 'text-zinc-500'}`} />
+                  <span className={`text-sm font-medium ${activityResult.dailyActivities >= 4 ? 'text-yellow-200' : 'text-zinc-300'}`}>
+                    {activityResult.dailyActivities >= 4 ? 'Daily streak completed' : 'Daily progress'}
+                  </span>
+                </div>
+                <span className="text-sm font-bold text-cyan-300">{Math.min(activityResult.dailyActivities, 4)}/4</span>
+              </div>
+            )}
             <div className="space-y-3 mt-6">
-              <button
-                onClick={() => {
-                  const words = getWordList(wordLength);
-                  setTargetWord(pickRandom(words));
-                  setGuesses([]);
-                  setCurrentGuess('');
-                  setGameOver(false);
-                  setWon(false);
-                  setShowResult(false);
-                  setKeyStates({});
-                  setHintLetter(null);
-                  setHintUsed(false);
-                }}
-                className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-bold py-3 px-6 rounded-xl transition-colors"
-              >
-                Play Again
-              </button>
+              {isPremium ? (
+                <button onClick={() => void startGame()} className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-bold py-3 px-6 rounded-xl transition-colors">Play Again</button>
+              ) : (
+                <Link href="/premium" className="block w-full bg-cyan-400 hover:bg-cyan-500 text-black font-bold py-3 px-6 rounded-xl transition-colors">Get Premium</Link>
+              )}
               <button
                 onClick={() => router.push('/games/wordle')}
                 className="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl transition-colors"
               >
                 Change Difficulty
               </button>
+              <button onClick={() => router.push('/games')} className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 font-medium text-white hover:bg-white/[0.08]">Back to Games</button>
             </div>
           </div>
         </div>

@@ -15,6 +15,7 @@ import words6 from '@/data/games/wordsearch/words-6';
 import words7 from '@/data/games/wordsearch/words-7';
 
 const WORD_LISTS: Record<number, string[]> = { 4: words4, 5: words5, 6: words6, 7: words7 };
+type DailyAccess = 'checking' | 'allowed' | 'blocked' | 'sign-in' | 'error';
 const CELL_KEY = (cell: Cell) => `${cell.row},${cell.col}`;
 
 function samePath(selection: Cell[], answer: Cell[]) {
@@ -43,7 +44,10 @@ export default function WordsearchGamePage() {
   const wordLength = Number(params.length);
   const isMix = params.length === 'mix';
   const sourceWords = WORD_LISTS[wordLength] ?? words4;
+  const validLength = isMix || [4, 5, 6, 7].includes(wordLength);
   const points = usePoints();
+  const [dailyAccess, setDailyAccess] = useState<DailyAccess>('checking');
+  const [isPremium, setIsPremium] = useState(false);
   const [puzzle, setPuzzle] = useState<Puzzle | null>(null);
   const [selection, setSelection] = useState<Cell[]>([]);
   const [foundWords, setFoundWords] = useState<string[]>([]);
@@ -53,17 +57,50 @@ export default function WordsearchGamePage() {
   const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
   const recordedRef = useRef(false);
 
-  const newPuzzle = useCallback(() => {
-    setPuzzle(isMix ? createMixedPuzzle(WORD_LISTS) : createPuzzle(sourceWords));
-    setSelection([]);
-    setFoundWords([]);
-    setShowResult(false);
-    setActivityResult(null);
-    recordedRef.current = false;
-    setGameId((id) => id + 1);
-  }, [isMix, sourceWords]);
+  const newPuzzle = useCallback(async () => {
+    if (!validLength) return;
+    setDailyAccess('checking');
+    try {
+      const response = await fetch('/api/games/daily-play', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ gameType: 'wordsearch' }),
+      });
+      const access = await response.json();
+      if (response.status === 401) {
+        setDailyAccess('sign-in');
+        setShowResult(false);
+        return;
+      }
+      if (!response.ok) throw new Error(access.error || 'Could not check game access');
+      if (!access.allowed) {
+        setIsPremium(false);
+        setDailyAccess('blocked');
+        setShowResult(false);
+        return;
+      }
 
-  useEffect(() => { newPuzzle(); }, [newPuzzle]);
+      setIsPremium(Boolean(access.premium));
+      setPuzzle(isMix ? createMixedPuzzle(WORD_LISTS) : createPuzzle(sourceWords));
+      setSelection([]);
+      setFoundWords([]);
+      setShowResult(false);
+      setActivityResult(null);
+      recordedRef.current = false;
+      setGameId((id) => id + 1);
+      setDailyAccess('allowed');
+    } catch {
+      setDailyAccess('error');
+      setShowResult(false);
+    }
+  }, [isMix, sourceWords, validLength]);
+
+  const initialRouteRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!validLength || initialRouteRef.current === params.length) return;
+    initialRouteRef.current = params.length;
+    void newPuzzle();
+  }, [newPuzzle, params.length, validLength]);
 
   const selectionKeys = useMemo(() => new Set(selection.map(CELL_KEY)), [selection]);
   const foundCellKeys = useMemo(() => {
@@ -124,8 +161,6 @@ export default function WordsearchGamePage() {
     extendSelection({ row, col });
   };
 
-  const validLength = isMix || [4, 5, 6, 7].includes(wordLength);
-
   return (
     <div className="min-h-screen bg-black text-white">
       <TopBar points={points} />
@@ -136,10 +171,23 @@ export default function WordsearchGamePage() {
             <h1 className="text-lg font-bold">Wordsearch</h1>
             <p className="text-xs text-zinc-500">{isMix ? 'Find words of different lengths' : `Find the ${wordLength}-letter words`}</p>
           </div>
-          <button onClick={newPuzzle} className="text-xs text-cyan-300 hover:text-cyan-200">New game</button>
+          {isPremium ? <button onClick={() => void newPuzzle()} className="text-xs text-cyan-300 hover:text-cyan-200">New game</button> : <div className="w-12" />}
         </div>
 
-        {!validLength ? <p className="text-sm text-zinc-400">Choose a level to play.</p> : puzzle && (
+        {!validLength ? <p className="text-sm text-zinc-400">Choose a level to play.</p> : dailyAccess !== 'allowed' ? (
+          <div className="w-full max-w-sm rounded-2xl border border-white/10 bg-slate-900 p-6 text-center">
+            <h2 className="mb-2 text-xl font-bold text-white">{dailyAccess === 'checking' ? 'Loading game…' : dailyAccess === 'sign-in' ? 'Sign in to play' : dailyAccess === 'error' ? 'Could not start the game' : 'Free game used'}</h2>
+            <p className="mb-5 text-sm leading-6 text-zinc-400">
+              {dailyAccess === 'blocked' ? 'You have used your free Wordsearch today. Come back tomorrow or get Premium to play more.' : dailyAccess === 'sign-in' ? 'Sign in to play and save your daily progress.' : dailyAccess === 'error' ? 'Please try again.' : 'Checking your daily game.'}
+            </p>
+            <div className="space-y-3">
+              {dailyAccess === 'blocked' && <Link href="/premium" className="block w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-black">Get Premium</Link>}
+              {dailyAccess === 'sign-in' && <Link href="/auth/login" className="block w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-black">Sign in</Link>}
+              {dailyAccess === 'error' && <button onClick={() => void newPuzzle()} className="w-full rounded-xl bg-cyan-400 px-5 py-3 font-bold text-black">Try again</button>}
+              <Link href="/games" className="block w-full rounded-xl border border-white/10 bg-white/[0.04] px-5 py-3 font-medium text-white">Back to Games</Link>
+            </div>
+          </div>
+        ) : puzzle && (
           <>
             <div className="w-full overflow-hidden rounded-lg border border-white/20">
               <div
@@ -204,7 +252,7 @@ export default function WordsearchGamePage() {
               </div>
             )}
             <div className="space-y-3">
-              <button onClick={newPuzzle} className="w-full rounded-xl bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300">Play Again</button>
+            {isPremium ? <button onClick={() => void newPuzzle()} className="w-full rounded-xl bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300">Play Again</button> : <Link href="/premium" className="block w-full rounded-xl bg-cyan-400 px-6 py-3 font-bold text-black hover:bg-cyan-300">Get Premium</Link>}
               <button onClick={() => router.push('/games/wordsearch')} className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 font-medium text-white hover:bg-white/[0.08]">Choose Level</button>
               <button onClick={() => router.push('/home')} className="w-full rounded-xl border border-white/10 bg-white/[0.04] px-6 py-3 font-medium text-white hover:bg-white/[0.08]">Back to Home</button>
             </div>
