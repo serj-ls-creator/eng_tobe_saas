@@ -2,10 +2,10 @@ import Link from "next/link";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
-import { PremiumBadge } from "@/components/ui/PremiumBadge";
+import { RecallTree, type RecallTreeNode } from "@/components/recall/RecallTree";
 import { getRecallSnapshot, type RecallSection } from "@/lib/learning-progress";
 import { isPremium } from "@/lib/isPremium";
-import { isRecallItemPremiumLocked, type RecallItem } from "@/lib/learning-progress-shared";
+import type { RecallItem } from "@/lib/learning-progress-shared";
 import { CATS, IDIOM_CATS, ALL_SENTENCE_CATS, GRAMMAR_CATS } from "@/constants/categories";
 import { GRAMMAR_SECTIONS, type GrammarTopic } from "@/constants/grammar";
 
@@ -26,23 +26,6 @@ const SECTION_TITLES: Record<RecallSection, string> = {
   idioms: "Idioms",
   grammar: "Grammar"
 };
-
-function getDueLabel(dueAt: string): string {
-  const now = new Date();
-  const due = new Date(dueAt);
-  const msPerDay = 86400000;
-  const diffDays = Math.floor((due.getTime() - now.getTime()) / msPerDay);
-
-  if (diffDays < 0) {
-    return `Overdue ${Math.abs(diffDays)}d`;
-  }
-
-  if (diffDays === 0) {
-    return "Due today";
-  }
-
-  return `Due in ${diffDays}d`;
-}
 
 function getRecallGroup(item: RecallItem): { key: string; label: string } {
   if (item.section === "words") {
@@ -141,6 +124,34 @@ function groupRecallItems(items: RecallItem[]): Array<{ key: string; label: stri
     });
 }
 
+function buildRecallTree(section: RecallSection, items: RecallItem[]): RecallTreeNode[] {
+  if (section === "words") {
+    const buildCategory = (categoryId: string, label: string): RecallTreeNode | null => {
+      const categoryItems = items.filter(item => item.categoryId === categoryId);
+      const category = CATS.find(entry => entry.id === categoryId);
+      const children = (category?.topics ?? []).map(topic => {
+        const topicItems = categoryItems.filter(item => item.topicId === topic.id);
+        const subcategories = (topic.subcategories ?? []).flatMap(subcategory => {
+          const subItems = topicItems.filter(item => item.subcategoryId === subcategory.id);
+          return subItems.length ? [{ id: `words:${categoryId}:${topic.id}:${subcategory.id}`, label: subcategory.name, items: subItems }] : [];
+        });
+        const looseItems = topicItems.filter(item => !item.subcategoryId);
+        if (!subcategories.length && !looseItems.length) return [];
+        return [{ id: `words:${categoryId}:${topic.id}`, label: topic.name, children: subcategories, ...(looseItems.length ? { items: looseItems } : {}) }];
+      }).flat();
+      const specialItems = categoryItems.filter(item => !item.topicId);
+      if (!children.length && !specialItems.length) return null;
+      return { id: `words:${categoryId}`, label, children, ...(specialItems.length ? { items: specialItems } : {}) };
+    };
+    return CATS.flatMap(category => {
+      const node = buildCategory(category.id, category.name);
+      return node ? [node] : [];
+    });
+  }
+
+  return groupRecallItems(items).map(group => ({ id: group.key, label: group.label, items: group.items }));
+}
+
 export default async function RecallPage() {
   const recall = await getRecallSnapshot();
   const premium = await isPremium();
@@ -192,35 +203,7 @@ export default async function RecallPage() {
                     </Card>
                   ) : (
                     <div className="space-y-3">
-                      {groupRecallItems(recall.sections[section]).map((group) => (
-                        <Card key={group.key} className="p-4">
-                          <div className="mb-3 text-sm font-semibold text-white">{group.label}</div>
-                          <div className="space-y-2">
-                            {group.items.map((item) => (
-                              <Link key={item.key} href={isRecallItemPremiumLocked(item, premium) ? "/premium" : item.href}>
-                                <div className="rounded-xl border border-white/8 bg-white/[0.03] p-3 transition-colors hover:bg-white/[0.05]">
-                                  <div className="mb-2 flex items-center justify-between gap-3">
-                                    <div className="min-w-0">
-                                      <div className="mb-1 flex items-center gap-2">
-                                        <div className="truncate text-sm font-semibold text-white">{item.activityName}</div>
-                                        {isRecallItemPremiumLocked(item, premium) ? <PremiumBadge /> : null}
-                                      </div>
-                                      <div className="flex items-center gap-2 text-[11px]">
-                                        <span className="text-zinc-500">{item.scoreLabel}</span>
-                                        <span className="text-zinc-600">•</span>
-                                        <span className="text-zinc-400">{getDueLabel(item.dueAt)}</span>
-                                      </div>
-                                    </div>
-                                    <div className="text-[11px] text-cyan-400">
-                                      {isRecallItemPremiumLocked(item, premium) ? "Premium required" : "Review now"}
-                                    </div>
-                                  </div>
-                                </div>
-                              </Link>
-                            ))}
-                          </div>
-                        </Card>
-                      ))}
+                      <RecallTree nodes={buildRecallTree(section, recall.sections[section])} premium={premium} />
                     </div>
                   )}
                 </details>
