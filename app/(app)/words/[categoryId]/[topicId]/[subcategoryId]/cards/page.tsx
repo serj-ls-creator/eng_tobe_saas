@@ -227,7 +227,7 @@ export default function CardsPage({ params }: PageProps) {
             type="button"
             onClick={handleAddToVocabulary}
             disabled={checkingAuth}
-            className="flex shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 px-1.5 py-1.5 text-[9px] font-bold leading-[15px] text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60 sm:gap-1.5 sm:px-2 sm:text-[10px]"
+            className="flex shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 px-1.5 py-1.5 text-[10px] font-bold leading-[15px] text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60 sm:gap-1.5 sm:px-2 sm:text-[11px]"
           >
             <BookPlus className="h-3 w-3 shrink-0" />
             <span>{checkingAuth ? 'Checking...' : 'Add word to My Vocabulary'}</span>
