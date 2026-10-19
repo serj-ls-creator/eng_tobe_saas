@@ -1,5 +1,5 @@
-export const GRID_ROWS = 10;
-export const GRID_COLS = 14;
+export const GRID_ROWS = 14;
+export const GRID_COLS = 10;
 
 export type Cell = { row: number; col: number };
 export type PlacedWord = { word: string; cells: Cell[] };

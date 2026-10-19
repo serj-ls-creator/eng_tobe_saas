@@ -110,6 +110,16 @@ export default function WordsearchGamePage() {
     setSelection(path);
   };
 
+  const handleGridPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!isSelecting) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const cellSize = bounds.width / GRID_COLS;
+    const col = Math.floor((event.clientX - bounds.left) / cellSize);
+    const row = Math.floor((event.clientY - bounds.top) / cellSize);
+    if (row < 0 || row >= GRID_ROWS || col < 0 || col >= GRID_COLS) return;
+    extendSelection({ row, col });
+  };
+
   const validLength = isMix || [4, 5, 6, 7].includes(wordLength);
 
   return (
@@ -131,7 +141,7 @@ export default function WordsearchGamePage() {
               <div
                 className="grid select-none touch-none"
                 style={{ gridTemplateColumns: `repeat(${GRID_COLS}, minmax(0, 1fr))` }}
-                onPointerLeave={() => { if (isSelecting) setIsSelecting(false); }}
+                onPointerMove={handleGridPointerMove}
                 onPointerUp={() => { setIsSelecting(false); finishSelection(selection); }}
               >
                 {puzzle.grid.flatMap((row, rowIndex) => row.map((letter, colIndex) => {
@@ -144,8 +154,11 @@ export default function WordsearchGamePage() {
                       key={key}
                       type="button"
                       aria-label={`Row ${rowIndex + 1}, column ${colIndex + 1}, ${letter}`}
-                      onPointerDown={(event) => { event.preventDefault(); beginSelection(cell); }}
-                      onPointerEnter={() => extendSelection(cell)}
+                      onPointerDown={(event) => {
+                        event.preventDefault();
+                        event.currentTarget.setPointerCapture(event.pointerId);
+                        beginSelection(cell);
+                      }}
                       className={`flex aspect-square min-w-0 items-center justify-center border-r border-b border-white/10 text-[11px] font-bold sm:text-sm ${found ? 'bg-emerald-500/70 text-white' : active ? 'bg-cyan-400 text-slate-950' : 'bg-slate-900 text-zinc-100 hover:bg-slate-800'}`}
                     >{letter}</button>
                   );
