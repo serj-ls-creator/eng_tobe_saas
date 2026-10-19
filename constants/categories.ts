@@ -1025,7 +1025,7 @@ export const GAME_CATS: Category[] = [
     name: "Wordsearch",
     description: "Find hidden words in the letter grid",
     icon: "Search",
-    color: UI_COLORS.cyan,
+    color: "#34D399",
     section: "games",
     href: "/games/wordsearch",
     access: "free",

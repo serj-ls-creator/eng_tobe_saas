@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { BookPlus, X } from 'lucide-react';
 import { TopBar } from '@/components/layout/TopBar';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -11,6 +12,7 @@ import { FlipCard } from '@/components/cards/FlipCard';
 import { CompletionModal } from '@/components/ui/CompletionModal';
 import { usePoints } from '@/lib/usePoints';
 import { useAutoFlip } from '@/lib/useAutoFlip';
+import { createSupabaseBrowserClient } from '@/lib/supabase-browser';
 import { PEOPLE } from '@/data/words/basicadvanced/people';
 import { WORLD } from '@/data/words/basicadvanced/world';
 import { LIFE } from '@/data/words/basicadvanced/life';
@@ -58,6 +60,8 @@ export default function CardsPage({ params }: PageProps) {
   const [subcategory, setSubcategory] = useState<any>(null);
   const [mounted, setMounted] = useState(false);
   const [autoFlip, setAutoFlip] = useState(true);
+  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(false);
   const points = usePoints();
 
   // Prevent hydration issues
@@ -116,6 +120,24 @@ export default function CardsPage({ params }: PageProps) {
   const handleFlip = useCallback(() => {
     setIsFlipped(v => !v);
   }, []);
+
+  const handleAddToVocabulary = async () => {
+    if (!currentWord || checkingAuth) return;
+    setCheckingAuth(true);
+    try {
+      const { data: { user } } = await createSupabaseBrowserClient().auth.getUser();
+      if (!user) {
+        setShowSignupPrompt(true);
+        return;
+      }
+      router.push(`/vocabulary/add?word=${encodeURIComponent(currentWord.advanced)}`);
+    } catch (error) {
+      console.error('Failed to check authentication:', error);
+      setShowSignupPrompt(true);
+    } finally {
+      setCheckingAuth(false);
+    }
+  };
 
   useAutoFlip({
     enabled: autoFlip,
@@ -185,14 +207,14 @@ export default function CardsPage({ params }: PageProps) {
           <Progress value={((currentCardIndex + 1) / words.length) * 100} />
         </div>
 
-        {/* Auto-flip toggle */}
-        <div className="mb-4 flex justify-center">
-          <div className="flex items-center gap-3">
-            <span className="text-sm text-zinc-400">Auto Flip</span>
+        {/* Auto-flip and vocabulary action */}
+        <div className="mx-auto mb-4 flex w-full max-w-md items-center justify-between gap-2">
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="text-xs text-zinc-400">Auto Flip</span>
             <button
               type="button"
               onClick={() => setAutoFlip(v => !v)}
-              className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
+              className={`rounded-lg px-2.5 py-1.5 text-[10px] font-bold transition-colors ${
                 autoFlip
                   ? 'bg-cyan-400 text-black hover:bg-cyan-300'
                   : 'bg-white/5 text-zinc-400 hover:bg-white/10'
@@ -201,6 +223,15 @@ export default function CardsPage({ params }: PageProps) {
               {autoFlip ? 'On' : 'Off'}
             </button>
           </div>
+          <button
+            type="button"
+            onClick={handleAddToVocabulary}
+            disabled={checkingAuth}
+            className="flex shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 px-1.5 py-1.5 text-[9px] font-bold leading-[15px] text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60 sm:gap-1.5 sm:px-2 sm:text-[10px]"
+          >
+            <BookPlus className="h-3 w-3 shrink-0" />
+            <span>{checkingAuth ? 'Checking...' : 'Add word to My Vocabulary'}</span>
+          </button>
         </div>
 
         {/* Card */}
@@ -241,6 +272,26 @@ export default function CardsPage({ params }: PageProps) {
           )}
         </div>
       </div>
+
+      {showSignupPrompt && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
+          <div className="w-full max-w-sm rounded-3xl border border-white/15 bg-zinc-900 p-6 shadow-2xl">
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <div>
+                <h2 className="text-lg font-bold text-white">Create an account to save words</h2>
+                <p className="mt-2 text-sm text-zinc-400">Sign up or log in to access My Vocabulary and add this word.</p>
+              </div>
+              <button type="button" onClick={() => setShowSignupPrompt(false)} aria-label="Close" className="rounded-full p-1 text-zinc-400 hover:text-white">
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-2">
+              <Link href="/auth/signup" className="rounded-xl bg-gradient-to-r from-cyan-400 to-purple-500 px-3 py-2.5 text-center text-xs font-bold text-black">Sign Up</Link>
+              <Link href="/auth/login" className="rounded-xl border border-white/10 bg-zinc-800 px-3 py-2.5 text-center text-xs font-bold text-white hover:bg-zinc-700">Log In</Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Completion Modal */}
       {showCompletion && (

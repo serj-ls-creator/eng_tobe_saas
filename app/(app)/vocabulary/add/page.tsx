@@ -39,6 +39,7 @@ function AddWordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const editId = searchParams.get("id");
+  const initialWord = searchParams.get("word");
 
   // Form State
   const [word, setWord] = useState("");
@@ -84,6 +85,10 @@ function AddWordForm() {
         );
         setWordCount(assignedFreeSlots.size || Math.min(loadedWords.length, FREE_WORDS_LIMIT));
 
+        if (!editId && initialWord?.trim()) {
+          setWord(initialWord.trim());
+        }
+
         if (user) {
           const { data: profile } = await supabase
             .from("profiles")
@@ -116,7 +121,7 @@ function AddWordForm() {
       }
     }
     init();
-  }, [editId]);
+  }, [editId, initialWord]);
 
   // Dictionary lookup trigger
   const handleSearchDictionary = async (searchWordOverride?: string) => {
