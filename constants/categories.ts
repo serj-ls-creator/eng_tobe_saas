@@ -1021,6 +1021,18 @@ export const GAME_CATS: Category[] = [
     order: 1
   },
   {
+    id: "wordsearch",
+    name: "Wordsearch",
+    description: "Find hidden words in the letter grid",
+    icon: "Search",
+    color: UI_COLORS.cyan,
+    section: "games",
+    href: "/games/wordsearch",
+    access: "free",
+    isFree: true,
+    order: 2
+  },
+  {
     id: "memory",
     name: "Memory",
     description: "Match vocabulary pairs",
@@ -1030,7 +1042,7 @@ export const GAME_CATS: Category[] = [
     href: "/games/memory",
     access: "free",
     isFree: true,
-    order: 2
+    order: 3
   },
   {
     id: "negotiation",
@@ -1042,6 +1054,6 @@ export const GAME_CATS: Category[] = [
     href: "/games/negotiation",
     access: "premium",
     isFree: false,
-    order: 3
+    order: 4
   }
 ];
