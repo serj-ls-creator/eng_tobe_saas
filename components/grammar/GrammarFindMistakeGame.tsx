@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
@@ -36,6 +36,7 @@ export function GrammarFindMistakeGame({
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [correctCount, setCorrectCount] = useState(0);
   const [showCompletion, setShowCompletion] = useState(false);
+  const answerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -44,6 +45,13 @@ export function GrammarFindMistakeGame({
     setAnswerState("idle");
     setSelectedIndex(null);
   }, [level.level]);
+
+  useEffect(() => {
+    if (answerState === "idle") return;
+    window.requestAnimationFrame(() => {
+      answerRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  }, [answerState, currentIndex]);
 
   const currentRound = level.items[currentIndex];
 
@@ -66,7 +74,6 @@ export function GrammarFindMistakeGame({
     if (foundMistake) {
       setCorrectCount((count) => count + 1);
       playCorrect();
-      window.setTimeout(advance, 1600);
     } else {
       playWrong();
     }
@@ -118,14 +125,16 @@ export function GrammarFindMistakeGame({
         </div>
 
         {answerState !== "idle" ? (
-          <Card className={`mt-4 p-4 ${answerState === "correct" ? "border-emerald-500/30 bg-emerald-500/10" : "border-rose-500/30 bg-rose-500/10"}`}>
-            <div className={`mb-1 text-xs font-bold uppercase tracking-wider ${answerState === "correct" ? "text-emerald-300" : "text-rose-300"}`}>
-              {answerState === "correct" ? "Well done!" : "Not quite"}
-            </div>
-            <p className="text-sm text-zinc-200">{currentRound.options[targetIndex]?.correction ?? currentRound.options[targetIndex]?.text}</p>
-            {currentRound.options[targetIndex]?.explanation ? <p className="mt-1 text-xs leading-5 text-zinc-400">{currentRound.options[targetIndex].explanation}</p> : null}
-            {answerState === "wrong" ? <button onClick={advance} className="mt-3 w-full rounded-xl bg-cyan-400 px-4 py-3 text-sm font-bold text-black transition-colors hover:bg-cyan-300">Continue &rarr;</button> : null}
-          </Card>
+          <div ref={answerRef} className="scroll-mt-24">
+            <Card className={`mt-4 p-4 ${answerState === "correct" ? "border-emerald-500/30 bg-emerald-500/10" : "border-rose-500/30 bg-rose-500/10"}`}>
+              <div className={`mb-1 text-xs font-bold uppercase tracking-wider ${answerState === "correct" ? "text-emerald-300" : "text-rose-300"}`}>
+                {answerState === "correct" ? "Well done!" : "Not quite"}
+              </div>
+              <p className="text-sm text-zinc-200">{currentRound.options[targetIndex]?.correction ?? currentRound.options[targetIndex]?.text}</p>
+              {currentRound.options[targetIndex]?.explanation ? <p className="mt-1 text-xs leading-5 text-zinc-400">{currentRound.options[targetIndex].explanation}</p> : null}
+              <button onClick={advance} className="mt-3 w-full rounded-xl bg-cyan-400 px-4 py-3 text-sm font-bold text-black transition-colors hover:bg-cyan-300">Continue &rarr;</button>
+            </Card>
+          </div>
         ) : null}
       </div>
 
