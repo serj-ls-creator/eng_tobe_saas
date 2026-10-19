@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BookOpen, Clock, PenLine, type LucideIcon } from "lucide-react";
+import { BookOpen, CircleHelp, Clock, PenLine, type LucideIcon } from "lucide-react";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
@@ -41,7 +41,7 @@ const ACTIVITIES: ArticlesActivity[] = [
     icon: PenLine,
     available: true
   },
-  { id: "find-the-mistake", title: "Find the Mistake", description: "Coming Soon", available: false },
+  { id: "find-the-mistake", title: "Find the Mistake", description: "Find the incorrect sentence", href: "/grammar/articles/find-the-mistake", icon: CircleHelp, available: true },
   { id: "swipe-game", title: "Swipe game", description: "Coming Soon", available: false },
   { id: "category-sort", title: "Category Sort", description: "Coming Soon", available: false },
   { id: "sentence-builder", title: "Sentence builder", description: "Coming Soon", available: false }
@@ -70,6 +70,17 @@ export default async function ArticlesPage() {
             section: "grammar",
             categoryId: "articles",
             topicId: "fill-the-gap"
+          })
+        ] ?? "none"
+      );
+    }
+    if (activityId === "find-the-mistake") {
+      return (
+        progress.containerStatuses[
+          buildProgressKey({
+            section: "grammar",
+            categoryId: "articles",
+            topicId: "articles"
           })
         ] ?? "none"
       );

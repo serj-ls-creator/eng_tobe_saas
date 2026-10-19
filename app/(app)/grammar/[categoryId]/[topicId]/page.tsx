@@ -5,12 +5,20 @@ import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { findGrammarTopic, GRAMMAR_SECTIONS } from "@/constants/grammar";
 import { isPremium } from "@/lib/isPremium";
+import { getLearningProgressSnapshot, buildProgressKey, getProgressCardClass } from "@/lib/learning-progress";
 
 export default async function GrammarTopicPage({ params }: { params: { categoryId: string; topicId: string } }) {
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
   const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();
   if (section.id === "tenses" && !(await isPremium())) redirect("/premium");
+  const progress = await getLearningProgressSnapshot();
+  const ruleStatus = progress.activityStatuses[buildProgressKey({
+    section: "grammar", categoryId: section.id, topicId: topic.id, activityId: "rule"
+  })] ?? "none";
+  const findMistakeStatus = progress.containerStatuses[buildProgressKey({
+    section: "grammar", categoryId: section.id, topicId: topic.id, activityId: "find-the-mistake"
+  })] ?? "none";
 
   return (
     <>
@@ -26,7 +34,7 @@ export default async function GrammarTopicPage({ params }: { params: { categoryI
         </div>
         <div className="grid grid-cols-2 gap-3">
           <Link href={`/grammar/${section.id}/${topic.id}/rule`}>
-            <Card className="min-h-[126px] overflow-hidden rounded-[24px] border border-white/10 p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08]">
+            <Card className={`min-h-[126px] overflow-hidden rounded-[24px] border border-white/10 p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08] ${getProgressCardClass(ruleStatus)}`}>
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-300/10 text-cyan-200"><BookOpenText className="h-5 w-5" /></div>
               <div className="mb-2 text-sm font-semibold text-white">Rule</div>
               <div className="text-[11px] leading-relaxed text-cyan-300">A short guide to {topic.name.toLowerCase()}</div>
@@ -40,18 +48,18 @@ export default async function GrammarTopicPage({ params }: { params: { categoryI
             </Card>
           </Link>}
           {topic.id === "word-order" ? <Link href="/grammar/word-order/find-the-mistake">
-            <Card className="min-h-[126px] overflow-hidden rounded-[24px] border border-white/10 p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08]">
+            <Card className={`min-h-[126px] overflow-hidden rounded-[24px] border border-white/10 p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08] ${getProgressCardClass(findMistakeStatus)}`}>
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-300/10 text-cyan-200"><CircleHelp className="h-5 w-5" /></div>
               <div className="mb-2 text-sm font-semibold text-white">Find the Mistake</div>
               <div className="text-[11px] leading-relaxed text-cyan-300">Find and fix word order mistakes</div>
             </Card>
-          </Link> : <div aria-disabled="true">
-            <Card className="min-h-[126px] overflow-hidden rounded-[24px] border border-white/10 p-4 opacity-55">
+          </Link> : <Link href={`/grammar/${section.id}/${topic.id}/find-the-mistake`}>
+            <Card className={`min-h-[126px] overflow-hidden rounded-[24px] border border-white/10 p-4 transition-all hover:border-cyan-300/40 hover:bg-white/[0.08] ${getProgressCardClass(findMistakeStatus)}`}>
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-300/10 text-cyan-200"><CircleHelp className="h-5 w-5" /></div>
               <div className="mb-2 text-sm font-semibold text-white">Find the Mistake</div>
-              <div className="text-[11px] leading-relaxed text-zinc-500">Coming Soon</div>
+              <div className="text-[11px] leading-relaxed text-cyan-300">Find the incorrect sentence in each set of five</div>
             </Card>
-          </div>}
+          </Link>}
         </div>
       </div>
     </>

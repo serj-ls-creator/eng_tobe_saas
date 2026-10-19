@@ -14,8 +14,6 @@ export function ArticlesRuleProgress() {
       activityName: "Rule",
       title: "Articles Rule",
       href: "/grammar/articles/rule",
-      score: 1,
-      total: 1
     });
   }, []);
 

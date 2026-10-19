@@ -14,8 +14,6 @@ export function WordOrderRuleProgress() {
       activityName: "Rule",
       title: "Word Order Rule",
       href: "/grammar/sentences/word-order/rule",
-      score: 1,
-      total: 1
     });
   }, []);
 

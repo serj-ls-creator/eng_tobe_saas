@@ -1,6 +1,7 @@
 import { CATS, IDIOM_CATS, SENT_CATS, ALL_SENTENCE_CATS, PHRASAL_VERBS_CAT, WORD_GAME_ACTIVITIES, GRAMMAR_CATS } from "@/constants/categories";
 import { SILENT_WORD_LEVELS } from "@/data/words/pronounce/silent_words";
 import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
+import { GRAMMAR_SECTIONS, type GrammarTopic } from "@/constants/grammar";
 
 export type ProgressStatus = "none" | "completed" | "perfect";
 export type LearningSection = "words" | "sentences" | "idioms" | "grammar";
@@ -75,10 +76,10 @@ const EVERYDAY_ACTIVITY_IDS = ["cards", "reply-builder", "fill-the-gap", "choice
 const IDIOM_ACTIVITY_IDS = ["cards", "multiple-choice", "synonym-pair", "fill-blanks", "find-mistake", "sentence-builder"];
 const A1_C2_TOPIC_IDS = ["phrases", "error-hunt", "pairs", "level-match"];
 const IDIOM_LEVEL_IDS = ["level-1", "level-2", "level-3"];
-const GRAMMAR_ARTICLES_ACTIVITY_IDS = ["rule"];
 const GRAMMAR_ARTICLES_FILL_GAP_LEVEL_IDS = ["level-1", "level-2", "level-3", "level-4", "level-5"];
 export const GRAMMAR_ADJECTIVE_ORDER_BUILDER_LEVEL_IDS = ["level-1", "level-2", "level-3"] as const;
 export const GRAMMAR_WORD_ORDER_MISTAKE_LEVEL_IDS = ["level-1", "level-2", "level-3", "level-4"] as const;
+export const GRAMMAR_FIND_MISTAKE_LEVEL_IDS = ["level-1", "level-2", "level-3", "level-4"] as const;
 
 export function buildProgressKey(input: {
   section: LearningSection;
@@ -380,7 +381,67 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
   containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles", topicId: "fill-the-gap" })] = fillGapStatus;
 
   const articlesStatus = aggregateStatuses([ruleStatus, fillGapStatus]);
-  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles" })] = articlesStatus;
+  const articlesMistakeStatuses = GRAMMAR_FIND_MISTAKE_LEVEL_IDS.map((levelId) => {
+    const key = buildProgressKey({
+      section: "grammar",
+      categoryId: "articles",
+      topicId: "articles",
+      levelId,
+      activityId: "find-the-mistake"
+    });
+    return activityStatuses[key] ?? "none";
+  });
+  const articlesMistakeStatus = aggregateStatuses(articlesMistakeStatuses);
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles", topicId: "articles" })] = articlesMistakeStatus;
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles", topicId: "articles", activityId: "find-the-mistake" })] = articlesMistakeStatus;
+  containerStatuses[buildProgressKey({ section: "grammar", categoryId: "articles" })] = aggregateStatuses([articlesStatus, articlesMistakeStatus]);
+
+  const aggregateGrammarTopics = (categoryId: string, topics: GrammarTopic[]): ProgressStatus[] => topics.map((topic) => {
+    const topicKey = buildProgressKey({ section: "grammar", categoryId, topicId: topic.id });
+    const findMistakeStatuses = topic.topics?.length ? [] : GRAMMAR_FIND_MISTAKE_LEVEL_IDS.map((levelId) => activityStatuses[buildProgressKey({
+      section: "grammar", categoryId, topicId: topic.id, levelId, activityId: "find-the-mistake"
+    })] ?? "none");
+    if (categoryId === "sentences" && topic.id === "word-order") {
+      GRAMMAR_WORD_ORDER_MISTAKE_LEVEL_IDS.forEach((levelId) => findMistakeStatuses.push(activityStatuses[buildProgressKey({
+        section: "grammar", categoryId: "word-order", topicId: "find-the-mistake", levelId, activityId: "find-the-mistake"
+      })] ?? "none"));
+    }
+    containerStatuses[buildProgressKey({ section: "grammar", categoryId, topicId: topic.id, activityId: "find-the-mistake" })] = aggregateStatuses(findMistakeStatuses);
+    const childStatuses = topic.topics?.length
+      ? aggregateGrammarTopics(categoryId, topic.topics)
+      : [
+          activityStatuses[buildProgressKey({ section: "grammar", categoryId, topicId: topic.id, activityId: "rule" })] ?? "none",
+          ...findMistakeStatuses,
+          ...(categoryId === "adjectives" && topic.id === "adjective-order"
+            ? GRAMMAR_ADJECTIVE_ORDER_BUILDER_LEVEL_IDS.map((levelId) => activityStatuses[buildProgressKey({
+                section: "grammar",
+                categoryId: "adjective-order",
+                topicId: "sentence-builder",
+                levelId,
+                activityId: "sentence-builder"
+              })] ?? "none")
+            : []),
+          ...(categoryId === "sentences" && topic.id === "word-order"
+            ? GRAMMAR_WORD_ORDER_MISTAKE_LEVEL_IDS.map((levelId) => activityStatuses[buildProgressKey({
+                section: "grammar",
+                categoryId: "word-order",
+                topicId: "find-the-mistake",
+                levelId,
+                activityId: "find-the-mistake"
+              })] ?? "none")
+            : [])
+        ];
+    const status = aggregateStatuses(childStatuses);
+    containerStatuses[topicKey] = status;
+    return status;
+  });
+
+  GRAMMAR_SECTIONS.forEach((section) => {
+    if (section.id === "articles" || !section.topics?.length) return;
+    containerStatuses[buildProgressKey({ section: "grammar", categoryId: section.id })] = aggregateStatuses(
+      aggregateGrammarTopics(section.id, section.topics)
+    );
+  });
 
   const adjOrderRuleKey = buildProgressKey({
     section: "grammar",
@@ -452,6 +513,7 @@ export function buildRecallSnapshot(rows: LearningProgressRow[], isLoggedIn = tr
   };
 
   rows.forEach((row) => {
+    if (row.section === "grammar" && row.activity_id === "rule") return;
     const key = buildProgressKey({
       section: row.section,
       categoryId: row.category_id,
@@ -625,15 +687,6 @@ function buildIdiomsActivityKeys(): string[] {
 function buildGrammarActivityKeys(): string[] {
   const keys: string[] = [];
 
-  keys.push(
-    buildProgressKey({
-      section: "grammar",
-      categoryId: "articles",
-      topicId: "rule",
-      activityId: "rule"
-    })
-  );
-
   GRAMMAR_ARTICLES_FILL_GAP_LEVEL_IDS.forEach((levelId) => {
     keys.push(
       buildProgressKey({
@@ -645,15 +698,6 @@ function buildGrammarActivityKeys(): string[] {
       })
     );
   });
-
-  keys.push(
-    buildProgressKey({
-      section: "grammar",
-      categoryId: "adjective-order",
-      topicId: "rule",
-      activityId: "rule"
-    })
-  );
 
   GRAMMAR_ADJECTIVE_ORDER_BUILDER_LEVEL_IDS.forEach((levelId) => {
     keys.push(
@@ -667,15 +711,6 @@ function buildGrammarActivityKeys(): string[] {
     );
   });
 
-  keys.push(
-    buildProgressKey({
-      section: "grammar",
-      categoryId: "word-order",
-      topicId: "rule",
-      activityId: "rule"
-    })
-  );
-
   GRAMMAR_WORD_ORDER_MISTAKE_LEVEL_IDS.forEach((levelId) => {
     keys.push(
       buildProgressKey({
@@ -687,6 +722,32 @@ function buildGrammarActivityKeys(): string[] {
       })
     );
   });
+
+  GRAMMAR_SECTIONS.forEach((section) => {
+    if (!section.topics?.length || section.id === "articles") return;
+    const addTopicKeys = (topics: GrammarTopic[]) => topics.forEach((topic) => {
+      if (topic.topics?.length) {
+        addTopicKeys(topic.topics);
+        return;
+      }
+      GRAMMAR_FIND_MISTAKE_LEVEL_IDS.forEach((levelId) => keys.push(buildProgressKey({
+        section: "grammar",
+        categoryId: section.id,
+        topicId: topic.id,
+        levelId,
+        activityId: "find-the-mistake"
+      })));
+    });
+    addTopicKeys(section.topics);
+  });
+
+  GRAMMAR_FIND_MISTAKE_LEVEL_IDS.forEach((levelId) => keys.push(buildProgressKey({
+    section: "grammar",
+    categoryId: "articles",
+    topicId: "articles",
+    levelId,
+    activityId: "find-the-mistake"
+  })));
 
   return keys;
 }

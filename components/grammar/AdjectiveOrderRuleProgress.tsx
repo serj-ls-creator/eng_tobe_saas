@@ -14,8 +14,6 @@ export function AdjectiveOrderRuleProgress() {
       activityName: "Rule",
       title: "Adjective Order Rule",
       href: "/grammar/adjectives/adjective-order/rule",
-      score: 1,
-      total: 1
     });
   }, []);
 

@@ -34,9 +34,10 @@ export function TensesSection({ section, progress, isPremium }: { section: Gramm
     const isOpen = openTopics.includes(key);
     const categoryIcon = depth === 0 ? tenseCategoryIcons[topic.id] : undefined;
     const Icon = categoryIcon ? getIcon(categoryIcon.icon) : undefined;
+    const topicStatus = progress.containerStatuses[buildProgressKey({ section: "grammar", categoryId: section.id, topicId: topic.id })] ?? "none";
     if (!topic.topics?.length) {
       return <Link key={key} href={isPremium ? `/grammar/${section.id}/${topic.id}` : "/premium"}
-        className="flex items-center justify-between gap-3 rounded-2xl border border-[#262b38] bg-[linear-gradient(135deg,_rgba(79,209,255,0.10),_rgba(244,114,182,0.10))] px-4 py-3 transition-colors hover:border-[#3c4355]">
+        className={`flex items-center justify-between gap-3 rounded-2xl border border-[#262b38] bg-[linear-gradient(135deg,_rgba(79,209,255,0.10),_rgba(244,114,182,0.10))] px-4 py-3 transition-colors hover:border-[#3c4355] ${getProgressCardClass(topicStatus)}`}>
         <span className="min-w-0">
           <span className="flex items-center gap-2 text-sm font-medium text-white">{topic.name}{!isPremium ? <PremiumBadge /> : null}</span>
           <span className="mt-1 block text-[11px] leading-5 text-zinc-500">{topic.rule}</span>
@@ -45,7 +46,7 @@ export function TensesSection({ section, progress, isPremium }: { section: Gramm
       </Link>;
     }
 
-    return <div key={key} className="overflow-hidden rounded-2xl border border-[#262b38] bg-[linear-gradient(135deg,_rgba(79,209,255,0.10),_rgba(244,114,182,0.10))]">
+    return <div key={key} className={`overflow-hidden rounded-2xl border border-[#262b38] bg-[linear-gradient(135deg,_rgba(79,209,255,0.10),_rgba(244,114,182,0.10))] ${getProgressCardClass(topicStatus)}`}>
       <button type="button" onClick={() => toggleTopic(key)} aria-expanded={isOpen}
         className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.03]">
         {Icon && categoryIcon ? <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ backgroundColor: `${categoryIcon.color}25` }}>

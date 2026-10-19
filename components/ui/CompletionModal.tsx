@@ -168,6 +168,36 @@ function inferProgressPayload({
     };
   }
 
+  if (segments[0] === 'grammar' && segments[1] === 'articles' && segments[2] === 'find-the-mistake' && segments[3]) {
+    return {
+      section: 'grammar',
+      categoryId: 'articles',
+      topicId: 'articles',
+      levelId: segments[3],
+      activityId: 'find-the-mistake',
+      activityName: 'Find the Mistake',
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
+  if (segments[0] === 'grammar' && segments[3] === 'find-the-mistake' && segments[4]) {
+    return {
+      section: 'grammar',
+      categoryId: segments[1],
+      topicId: segments[2],
+      levelId: segments[4],
+      activityId: 'find-the-mistake',
+      activityName: 'Find the Mistake',
+      title: subcategoryName,
+      href: pathname,
+      score: noPoints ? undefined : completed,
+      total: noPoints ? undefined : total,
+    };
+  }
+
   if (segments[0] === 'grammar' && segments[1] && segments[2] === 'rule') {
     return {
       section: 'grammar',

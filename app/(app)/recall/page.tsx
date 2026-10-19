@@ -7,6 +7,17 @@ import { getRecallSnapshot, type RecallSection } from "@/lib/learning-progress";
 import { isPremium } from "@/lib/isPremium";
 import { isRecallItemPremiumLocked, type RecallItem } from "@/lib/learning-progress-shared";
 import { CATS, IDIOM_CATS, ALL_SENTENCE_CATS, GRAMMAR_CATS } from "@/constants/categories";
+import { GRAMMAR_SECTIONS, type GrammarTopic } from "@/constants/grammar";
+
+function findGrammarTopic(topics: GrammarTopic[] | undefined, topicId: string | null): GrammarTopic | undefined {
+  if (!topicId || !topics) return undefined;
+  for (const topic of topics) {
+    if (topic.id === topicId) return topic;
+    const nested = findGrammarTopic(topic.topics, topicId);
+    if (nested) return nested;
+  }
+  return undefined;
+}
 
 const SECTION_TITLES: Record<RecallSection, string> = {
   words: "Words",
@@ -83,9 +94,11 @@ function getRecallGroup(item: RecallItem): { key: string; label: string } {
   }
 
   if (item.section === "grammar") {
-    const category = GRAMMAR_CATS.find((entry) => entry.id === item.categoryId);
+    const grammarSection = GRAMMAR_SECTIONS.find((entry) => entry.id === item.categoryId);
+    const category = grammarSection ?? GRAMMAR_CATS.find((entry) => entry.id === item.categoryId);
+    const topic = findGrammarTopic(grammarSection?.topics, item.topicId);
     const levelLabel = item.levelId ? item.levelId.replace("level-", "Level ") : null;
-    const label = [category?.name ?? "Grammar", item.topicId === "rule" ? "Rule" : (levelLabel ?? item.title)].filter(Boolean).join(" / ");
+    const label = [category?.name ?? "Grammar", topic?.name ?? (item.topicId === "rule" ? "Rule" : null), levelLabel].filter(Boolean).join(" / ");
     return {
       key: `${item.section}:${item.categoryId}:${item.topicId ?? ""}:${item.levelId ?? ""}`,
       label: label || item.title

@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { AdjectiveOrderLesson } from "@/components/grammar/AdjectiveOrderLesson";
 import { AdjectiveOrderRuleProgress } from "@/components/grammar/AdjectiveOrderRuleProgress";
+import { GrammarRuleProgress } from "@/components/grammar/GrammarRuleProgress";
 import { GrammarLessonRenderer } from "@/components/grammar/GrammarLessonRenderer";
 import { findGrammarTopic, GRAMMAR_SECTIONS } from "@/constants/grammar";
 import { GRAMMAR_EXAMPLES } from "@/constants/grammar-examples";
@@ -57,6 +58,7 @@ export default async function GrammarRulePage({ params }: { params: { categoryId
 
   return (
     <>
+      {topic.id !== "adjective-order" && <GrammarRuleProgress categoryId={section.id} topicId={topic.id} title={`${topic.name} Rule`} href={`/grammar/${section.id}/${topic.id}/rule`} />}
       <TopBar title={`${topic.name} Rule`} />
       <div className="content-shell pb-10">
         <div className="mb-4">
