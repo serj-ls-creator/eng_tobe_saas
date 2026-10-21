@@ -114,12 +114,12 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                     onChange={(e) => setUserName(e.target.value)}
                     onBlur={() => setIsEditingName(false)}
                     onKeyDown={(e) => e.key === "Enter" && setIsEditingName(false)}
-                    className="text-xl font-bold bg-transparent border-b border-cyan-400 outline-none text-white"
+                    className="text-xl font-bold bg-transparent border-b border-theme outline-none text-white"
                     autoFocus
                   />
                 ) : (
                   <h1 
-                    className="text-xl font-bold text-white cursor-pointer hover:text-cyan-400 transition-colors"
+                    className="text-xl font-bold text-white cursor-pointer hover:text-theme transition-colors"
                     onClick={() => setIsEditingName(true)}
                   >
                     {userName}
@@ -133,11 +133,11 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
             <button
               onClick={saveProfile}
               disabled={isSaving}
-              className="w-full mb-4 flex items-center justify-center gap-2 p-3 rounded-xl bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 hover:bg-cyan-400/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full mb-4 flex items-center justify-center gap-2 p-3 rounded-control bg-theme-soft border border-theme/20 text-theme hover:bg-theme/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSaving ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-4 h-4 border-2 border-theme border-t-transparent rounded-full animate-spin"></div>
                   <span className="font-medium">Saving...</span>
                 </>
               ) : (
@@ -166,8 +166,8 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Words</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.words}%` }}></div>
+                      <div className="section-progress-track">
+                        <div className="section-progress-fill" style={{ width: `${progress.words}%` }}></div>
                       </div>
                       <span className="text-xs text-zinc-500">{progress.words}%</span>
                     </div>
@@ -175,8 +175,8 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Phrasal verbs</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.phrasalVerbs}%` }}></div>
+                      <div className="section-progress-track">
+                        <div className="section-progress-fill" style={{ width: `${progress.phrasalVerbs}%` }}></div>
                       </div>
                       <span className="text-xs text-zinc-500">{progress.phrasalVerbs}%</span>
                     </div>
@@ -184,8 +184,8 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Sentences</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.sentences}%` }}></div>
+                      <div className="section-progress-track">
+                        <div className="section-progress-fill" style={{ width: `${progress.sentences}%` }}></div>
                       </div>
                       <span className="text-xs text-zinc-500">{progress.sentences}%</span>
                     </div>
@@ -193,8 +193,8 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Idioms</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.idioms}%` }}></div>
+                      <div className="section-progress-track">
+                        <div className="section-progress-fill" style={{ width: `${progress.idioms}%` }}></div>
                       </div>
                       <span className="text-xs text-zinc-500">{progress.idioms}%</span>
                     </div>
@@ -202,8 +202,8 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-zinc-400">Grammar</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                        <div className="h-full bg-cyan-400 transition-all" style={{ width: `${progress.grammar}%` }}></div>
+                      <div className="section-progress-track">
+                        <div className="section-progress-fill" style={{ width: `${progress.grammar}%` }}></div>
                       </div>
                       <span className="text-xs text-zinc-500">{progress.grammar}%</span>
                     </div>
@@ -212,7 +212,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
               </div>
 
               {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/10">
+              <div className="grid grid-cols-3 gap-3 pt-4 border-t border-border">
                 <div className="text-center">
                   <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 rounded-xl bg-orange-400/20">
                     <Flame className="h-6 w-6 text-orange-400" />
@@ -252,7 +252,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
       {/* Avatar Selection Modal */}
       {showAvatarModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-[#050505] rounded-2xl p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
+          <div className="bg-background rounded-card p-6 max-w-md w-full max-h-[80vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold text-white">Choose Avatar</h3>
               <button
@@ -272,7 +272,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                   }}
                   className={`p-4 text-2xl rounded-lg transition-all flex items-center justify-center hover:scale-110 ${
                     selectedAvatar === avatar 
-                      ? "bg-cyan-400/20 border border-cyan-400" 
+                      ? "bg-theme/20 border border-theme"
                       : "bg-white/[0.02] border border-white/10 hover:bg-white/[0.05]"
                   }`}
                 >

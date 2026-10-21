@@ -98,8 +98,8 @@ export default async function ArticlesPage() {
           </Link>
         </div>
 
-        <div className="mb-6 rounded-[28px] border border-cyan-400/20 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.22),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(59,130,246,0.18),_transparent_35%),linear-gradient(180deg,_rgba(15,23,42,0.96),_rgba(2,6,23,0.96))] p-5">
-          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Grammar</div>
+        <div className="mb-6 section-hero p-5">
+          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-theme">Grammar</div>
           <h1 className="mb-2 text-3xl font-black text-white">Articles</h1>
           <p className="max-w-md text-sm leading-6 text-zinc-200">
             Learn when English needs <span className="font-semibold text-white">a</span>,{" "}
@@ -128,7 +128,7 @@ export default async function ArticlesPage() {
                 </div>
                 <div className="mb-2 text-sm font-semibold text-white">{activity.title}</div>
                 <div
-                  className={`text-[11px] leading-relaxed ${activity.available ? "text-cyan-300" : "text-zinc-500"}`}
+                  className={`text-[11px] leading-relaxed ${activity.available ? "text-theme" : "text-zinc-500"}`}
                   dangerouslySetInnerHTML={{ __html: activity.description }}
                 />
               </Card>

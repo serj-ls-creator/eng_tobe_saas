@@ -146,7 +146,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
           )}
 
           <Card
-            className={`relative px-6 pb-6 bg-zinc-900/95 border-zinc-700/60 ${plan.popular ? 'pt-8' : 'pt-6'} ${
+            className={`store-plan-card relative px-6 pb-6 ${plan.popular ? 'pt-8' : 'pt-6'} ${
               plan.popular
                 ? 'shadow-[0_0_40px_rgba(0,229,255,0.08)]'
                 : ''
@@ -289,7 +289,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
         </div>
       ))}
 
-      <Card className="relative px-6 pb-6 pt-6 bg-zinc-900/95 border-zinc-700/60">
+      <Card className="store-plan-card relative px-6 pb-6 pt-6">
         <div className="relative">
           <div className="flex items-center gap-3 mb-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-yellow-500/20">

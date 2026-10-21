@@ -33,7 +33,7 @@ export function TopBar({ title, backHref, showBrand = false, points = 0, streak 
   ];
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/5 bg-[#050505]/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 border-b border-border bg-background backdrop-blur-xl">
       <div className="mx-auto flex h-14 max-w-[430px] items-center justify-between px-4">
         <div className="flex items-center gap-2">
           {backHref ? (

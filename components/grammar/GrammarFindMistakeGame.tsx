@@ -86,7 +86,7 @@ export function GrammarFindMistakeGame({
   const handleNextLevel = () => router.push(`${basePath}/level-${level.level + 1}`);
 
   function optionStyle(index: number) {
-    if (answerState === "idle") return "border-white/10 bg-slate-800/60 text-white hover:border-cyan-400/50 hover:bg-slate-700/70";
+    if (answerState === "idle") return "border-white/10 bg-slate-800/60 text-white hover:border-theme/50 hover:bg-slate-700/70";
     if (index === targetIndex) return "border-emerald-400/40 bg-emerald-500/15 text-emerald-200";
     if (index === selectedIndex && answerState === "wrong") return "border-rose-400/40 bg-rose-500/15 text-rose-200";
     return "border-white/5 bg-white/[0.02] text-zinc-500 opacity-50";
@@ -109,7 +109,7 @@ export function GrammarFindMistakeGame({
         </div>
 
         <div className="mb-4">
-          <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-cyan-400">{categoryName} &middot; {topicName}</div>
+          <div className="text-[10px] font-bold uppercase tracking-[0.24em] text-theme">{categoryName} &middot; {topicName}</div>
           <h1 className="mt-1 text-2xl font-black text-white">Find the Mistake</h1>
           <p className="mt-2 text-sm text-zinc-400">One of these five sentences has a grammar mistake. Tap it.</p>
         </div>
@@ -132,7 +132,7 @@ export function GrammarFindMistakeGame({
               </div>
               <p className="text-sm text-zinc-200">{currentRound.options[targetIndex]?.correction ?? currentRound.options[targetIndex]?.text}</p>
               {currentRound.options[targetIndex]?.explanation ? <p className="mt-1 text-xs leading-5 text-zinc-400">{currentRound.options[targetIndex].explanation}</p> : null}
-              <button onClick={advance} className="mt-3 w-full rounded-xl bg-cyan-400 px-4 py-3 text-sm font-bold text-black transition-colors hover:bg-cyan-300">Continue &rarr;</button>
+              <button onClick={advance} className="mt-3 w-full rounded-xl bg-theme px-4 py-3 text-sm font-bold text-theme-foreground transition-colors hover:bg-theme-strong">Continue &rarr;</button>
             </Card>
           </div>
         ) : null}

@@ -202,7 +202,7 @@ export default function ReplyBuilderGamePage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8 text-center">
+        <div className="activity-shell text-center">
           <p>Loading...</p>
         </div>
       </div>
@@ -228,7 +228,7 @@ export default function ReplyBuilderGamePage({ params }: PageProps) {
   const getWordStyle = (index: number) => {
     if (usedIndices.includes(index)) return 'bg-slate-800/30 border-white/5 opacity-30 cursor-default';
     if (answerState !== 'idle') return 'bg-slate-800/30 border-white/5 opacity-50 cursor-default';
-    return 'bg-slate-800/60 border-white/10 hover:bg-slate-700/60 hover:border-white/20 cursor-pointer';
+    return 'answer-option-idle cursor-pointer';
   };
 
   return (
@@ -237,7 +237,7 @@ export default function ReplyBuilderGamePage({ params }: PageProps) {
 
       <FlyingWords words={rounds.map(r => r.dialogue.prompt.split(' ').slice(0, 3).join(' '))} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="activity-shell relative z-10">
         {/* Header */}
         <div className="mb-6">
           <Link

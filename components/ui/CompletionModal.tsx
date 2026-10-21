@@ -291,7 +291,7 @@ export function CompletionModal({
   
   const getPerformanceRating = () => {
     if (completed >= 10) return { title: 'Excellent!', color: 'text-green-400' };
-    if (completed >= 9) return { title: 'Great job!', color: 'text-cyan-400' };
+    if (completed >= 9) return { title: 'Great job!', color: 'text-theme' };
     if (completed >= 8) return { title: 'Good effort!', color: 'text-yellow-400' };
     if (completed >= 7) return { title: 'Keep trying!', color: 'text-orange-400' };
     if (completed >= 5) return { title: 'Practice more!', color: 'text-red-400' };
@@ -305,7 +305,7 @@ export function CompletionModal({
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50" suppressHydrationWarning={true}>
       <Card className="w-full max-w-md p-8 text-center" suppressHydrationWarning={true}>
         {/* Success Icon */}
-        <div className="w-16 h-16 bg-cyan-400/20 rounded-full flex items-center justify-center mx-auto mb-6">
+        <div className="w-16 h-16 bg-theme-soft rounded-full flex items-center justify-center mx-auto mb-6 text-theme">
           <span className="text-2xl">+</span>
         </div>
 
@@ -315,7 +315,7 @@ export function CompletionModal({
         </h2>
 
         {/* Stats */}
-        <p className="text-cyan-400 text-lg font-semibold mb-4">
+        <p className="text-theme text-lg font-semibold mb-4">
           {completed} of {total} correct
         </p>
 
@@ -370,7 +370,7 @@ export function CompletionModal({
               </span>
             </div>
             {activityResult.dailyActivities < DAILY_GOAL && (
-              <span className="text-sm font-bold text-cyan-400">
+              <span className="text-sm font-bold text-theme">
                 {activityResult.dailyActivities}/{DAILY_GOAL}
               </span>
             )}
@@ -382,7 +382,7 @@ export function CompletionModal({
           {onNextSubcategory && (
             <button
               onClick={() => handleNavigate(onNextSubcategory)}
-              className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-xl transition-colors"
+              className="w-full bg-theme hover:bg-theme-strong text-theme-foreground font-semibold py-3 px-6 rounded-control transition-colors"
             >
               Next Subcategory
             </button>

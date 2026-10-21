@@ -33,7 +33,7 @@ export function CategoryCard({
     <Link href={locked ? "/premium" : href} aria-disabled={locked}>
       <Card className={`p-4 ${getProgressCardClass(progressStatus)}`}>
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${color}25` }}>
+          <div className="category-icon" style={{ backgroundColor: `${color}25` }}>
             <Icon className="h-5 w-5" style={{ color }} />
           </div>
           <div className="min-w-0 flex-1">

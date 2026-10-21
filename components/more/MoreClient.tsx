@@ -58,7 +58,7 @@ export function MoreClient() {
                     <p className="text-xs text-zinc-500">Share the app with friends</p>
                   </div>
                 </div>
-                <button className="rounded-lg bg-white/5 px-3 py-2 text-xs text-zinc-400">
+                <button className="rounded-control bg-card px-3 py-2 text-xs text-zinc-400">
                   Coming Soon
                 </button>
               </div>
@@ -120,8 +120,8 @@ export function MoreClient() {
                     onClick={() => setEnabled(!enabled)}
                     className={`rounded-lg px-3 py-2 text-xs font-medium transition-colors ${
                       enabled
-                        ? 'bg-cyan-400 text-black hover:bg-cyan-300'
-                        : 'bg-white/5 text-zinc-400 hover:bg-white/10'
+                        ? 'bg-theme text-theme-foreground hover:bg-theme-strong'
+                        : 'bg-card text-zinc-400 hover:bg-surface-raised'
                     }`}
                   >
                     {enabled ? 'On' : 'Off'}
@@ -136,7 +136,7 @@ export function MoreClient() {
                       <p className="text-xs text-zinc-500">Toggle pronunciation audio</p>
                     </div>
                   </div>
-                  <button className="rounded-lg bg-white/5 px-3 py-2 text-xs text-zinc-400">
+                  <button className="rounded-control bg-card px-3 py-2 text-xs text-zinc-400">
                     Coming Soon
                   </button>
                 </div>
@@ -188,7 +188,7 @@ export function MoreClient() {
                     <p className="text-xs text-zinc-500">Enter a promotional code</p>
                   </div>
                 </div>
-                <button className="rounded-lg bg-white/5 px-3 py-2 text-xs text-zinc-400">
+                <button className="rounded-control bg-card px-3 py-2 text-xs text-zinc-400">
                   Coming Soon
                 </button>
               </div>

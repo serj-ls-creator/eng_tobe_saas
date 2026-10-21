@@ -188,7 +188,7 @@ export default function FillBlanksPage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8 text-center"><p>Loading...</p></div>
+        <div className="activity-shell text-center"><p>Loading...</p></div>
       </div>
     );
   }
@@ -220,7 +220,7 @@ export default function FillBlanksPage({ params }: PageProps) {
   const getPoolWordStyle = (id: string) => {
     if (usedIds.includes(id)) return 'bg-slate-800/30 border-white/5 opacity-30 cursor-default';
     if (answerState !== 'idle') return 'bg-slate-800/30 border-white/5 opacity-50 cursor-default';
-    return 'bg-slate-800/60 border-white/10 hover:bg-slate-700/60 hover:border-white/20 cursor-pointer';
+    return 'answer-option-idle cursor-pointer';
   };
 
   return (
@@ -228,7 +228,7 @@ export default function FillBlanksPage({ params }: PageProps) {
       <TopBar points={points} />
       <FlyingWords words={idioms.map(i => i.idiom)} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="activity-shell relative z-10">
         {/* Header */}
         <div className="mb-8">
           <Link

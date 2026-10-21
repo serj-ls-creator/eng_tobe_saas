@@ -39,13 +39,13 @@ export function AdjectiveOrderLesson() {
         <div className="my-5 h-[3px] rounded-full bg-gradient-to-r from-[#4fd1ff] via-[#a78bfa] to-[#f472b6] opacity-90" />
 
         <div className="space-y-4">
-          <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+          <article className="grammar-lesson-card px-[18px] py-5">
             <RuleHeading badge="00" title="One noun, many adjectives" tone="cyan" />
             <p className="mt-2 text-[13.5px] leading-6 text-[#8b93a5]">We can put two or more adjectives before a noun. They usually go in a set order. For example: <strong className="text-[#eef0f5]">a small old house</strong>, not “an old small house”.</p>
             <div className="mt-3 flex gap-2 rounded-xl bg-[#1b1f2b] p-3 text-[13px] leading-relaxed text-[#8b93a5]"><span>📌</span><span>In everyday English, two or three adjectives are usually enough.</span></div>
           </article>
 
-          <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+          <article className="grammar-lesson-card px-[18px] py-5">
             <RuleHeading badge="01" title="The 8 adjective groups" tone="violet" />
             <p className="mt-2 text-[13.5px] leading-6 text-[#8b93a5]">The order tells us what kind of information each adjective gives.</p>
             <div className="mt-4 space-y-3">
@@ -53,7 +53,7 @@ export function AdjectiveOrderLesson() {
             </div>
           </article>
 
-          <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-3 py-5 sm:px-[18px]">
+          <article className="grammar-lesson-card px-3 py-5 sm:px-[18px]">
             <RuleHeading badge="02" title="One phrase, all the groups" tone="pink" />
             <p className="mb-3 mt-2 text-[13.5px] leading-6 text-[#8b93a5]">Follow the order from left to right. The noun comes last.</p>
             <div className="overflow-hidden rounded-xl border border-[#262b38]">
@@ -64,13 +64,13 @@ export function AdjectiveOrderLesson() {
             <p className="mt-3 text-center text-[12px] italic leading-relaxed text-[#8b93a5]">“a <strong className="text-[#eef0f5]">gorgeous old wooden</strong> cabin” · “a <strong className="text-[#eef0f5]">tiny round green</strong> rug” · “a <strong className="text-[#eef0f5]">sleek French racing</strong> bike”</p>
           </article>
 
-          <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+          <article className="grammar-lesson-card px-[18px] py-5">
             <RuleHeading badge="03" title="Put it together" tone="green" />
             <p className="mt-2 text-[13.5px] leading-6 text-[#8b93a5]">Here are common adjective combinations:</p>
             <div className="mt-4 space-y-2.5">{examples.map(([phrase, groups]) => <div key={phrase} className="border-l-2 border-[#262b38] py-0.5 pl-3"><div className="text-[13.5px] text-[#eef0f5]">{phrase}</div><span className="mt-0.5 block text-[11px] text-[#5d6577]">{groups}</span></div>)}</div>
           </article>
 
-          <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+          <article className="grammar-lesson-card px-[18px] py-5">
             <RuleHeading badge="04" title="Keep it short" tone="cyan" />
             <p className="mt-2 text-[13.5px] leading-6 text-[#8b93a5]">Usually, use no more than three adjectives before a noun. A short phrase sounds more natural.</p>
             <div className="mt-3.5 flex gap-2.5"><div className="flex-1 rounded-xl border border-[#262b38] bg-[#1b1f2b] p-3"><div className="mb-1.5 text-[13px] font-bold text-[#34d399]">✓ Natural</div><div className="text-[12.5px] italic text-[#eef0f5]">a charming old cottage</div></div><div className="flex-1 rounded-xl border border-[#262b38] bg-[#1b1f2b] p-3"><div className="mb-1.5 text-[13px] font-bold text-[#fb7185]">✗ Too many</div><div className="text-[12.5px] italic leading-snug text-[#eef0f5]">a charming old tiny red Italian stone cottage</div></div></div>

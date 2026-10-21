@@ -133,7 +133,7 @@ export default function LevelMatchPage() {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8">
+        <div className="activity-shell">
           <div className="text-center">
             <p>Loading...</p>
           </div>
@@ -146,7 +146,7 @@ export default function LevelMatchPage() {
     <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
       <TopBar points={points} />
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="activity-shell">
         <div className="mb-8">
           <Link
             href="/sentences/a1-c2"

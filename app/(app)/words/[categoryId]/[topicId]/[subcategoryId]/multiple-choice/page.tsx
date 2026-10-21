@@ -215,7 +215,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8">
+        <div className="activity-shell">
           <div className="text-center">
             <p>Loading...</p>
           </div>
@@ -228,7 +228,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
 
   const getOptionStyle = (index: number) => {
     if (answerState === 'idle') {
-      return 'bg-slate-800/60 border-white/10 hover:bg-slate-700/60 hover:border-white/20 cursor-pointer';
+      return 'answer-option-idle cursor-pointer';
     }
 
     const isCorrectOption = shuffledOptions[index] === currentWord.advanced;
@@ -255,7 +255,7 @@ export default function MultipleChoicePage({ params }: PageProps) {
 
       <FlyingWords words={words.map(w => w.advanced)} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="activity-shell relative z-10">
         {/* Header */}
         <div className="mb-8">
           <Link

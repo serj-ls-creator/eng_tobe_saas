@@ -187,7 +187,7 @@ export default function ArticlesFillGapGamePage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8 text-center">
+        <div className="activity-shell text-center">
           <p className="text-zinc-500">Loading...</p>
         </div>
       </div>
@@ -285,7 +285,7 @@ export default function ArticlesFillGapGamePage({ params }: PageProps) {
       <TopBar points={points} />
       <FlyingWords words={['a', 'an', 'the', 'zero article', 'grammar', 'practice']} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10 max-w-2xl">
+      <div className="activity-shell relative z-10 max-w-2xl">
         {/* Header */}
         <div className="mb-6">
           <Link

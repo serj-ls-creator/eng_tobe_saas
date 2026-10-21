@@ -32,7 +32,7 @@ export function GrammarTree({ sections, progress }: { sections: GrammarSection[]
               {hasTopics ? (
                 <button type="button" onClick={() => toggleSection(section.id)} aria-expanded={isOpen}
                   className="flex w-full items-center gap-3 p-4 text-left">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${section.color}25` }}>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-control" style={{ backgroundColor: `${section.color}25` }}>
                     <Icon className="h-5 w-5" style={{ color: section.color }} />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -43,7 +43,7 @@ export function GrammarTree({ sections, progress }: { sections: GrammarSection[]
                 </button>
               ) : (
                 <Link href={section.href} className="flex items-center gap-3 p-4 transition-colors hover:bg-white/[0.03]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${section.color}25` }}>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-control" style={{ backgroundColor: `${section.color}25` }}>
                     <Icon className="h-5 w-5" style={{ color: section.color }} />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -59,7 +59,7 @@ export function GrammarTree({ sections, progress }: { sections: GrammarSection[]
                   <div className="space-y-2 pt-4">
                     {section.topics!.map((topic) => (
                       <Link key={topic.id} href={`/grammar/${section.id}/${topic.id}`}
-                        className={`flex items-center justify-between gap-3 rounded-2xl border border-[#262b38] bg-[linear-gradient(135deg,_rgba(79,209,255,0.10),_rgba(244,114,182,0.10))] px-4 py-3 text-left transition-colors hover:border-[#3c4355] ${getProgressCardClass(progress.containerStatuses[buildProgressKey({ section: "grammar", categoryId: section.id, topicId: topic.id })] ?? "none")}`}>
+                        className={`grammar-topic-surface flex items-center justify-between gap-3 px-4 py-3 text-left ${getProgressCardClass(progress.containerStatuses[buildProgressKey({ section: "grammar", categoryId: section.id, topicId: topic.id })] ?? "none")}`}>
                         <span className="min-w-0">
                           <span className="block text-sm font-medium text-white">{topic.name}</span>
                           <span className="mt-1 block text-[11px] leading-5 text-zinc-500">{topic.rule}</span>

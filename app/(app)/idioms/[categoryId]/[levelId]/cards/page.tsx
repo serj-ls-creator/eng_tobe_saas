@@ -87,7 +87,7 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8">
+        <div className="activity-shell">
           <div className="text-center">
             <p>Loading...</p>
           </div>
@@ -103,7 +103,7 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
     <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
       <TopBar points={points} />
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="activity-shell">
         {/* Header */}
         <div className="mb-8">
           <Link 

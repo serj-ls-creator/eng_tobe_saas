@@ -75,7 +75,7 @@ export default async function GrammarRulePage({ params }: { params: { categoryId
           <div className="my-[22px] h-[3px] rounded-full bg-gradient-to-r from-[#4fd1ff] via-[#a78bfa] to-[#f472b6] opacity-90" />
 
           {lesson ? <GrammarLessonRenderer lesson={lesson} /> : <>
-          <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+          <article className="grammar-lesson-card px-[18px] py-5">
             <div className="flex items-center gap-3">
               <RuleBadge tone="cyan">RULE</RuleBadge>
               <h2 className="text-[16.5px] font-bold text-[#eef0f5]">How to use it</h2>
@@ -83,7 +83,7 @@ export default async function GrammarRulePage({ params }: { params: { categoryId
             <p className="mt-3 text-[13.5px] leading-6 text-[#c0c5d1]">{topic.rule}</p>
           </article>
 
-          <article className="mt-4 rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+          <article className="mt-4 grammar-lesson-card px-[18px] py-5">
             <div className="flex items-center gap-3">
               <RuleBadge tone="violet">EX</RuleBadge>
               <h2 className="text-[16.5px] font-bold text-[#eef0f5]">Examples</h2>

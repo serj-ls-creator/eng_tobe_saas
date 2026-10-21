@@ -6,6 +6,13 @@ export const UI_COLORS = {
   purple: "#A855F7"
 } as const;
 
+export const PHRASAL_VERB_TOPIC_STYLES = {
+  "work-career": { icon: "BriefcaseBusiness", color: "#22C55E" },
+  "relationships-social": { icon: "Handshake", color: "#A855F7" },
+  "mind-emotions": { icon: "Brain", color: "#3B82F6" },
+  "daily-life": { icon: "CalendarDays", color: "#F97316" }
+} as const;
+
 export const UI_TEXT = {
   appName: "English to be",
   homeSubtitle: "Keep your streak alive!",

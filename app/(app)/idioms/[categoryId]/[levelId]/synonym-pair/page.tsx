@@ -161,7 +161,7 @@ export default function IdiomSynonymPairPage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8">
+        <div className="activity-shell">
           <div className="text-center">
             <p>Loading...</p>
           </div>
@@ -180,7 +180,7 @@ export default function IdiomSynonymPairPage({ params }: PageProps) {
 
       <FlyingWords words={idioms.map(i => i.idiom)} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10 max-w-2xl">
+      <div className="activity-shell relative z-10 max-w-2xl">
         {/* Header */}
         <div className="mb-6">
           <Link

@@ -23,6 +23,15 @@ export default async function IdiomsPage() {
             ← Back to Home
           </Link>
         </div>
+
+        <div className="mb-6 section-hero p-5">
+          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Practice</div>
+          <h1 className="mb-2 text-3xl font-black text-white">Idioms</h1>
+          <p className="max-w-md text-sm leading-6 text-zinc-200">
+            Learn everyday English expressions through themed idiom collections and practice.
+          </p>
+        </div>
+
         <div className="space-y-2">
           {IDIOM_CATS.map((category, index) => (
             <div key={category.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>

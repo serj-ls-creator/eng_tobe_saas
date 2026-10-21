@@ -135,7 +135,7 @@ export default function WordOrderFindMistakeGamePage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8 text-center">
+        <div className="activity-shell text-center">
           <p className="text-zinc-500">Loading...</p>
         </div>
       </div>

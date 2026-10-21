@@ -11,10 +11,19 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#050505",
-        foreground: "#FFFFFF",
-        card: "rgba(255,255,255,0.03)",
-        border: "rgba(255,255,255,0.06)",
+        background: "var(--color-background)",
+        foreground: "var(--color-foreground)",
+        card: "var(--color-surface)",
+        "surface-raised": "var(--color-surface-raised)",
+        "surface-hover": "var(--color-surface-hover)",
+        border: "var(--color-border)",
+        "border-subtle": "var(--color-border-subtle)",
+        theme: {
+          DEFAULT: "var(--color-accent)",
+          strong: "var(--color-accent-strong)",
+          soft: "var(--color-accent-soft)",
+          foreground: "var(--color-accent-foreground)"
+        },
         dark: "#050505",
         brand: {
           pink:   "#FF3D71",
@@ -45,6 +54,14 @@ const config: Config = {
       },
       maxWidth: {
         shell: "430px"
+      },
+      spacing: {
+        "page-x": "var(--space-page-x)",
+        "page-top": "var(--space-page-top)"
+      },
+      borderRadius: {
+        card: "var(--radius-card)",
+        control: "var(--radius-control)"
       }
     }
   },

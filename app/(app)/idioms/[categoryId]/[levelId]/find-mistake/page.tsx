@@ -144,7 +144,7 @@ export default function FindMistakePage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning={true}>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8 text-center"><p>Loading...</p></div>
+        <div className="activity-shell text-center"><p>Loading...</p></div>
       </div>
     );
   }
@@ -177,7 +177,7 @@ export default function FindMistakePage({ params }: PageProps) {
       <TopBar points={points} />
       <FlyingWords words={idioms.map(i => i.idiom)} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="activity-shell relative z-10">
         {/* Header */}
         <div className="mb-8">
           <Link

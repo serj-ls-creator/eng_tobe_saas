@@ -25,7 +25,7 @@ export function GrammarLessonRenderer({ lesson }: { lesson: GrammarLesson }) {
 function LessonCard({ block, index }: { block: LessonBlock; index: number }) {
   const badge = BADGES[index % BADGES.length];
   return (
-    <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+    <article className="grammar-lesson-card px-[18px] py-5">
       <div className="mb-3 flex items-center gap-3">
         <span className={`flex h-[34px] min-w-[34px] items-center justify-center rounded-[10px] px-2 text-[13px] font-black ${badge}`}>{String(index + 1).padStart(2, "0")}</span>
         <h2 className="text-[16px] font-bold text-[#eef0f5]">{block.title}</h2>

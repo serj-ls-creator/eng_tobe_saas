@@ -4,7 +4,7 @@ const weekDays = Array.from({ length: 7 });
 export default function Loading() {
   return (
     <div className="app-shell bg-background">
-      <header className="sticky top-0 z-30 border-b border-white/5 bg-[#050505]/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-30 border-b border-border-subtle bg-background/90 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[430px] items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <div className="h-8 w-8 animate-pulse rounded-full bg-white/10" />
@@ -63,7 +63,7 @@ export default function Loading() {
         </div>
       </main>
 
-      <nav className="sticky bottom-0 z-40 border-t border-white/10 bg-[#050505]/95 backdrop-blur-xl">
+      <nav className="sticky bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[430px] items-center justify-around px-2">
           {Array.from({ length: 5 }).map((_, index) => (
             <div key={index} className="flex min-w-0 flex-1 flex-col items-center gap-1 px-1 py-2">

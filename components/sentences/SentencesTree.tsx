@@ -47,7 +47,7 @@ export function SentencesTree({ categories, isPremium, progress }: SentencesTree
                   onClick={() => toggleCategory(category.id)}
                   className="flex w-full items-center gap-3 p-4 text-left"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${category.color}25` }}>
+                  <div className="category-icon" style={{ backgroundColor: `${category.color}25` }}>
                     <Icon className="h-5 w-5" style={{ color: category.color }} />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -62,9 +62,9 @@ export function SentencesTree({ categories, isPremium, progress }: SentencesTree
               ) : (
                 <Link
                   href={locked ? "/premium" : category.href}
-                  className="flex w-full items-center gap-3 p-4 text-left transition-colors hover:bg-white/[0.04]"
+                  className="flex w-full items-center gap-3 p-4 text-left transition-colors hover:bg-surface-hover"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${category.color}25` }}>
+                  <div className="category-icon" style={{ backgroundColor: `${category.color}25` }}>
                     <Icon className="h-5 w-5" style={{ color: category.color }} />
                   </div>
                   <div className="min-w-0 flex-1">
@@ -88,11 +88,11 @@ export function SentencesTree({ categories, isPremium, progress }: SentencesTree
                       ] ?? "none";
 
                       return (
-                        <div key={topic.id} className={`rounded-2xl border bg-white/[0.02] ${getProgressCardClass(topicStatus) || "border-white/8"}`}>
+                        <div key={topic.id} className={`tree-item ${getProgressCardClass(topicStatus)}`}>
                           {topic.subcategories ? (
                             <Link
                               href={topicLocked ? "/premium" : `/sentences/${category.id}/${topic.id}`}
-                              className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
+                              className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
                             >
                               <div>
                                 <div className="mb-1 flex items-center gap-2">
@@ -115,7 +115,7 @@ export function SentencesTree({ categories, isPremium, progress }: SentencesTree
                           ) : (
                             <Link
                               href={locked ? "/premium" : topic.href ?? category.href}
-                              className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-white/[0.04]"
+                              className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
                             >
                               <div>
                                 <div className="mb-1 flex items-center gap-2">

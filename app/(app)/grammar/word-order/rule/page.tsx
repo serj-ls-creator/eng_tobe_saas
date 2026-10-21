@@ -50,7 +50,7 @@ export default function WordOrderRulePage() {
 
           <div className="space-y-4">
             {/* Card 00 */}
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="cyan">00</RuleBadge>
                 <h2 className="text-[16px] font-bold text-[#eef0f5]">Why word order matters</h2>
@@ -77,7 +77,7 @@ export default function WordOrderRulePage() {
             </article>
 
             {/* Card 01 */}
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="violet">01</RuleBadge>
                 <h2 className="text-[16px] font-bold text-[#eef0f5]">The basic order: S &ndash; V &ndash; O</h2>
@@ -122,7 +122,7 @@ export default function WordOrderRulePage() {
             </article>
 
             {/* Card 02 */}
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="pink">02</RuleBadge>
                 <h2 className="text-[16px] font-bold text-[#eef0f5]">Adding more: how, where, when</h2>
@@ -179,7 +179,7 @@ export default function WordOrderRulePage() {
             </article>
 
             {/* Card 03 */}
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="green">03</RuleBadge>
                 <h2 className="text-[16px] font-bold text-[#eef0f5]">Put it together</h2>
@@ -209,7 +209,7 @@ export default function WordOrderRulePage() {
             </article>
 
             {/* Card 04 */}
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="amber">04</RuleBadge>
                 <h2 className="text-[16px] font-bold text-[#eef0f5]">Frequency words &mdash; a different spot!</h2>
@@ -235,7 +235,7 @@ export default function WordOrderRulePage() {
             </article>
 
             {/* Card 05 */}
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="cyan">05</RuleBadge>
                 <h2 className="text-[16px] font-bold text-[#eef0f5]">Moving time to the front</h2>
@@ -254,7 +254,7 @@ export default function WordOrderRulePage() {
             </article>
 
             {/* Card 06 */}
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="violet">06</RuleBadge>
                 <h2 className="text-[16px] font-bold text-[#eef0f5]">Questions change the order</h2>

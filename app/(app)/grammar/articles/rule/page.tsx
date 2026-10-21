@@ -34,7 +34,7 @@ export default function ArticlesRulePage() {
           <div className="my-[22px] h-[3px] rounded-full bg-gradient-to-r from-[#4fd1ff] via-[#a78bfa] to-[#f472b6] opacity-90" />
 
           <div className="space-y-4">
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="cyan">A/AN</RuleBadge>
                 <h2 className="text-[16.5px] font-bold text-[#eef0f5]">Listen to the sound, not the letter</h2>
@@ -55,7 +55,7 @@ export default function ArticlesRulePage() {
               </p>
             </article>
 
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="violet">THE</RuleBadge>
                 <h2 className="text-[16.5px] font-bold text-[#eef0f5]">Use it when everyone knows what you mean</h2>
@@ -75,7 +75,7 @@ export default function ArticlesRulePage() {
               </div>
             </article>
 
-            <article className="rounded-[20px] border border-[#262b38] bg-[#151822] px-[18px] py-5">
+            <article className="grammar-lesson-card px-[18px] py-5">
               <div className="flex items-center gap-3">
                 <RuleBadge tone="pink">0</RuleBadge>
                 <h2 className="text-[16.5px] font-bold text-[#eef0f5]">Sometimes you don&apos;t need any article</h2>

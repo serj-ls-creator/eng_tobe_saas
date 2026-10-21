@@ -234,7 +234,7 @@ export default function FillInGamePage({ params }: PageProps) {
     return (
       <div className="min-h-screen bg-black text-white" suppressHydrationWarning>
         <TopBar points={points} />
-        <div className="container mx-auto px-4 py-8 text-center"><p>Loading...</p></div>
+        <div className="activity-shell text-center"><p>Loading...</p></div>
       </div>
     );
   }
@@ -271,7 +271,7 @@ export default function FillInGamePage({ params }: PageProps) {
       'px-4 h-10 rounded-lg border-2 text-sm font-medium transition-all duration-200 ';
     if (answerState !== 'idle')
       return base + 'bg-slate-800/30 border-white/5 opacity-50 cursor-default';
-    return base + 'bg-slate-800/60 border-white/10 hover:bg-slate-700/60 hover:border-white/20 cursor-pointer';
+    return base + 'answer-option-idle cursor-pointer';
   };
 
   // ── Render sentence with slots inline ────────────────────────────────────
@@ -318,7 +318,7 @@ export default function FillInGamePage({ params }: PageProps) {
       <TopBar points={points} />
       <FlyingWords words={rounds.map(r => r.dialogue.prompt.split(' ').slice(0, 3).join(' '))} />
 
-      <div className="container mx-auto px-4 py-8 relative z-10">
+      <div className="activity-shell relative z-10">
         {/* Header */}
         <div className="mb-6">
           <Link

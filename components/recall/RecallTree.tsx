@@ -29,9 +29,9 @@ export function RecallTree({ nodes, premium }: { nodes: RecallTreeNode[]; premiu
     const hasChildren = Boolean(node.children?.length);
     const count = hasChildren ? node.children!.reduce((sum, child) => sum + countItems(child), 0) : node.items?.length ?? 0;
     return <div key={node.id} className={depth ? "ml-3 border-l border-white/10 pl-3" : ""}>
-      <Card className="overflow-hidden border-[#262b38] bg-[#111521]">
+      <Card className="overflow-hidden border-border bg-card">
         <button type="button" onClick={() => toggle(node.id)} aria-expanded={expanded} className="flex w-full items-center gap-3 p-4 text-left transition-colors hover:bg-white/[0.03]">
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300"><span className="text-xs font-bold">{depth === 0 ? "↻" : "•"}</span></span>
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-control bg-cyan-400/10 text-cyan-300"><span className="text-xs font-bold">{depth === 0 ? "↻" : "•"}</span></span>
           <span className="min-w-0 flex-1"><span className="block truncate text-sm font-semibold text-white">{node.label}</span><span className="mt-1 block text-[11px] text-zinc-500">{count} {count === 1 ? "activity" : "activities"} to review</span></span>
           {expanded ? <ChevronDown className="h-5 w-5 text-zinc-500" /> : <ChevronRight className="h-5 w-5 text-zinc-500" />}
         </button>
