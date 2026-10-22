@@ -15,7 +15,7 @@ export const PHRASAL_VERB_TOPIC_STYLES = {
 
 export const UI_TEXT = {
   appName: "English to be",
-  homeSubtitle: "Keep your streak alive!",
+  homeSubtitle: "Small steps. Real progress!",
   homeTitle: "Quick Start",
   dailyProgress: "Daily Progress",
   premiumCta: "Unlock Premium",
