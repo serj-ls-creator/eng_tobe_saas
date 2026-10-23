@@ -343,7 +343,7 @@ export default function LandingPage() {
                     <Image src="/logo.svg" alt="Logo" width={20} height={20} />
                     <div>
                       <h1 className="text-[10px] font-bold">English to be</h1>
-                      <p className="text-[8px] text-zinc-500">Keep your streak alive!</p>
+                      <p className="text-[8px] text-zinc-500">Small steps. Real progress!</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-1 rounded-full bg-yellow-500/10 px-2 py-0.5">
@@ -373,21 +373,26 @@ export default function LandingPage() {
                     <div className="inline-flex items-center gap-1 rounded-full bg-yellow-500/10 px-2 py-0.5 text-[9px] font-semibold text-yellow-400">
                       🔥 Day 4
                     </div>
-                    <div className="flex items-center gap-1 text-[8px] text-zinc-500">
-                      <span>7 days</span><span className="text-zinc-600">=</span>
-                      <span className="text-yellow-400 font-semibold">⭐ 1000</span>
-                    </div>
                   </div>
                 </div>
                 <h2 className="mb-2 text-[11px] font-semibold">Quick Start</h2>
-                <div className="grid grid-cols-2 gap-2 mb-4">
-                  {[["📖","Words","8 categories"],["💬","Sentences","A1 to C2"],["💡","Idioms","7 topics"],["🎮","Games","Wordle & more"]].map(([icon, title, sub]) => (
+                <div className="grid grid-cols-2 gap-2 mb-3">
+                  {[["📖","Words","8 categories"],["💬","Sentences","A1 to C2"],["🚀","Phrasal verbs","4 topics"],["💡","Idioms","7 topics"],["📚","Grammar+Tenses","24 topics"],["🎮","Games","Wordle & more"]].map(([icon, title, sub]) => (
                     <div key={title} className="bg-white/[0.04] rounded-lg p-2.5 border border-white/5">
                       <div className="text-[#00E5FF] mb-1.5">{icon}</div>
-                      <div className="text-[10px] font-medium">{title}</div>
+                      <div className="text-[9px] font-medium leading-tight">{title}</div>
                       <div className="text-[8px] text-zinc-500">{sub}</div>
                     </div>
                   ))}
+                </div>
+                <div className="mb-3 rounded-xl border border-cyan-400/20 bg-gradient-to-br from-cyan-950/40 via-zinc-900/90 to-purple-950/40 p-3">
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-base">📒</div>
+                    <div>
+                      <div className="text-[10px] font-semibold">My Vocabulary <span className="rounded-full bg-cyan-400/10 px-1.5 py-0.5 text-[7px] text-cyan-400">Personal</span></div>
+                      <div className="text-[8px] text-zinc-400">Save custom words &amp; practice</div>
+                    </div>
+                  </div>
                 </div>
                 <div className="relative overflow-hidden rounded-xl p-[1px]">
                   <div className="absolute inset-[-500%] animate-[spin_6s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#00f2ff_0%,#7000ff_50%,#00f2ff_100%)]" />
@@ -401,14 +406,15 @@ export default function LandingPage() {
                       <div className="text-sm font-semibold">Exhausted</div>
                       <span className="text-[9px] text-zinc-400">/ɪɡˈzɔːstɪd/</span>
                     </div>
+                    <div className="mt-1 text-[8px] text-zinc-500">Completely drained of energy</div>
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-14 bg-[#0a0a0a]/90 backdrop-blur-sm border-t border-white/5 flex items-center justify-around px-4">
-                  <span className="text-white text-lg">🏠</span>
-                  <span className="text-neutral-600 text-lg">🧠</span>
-                  <span className="text-neutral-600 text-lg">👤</span>
-                  <span className="text-neutral-600 text-lg">🛍️</span>
-                  <span className="text-neutral-600 text-lg">⚙️</span>
+                  <div className="flex flex-col items-center gap-0.5 text-white"><span className="text-base">⌂</span><span className="text-[7px]">Home</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">🧠</span><span className="text-[7px]">Recall</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">♙</span><span className="text-[7px]">Profile</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">🛍</span><span className="text-[7px]">Store</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">☰</span><span className="text-[7px]">More</span></div>
                 </div>
               </div>
             </div>
@@ -746,7 +752,7 @@ export default function LandingPage() {
               Build stronger <span className="bg-gradient-to-r from-violet-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent">sentences</span>
             </h2>
             <p className="reveal reveal-delay-2 mt-4 text-neutral-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-              Explore 17 grammar categories, learn a rule in context, and put it into practice with interactive exercises.
+              Explore 24 grammar categories, learn a rule in context, and put it into practice with interactive exercises.
             </p>
             <div className="reveal reveal-delay-2 mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-violet-400 to-cyan-400 opacity-80" />
           </div>
