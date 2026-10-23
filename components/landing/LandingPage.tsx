@@ -646,14 +646,14 @@ export default function LandingPage() {
                 <div className="w-10 h-10 rounded-lg bg-[#FF3D71]/10 flex items-center justify-center text-lg">🔗</div>
                 <h3 className="font-semibold">Synonym Pair</h3>
               </div>
-              <div className="flex items-center justify-center gap-4 py-4">
-                <div className="px-5 py-3 bg-[#FF3D71]/10 border border-[#FF3D71]/20 rounded-xl text-[#FF3D71] font-medium text-sm" style={{ animation: "bounceSubtle 2s ease-in-out infinite" }}>Happy</div>
-                <div className="flex flex-col items-center gap-1">
-                  <div className="w-8 h-px bg-gradient-to-r from-[#FF3D71]/50 to-[#00E5FF]/50" />
+              <div className="flex items-center justify-center gap-1 sm:gap-4 py-4">
+                <div className="px-2 sm:px-5 py-2 sm:py-3 bg-[#FF3D71]/10 border border-[#FF3D71]/20 rounded-xl text-[#FF3D71] font-medium text-[10px] sm:text-sm whitespace-nowrap" style={{ animation: "bounceSubtle 2s ease-in-out infinite" }}>Happy</div>
+                <div className="flex flex-col items-center gap-0.5 sm:gap-1">
+                  <div className="w-3 sm:w-8 h-px bg-gradient-to-r from-[#FF3D71]/50 to-[#00E5FF]/50" />
                   <span className="text-neutral-600">🔗</span>
-                  <div className="w-8 h-px bg-gradient-to-r from-[#00E5FF]/50 to-[#FF3D71]/50" />
+                  <div className="w-3 sm:w-8 h-px bg-gradient-to-r from-[#00E5FF]/50 to-[#FF3D71]/50" />
                 </div>
-                <div className="px-5 py-3 bg-[#00E5FF]/10 border border-[#00E5FF]/20 rounded-xl text-[#00E5FF] font-medium text-sm" style={{ animation: "bounceSubtle 2s ease-in-out infinite 0.3s" }}>Delighted</div>
+                <div className="px-2 sm:px-5 py-2 sm:py-3 bg-[#00E5FF]/10 border border-[#00E5FF]/20 rounded-xl text-[#00E5FF] font-medium text-[10px] sm:text-sm whitespace-nowrap" style={{ animation: "bounceSubtle 2s ease-in-out infinite 0.3s" }}>Delighted</div>
               </div>
               <p className="text-xs text-neutral-500 text-center mt-2">Match words with their advanced synonyms</p>
             </div>
