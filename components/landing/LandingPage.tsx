@@ -1081,7 +1081,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white">224,000+</div>
+                <div className="text-4xl font-bold text-white">237,000+</div>
                 <div className="text-sm text-neutral-400 mt-1">followers on TikTok</div>
               </div>
               <p className="text-sm text-neutral-400 leading-relaxed flex-1">
@@ -1108,7 +1108,7 @@ export default function LandingPage() {
                 </div>
               </div>
               <div>
-                <div className="text-4xl font-bold text-white">9,000+</div>
+                <div className="text-4xl font-bold text-white">9,600+</div>
                 <div className="text-sm text-neutral-400 mt-1">followers on Instagram</div>
               </div>
               <p className="text-sm text-neutral-400 leading-relaxed flex-1">
