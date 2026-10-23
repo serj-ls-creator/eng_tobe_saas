@@ -355,7 +355,7 @@ export default function LandingPage() {
                   </div>
                   <div className="flex items-center gap-1 rounded-full bg-yellow-500/10 px-2 py-0.5">
                     <span className="fire-pulse inline-block text-yellow-400 text-[10px]">🔥</span>
-                    <span className="text-[10px] font-semibold text-yellow-400">Day 4</span>
+                    <span className="text-[10px] font-semibold text-yellow-400">Day 8</span>
                   </div>
                 </div>
                 <div className="bg-white/[0.03] rounded-xl p-3 mb-4 border border-white/5">
