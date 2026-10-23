@@ -527,11 +527,11 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold">Games</h3>
-                    <span className="text-[11px] text-neutral-500">3 mini-games</span>
+                    <span className="text-[11px] text-neutral-500">4 mini-games</span>
                   </div>
                 </div>
                 <div className="space-y-3">
-                  {[["🔤","Wordle","Guess the 5-letter word"],["🧠","Memory","Match synonym pairs"],["🤝","Negotiation","Choose the right response"]].map(([icon, title, sub]) => (
+                  {[["🔤","Wordle","Guess the 5-letter word"],["🧠","Memory","Match synonym pairs"],["🔤","Wordsearch","Find hidden words in the letter grid"],["🤝","Negotiation","Choose the right response"]].map(([icon, title, sub]) => (
                     <div key={title} className="flex items-center gap-3 bg-zinc-900 rounded-xl p-3 border border-white/10">
                       <span className="text-xl">{icon}</span>
                       <div>
