@@ -262,11 +262,18 @@ export default function LandingPage() {
         <div className="max-w-[90rem] mx-auto px-6 pt-10 sm:pt-12 pb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[33fr_41fr_25fr] gap-8 xl:gap-12 items-start relative z-10 w-full">
           {/* Left */}
           <div className="flex flex-col justify-center">
-            <h1 className="reveal reveal-delay-1 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-[-0.04em] leading-[0.92]">
-              <span className="gradient-text">UPGRADE</span><br />
-              <span className="text-white">YOUR</span><br />
-              <span className="text-white">ENGLISH</span>
-            </h1>
+            <div className="flex items-center gap-3">
+              <h1 className="reveal reveal-delay-1 min-w-0 flex-1 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-[-0.04em] leading-[0.92]">
+                <span className="gradient-text">UPGRADE</span><br />
+                <span className="text-white">YOUR</span><br />
+                <span className="text-white">ENGLISH</span>
+              </h1>
+              <img
+                src="/man_phone.jpg"
+                alt="Man using phone"
+                className="reveal reveal-delay-1 mr-2 block h-[100px] w-auto max-w-[38%] shrink-0 object-contain opacity-90 sm:h-[132px] md:hidden"
+              />
+            </div>
             <div className="reveal reveal-delay-2 mt-8 h-14 flex items-center text-base sm:text-lg overflow-hidden">
               <span ref={normalRef} className="text-neutral-500 transition-all duration-500">&quot;I think&quot;</span>
               <span className="mx-3 text-[#00E5FF] text-2xl font-light">→</span>
@@ -294,10 +301,10 @@ export default function LandingPage() {
           </div>
 
           {/* Middle */}
-          <div className="reveal reveal-delay-3 flex flex-col items-center w-full pt-4 lg:pt-0">
+          <div className="reveal reveal-delay-3 flex flex-col items-center w-full pt-0 lg:pt-0">
             <img src="/man_phone.jpg" alt="Man using phone"
-                 style={{ maxWidth: "320px", width: "100%", height: "auto", objectFit: "contain", margin: "0 auto 24px auto", display: "block" }}
-                 className="opacity-90" />
+                 style={{ maxWidth: "320px", width: "100%", height: "auto", objectFit: "contain", margin: "0 auto 24px auto" }}
+                 className="hidden opacity-90 md:block" />
             <div className="w-full space-y-4 text-sm text-neutral-400 leading-relaxed bg-zinc-900 border border-white/10 p-5 sm:p-6 rounded-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[50px] pointer-events-none" />
               <div className="relative z-10">
