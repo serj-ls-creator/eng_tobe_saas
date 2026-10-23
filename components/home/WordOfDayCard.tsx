@@ -70,10 +70,19 @@ export function WordOfDayCard({
             type="button"
             onClick={handleAddToVocabulary}
             disabled={checkingAuth}
-            className="col-start-2 row-span-2 row-start-1 flex min-h-12 shrink-0 items-center justify-center gap-1 self-stretch whitespace-nowrap rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 px-1.5 py-1 text-[9px] font-bold leading-[14px] text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
+            className="col-start-2 row-span-2 row-start-1 grid w-[116px] min-h-12 shrink-0 grid-cols-[16px_minmax(0,1fr)] items-center gap-x-1 self-stretch rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 px-2 py-1 text-[10px] font-bold leading-tight text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
           >
             <BookPlus className="h-3 w-3 shrink-0" />
-            <span>{checkingAuth ? 'Checking...' : 'Add to My Vocabulary'}</span>
+            <span className="text-center">
+              {checkingAuth ? (
+                'Checking...'
+              ) : (
+                <>
+                  <span className="block text-[14px]">Add to</span>
+                  <span className="block whitespace-nowrap">My Vocabulary</span>
+                </>
+              )}
+            </span>
           </button>
           <Link href="/words" className="col-start-1 row-start-2 block min-w-0 break-words text-[11px] text-zinc-500">
             {explanation}
