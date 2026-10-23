@@ -259,7 +259,7 @@ export default function LandingPage() {
         <div className="absolute bottom-20 right-10 w-[350px] h-[350px] glow-cyan opacity-[0.06] rounded-full" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] glow-purple opacity-[0.03] rounded-full" />
 
-        <div className="max-w-[90rem] mx-auto px-6 pt-20 pb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[33fr_41fr_25fr] gap-8 xl:gap-12 items-start relative z-10 w-full">
+        <div className="max-w-[90rem] mx-auto px-6 pt-10 sm:pt-12 pb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[33fr_41fr_25fr] gap-8 xl:gap-12 items-start relative z-10 w-full">
           {/* Left */}
           <div className="flex flex-col justify-center">
             <h1 className="reveal reveal-delay-1 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-[-0.04em] leading-[0.92]">
@@ -294,7 +294,7 @@ export default function LandingPage() {
           </div>
 
           {/* Middle */}
-          <div className="reveal reveal-delay-3 flex flex-col items-center w-full pt-10 lg:pt-0">
+          <div className="reveal reveal-delay-3 flex flex-col items-center w-full pt-4 lg:pt-0">
             <img src="/man_phone.jpg" alt="Man using phone"
                  style={{ maxWidth: "320px", width: "100%", height: "auto", objectFit: "contain", margin: "0 auto 24px auto", display: "block" }}
                  className="opacity-90" />
@@ -328,7 +328,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right – Phone mockup */}
-          <div className="reveal reveal-delay-4 flex justify-center lg:justify-center pt-10 lg:pt-0">
+          <div className="reveal reveal-delay-4 flex justify-center lg:justify-center pt-4 lg:pt-0">
             <div className="phone-frame">
               <div className="phone-notch" />
               <div className="phone-content">
@@ -565,16 +565,16 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {[["+","counter","10","#FF3D71","✓","per task completed"],
               ["+","counter","200","#00E5FF","🔥","per daily streak"],
               ["+","counter","500","#FFD93D","🏆","per level unlocked"]].map(([, cls, target, color, icon, label], i) => (
-              <div key={i} className={`reveal reveal-delay-${i+3} bg-zinc-900 border border-white/10 rounded-2xl p-6 text-center group hover:bg-white/[0.05] transition-all duration-300`}>
-                <div className="w-12 h-12 mx-auto rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300" style={{ background: `${color}1a` }}>
+              <div key={i} className={`reveal reveal-delay-${i+3} bg-zinc-900 border border-white/10 rounded-2xl p-3 sm:p-6 text-center group hover:bg-white/[0.05] transition-all duration-300`}>
+                <div className="w-9 h-9 sm:w-12 sm:h-12 mx-auto rounded-xl flex items-center justify-center mb-2 sm:mb-4 group-hover:scale-110 transition-transform duration-300" style={{ background: `${color}1a` }}>
                   <span className="text-xl" style={{ color }}>{icon}</span>
                 </div>
-                <div className="text-2xl font-bold text-white">+<span className={cls} data-target={target}>0</span></div>
-                <div className="text-xs text-neutral-500 mt-1">{label}</div>
+                <div className="text-xl sm:text-2xl font-bold text-white">+<span className={cls} data-target={target}>0</span></div>
+                <div className="text-[10px] sm:text-xs text-neutral-500 mt-1 leading-tight">{label}</div>
               </div>
             ))}
           </div>
@@ -596,28 +596,27 @@ export default function LandingPage() {
             </h2>
             <p className="reveal reveal-delay-2 mt-4 text-neutral-500 text-sm">Tap any card to flip</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4">
             {FLIP_DATA.map((item, i) => (
               <div key={i} id={`flip-${i}`}
-                   className={`reveal reveal-delay-${Math.min(i % 3 + 1, 6)} flip-card`}
-                   style={{ height: "180px" }}
+                   className={`reveal reveal-delay-${Math.min(i % 3 + 1, 6)} flip-card h-[150px] sm:h-[180px]`}
                    onClick={() => toggleFlip(i)}>
                 <div className="flip-card-inner w-full h-full">
-                  <div className="flip-card-front w-full h-full bg-zinc-900 border border-white/10 rounded-2xl p-6 flex flex-col justify-between hover:bg-white/[0.05] transition-colors">
+                  <div className="flip-card-front w-full h-full bg-zinc-900 border border-white/10 rounded-2xl p-2 sm:p-6 flex flex-col justify-between hover:bg-white/[0.05] transition-colors">
                     <div>
-                      <span className="text-[10px] text-neutral-600 uppercase tracking-wider">{item.category}</span>
-                      <div className="mt-3 text-xl text-neutral-300 font-medium">{item.normal}</div>
+                      <span className="text-[8px] sm:text-[10px] text-neutral-600 uppercase tracking-wider">{item.category}</span>
+                      <div className="mt-1 sm:mt-3 text-sm sm:text-xl leading-tight text-neutral-300 font-medium break-words">{item.normal}</div>
                     </div>
-                    <div className="flex items-center gap-1.5 text-[11px] text-neutral-600">
+                    <div className="flex items-center gap-1 text-[8px] sm:text-[11px] text-neutral-600 leading-tight">
                       👆 Tap to upgrade
                     </div>
                   </div>
-                  <div className="flip-card-back w-full h-full bg-gradient-to-br from-[#FF3D71]/10 to-[#00E5FF]/10 border border-[#FF3D71]/20 rounded-2xl p-6 flex flex-col justify-between">
+                  <div className="flip-card-back w-full h-full bg-gradient-to-br from-[#FF3D71]/10 to-[#00E5FF]/10 border border-[#FF3D71]/20 rounded-2xl p-2 sm:p-6 flex flex-col justify-between">
                     <div>
-                      <span className="text-[10px] text-[#00E5FF] uppercase tracking-wider font-medium">✨ Upgraded</span>
-                      <div className="mt-3 text-xl text-white font-semibold">{item.advanced}</div>
+                      <span className="text-[8px] sm:text-[10px] text-[#00E5FF] uppercase tracking-wider font-medium">✨ Upgraded</span>
+                      <div className="mt-1 sm:mt-3 text-xs sm:text-xl leading-tight text-white font-semibold break-words">{item.advanced}</div>
                     </div>
-                    <div className="flex items-center gap-1.5 text-[11px] text-neutral-500">
+                    <div className="flex items-center gap-1 text-[8px] sm:text-[11px] text-neutral-500 leading-tight">
                       ← Tap to flip back
                     </div>
                   </div>
@@ -641,8 +640,8 @@ export default function LandingPage() {
             </h2>
             <p className="reveal reveal-delay-2 mt-4 text-neutral-400 max-w-lg mx-auto">4 game modes across every topic. You won&apos;t even feel like you&apos;re studying.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="reveal reveal-delay-1 bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
+          <div className="grid grid-cols-2 gap-2 sm:gap-5">
+            <div className="reveal reveal-delay-1 bg-zinc-900 border border-white/10 rounded-2xl p-3 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-[#FF3D71]/10 flex items-center justify-center text-lg">🔗</div>
                 <h3 className="font-semibold">Synonym Pair</h3>
@@ -658,7 +657,7 @@ export default function LandingPage() {
               </div>
               <p className="text-xs text-neutral-500 text-center mt-2">Match words with their advanced synonyms</p>
             </div>
-            <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
+            <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-3 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-[#00E5FF]/10 flex items-center justify-center text-lg">🧠</div>
                 <h3 className="font-semibold">Memory</h3>
@@ -670,7 +669,7 @@ export default function LandingPage() {
               </div>
               <p className="text-xs text-neutral-500 text-center mt-2">Find matching synonym pairs in the grid</p>
             </div>
-            <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
+            <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-3 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-[#FFD93D]/10 flex items-center justify-center text-lg">✅</div>
                 <h3 className="font-semibold">Multiple Choice</h3>
@@ -685,7 +684,7 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="reveal reveal-delay-4 bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
+            <div className="reveal reveal-delay-4 bg-zinc-900 border border-white/10 rounded-2xl p-3 sm:p-8 hover:bg-white/[0.05] transition-all duration-300">
               <div className="flex items-center gap-3 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-[#A855F7]/10 flex items-center justify-center text-lg">🔍</div>
                 <h3 className="font-semibold">Letter Hunt</h3>
