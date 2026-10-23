@@ -27,9 +27,9 @@ const PREMIUM_FEATURES = [
 ];
 
 const PREMIUM_PLANS = [
-  { id: '6-month', title: '6 Months', price: '$15.99', save: 'Save 33%', popular: false },
-  { id: '3-month', title: '3 Months', price: '$9.49', save: 'Save 20%', popular: true },
-  { id: '1-month', title: '1 Month', price: '$3.99', save: null, popular: false },
+  { id: '6-month', title: '6 Months', price: { whole: '$15', cents: '.99' }, save: 'Save 33%', popular: false },
+  { id: '3-month', title: '3 Months', price: { whole: '$9', cents: '.49' }, save: 'Save 20%', popular: true },
+  { id: '1-month', title: '1 Month', price: { whole: '$3', cents: '.99' }, save: null, popular: false },
 ];
 
 interface UserProfile {
@@ -164,7 +164,9 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
               </div>
 
               <div className="flex items-baseline gap-2 mb-1">
-                <div className="text-2xl font-black text-white">{plan.price}</div>
+                <div className="text-2xl font-black text-white">
+                  {plan.price.whole}<span className="text-sm align-baseline leading-none">{plan.price.cents}</span>
+                </div>
                 {plan.id === '1-month' && (
                   <span className="inline-flex items-center rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
                     Subscription

@@ -298,13 +298,32 @@ export default function LandingPage() {
             <img src="/man_phone.jpg" alt="Man using phone"
                  style={{ maxWidth: "320px", width: "100%", height: "auto", objectFit: "contain", margin: "0 auto 24px auto", display: "block" }}
                  className="opacity-90" />
-            <div className="w-full space-y-3 text-sm text-neutral-400 leading-relaxed bg-zinc-900 border border-white/10 p-5 sm:p-6 rounded-2xl relative overflow-hidden">
+            <div className="w-full space-y-4 text-sm text-neutral-400 leading-relaxed bg-zinc-900 border border-white/10 p-5 sm:p-6 rounded-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[50px] pointer-events-none" />
-              <p>Are you learning English but feel stuck? You understand — but speaking is hard. You know words — but you still think in your own language.</p>
-              <p><span className="text-white font-semibold">English to be</span> is made for you.</p>
-              <p>No translations. No shortcuts. Just real English — through games, words, phrases and idioms that you will actually remember. You don&apos;t just learn English. You start to think in English.</p>
-              <p>This works. Because this is how the brain learns.</p>
-              <p className="text-[#00E5FF] font-semibold pt-1">Level A2 and above. Make English yours.</p>
+              <div className="relative z-10">
+                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">Stuck in English? Let&apos;s fix that.</h2>
+                <p className="mt-2">You understand English, but speaking is hard. You know words, but you still think in your own language.</p>
+              </div>
+              <div className="relative z-10 space-y-3 pt-1">
+                <div className="flex gap-3">
+                  <span className="shrink-0 text-base">🚫</span>
+                  <p><strong className="text-white">No translations</strong><br />Learn English in English. Your brain starts to think in English.</p>
+                </div>
+                <div className="flex gap-3">
+                  <span className="shrink-0 text-base">🎮</span>
+                  <p><strong className="text-white">Games, not boring lists</strong><br />Practice words, phrases and idioms with short games. You remember more.</p>
+                </div>
+                <div className="flex gap-3">
+                  <span className="shrink-0 text-base">🔥</span>
+                  <p><strong className="text-white">Small steps every day</strong><br />Do daily tasks, build your streak and see your progress.</p>
+                </div>
+              </div>
+              <div className="relative z-10 pt-1 text-xs sm:text-sm">
+                <p className="text-[#00E5FF] font-semibold">For levels A2 and above.</p>
+                <Link href="/home" className="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-neutral-200">
+                  Start for Free <span>→</span>
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -986,7 +1005,7 @@ export default function LandingPage() {
             {/* 1 Month */}
             <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
               <h3 className="text-lg font-semibold mb-2">1 Month</h3>
-              <div className="text-3xl font-bold text-white mb-6">$3.99</div>
+              <div className="text-3xl font-bold text-white mb-6">$3<span className="text-lg align-baseline leading-none">.99</span></div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
                 {["All Words categories","All Idioms categories","All Sentences categories","All Grammar + Tenses categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
@@ -998,7 +1017,7 @@ export default function LandingPage() {
             <div className="reveal reveal-delay-4 bg-gradient-to-b from-[#00E5FF]/10 to-transparent border border-[#00E5FF]/30 rounded-2xl p-8 text-center relative flex flex-col scale-105 shadow-[0_0_40px_rgba(0,229,255,0.1)]">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#00E5FF] text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</div>
               <h3 className="text-lg font-semibold mb-2">3 Months</h3>
-              <div className="text-4xl font-bold text-white mb-2">$9.49</div>
+              <div className="text-4xl font-bold text-white mb-2">$9<span className="text-xl align-baseline leading-none">.49</span></div>
               <div className="text-xs text-[#00E5FF] mb-6">Save 20%</div>
               <ul className="text-sm text-neutral-300 space-y-3 mb-8 flex-1 text-left">
                 {["All Words categories","All Idioms categories","All Sentences categories","All Grammar + Tenses categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (
@@ -1010,7 +1029,7 @@ export default function LandingPage() {
             {/* 6 Months */}
             <div className="reveal reveal-delay-5 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
               <h3 className="text-lg font-semibold mb-2">6 Months</h3>
-              <div className="text-3xl font-bold text-white mb-2">$15.99</div>
+              <div className="text-3xl font-bold text-white mb-2">$15<span className="text-lg align-baseline leading-none">.99</span></div>
               <div className="text-xs text-[#FF3D71] mb-6">Save 33%</div>
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
                 {["All Words categories","All Idioms categories","All Sentences categories","All Grammar + Tenses categories","My Vocabulary (unlimited words)","All Games","Streaks & progress tracking","Future premium updates"].map(f => (

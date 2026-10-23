@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "English to be",
-  description: "Mobile-first English learning SaaS with freemium access.",
+  description: "Learn English in English. Words, idioms, sentences, grammar and games for A2+ learners. Free to start.",
   applicationName: "English to be",
   manifest: "/manifest.webmanifest",
   icons: {
