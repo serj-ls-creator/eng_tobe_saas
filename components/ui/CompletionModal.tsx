@@ -19,6 +19,8 @@ interface CompletionModalProps {
   progressPayload?: RecordLearningProgressPayload;
   onNextSubcategory?: () => void;
   onBackToTopics?: () => void;
+  onGoHome?: () => void;
+  primaryActionTone?: 'theme' | 'cyan';
 }
 
 function formatActivityName(activityId: string): string {
@@ -224,7 +226,9 @@ export function CompletionModal({
   noPoints = false,
   progressPayload,
   onNextSubcategory,
-  onBackToTopics 
+  onBackToTopics,
+  onGoHome,
+  primaryActionTone = 'theme'
 }: CompletionModalProps) {
   const [mounted, setMounted] = useState(false);
   const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
@@ -382,7 +386,7 @@ export function CompletionModal({
           {onNextSubcategory && (
             <button
               onClick={() => handleNavigate(onNextSubcategory)}
-              className="w-full bg-theme hover:bg-theme-strong text-theme-foreground font-semibold py-3 px-6 rounded-control transition-colors"
+              className={`w-full ${primaryActionTone === 'cyan' ? 'bg-cyan-400 hover:bg-cyan-500 text-black' : 'bg-theme hover:bg-theme-strong text-theme-foreground'} font-semibold py-3 px-6 rounded-control transition-colors`}
             >
               Next Subcategory
             </button>
@@ -394,6 +398,15 @@ export function CompletionModal({
               className="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl transition-colors"
             >
               Back to Topics
+            </button>
+          )}
+
+          {onGoHome && (
+            <button
+              onClick={() => handleNavigate(onGoHome)}
+              className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-control transition-colors"
+            >
+              Go Home
             </button>
           )}
         </div>

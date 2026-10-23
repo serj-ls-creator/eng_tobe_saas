@@ -200,6 +200,8 @@ export default function IdiomCardsPage({ params }: IdiomCardsPageProps) {
           subcategoryName={`${category.name} - ${levelName}`}
           onNextSubcategory={handleBackToActivities}
           onBackToTopics={handleBackToLevels}
+          onGoHome={() => router.push('/home')}
+          primaryActionTone="cyan"
         />
       )}
     </div>
