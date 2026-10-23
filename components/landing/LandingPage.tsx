@@ -340,7 +340,7 @@ export default function LandingPage() {
               <div className="phone-notch" />
               <div className="phone-content">
                 <div className="flex justify-between items-center text-[10px] text-neutral-500 mb-4 px-1">
-                  <span>9:41</span>
+                  <span>9:27</span>
                   <div className="flex gap-1 items-center">
                     <span>▲</span><span>WiFi</span><span>🔋</span>
                   </div>
