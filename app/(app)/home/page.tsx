@@ -21,6 +21,28 @@ const quickLinks = [
 export default async function AppHomePage() {
   const { profile, premium } = await getCurrentProfileWithPremium();
   const wordOfTheDay = getWordOfTheDay();
+  const streakBlock = (
+    <div className="fade-up">
+      {profile ? (
+        <Link href="/profile">
+          <StreakBar isLoggedIn />
+        </Link>
+      ) : (
+        <StreakBar isLoggedIn={false} />
+      )}
+    </div>
+  );
+  const wordOfDayBlock = (
+    <section className="fade-up fade-up-d4">
+      <WordOfDayCard
+        title={UI_TEXT.wordOfDayTitle}
+        simple={wordOfTheDay.simple}
+        synonym={wordOfTheDay.synonym}
+        transcription={wordOfTheDay.transcription}
+        explanation={wordOfTheDay.explanation}
+      />
+    </section>
+  );
 
   return (
     <>
@@ -39,15 +61,7 @@ export default async function AppHomePage() {
         </div>
 
         <div className="relative z-20 overflow-y-auto px-4 pt-4 pb-4">
-          <div className="fade-up">
-            {profile ? (
-              <Link href="/profile">
-                <StreakBar isLoggedIn />
-              </Link>
-            ) : (
-              <StreakBar isLoggedIn={false} />
-            )}
-          </div>
+          {profile ? streakBlock : wordOfDayBlock}
 
           <section className="mb-5 mt-5 relative">
             <h2 className="fade-up fade-up-d2 mb-3 text-sm font-semibold relative z-10">{UI_TEXT.homeTitle}</h2>
@@ -84,15 +98,7 @@ export default async function AppHomePage() {
             </div>
           </section>
 
-          <section className="fade-up fade-up-d4">
-            <WordOfDayCard
-              title={UI_TEXT.wordOfDayTitle}
-              simple={wordOfTheDay.simple}
-              synonym={wordOfTheDay.synonym}
-              transcription={wordOfTheDay.transcription}
-              explanation={wordOfTheDay.explanation}
-            />
-          </section>
+          {profile ? wordOfDayBlock : streakBlock}
 
           {!premium ? (
             <section className="mt-4">
