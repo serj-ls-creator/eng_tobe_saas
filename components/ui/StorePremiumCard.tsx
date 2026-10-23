@@ -27,9 +27,9 @@ const PREMIUM_FEATURES = [
 ];
 
 const PREMIUM_PLANS = [
-  { id: '6-month', title: '6 Months', price: '$19.99', save: 'Save 33%', popular: false },
-  { id: '3-month', title: '3 Months', price: '$11.99', save: 'Save 20%', popular: true },
-  { id: '1-month', title: '1 Month', price: '$4.99', save: null, popular: false },
+  { id: '6-month', title: '6 Months', price: '$15.99', save: 'Save 33%', popular: false },
+  { id: '3-month', title: '3 Months', price: '$9.49', save: 'Save 20%', popular: true },
+  { id: '1-month', title: '1 Month', price: '$3.99', save: null, popular: false },
 ];
 
 interface UserProfile {
