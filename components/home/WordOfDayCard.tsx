@@ -51,33 +51,33 @@ export function WordOfDayCard({
   return (
     <>
       <GlowBorder innerClassName="hover:opacity-90 transition-opacity">
-        <Link href="/words" className="block cursor-pointer">
-          <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-500">{title}</div>
-          <div className="mb-1 flex items-center gap-2">
-            <span className="text-sm text-zinc-500 line-through">{simple}</span>
-            <span className="text-cyan-400">-&gt;</span>
+        <div>
+          <Link href="/words" className="mb-2 block text-[10px] uppercase tracking-[0.3em] text-zinc-500">
+            {title}
+          </Link>
+          <Link href="/words" className="mb-2 flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+            <span className="min-w-0 break-words text-sm text-zinc-500 line-through">{simple}</span>
+            <span className="shrink-0 text-cyan-400" aria-hidden="true">→</span>
+            <span className="min-w-0 break-words text-lg font-semibold">{synonym}</span>
+          </Link>
+        </div>
+        <div className="mb-2 grid grid-cols-[minmax(0,1fr)_auto] grid-rows-[auto_auto] items-center gap-x-2 gap-y-1">
+          <div className="col-start-1 row-start-1 flex min-w-0 items-center gap-2">
+            <span className="min-w-0 break-words text-[11px] text-zinc-400">{transcription}</span>
+            <StrictEnglishTTS text={synonym} />
           </div>
-        </Link>
-        <div className="flex min-w-0 items-center gap-2">
-          <div className="min-w-0 flex-1">
-            <div className="flex min-w-0 items-center gap-2">
-              <Link href="/words" className="min-w-0 truncate text-lg font-semibold">{synonym}</Link>
-              <span className="shrink-0 text-[11px] text-zinc-400">{transcription}</span>
-              <StrictEnglishTTS text={synonym} />
-            </div>
-            <Link href="/words" className="mt-1 block text-[11px] text-zinc-500">{explanation}</Link>
-          </div>
-          <div className="flex shrink-0 items-center gap-1">
-            <button
-              type="button"
-              onClick={handleAddToVocabulary}
-              disabled={checkingAuth}
-              className="flex min-h-8 shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 px-1.5 py-1 text-[9px] font-bold leading-[14px] text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
-            >
-              <BookPlus className="h-3 w-3 shrink-0" />
-              <span>{checkingAuth ? 'Checking...' : 'Add to My Vocabulary'}</span>
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={handleAddToVocabulary}
+            disabled={checkingAuth}
+            className="col-start-2 row-span-2 row-start-1 flex min-h-12 shrink-0 items-center justify-center gap-1 self-stretch whitespace-nowrap rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 px-1.5 py-1 text-[9px] font-bold leading-[14px] text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
+          >
+            <BookPlus className="h-3 w-3 shrink-0" />
+            <span>{checkingAuth ? 'Checking...' : 'Add to My Vocabulary'}</span>
+          </button>
+          <Link href="/words" className="col-start-1 row-start-2 block min-w-0 break-words text-[11px] text-zinc-500">
+            {explanation}
+          </Link>
         </div>
       </GlowBorder>
 
