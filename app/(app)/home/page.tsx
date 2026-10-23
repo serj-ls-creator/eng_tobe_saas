@@ -3,8 +3,8 @@ import { BookOpenText, MessageCircleMore, Lightbulb, Gamepad2, Rocket, BookOpen,
 
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
-import { GlowBorder } from "@/components/ui/GlowBorder";
 import { StreakBar } from "@/components/ui/StreakBar";
+import { WordOfDayCard } from "@/components/home/WordOfDayCard";
 import { UI_TEXT } from "@/constants/ui";
 import { getCurrentProfileWithPremium } from "@/lib/isPremium";
 import { getWordOfTheDay } from "@/data/wordsOfTheDay";
@@ -85,20 +85,13 @@ export default async function AppHomePage() {
           </section>
 
           <section className="fade-up fade-up-d4">
-            <Link href="/words" className="block cursor-pointer">
-              <GlowBorder innerClassName="hover:opacity-90 transition-opacity">
-                <div className="mb-2 text-[10px] uppercase tracking-[0.3em] text-zinc-500">{UI_TEXT.wordOfDayTitle}</div>
-                <div className="mb-1 flex items-center gap-2">
-                  <span className="text-sm text-zinc-500 line-through">{wordOfTheDay.simple}</span>
-                  <span className="text-cyan-400">-&gt;</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="text-lg font-semibold">{wordOfTheDay.synonym}</div>
-                  <span className="text-[11px] text-zinc-400">{wordOfTheDay.transcription}</span>
-                </div>
-                <div className="mt-1 text-[11px] text-zinc-500">{wordOfTheDay.explanation}</div>
-              </GlowBorder>
-            </Link>
+            <WordOfDayCard
+              title={UI_TEXT.wordOfDayTitle}
+              simple={wordOfTheDay.simple}
+              synonym={wordOfTheDay.synonym}
+              transcription={wordOfTheDay.transcription}
+              explanation={wordOfTheDay.explanation}
+            />
           </section>
 
           {!premium ? (
@@ -107,7 +100,7 @@ export default async function AppHomePage() {
                 <div className="mb-2 text-sm font-semibold">{UI_TEXT.premiumTitle}</div>
                 <p className="mb-4 text-xs leading-relaxed text-zinc-500">{UI_TEXT.premiumSubtitle}</p>
                 <Link
-                  href="/premium"
+                  href="/store"
                   className="inline-flex h-11 items-center justify-center rounded-xl bg-cyan-400 px-4 text-sm font-semibold text-black"
                 >
                   {UI_TEXT.premiumCta}

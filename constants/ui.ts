@@ -16,11 +16,11 @@ export const PHRASAL_VERB_TOPIC_STYLES = {
 export const UI_TEXT = {
   appName: "English to be",
   homeSubtitle: "Small steps. Real progress!",
-  homeTitle: "Quick Start",
+  homeTitle: "Learn",
   dailyProgress: "Daily Progress",
   premiumCta: "Unlock Premium",
   premiumTitle: "Go Premium",
-  premiumSubtitle: "Unlock all categories, games, and advanced levels.",
+  premiumSubtitle: "Unlock everything · from $3.99/month.",
   premiumButton: "Go to Store",
   comingSoon: "Coming Soon",
   loginTitle: "Welcome back",
