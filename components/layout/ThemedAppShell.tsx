@@ -22,7 +22,7 @@ const routeThemes: Array<[string, string]> = [
   ["/about", "more"],
   ["/contact", "more"],
   ["/delete-account", "more"],
-  ["/auth", "more"],
+  ["/auth", "words"],
   ["/home", "home"]
 ];
 

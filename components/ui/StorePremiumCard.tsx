@@ -27,9 +27,9 @@ const PREMIUM_FEATURES = [
 ];
 
 const PREMIUM_PLANS = [
-  { id: '6-month', title: '6 Months', price: { whole: '$15', cents: '.99' }, save: 'Save 33%', popular: false },
-  { id: '3-month', title: '3 Months', price: { whole: '$9', cents: '.49' }, save: 'Save 20%', popular: true },
-  { id: '1-month', title: '1 Month', price: { whole: '$3', cents: '.99' }, save: null, popular: false },
+  { id: '6-month', title: '6 Months', price: { whole: '$15', cents: '.99' }, monthly: '$2.67 / month', fullPrice: '$23.94', save: 'Save 33%', badge: 'Best value' },
+  { id: '3-month', title: '3 Months', price: { whole: '$9', cents: '.49' }, monthly: '$3.16 / month', fullPrice: '$11.97', save: 'Save 20%', badge: 'Most popular' },
+  { id: '1-month', title: '1 Month', price: { whole: '$3', cents: '.99' }, monthly: '$3.99 / month', fullPrice: null, save: null, badge: null },
 ];
 
 interface UserProfile {
@@ -131,23 +131,39 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
         </div>
       )}
 
+      <div className="relative z-10 pt-3">
+        <div className="absolute top-3 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-400 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-black shadow-[0_0_12px_rgba(0,229,255,0.45)]">
+          Everything included
+        </div>
+        <Card className="store-plan-card relative px-6 pb-6 pt-8">
+          <ul className="grid gap-2 sm:grid-cols-2">
+            {PREMIUM_FEATURES.map((feature) => (
+              <li key={feature} className="flex items-center gap-2 text-sm text-zinc-400">
+                <Zap className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </div>
+
       {PREMIUM_PLANS.map((plan) => (
         <div
           key={plan.id}
-          className={plan.popular ? 'relative z-10 pt-3' : 'relative'}
+          className={plan.badge ? 'relative z-10 pt-3' : 'relative'}
         >
-          {plan.popular && (
+          {plan.badge && (
             <div
-              className="absolute top-3 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 bg-cyan-400 text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-[0_0_12px_rgba(0,229,255,0.45)]"
+              className={`absolute top-3 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 text-black text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-[0_0_12px_rgba(0,229,255,0.45)] ${plan.id === '6-month' ? 'bg-purple-400' : 'bg-cyan-400'}`}
               aria-hidden
             >
-              Most Popular
+              {plan.badge}
             </div>
           )}
 
           <Card
-            className={`store-plan-card relative px-6 pb-6 ${plan.popular ? 'pt-8' : 'pt-6'} ${
-              plan.popular
+            className={`store-plan-card relative px-6 pb-6 ${plan.badge ? 'pt-8' : 'pt-6'} ${
+              plan.badge === 'Most popular'
                 ? 'shadow-[0_0_40px_rgba(0,229,255,0.08)]'
                 : ''
             }`}
@@ -169,39 +185,37 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                 </div>
                 {plan.id === '1-month' && (
                   <span className="inline-flex items-center rounded-full border border-cyan-400/30 bg-cyan-400/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-cyan-300">
-                    Subscription
+                    Flexible
                   </span>
                 )}
                 {plan.save && (
-                  <div className={`text-xs font-medium ${plan.popular ? 'text-cyan-400' : 'text-pink-400'}`}>
+                  <div className={`text-xs font-medium ${plan.badge === 'Most popular' ? 'text-cyan-400' : 'text-pink-400'}`}>
                     {plan.save}
                   </div>
                 )}
               </div>
-
-              <ul className="space-y-2 mb-6 mt-4">
-                {PREMIUM_FEATURES.map((feature) => (
-                  <li key={feature} className="flex items-center gap-2 text-sm text-zinc-400">
-                    <Zap className="h-3.5 w-3.5 text-cyan-400 shrink-0" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-1 text-sm font-semibold text-cyan-300">{plan.monthly}</div>
+              {plan.fullPrice && (
+                <div className="mt-1 text-xs text-zinc-500 line-through">Full price: {plan.fullPrice}</div>
+              )}
 
               {(() => {
-                // Not logged in — always show Sign in
+                // Not logged in — the checkout flow will ask for account access next
                 if (!user) {
                   return (
-                    <Link
-                      href="/auth/login"
-                      className="w-full py-3 rounded-xl font-bold text-sm transition-colors text-center min-h-[44px] flex items-center justify-center"
-                      style={{
-                        background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
-                        color: '#000',
-                      }}
-                    >
-                      Sign in
-                    </Link>
+                    <div>
+                      <Link
+                        href="/auth/login"
+                        className="w-full py-3 rounded-xl font-bold text-sm transition-colors text-center min-h-[44px] flex items-center justify-center"
+                        style={{
+                          background: 'linear-gradient(135deg, #A855F7, #00E5FF)',
+                          color: '#000',
+                        }}
+                      >
+                        Get {plan.title}
+                      </Link>
+                      <p className="mt-2 text-center text-[11px] text-zinc-500">Cancel anytime · Auto-renews</p>
+                    </div>
                   );
                 }
 
@@ -283,6 +297,7 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
                     >
                       Buy Premium — {plan.title}
                     </button>
+                    <p className="mt-2 text-center text-[11px] text-zinc-500">Cancel anytime · Auto-renews</p>
                   </CreemCheckout>
                 );
               })()}
@@ -309,22 +324,15 @@ export function StorePremiumCard({ points, isPremium, premiumExpiresAt, subscrip
           </div>
 
           <div className="rounded-xl border border-zinc-700/60 bg-zinc-950/70 px-4 py-4 mt-4">
-            <ul className="mb-4 space-y-2 text-sm text-zinc-400">
-              {PREMIUM_FEATURES.map((feature) => (
-                <li key={feature} className="flex items-center gap-2">
-                  <Zap className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-
             <div className="flex items-center justify-between gap-3">
               <div>
                 <p className="text-sm font-semibold text-white">Current balance</p>
                 <p className="text-xs text-zinc-500">Available points in your account</p>
               </div>
               <div className="text-right">
-                <p className="text-sm font-bold text-white">{currentPoints.toLocaleString()} pts</p>
+                <p className="text-sm font-bold text-white">
+                  {currentPoints > 0 ? `${currentPoints.toLocaleString()} pts` : 'No points yet'}
+                </p>
                 {!canBuyWithPoints && (
                   <p className="text-xs text-zinc-500">{missing.toLocaleString()} more needed</p>
                 )}
