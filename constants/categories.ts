@@ -565,7 +565,7 @@ export const CATS: WordCategory[] = [
 export const IDIOM_CATS: Category[] = [
   {
     id: "food",
-    name: "Food Idioms",
+    name: "Food idioms",
     description: "Everyday food expressions",
     icon: "Pizza",
     color: UI_COLORS.yellow,
@@ -577,7 +577,7 @@ export const IDIOM_CATS: Category[] = [
   },
   {
     id: "weather",
-    name: "Weather Idioms",
+    name: "Weather idioms",
     description: "Storms, sunshine, and sayings",
     icon: "CloudSun",
     color: UI_COLORS.cyan,
@@ -589,7 +589,7 @@ export const IDIOM_CATS: Category[] = [
   },
   {
     id: "emotional",
-    name: "Emotional Idioms",
+    name: "Emotional idioms",
     description: "Feelings and reactions",
     icon: "Drama",
     color: UI_COLORS.pink,
@@ -601,7 +601,7 @@ export const IDIOM_CATS: Category[] = [
   },
   {
     id: "body",
-    name: "Body Parts Idioms",
+    name: "Body parts idioms",
     description: "Body-based expressions",
     icon: "Dumbbell",
     color: UI_COLORS.purple,
@@ -613,7 +613,7 @@ export const IDIOM_CATS: Category[] = [
   },
   {
     id: "animal",
-    name: "Animal Idioms",
+    name: "Animal idioms",
     description: "Animal-based sayings",
     icon: "PawPrint",
     color: UI_COLORS.yellow,
