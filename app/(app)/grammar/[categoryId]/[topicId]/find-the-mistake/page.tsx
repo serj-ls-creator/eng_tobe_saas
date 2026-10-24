@@ -12,7 +12,7 @@ export default async function GrammarFindMistakeLevelsPage({ params }: { params:
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
   const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();
-  if (section.id === "tenses" && !(await isPremium())) redirect("/premium");
+  if (section.id === "tenses" && !(await isPremium())) redirect("/store");
 
   const levels = getGrammarMistakeLevels(section.id, topic.id);
   if (!levels) notFound();

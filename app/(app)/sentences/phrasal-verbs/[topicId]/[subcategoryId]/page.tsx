@@ -105,7 +105,7 @@ export default async function SubcategoryPage({ params }: PageProps) {
         <div className="grid grid-cols-2 gap-3">
           {PHRASAL_VERB_ACTIVITIES.map((activity: Activity, index: number) => (
             <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <Link href={locked ? "/premium" : `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/${activity.id}`}>
+              <Link href={locked ? "/store" : `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/${activity.id}`}>
                 <Card
                   className={`p-4 ${
                     getProgressCardClass(

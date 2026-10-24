@@ -69,7 +69,7 @@ export function WordsTree({ categories, isPremium, progress }: WordsTreeProps) {
                           <div key={topic.id} className={`tree-item ${getProgressCardClass(topicStatus)}`}>
                             {topic.subcategories ? (
                               <Link
-                                href={topicLocked ? "/premium" : `/words/${category.id}/${topic.id}`}
+                                href={topicLocked ? "/store" : `/words/${category.id}/${topic.id}`}
                                 className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
                               >
                                 <div>
@@ -92,7 +92,7 @@ export function WordsTree({ categories, isPremium, progress }: WordsTreeProps) {
                               </Link>
                             ) : topic.activities ? (
                               <Link
-                                href={topicLocked ? "/premium" : `/words/${category.id}/${topic.id}`}
+                                href={topicLocked ? "/store" : `/words/${category.id}/${topic.id}`}
                                 className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
                               >
                                 <div>
@@ -115,7 +115,7 @@ export function WordsTree({ categories, isPremium, progress }: WordsTreeProps) {
                               </Link>
                             ) : (
                               <Link
-                                href={locked ? "/premium" : topic.href ?? category.href}
+                                href={locked ? "/store" : topic.href ?? category.href}
                                 className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
                               >
                                 <div>
@@ -141,7 +141,7 @@ export function WordsTree({ categories, isPremium, progress }: WordsTreeProps) {
                   ) : (
                     <div className="pt-4">
                       <Link
-                        href={locked ? "/premium" : category.href}
+                        href={locked ? "/store" : category.href}
                         className="block rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-4 text-sm text-zinc-400 transition-colors hover:bg-white/[0.05]"
                       >
                         Open {category.name}

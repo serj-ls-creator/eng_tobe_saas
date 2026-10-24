@@ -89,7 +89,7 @@ export default async function PairsPage({ params }: { params: { levelId: string 
                   description={level.description}
                   icon={level.icon}
                   color={level.color}
-                  href={locked ? "/premium" : `/sentences/a1-c2/pairs/${level.id}`}
+                  href={locked ? "/store" : `/sentences/a1-c2/pairs/${level.id}`}
                   locked={locked}
                 />
               </div>

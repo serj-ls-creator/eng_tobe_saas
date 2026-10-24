@@ -36,7 +36,7 @@ export function TensesSection({ section, progress, isPremium }: { section: Gramm
     const Icon = categoryIcon ? getIcon(categoryIcon.icon) : undefined;
     const topicStatus = progress.containerStatuses[buildProgressKey({ section: "grammar", categoryId: section.id, topicId: topic.id })] ?? "none";
     if (!topic.topics?.length) {
-      return <Link key={key} href={isPremium ? `/grammar/${section.id}/${topic.id}` : "/premium"}
+      return <Link key={key} href={isPremium ? `/grammar/${section.id}/${topic.id}` : "/store"}
         className={`grammar-topic-surface flex items-center justify-between gap-3 px-4 py-3 ${getProgressCardClass(topicStatus)}`}>
         <span className="min-w-0">
           <span className="flex items-center gap-2 text-sm font-medium text-white">{topic.name}{!isPremium ? <PremiumBadge /> : null}</span>

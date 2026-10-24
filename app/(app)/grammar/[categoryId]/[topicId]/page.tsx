@@ -11,7 +11,7 @@ export default async function GrammarTopicPage({ params }: { params: { categoryI
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
   const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();
-  if (section.id === "tenses" && !(await isPremium())) redirect("/premium");
+  if (section.id === "tenses" && !(await isPremium())) redirect("/store");
   const progress = await getLearningProgressSnapshot();
   const ruleStatus = progress.activityStatuses[buildProgressKey({
     section: "grammar", categoryId: section.id, topicId: topic.id, activityId: "rule"

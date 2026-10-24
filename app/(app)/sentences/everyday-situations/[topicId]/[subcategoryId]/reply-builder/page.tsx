@@ -86,7 +86,7 @@ export default async function ReplyBuilderModePage({ params }: PageProps) {
         <div className="grid grid-cols-2 gap-3">
           {MODES.map((mode, index) => (
             <div key={mode.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <Link href={locked ? "/premium" : `/sentences/everyday-situations/${topicId}/${subcategoryId}/reply-builder/${mode.id}`}>
+              <Link href={locked ? "/store" : `/sentences/everyday-situations/${topicId}/${subcategoryId}/reply-builder/${mode.id}`}>
                 <Card className={`p-4 h-full cursor-pointer transition-all ${mode.border}`}>
                   <div className="flex items-center gap-2 mb-2">
                     <span className={`w-2 h-2 rounded-full ${mode.dot}`} />

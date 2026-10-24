@@ -66,7 +66,7 @@ export default async function IdiomCategoryPage({ params }: { params: { category
                 description={level.description}
                 icon={level.icon}
                 color={level.color}
-                href={locked ? "/premium" : `/idioms/${category.id}/${level.id}`}
+                href={locked ? "/store" : `/idioms/${category.id}/${level.id}`}
                 locked={locked}
                 progressStatus={progress.containerStatuses[
                   buildProgressKey({ section: "idioms", categoryId: category.id, levelId: level.id })

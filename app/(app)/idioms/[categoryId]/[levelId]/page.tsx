@@ -85,7 +85,7 @@ export default async function IdiomLevelPage({ params }: { params: { categoryId:
             const Icon = getIcon(activity.icon);
             return (
               <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-                <Link href={locked ? "/premium" : `/idioms/${category.id}/${params.levelId}/${activity.id}`}>
+                <Link href={locked ? "/store" : `/idioms/${category.id}/${params.levelId}/${activity.id}`}>
                   <Card
                     className={`p-4 ${
                       getProgressCardClass(

@@ -61,7 +61,7 @@ export default async function TopicPage({ params }: PageProps) {
           <div className="grid grid-cols-2 gap-3">
             {topic.subcategories.map((subcategory, index) => (
               <div key={subcategory.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-                <Link href={locked ? "/premium" : `/sentences/everyday-situations/${topicId}/${subcategory.id}`}>
+                <Link href={locked ? "/store" : `/sentences/everyday-situations/${topicId}/${subcategory.id}`}>
                   <Card
                     className={`p-4 h-full ${
                       getProgressCardClass(

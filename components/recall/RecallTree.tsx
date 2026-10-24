@@ -37,7 +37,7 @@ export function RecallTree({ nodes, premium }: { nodes: RecallTreeNode[]; premiu
         </button>
         {expanded ? <div className="space-y-2 border-t border-white/5 p-3">{hasChildren ? node.children!.map(child => renderNode(child, depth + 1)) : node.items?.map(item => {
           const locked = isRecallItemPremiumLocked(item, premium);
-          return <Link key={item.key} href={locked ? "/premium" : item.href} className="block rounded-xl border border-white/8 bg-white/[0.03] p-3 transition-colors hover:bg-white/[0.06]">
+          return <Link key={item.key} href={locked ? "/store" : item.href} className="block rounded-xl border border-white/8 bg-white/[0.03] p-3 transition-colors hover:bg-white/[0.06]">
             <div className="flex items-center justify-between gap-3"><div className="min-w-0"><div className="mb-1 flex items-center gap-2"><span className="truncate text-sm font-semibold text-white">{item.activityName}</span>{locked ? <PremiumBadge /> : null}</div><div className="flex items-center gap-2 text-[11px]"><span className="text-zinc-500">{item.scoreLabel}</span><span className="text-zinc-600">•</span><span className="text-zinc-400">{dueLabel(item.dueAt)}</span></div></div><span className="shrink-0 text-[11px] text-cyan-400">{locked ? "Premium required" : "Review now"}</span></div>
           </Link>;
         })}</div> : null}

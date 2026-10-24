@@ -31,7 +31,7 @@ export default async function GrammarRulePage({ params }: { params: { categoryId
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
   const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();
-  if (section.id === "tenses" && !(await isPremium())) redirect("/premium");
+  if (section.id === "tenses" && !(await isPremium())) redirect("/store");
   const examples = GRAMMAR_EXAMPLES[topic.id] ?? [];
   const lesson = section.id === "adjectives" ? ADJECTIVE_LESSONS[topic.id]
     : section.id === "adverbs" ? ADVERB_LESSONS[topic.id]

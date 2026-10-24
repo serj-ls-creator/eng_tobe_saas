@@ -9,7 +9,7 @@ export default async function GrammarFindMistakeLevelPage({ params }: { params: 
   const topic = findGrammarTopic(section?.topics, params.topicId);
   const levelNumber = Number(params.levelId.replace("level-", ""));
   if (!section || !topic || !Number.isInteger(levelNumber) || levelNumber < 1 || levelNumber > 4) notFound();
-  if (section.id === "tenses" && !(await isPremium())) redirect("/premium");
+  if (section.id === "tenses" && !(await isPremium())) redirect("/store");
 
   const levels = getGrammarMistakeLevels(section.id, topic.id);
   const level = levels?.find((item) => item.level === levelNumber);

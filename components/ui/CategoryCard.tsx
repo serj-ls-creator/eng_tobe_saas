@@ -30,7 +30,7 @@ export function CategoryCard({
   const Icon = getIcon(icon);
 
   return (
-    <Link href={locked ? "/premium" : href} aria-disabled={locked}>
+    <Link href={locked ? "/store" : href} aria-disabled={locked}>
       <Card className={`p-4 ${getProgressCardClass(progressStatus)}`}>
         <div className="flex items-center gap-3">
           <div className="category-icon" style={{ backgroundColor: `${color}25` }}>

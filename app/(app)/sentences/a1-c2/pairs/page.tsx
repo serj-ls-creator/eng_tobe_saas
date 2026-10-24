@@ -102,7 +102,7 @@ export default async function PairsPage() {
                   description={level.description}
                   icon={level.icon}
                   color={level.color}
-                  href={locked ? "/premium" : `/sentences/a1-c2/pairs/${level.id}`}
+                  href={locked ? "/store" : `/sentences/a1-c2/pairs/${level.id}`}
                   locked={locked}
                   progressStatus={progressStatus}
                 />

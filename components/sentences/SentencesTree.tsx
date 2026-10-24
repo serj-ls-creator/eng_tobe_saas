@@ -61,7 +61,7 @@ export function SentencesTree({ categories, isPremium, progress }: SentencesTree
                 </button>
               ) : (
                 <Link
-                  href={locked ? "/premium" : category.href}
+                  href={locked ? "/store" : category.href}
                   className="flex w-full items-center gap-3 p-4 text-left transition-colors hover:bg-surface-hover"
                 >
                   <div className="category-icon" style={{ backgroundColor: `${category.color}25` }}>
@@ -91,7 +91,7 @@ export function SentencesTree({ categories, isPremium, progress }: SentencesTree
                         <div key={topic.id} className={`tree-item ${getProgressCardClass(topicStatus)}`}>
                           {topic.subcategories ? (
                             <Link
-                              href={topicLocked ? "/premium" : `/sentences/${category.id}/${topic.id}`}
+                              href={topicLocked ? "/store" : `/sentences/${category.id}/${topic.id}`}
                               className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
                             >
                               <div>
@@ -114,7 +114,7 @@ export function SentencesTree({ categories, isPremium, progress }: SentencesTree
                             </Link>
                           ) : (
                             <Link
-                              href={locked ? "/premium" : topic.href ?? category.href}
+                              href={locked ? "/store" : topic.href ?? category.href}
                               className="flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors hover:bg-surface-hover"
                             >
                               <div>
