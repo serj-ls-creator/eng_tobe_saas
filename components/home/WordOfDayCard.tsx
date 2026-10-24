@@ -70,7 +70,7 @@ export function WordOfDayCard({
             type="button"
             onClick={handleAddToVocabulary}
             disabled={checkingAuth}
-            className="col-start-2 row-span-2 row-start-1 grid w-[116px] min-h-12 shrink-0 grid-cols-[16px_minmax(0,1fr)] items-center gap-x-1 self-stretch rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 px-2 py-1 text-[10px] font-bold leading-tight text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
+            className="col-start-2 row-span-2 row-start-1 grid h-12 max-h-12 min-h-12 w-[116px] shrink-0 grid-cols-[16px_minmax(0,1fr)] items-center gap-x-1 self-start overflow-hidden rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 px-2 py-1 text-[10px] font-bold leading-tight text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
           >
             <BookPlus className="h-3 w-3 shrink-0" />
             <span className="text-center">
