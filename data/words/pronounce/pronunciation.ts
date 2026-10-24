@@ -1,0 +1,686 @@
+export interface PronunciationWordItem {
+  word: string;
+  correctPronunciation: string;
+  wrongPronunciations: [string, string, string, string];
+  transcription: string;
+}
+
+export interface PronunciationLevel {
+  id: string;
+  name: string;
+  description?: string;
+  words: PronunciationWordItem[];
+}
+
+export const PRONUNCIATION_LEVELS: PronunciationLevel[] = [
+  {
+    id: "level-1",
+    name: "Level 1",
+    description: "Everyday words with tricky vowels and silent letters",
+    words: [
+      {
+        word: "queue",
+        correctPronunciation: "kyo͞o",
+        wrongPronunciations: ["kway", "kew-ee", "kwee", "kwuh"],
+        transcription: "/kjuː/",
+      },
+      {
+        word: "comfortable",
+        correctPronunciation: "KUHM-fər-tə-bəl",
+        wrongPronunciations: ["kohm-FOR-tə-bəl", "kuhm-FORT-ay-bəl", "kohm-for-TAY-bəl", "kuhm-for-TAH-bəl"],
+        transcription: "/ˈkʌmftəbl/",
+      },
+      {
+        word: "Wednesday",
+        correctPronunciation: "WENZ-day",
+        wrongPronunciations: ["WED-nəs-day", "WED-nes-day", "WENZ-dee-ay", "WED-ən-zday"],
+        transcription: "/ˈwenzdeɪ/",
+      },
+      {
+        word: "iron",
+        correctPronunciation: "EYE-ərn",
+        wrongPronunciations: ["EYE-rən", "EYE-rohn", "EE-ron", "AY-rən"],
+        transcription: "/ˈaɪərn/",
+      },
+      {
+        word: "chocolate",
+        correctPronunciation: "CHAWK-lət",
+        wrongPronunciations: ["CHOH-kə-layt", "CHOK-oh-layt", "CHOH-koh-lət", "chuh-KAH-lət"],
+        transcription: "/ˈtʃɒklət/",
+      },
+      {
+        word: "vegetable",
+        correctPronunciation: "VEJ-tə-bəl",
+        wrongPronunciations: ["veh-JEH-tə-bəl", "vej-TAH-bəl", "VEJ-ee-tay-bəl", "veh-GET-ə-bəl"],
+        transcription: "/ˈvedʒtəbl/",
+      },
+      {
+        word: "clothes",
+        correctPronunciation: "klo͞oðz",
+        wrongPronunciations: ["KLOH-thəz", "KLOH-theez", "KLOH-tis", "klaw-THES"],
+        transcription: "/kləʊðz/",
+      },
+      {
+        word: "restaurant",
+        correctPronunciation: "RES-trənt",
+        wrongPronunciations: ["res-TAW-rant", "res-TOW-rahnt", "RES-tow-rənt", "reh-STOH-rahnt"],
+        transcription: "/ˈrestrɒnt/",
+      },
+      {
+        word: "recipe",
+        correctPronunciation: "RES-ə-pee",
+        wrongPronunciations: ["ruh-SEEP", "REH-sype", "ruh-SEEP-ee", "REH-si-py"],
+        transcription: "/ˈresəpi/",
+      },
+      {
+        word: "fruit",
+        correctPronunciation: "fro͞ot",
+        wrongPronunciations: ["FROO-it", "froy-t", "FRUT", "froot-ee"],
+        transcription: "/fruːt/",
+      },
+    ],
+  },
+  {
+    id: "level-2",
+    name: "Level 2",
+    description: "Tricky food and everyday pronunciation traps",
+    words: [
+      {
+        word: "salmon",
+        correctPronunciation: "SAM-ən",
+        wrongPronunciations: ["SAHL-mən", "SAL-mon", "SOL-mən", "sawl-MAHN"],
+        transcription: "/ˈsæmən/",
+      },
+      {
+        word: "almond",
+        correctPronunciation: "AH-mənd",
+        wrongPronunciations: ["AHL-mənd", "AL-mund", "AWL-mond", "el-MAHND"],
+        transcription: "/ˈɑːmənd/",
+      },
+      {
+        word: "lettuce",
+        correctPronunciation: "LET-is",
+        wrongPronunciations: ["LET-yoos", "leh-TOOS", "LET-yoo-see", "leh-TOOSH"],
+        transcription: "/ˈletɪs/",
+      },
+      {
+        word: "onion",
+        correctPronunciation: "UHN-yən",
+        wrongPronunciations: ["OH-nee-ən", "AWN-yən", "oh-NYOHN", "UN-ee-on"],
+        transcription: "/ˈʌnjən/",
+      },
+      {
+        word: "pizza",
+        correctPronunciation: "PEET-sə",
+        wrongPronunciations: ["PEE-zə", "PIT-suh", "PIZ-zə", "PEET-zuh"],
+        transcription: "/ˈpiːtsə/",
+      },
+      {
+        word: "cocoa",
+        correctPronunciation: "KOH-koh",
+        wrongPronunciations: ["koh-KOH-uh", "KOH-kwah", "koh-KOY", "KOH-kə-wah"],
+        transcription: "/ˈkəʊkəʊ/",
+      },
+      {
+        word: "sandwich",
+        correctPronunciation: "SAN-wich",
+        wrongPronunciations: ["SAND-witch-ee", "sand-WITCH", "SAHN-dveech", "SEND-week"],
+        transcription: "/ˈsænwɪtʃ/",
+      },
+      {
+        word: "coffee",
+        correctPronunciation: "KAW-fee",
+        wrongPronunciations: ["KOH-fee", "kof-FEE", "kuh-FAY", "KAH-fye"],
+        transcription: "/ˈkɒfi/",
+      },
+      {
+        word: "cucumber",
+        correctPronunciation: "KYOO-kuhm-bər",
+        wrongPronunciations: ["KOO-kuhm-bər", "kuh-KUHM-bər", "KYOO-kəm-ber", "kew-KUHM-ber"],
+        transcription: "/ˈkjuːkʌmbər/",
+      },
+      {
+        word: "stomach",
+        correctPronunciation: "STUHM-ək",
+        wrongPronunciations: ["STOH-match", "STUHM-atch", "stoh-MAK", "STOH-mik"],
+        transcription: "/ˈstʌmək/",
+      },
+    ],
+  },
+  {
+    id: "level-3",
+    name: "Level 3",
+    description: "Deceptive silent letters and unexpected consonants",
+    words: [
+      {
+        word: "debt",
+        correctPronunciation: "det",
+        wrongPronunciations: ["debt", "DEH-bit", "duh-BET", "DEEP-t"],
+        transcription: "/det/",
+      },
+      {
+        word: "doubt",
+        correctPronunciation: "dowt",
+        wrongPronunciations: ["DOW-bit", "doh-BT", "duh-BOHT", "DOO-bt"],
+        transcription: "/daʊt/",
+      },
+      {
+        word: "subtle",
+        correctPronunciation: "SUHT-l",
+        wrongPronunciations: ["SUHB-təl", "sub-TYLE", "SOOB-tl", "SUHB-tul"],
+        transcription: "/ˈsʌtl/",
+      },
+      {
+        word: "receipt",
+        correctPronunciation: "ri-SEET",
+        wrongPronunciations: ["ri-SEEPT", "REH-seept", "ruh-KEEPT", "REE-saypt"],
+        transcription: "/rɪˈsiːt/",
+      },
+      {
+        word: "island",
+        correctPronunciation: "EYE-lənd",
+        wrongPronunciations: ["EYES-lənd", "EES-lənd", "is-LAND", "AY-lahnd"],
+        transcription: "/ˈaɪlənd/",
+      },
+      {
+        word: "muscle",
+        correctPronunciation: "MUHS-əl",
+        wrongPronunciations: ["MUHS-kəl", "muhs-KLE", "MOOS-kəl", "MUH-skel"],
+        transcription: "/ˈmʌsl/",
+      },
+      {
+        word: "castle",
+        correctPronunciation: "KAS-əl",
+        wrongPronunciations: ["KAS-təl", "KAH-stəl", "kuh-STEL", "KAZ-tl"],
+        transcription: "/ˈkɑːsl/",
+      },
+      {
+        word: "whistle",
+        correctPronunciation: "HWIS-əl",
+        wrongPronunciations: ["HWIS-təl", "hwee-STEL", "WIS-tle", "WY-stəl"],
+        transcription: "/ˈwɪsl/",
+      },
+      {
+        word: "sword",
+        correctPronunciation: "sord",
+        wrongPronunciations: ["sword", "SWOHRD", "soo-ORD", "SWAHRD"],
+        transcription: "/sɔːd/",
+      },
+      {
+        word: "comb",
+        correctPronunciation: "kohm",
+        wrongPronunciations: ["kohm-b", "koom", "KAHM-b", "KOH-muh"],
+        transcription: "/kəʊm/",
+      },
+    ],
+  },
+  {
+    id: "level-4",
+    name: "Level 4",
+    description: "French loanwords and elegant silent endings",
+    words: [
+      {
+        word: "bouquet",
+        correctPronunciation: "boo-KAY",
+        wrongPronunciations: ["BOH-kwet", "bow-KWET", "boo-KET", "BOH-ket"],
+        transcription: "/buˈkeɪ/",
+      },
+      {
+        word: "ballet",
+        correctPronunciation: "ba-LAY",
+        wrongPronunciations: ["BAL-let", "bal-LAY-t", "BAW-let", "bah-LET"],
+        transcription: "/ˈbæleɪ/",
+      },
+      {
+        word: "buffet",
+        correctPronunciation: "bə-FAY",
+        wrongPronunciations: ["BUHF-fit", "boo-FAY-t", "BUHF-fayt", "bah-FET"],
+        transcription: "/ˈbʊfeɪ/",
+      },
+      {
+        word: "chef",
+        correctPronunciation: "shef",
+        wrongPronunciations: ["chef", "tʃef", "kayf", "seef"],
+        transcription: "/ʃef/",
+      },
+      {
+        word: "chic",
+        correctPronunciation: "sheek",
+        wrongPronunciations: ["chick", "tʃeek", "cheek", "kik"],
+        transcription: "/ʃiːk/",
+      },
+      {
+        word: "debris",
+        correctPronunciation: "də-BREE",
+        wrongPronunciations: ["DEB-ris", "duh-BRIS", "DAY-breez", "DEB-reez"],
+        transcription: "/ˈdebriː/",
+      },
+      {
+        word: "suite",
+        correctPronunciation: "sweet",
+        wrongPronunciations: ["soot", "soo-EET", "swyt", "SYOO-eet"],
+        transcription: "/swiːt/",
+      },
+      {
+        word: "rendezvous",
+        correctPronunciation: "RAHN-day-voo",
+        wrongPronunciations: ["REN-dez-vows", "ren-DEZ-voos", "RAHN-dez-voo", "ron-DAY-vuss"],
+        transcription: "/ˈrɒndeɪvuː/",
+      },
+      {
+        word: "faux pas",
+        correctPronunciation: "foh PAH",
+        wrongPronunciations: ["fawks PASS", "foh PASS", "fow PAH", "FAWX-pah"],
+        transcription: "/ˌfəʊ ˈpɑː/",
+      },
+      {
+        word: "chauffeur",
+        correctPronunciation: "SHOH-fər",
+        wrongPronunciations: ["CHAW-fər", "chaw-FOOR", "show-FOOR", "SHUHF-fer"],
+        transcription: "/ˈʃəʊfər/",
+      },
+    ],
+  },
+  {
+    id: "level-5",
+    name: "Level 5",
+    description: "Words of Greek, Latin, and scientific origin",
+    words: [
+      {
+        word: "chaos",
+        correctPronunciation: "KAY-oss",
+        wrongPronunciations: ["CHAH-os", "CHAY-os", "KAH-ohs", "shoh-OSS"],
+        transcription: "/ˈkeɪɒs/",
+      },
+      {
+        word: "choir",
+        correctPronunciation: "kwyre",
+        wrongPronunciations: ["choy-ər", "CHOH-eer", "koy-ər", "KWEER"],
+        transcription: "/ˈkwaɪər/",
+      },
+      {
+        word: "archive",
+        correctPronunciation: "AHR-kyve",
+        wrongPronunciations: ["AHR-chive", "ahr-SHEEV", "ahr-KEEV", "AHR-chiv"],
+        transcription: "/ˈɑːkaɪv/",
+      },
+      {
+        word: "hierarchy",
+        correctPronunciation: "HY-ər-ahr-kee",
+        wrongPronunciations: ["HEE-ər-ahr-kee", "hy-RAHR-chee", "hy-AR-kee", "HEE-rah-chee"],
+        transcription: "/ˈhaɪərɑːki/",
+      },
+      {
+        word: "schedule",
+        correctPronunciation: "SKEJ-ool",
+        wrongPronunciations: ["SHED-yool", "SKAY-dool", "SKEH-dyoo-lee", "shuh-DOOL"],
+        transcription: "/ˈskedʒuːl/",
+      },
+      {
+        word: "vehicle",
+        correctPronunciation: "VEE-ə-kəl",
+        wrongPronunciations: ["veh-HIK-əl", "vee-HIK-lee", "VAY-hi-kəl", "VEH-hye-kl"],
+        transcription: "/ˈviːəkl/",
+      },
+      {
+        word: "rhythm",
+        correctPronunciation: "RIð-əm",
+        wrongPronunciations: ["RY-thum", "REE-thəm", "RITH-uh-mee", "ruh-THOOM"],
+        transcription: "/ˈrɪðəm/",
+      },
+      {
+        word: "scheme",
+        correctPronunciation: "skeem",
+        wrongPronunciations: ["sheem", "chaym", "SKEM", "shkym"],
+        transcription: "/skiːm/",
+      },
+      {
+        word: "yacht",
+        correctPronunciation: "yot",
+        wrongPronunciations: ["yatch", "YAH-chet", "yowt", "YAHK-t"],
+        transcription: "/jɒt/",
+      },
+      {
+        word: "stomachache",
+        correctPronunciation: "STUHM-ək-ayk",
+        wrongPronunciations: ["STOH-match-ayk", "stuh-MAK-ayk", "STUHM-uh-katch", "stoh-MATCH-ake"],
+        transcription: "/ˈstʌməkeɪk/",
+      },
+    ],
+  },
+  {
+    id: "level-6",
+    name: "Level 6",
+    description: "Tricky stress placement and vowel alterations",
+    words: [
+      {
+        word: "colonel",
+        correctPronunciation: "KUR-nəl",
+        wrongPronunciations: ["KOH-luh-nəl", "kuh-LOH-nel", "kol-OH-nəl", "KOHL-nel"],
+        transcription: "/ˈkɜːnl/",
+      },
+      {
+        word: "epitome",
+        correctPronunciation: "ih-PIT-ə-mee",
+        wrongPronunciations: ["EP-i-tohm", "ep-i-TOHM", "ee-py-TOHM", "eh-PEE-tohm"],
+        transcription: "/ɪˈpɪtəmi/",
+      },
+      {
+        word: "hyperbole",
+        correctPronunciation: "hy-PUR-bə-lee",
+        wrongPronunciations: ["HY-pər-bohl", "hy-pər-BOHL", "hee-PER-boh-lee", "hy-PER-bowl"],
+        transcription: "/haɪˈpɜːbəli/",
+      },
+      {
+        word: "catastrophe",
+        correctPronunciation: "kə-TAS-trə-fee",
+        wrongPronunciations: ["KAT-ə-strohf", "kat-uh-STROH-fee", "kuh-TASS-trohf", "kay-TOSS-troh-fee"],
+        transcription: "/kəˈtæstrəfi/",
+      },
+      {
+        word: "anecdote",
+        correctPronunciation: "AN-ik-doht",
+        wrongPronunciations: ["uh-NEK-doht", "AN-ek-duh-tee", "an-ek-DOH-tee", "ah-NEK-duh-tay"],
+        transcription: "/ˈænɪkdəʊt/",
+      },
+      {
+        word: "photography",
+        correctPronunciation: "fə-TOG-rə-fee",
+        wrongPronunciations: ["FOH-tə-graf-ee", "foh-toh-GRAF-ee", "FOH-toh-graf", "foh-TOG-ruh-fy"],
+        transcription: "/fəˈtɒɡrəfi/",
+      },
+      {
+        word: "mischievous",
+        correctPronunciation: "MIS-chə-vəs",
+        wrongPronunciations: ["mis-CHEE-vee-əs", "mis-CHEE-vəs", "MIS-chee-vee-us", "mis-CHY-vəs"],
+        transcription: "/ˈmɪstʃɪvəs/",
+      },
+      {
+        word: "espresso",
+        correctPronunciation: "eh-SPRES-oh",
+        wrongPronunciations: ["ek-SPRES-oh", "EX-pres-oh", "es-PREE-soh", "ee-SPRESS-oh"],
+        transcription: "/eˈspresəʊ/",
+      },
+      {
+        word: "asterisk",
+        correctPronunciation: "AS-tə-risk",
+        wrongPronunciations: ["AS-tə-riks", "AS-treek", "ass-TER-isk", "AS-ter-ix"],
+        transcription: "/ˈæstərɪsk/",
+      },
+      {
+        word: "library",
+        correctPronunciation: "LY-brer-ee",
+        wrongPronunciations: ["LY-bree", "LY-ber-ee", "li-BRAY-ree", "ly-BRAH-ree"],
+        transcription: "/ˈlaɪbrəri/",
+      },
+    ],
+  },
+  {
+    id: "level-7",
+    name: "Level 7",
+    description: "International cuisine and culinary terms",
+    words: [
+      {
+        word: "quinoa",
+        correctPronunciation: "KEEN-wah",
+        wrongPronunciations: ["kwin-OH-uh", "kee-NOH-uh", "kwin-WAH", "KWIN-oh"],
+        transcription: "/ˈkiːnwɑː/",
+      },
+      {
+        word: "acai",
+        correctPronunciation: "ah-sah-EE",
+        wrongPronunciations: ["uh-KAI", "AK-eye", "ah-SAY-ee", "AH-kye"],
+        transcription: "/əˈsaɪ.iː/",
+      },
+      {
+        word: "bruschetta",
+        correctPronunciation: "broo-SKET-tuh",
+        wrongPronunciations: ["broo-SHET-tuh", "brush-ET-tuh", "broo-SKETCH-uh", "broo-SHET-ah"],
+        transcription: "/bruːˈsketə/",
+      },
+      {
+        word: "jalapeño",
+        correctPronunciation: "hah-luh-PEN-yoh",
+        wrongPronunciations: ["jah-lah-PEE-noh", "zhal-ah-PEN-yoh", "jah-lah-PEN-yoh", "HAL-ah-pee-no"],
+        transcription: "/ˌhæləˈpeɪnjoʊ/",
+      },
+      {
+        word: "mojito",
+        correctPronunciation: "moh-HEE-toh",
+        wrongPronunciations: ["moh-JEE-toh", "MAW-ji-toh", "moh-ZHEE-toh", "moh-HEET"],
+        transcription: "/moʊˈhiːtoʊ/",
+      },
+      {
+        word: "croissant",
+        correctPronunciation: "kwa-SAHN",
+        wrongPronunciations: ["KROY-sant", "krow-SAHNT", "KRAH-sant", "kroy-ZAHNT"],
+        transcription: "/ˈkrwæsɒ̃/",
+      },
+      {
+        word: "parmesan",
+        correctPronunciation: "PAHR-mə-zahn",
+        wrongPronunciations: ["pahr-mee-ZAHN", "par-MEE-zən", "PAHR-mi-zan", "pahr-meh-ZAHN"],
+        transcription: "/ˈpɑːmɪzæn/",
+      },
+      {
+        word: "prosciutto",
+        correctPronunciation: "proh-SHOO-toh",
+        wrongPronunciations: ["proh-SKEE-oh-toh", "proh-SEE-yoo-toh", "proh-SKIT-toh", "praw-SHOOT"],
+        transcription: "/prəˈʃuːtəʊ/",
+      },
+      {
+        word: "tortilla",
+        correctPronunciation: "tor-TEE-yuh",
+        wrongPronunciations: ["tor-TIL-luh", "tor-TEE-lah", "TOR-til-yuh", "tor-TEE-ah"],
+        transcription: "/tɔːˈtiːə/",
+      },
+      {
+        word: "guacamole",
+        correctPronunciation: "gwah-kuh-MOH-lee",
+        wrongPronunciations: ["gwak-uh-MOHL", "gwa-kuh-MAH-lee", "gwak-a-MOLE", "gah-kuh-MOH-lee"],
+        transcription: "/ˌɡwækəˈmoʊli/",
+      },
+    ],
+  },
+  {
+    id: "level-8",
+    name: "Level 8",
+    description: "Formal, legal, and deceptively spelt vocabulary",
+    words: [
+      {
+        word: "indict",
+        correctPronunciation: "in-DYTE",
+        wrongPronunciations: ["in-DIKT", "IN-dikt", "in-DEEKT", "EEN-dyt"],
+        transcription: "/ɪnˈdaɪt/",
+      },
+      {
+        word: "gauge",
+        correctPronunciation: "gayj",
+        wrongPronunciations: ["gawj", "gowj", "GAH-oo-jee", "gaw-ge"],
+        transcription: "/ɡeɪdʒ/",
+      },
+      {
+        word: "draught",
+        correctPronunciation: "draft",
+        wrongPronunciations: ["drawt", "drowt", "DRAH-oot", "drayt"],
+        transcription: "/drɑːft/",
+      },
+      {
+        word: "drought",
+        correctPronunciation: "drowt",
+        wrongPronunciations: ["draft", "drawt", "droo-t", "DROH-oot"],
+        transcription: "/draʊt/",
+      },
+      {
+        word: "sew",
+        correctPronunciation: "soh",
+        wrongPronunciations: ["soo", "syoo", "saw", "SEE-oo"],
+        transcription: "/səʊ/",
+      },
+      {
+        word: "bury",
+        correctPronunciation: "BER-ee",
+        wrongPronunciations: ["BUR-ee", "BOO-ree", "BYOO-ree", "BAH-ree"],
+        transcription: "/ˈberi/",
+      },
+      {
+        word: "lieutenant",
+        correctPronunciation: "lef-TEN-ənt",
+        wrongPronunciations: ["loo-TEN-ant", "lee-OO-ten-ent", "lay-oo-TEN-ənt", "loo-tin-AHNT"],
+        transcription: "/lefˈtenənt/",
+      },
+      {
+        word: "niche",
+        correctPronunciation: "neesh",
+        wrongPronunciations: ["nitch", "nyche", "NEEK-ee", "naysh"],
+        transcription: "/niːʃ/",
+      },
+      {
+        word: "cache",
+        correctPronunciation: "kash",
+        wrongPronunciations: ["kaysh", "KAY-shay", "kash-AY", "KAH-chee"],
+        transcription: "/kæʃ/",
+      },
+      {
+        word: "genre",
+        correctPronunciation: "ZHAHN-ruh",
+        wrongPronunciations: ["JEN-rə", "JON-ruh", "zhawn-RAY", "JAHN-ray"],
+        transcription: "/ˈʒɒnrə/",
+      },
+    ],
+  },
+  {
+    id: "level-9",
+    name: "Level 9",
+    description: "Challenging polysyllabic and easily garbled words",
+    words: [
+      {
+        word: "anemone",
+        correctPronunciation: "uh-NEM-ə-nee",
+        wrongPronunciations: ["AN-uh-mohn", "an-uh-MOH-nee", "AN-uh-moh-nee", "uh-NEHM-own"],
+        transcription: "/əˈneməni/",
+      },
+      {
+        word: "archipelago",
+        correctPronunciation: "ahr-kuh-PEL-uh-goh",
+        wrongPronunciations: ["ahr-chuh-PEL-uh-goh", "ahr-kuh-puh-LAH-goh", "ahr-chee-puh-LAY-goh", "arch-ee-PEL-uh-goh"],
+        transcription: "/ˌɑːkɪˈpeləɡəʊ/",
+      },
+      {
+        word: "chamomile",
+        correctPronunciation: "KAM-ə-meel",
+        wrongPronunciations: ["CHAH-moh-myle", "chuh-MOM-uh-lee", "KAY-moh-myle", "KAM-oh-myl"],
+        transcription: "/ˈkæməmaɪl/",
+      },
+      {
+        word: "conscientious",
+        correctPronunciation: "kahn-shee-EN-shəs",
+        wrongPronunciations: ["kahn-SEE-en-shus", "kahn-SHEN-chəs", "kohn-see-EN-tee-us", "kahn-shun-TEE-əs"],
+        transcription: "/ˌkɒnʃiˈenʃəs/",
+      },
+      {
+        word: "pronunciation",
+        correctPronunciation: "pruh-nuhn-see-AY-shən",
+        wrongPronunciations: ["pruh-nown-see-AY-shən", "proh-NOWN-see-ay-shən", "proh-nuhn-SY-shun", "pruh-nown-SAY-shən"],
+        transcription: "/prəˌnʌnsiˈeɪʃn/",
+      },
+      {
+        word: "nuclear",
+        correctPronunciation: "NOO-klee-ər",
+        wrongPronunciations: ["noo-KYOO-lər", "noo-klee-AHR", "nyoo-KYOO-ler", "NOOK-yuh-ler"],
+        transcription: "/ˈnjuːkliər/",
+      },
+      {
+        word: "forte",
+        correctPronunciation: "FOR-tay",
+        wrongPronunciations: ["fort", "for-TEE", "FOHR-tuh", "FOR-ty"],
+        transcription: "/ˈfɔːteɪ/",
+      },
+      {
+        word: "prescription",
+        correctPronunciation: "pruh-SKRIP-shən",
+        wrongPronunciations: ["pər-SKRIP-shən", "proh-SKREEP-shən", "PREE-skrip-shən", "pur-SKRYP-shun"],
+        transcription: "/prɪˈskrɪpʃn/",
+      },
+      {
+        word: "athlete",
+        correctPronunciation: "ATH-leet",
+        wrongPronunciations: ["ATH-ə-leet", "ath-LEET-ee", "AY-thleet", "ah-THLET-ik"],
+        transcription: "/ˈæθliːt/",
+      },
+      {
+        word: "triathlon",
+        correctPronunciation: "try-ATH-lahn",
+        wrongPronunciations: ["try-ATH-ə-lahn", "tree-ATH-lon", "try-ah-THLOHN", "tree-ah-tuh-LON"],
+        transcription: "/traɪˈæθlɒn/",
+      },
+    ],
+  },
+  {
+    id: "level-10",
+    name: "Level 10",
+    description: "Mastery level: extreme English pronunciation anomalies",
+    words: [
+      {
+        word: "worcestershire",
+        correctPronunciation: "WOOS-tər-shər",
+        wrongPronunciations: ["wor-CHES-tər-shyre", "WOR-ses-ter-sheer", "wahr-kest-er-SHYRE", "WOOR-ses-tər"],
+        transcription: "/ˈwʊstəʃər/",
+      },
+      {
+        word: "pharaoh",
+        correctPronunciation: "FAIR-oh",
+        wrongPronunciations: ["fah-RAH-oh", "fay-RAY-oh", "fah-ROH", "FAHR-ah-oh"],
+        transcription: "/ˈfeərəʊ/",
+      },
+      {
+        word: "segue",
+        correctPronunciation: "SEG-way",
+        wrongPronunciations: ["seeg", "seh-GOO-ee", "SEHG", "suh-GWAY"],
+        transcription: "/ˈseɡweɪ/",
+      },
+      {
+        word: "quay",
+        correctPronunciation: "kee",
+        wrongPronunciations: ["kway", "kay", "kwoo-AY", "kye"],
+        transcription: "/kiː/",
+      },
+      {
+        word: "bourgeois",
+        correctPronunciation: "boor-ZHWAH",
+        wrongPronunciations: ["BOOR-zhwahz", "boor-joy-S", "BAWR-jee-ohs", "bor-GOH-is"],
+        transcription: "/ˈbʊərʒwɑː/",
+      },
+      {
+        word: "poignant",
+        correctPronunciation: "POYN-yənt",
+        wrongPronunciations: ["POYG-nənt", "poyg-NAHNT", "poy-NANT", "pawn-YAHNT"],
+        transcription: "/ˈpɔɪnjənt/",
+      },
+      {
+        word: "victuals",
+        correctPronunciation: "VIT-lz",
+        wrongPronunciations: ["VIK-choo-wəls", "vik-TOO-als", "VEEK-too-lz", "vit-yoo-ULS"],
+        transcription: "/ˈvɪtlz/",
+      },
+      {
+        word: "macabre",
+        correctPronunciation: "muh-KAH-bruh",
+        wrongPronunciations: ["muh-KAH-bray", "MAK-uh-bər", "muh-KAB-ree", "may-KAH-bruh"],
+        transcription: "/məˈkɑːbrə/",
+      },
+      {
+        word: "sieve",
+        correctPronunciation: "siv",
+        wrongPronunciations: ["seev", "syve", "SEE-ev", "sayv"],
+        transcription: "/sɪv/",
+      },
+      {
+        word: "chasm",
+        correctPronunciation: "KAZ-əm",
+        wrongPronunciations: ["CHAZ-əm", "KAH-zəm", "chah-ZUM", "kay-ZUM"],
+        transcription: "/ˈkæzəm/",
+      },
+    ],
+  },
+];

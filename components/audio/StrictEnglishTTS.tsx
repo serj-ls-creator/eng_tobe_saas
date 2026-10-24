@@ -1,79 +1,134 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Volume2, VolumeX } from 'lucide-react';
 
-interface StrictEnglishTTSProps {
-  text: string;
-  className?: string;
+export function pickPreferredEnglishVoice(englishVoices: SpeechSynthesisVoice[]): SpeechSynthesisVoice | null {
+  if (!englishVoices || englishVoices.length === 0) return null;
+
+  const maleHints = [
+    'male',
+    'david',
+    'mark',
+    'daniel',
+    'alex',
+    'michael',
+    'thomas',
+    'george',
+    'james',
+    'john',
+    'peter',
+    'paul',
+    'brian',
+    'fred',
+    'ralph',
+  ];
+
+  const exactUS = englishVoices.filter((v) => v.lang === 'en-US');
+  const candidates = exactUS.length ? exactUS : englishVoices;
+
+  const byName = candidates.find((v) => maleHints.some((hint) => v.name.toLowerCase().includes(hint)));
+  return byName ?? candidates[0];
 }
 
-export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps) {
+export function speakStrictEnglish(
+  text: string,
+  callbacks?: {
+    onStart?: () => void;
+    onEnd?: () => void;
+    onError?: (event: any) => void;
+  },
+): boolean {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+    return false;
+  }
+
+  const voices = window.speechSynthesis.getVoices();
+  const englishVoices = voices.filter(
+    (voice) => voice.lang && voice.lang.toLowerCase().startsWith('en'),
+  );
+
+  // STRICT: If no English voice is available, NEVER speak (prevents Russian/foreign voice fallback)
+  if (englishVoices.length === 0) {
+    console.log('❌ STRICT TTS: No English voices available - speech aborted');
+    return false;
+  }
+
+  const preferredVoice = pickPreferredEnglishVoice(englishVoices);
+  if (!preferredVoice) {
+    return false;
+  }
+
+  try {
+    window.speechSynthesis.cancel();
+
+    setTimeout(() => {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.voice = preferredVoice;
+      utterance.lang = preferredVoice.lang || 'en-US';
+      utterance.rate = 0.8;
+      utterance.pitch = 1.0;
+      utterance.volume = 1.0;
+
+      utterance.onstart = () => {
+        callbacks?.onStart?.();
+      };
+      utterance.onend = () => {
+        callbacks?.onEnd?.();
+      };
+      utterance.onerror = (event) => {
+        callbacks?.onError?.(event);
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }, 100);
+
+    return true;
+  } catch (error) {
+    console.error('❌ StrictEnglishTTS speak error:', error);
+    return false;
+  }
+}
+
+export interface StrictEnglishTTSProps {
+  text: string;
+  className?: string;
+  autoPlay?: boolean;
+}
+
+export function StrictEnglishTTS({ text, className = '', autoPlay = false }: StrictEnglishTTSProps) {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [isSupported, setIsSupported] = useState(true);
   const [voicesLoaded, setVoicesLoaded] = useState(false);
-
-  function pickPreferredEnglishVoice(englishVoices: SpeechSynthesisVoice[]) {
-    const maleHints = [
-      "male",
-      "david",
-      "mark",
-      "daniel",
-      "alex",
-      "michael",
-      "thomas",
-      "george",
-      "james",
-      "john",
-      "peter",
-      "paul",
-      "brian",
-      "fred",
-      "ralph"
-    ];
-
-    const exactUS = englishVoices.filter((v) => v.lang === "en-US");
-    const candidates = exactUS.length ? exactUS : englishVoices;
-
-    const byName = candidates.find((v) => maleHints.some((hint) => v.name.toLowerCase().includes(hint)));
-    return byName ?? candidates[0];
-  }
+  const hasAutoPlayedRef = useRef<string | null>(null);
 
   // Load voices on mount
   useEffect(() => {
     const loadVoices = () => {
       const voices = window.speechSynthesis.getVoices();
-      console.log('🔍 Loading voices, total:', voices.length);
 
-      // On some browsers (especially mobile), voices are loaded asynchronously.
-      // When `voices.length === 0`, we should not mark TTS as unsupported yet.
       if (voices.length === 0) {
         setVoicesLoaded(false);
         return false;
       }
-      
-      const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
-      console.log('🇺🇸 English voices:', englishVoices.length);
-      
+
+      const englishVoices = voices.filter(
+        (voice) => voice.lang && voice.lang.toLowerCase().startsWith('en'),
+      );
+
       if (englishVoices.length === 0) {
         console.log('❌ NO ENGLISH VOICES - TTS DISABLED');
         setIsSupported(false);
       } else {
-        console.log('✅ ENGLISH VOICES AVAILABLE:', englishVoices.map(v => v.name));
         setIsSupported(true);
       }
-      
+
       setVoicesLoaded(true);
       return true;
     };
 
-    // Load immediately
     loadVoices();
 
-    // IMPORTANT: `speechSynthesis.onvoiceschanged` is a single global handler.
-    // When multiple <StrictEnglishTTS /> instances are rendered, assigning it here
-    // causes the last mounted instance to overwrite the others.
-    // Instead, poll per-instance for a short time until voices are available.
     let attempts = 0;
     const interval = window.setInterval(() => {
       attempts += 1;
@@ -88,82 +143,39 @@ export function StrictEnglishTTS({ text, className = '' }: StrictEnglishTTSProps
     };
   }, []);
 
-  const speak = () => {
-    try {
-      if (!('speechSynthesis' in window)) {
-        console.log('❌ Speech synthesis not supported');
-        setIsSupported(false);
-        return;
-      }
+  const speak = useCallback(() => {
+    if (!('speechSynthesis' in window)) {
+      setIsSupported(false);
+      return;
+    }
 
-      if (!voicesLoaded) {
-        console.log('⏳ Voices not loaded yet, please wait...');
-        // Re-trigger voices load attempt (helps on some devices).
-        window.speechSynthesis.getVoices();
-        return;
-      }
+    if (!voicesLoaded) {
+      window.speechSynthesis.getVoices();
+      return;
+    }
 
-      if (!isSupported) {
-        console.log('❌ TTS not supported (no English voices)');
-        return;
-      }
+    if (!isSupported) {
+      return;
+    }
 
-      console.log('🎤 Starting speech for:', text);
-      
-      // Get fresh voices
-      const voices = window.speechSynthesis.getVoices();
-      const englishVoices = voices.filter(voice => voice.lang.startsWith('en'));
-      
-      if (englishVoices.length === 0) {
-        console.log('❌ NO ENGLISH VOICES AVAILABLE');
-        setIsSupported(false);
-        return;
-      }
+    const success = speakStrictEnglish(text, {
+      onStart: () => setIsSpeaking(true),
+      onEnd: () => setIsSpeaking(false),
+      onError: () => setIsSpeaking(false),
+    });
 
-      setIsSpeaking(true);
-      
-      // Cancel any ongoing speech
-      window.speechSynthesis.cancel();
-      
-      // Small delay to ensure cancel is processed
-      setTimeout(() => {
-        const utterance = new SpeechSynthesisUtterance(text);
-        
-        // Force English settings
-        utterance.lang = 'en-US';
-        utterance.rate = 0.8;
-        utterance.pitch = 1.0;
-        utterance.volume = 1.0;
-        
-        // Prefer a likely male English voice if available
-        const preferredVoice = pickPreferredEnglishVoice(englishVoices);
-        utterance.voice = preferredVoice;
-        console.log('✅ Using English voice:', preferredVoice.name);
-        
-        utterance.onstart = () => {
-          console.log('✅ English speech started');
-          setIsSpeaking(true);
-        };
-        
-        utterance.onend = () => {
-          console.log('✅ English speech ended');
-          setIsSpeaking(false);
-        };
-        
-        utterance.onerror = (event) => {
-          console.error('❌ English speech error:', event);
-          setIsSpeaking(false);
-        };
-        
-        // Speak with English voice
-        window.speechSynthesis.speak(utterance);
-      }, 100);
-      
-    } catch (error) {
-      console.error('❌ TTS Error:', error);
+    if (!success) {
+      setIsSupported(false);
       setIsSpeaking(false);
     }
-  };
+  }, [isSupported, text, voicesLoaded]);
+
+  useEffect(() => {
+    if (autoPlay && isSupported && voicesLoaded && hasAutoPlayedRef.current !== text) {
+      hasAutoPlayedRef.current = text;
+      speak();
+    }
+  }, [autoPlay, isSupported, speak, text, voicesLoaded]);
 
   const stopSpeaking = () => {
     if ('speechSynthesis' in window) {

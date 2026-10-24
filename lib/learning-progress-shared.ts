@@ -1,5 +1,6 @@
 import { CATS, IDIOM_CATS, SENT_CATS, ALL_SENTENCE_CATS, PHRASAL_VERBS_CAT, WORD_GAME_ACTIVITIES, GRAMMAR_CATS } from "@/constants/categories";
 import { SILENT_WORD_LEVELS } from "@/data/words/pronounce/silent_words";
+import { PRONUNCIATION_LEVELS } from "@/data/words/pronounce/pronunciation";
 import { A1_C2_PHRASES } from "@/data/sentences/a1-c2-phrases";
 import { GRAMMAR_SECTIONS, type GrammarTopic } from "@/constants/grammar";
 
@@ -149,6 +150,25 @@ export function buildLearningProgressSnapshot(rows: LearningProgressRow[], isLog
             topicId: "dont-pronounce",
             levelId: level.id,
             activityId: "dont-pronounce"
+          });
+
+          return activityStatuses[key] ?? "none";
+        });
+
+        const topicStatus = aggregateStatuses(levelStatuses);
+        containerStatuses[topicKey] = topicStatus;
+        topicStatuses.push(topicStatus);
+        return;
+      }
+
+      if (category.id === "pronounce" && topic.id === "pronunciation") {
+        const levelStatuses = PRONUNCIATION_LEVELS.map((level) => {
+          const key = buildProgressKey({
+            section: "words",
+            categoryId: "pronounce",
+            topicId: "pronunciation",
+            levelId: level.id,
+            activityId: "pronunciation"
           });
 
           return activityStatuses[key] ?? "none";
@@ -560,6 +580,21 @@ function buildWordsActivityKeys(): string[] {
               topicId: "dont-pronounce",
               levelId: level.id,
               activityId: "dont-pronounce"
+            })
+          );
+        });
+        return;
+      }
+
+      if (category.id === "pronounce" && topic.id === "pronunciation") {
+        PRONUNCIATION_LEVELS.forEach((level) => {
+          keys.push(
+            buildProgressKey({
+              section: "words",
+              categoryId: "pronounce",
+              topicId: "pronunciation",
+              levelId: level.id,
+              activityId: "pronunciation"
             })
           );
         });

@@ -21,6 +21,8 @@ interface CompletionModalProps {
   onBackToTopics?: () => void;
   onGoHome?: () => void;
   primaryActionTone?: 'theme' | 'cyan';
+  nextSubcategoryLabel?: string;
+  backToTopicsLabel?: string;
 }
 
 function formatActivityName(activityId: string): string {
@@ -118,6 +120,21 @@ function inferProgressPayload({
       levelId: segments[3],
       activityId: 'dont-pronounce',
       activityName: "Don't Pronounce",
+      title: subcategoryName,
+      href: pathname,
+      score: completed,
+      total,
+    };
+  }
+
+  if (segments[0] === 'words' && segments[1] === 'pronounce' && segments[2] === 'pronunciation' && segments[3]) {
+    return {
+      section: 'words',
+      categoryId,
+      topicId: 'pronunciation',
+      levelId: segments[3],
+      activityId: 'pronunciation',
+      activityName: 'Pronunciation',
       title: subcategoryName,
       href: pathname,
       score: completed,
@@ -228,7 +245,9 @@ export function CompletionModal({
   onNextSubcategory,
   onBackToTopics,
   onGoHome,
-  primaryActionTone = 'theme'
+  primaryActionTone = 'theme',
+  nextSubcategoryLabel,
+  backToTopicsLabel
 }: CompletionModalProps) {
   const [mounted, setMounted] = useState(false);
   const [activityResult, setActivityResult] = useState<ActivityResult | null>(null);
@@ -388,7 +407,7 @@ export function CompletionModal({
               onClick={() => handleNavigate(onNextSubcategory)}
               className={`w-full ${primaryActionTone === 'cyan' ? 'bg-cyan-400 hover:bg-cyan-500 text-black' : 'bg-theme hover:bg-theme-strong text-theme-foreground'} font-semibold py-3 px-6 rounded-control transition-colors`}
             >
-              Next Subcategory
+              {nextSubcategoryLabel || 'Next Subcategory'}
             </button>
           )}
           
@@ -397,14 +416,14 @@ export function CompletionModal({
               onClick={() => handleNavigate(onBackToTopics)}
               className="w-full bg-slate-800 hover:bg-slate-700 text-white font-medium py-3 px-6 rounded-xl transition-colors"
             >
-              Back to Topics
+              {backToTopicsLabel || 'Back to Topics'}
             </button>
           )}
 
           {onGoHome && (
             <button
               onClick={() => handleNavigate(onGoHome)}
-              className="w-full bg-cyan-400 hover:bg-cyan-500 text-black font-semibold py-3 px-6 rounded-control transition-colors"
+              className="w-full border border-white/10 bg-white/5 hover:bg-white/10 text-white font-medium py-3 px-6 rounded-control transition-colors"
             >
               Go Home
             </button>

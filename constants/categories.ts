@@ -183,8 +183,8 @@ export const CATS: WordCategory[] = [
       {
         id: "pronunciation",
         name: "Pronunciation",
-        description: "Coming Soon",
-        href: "/words#pronunciation",
+        description: "Tricky spoken English patterns||100 words",
+        href: "/words/pronounce/pronunciation",
         access: "free",
         isFree: true
       }
