@@ -52,7 +52,7 @@ export function WordOfDayCard({
     <>
       <GlowBorder innerClassName="hover:opacity-90 transition-opacity">
         <div>
-          <Link href="/words" className="mb-2 block text-[10px] uppercase tracking-[0.3em] text-zinc-500">
+          <Link href="/words" className="mb-2 block text-[10px] uppercase tracking-[0.3em] text-cyan-400">
             {title}
           </Link>
           <Link href="/words" className="mb-2 flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
