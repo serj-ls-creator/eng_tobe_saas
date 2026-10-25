@@ -164,7 +164,7 @@ export const DIGITAL: Subcategory[] = [
   // 3. SOCIAL MEDIA
   // ─────────────────────────────────────────
   {
-    id: 'social_media',
+    id: 'social-media',
     name: 'Social Media',
     words: [
       {
@@ -234,7 +234,7 @@ export const DIGITAL: Subcategory[] = [
   // 4. WORK TOOLS
   // ─────────────────────────────────────────
   {
-    id: 'work_tools',
+    id: 'work-tools',
     name: 'Work Tools',
     words: [
       {
