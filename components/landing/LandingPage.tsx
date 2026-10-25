@@ -16,6 +16,18 @@ const TIKTOK_SVG_LG = (
   </svg>
 );
 
+const INSTAGRAM_SVG = (
+  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+);
+
+const INSTAGRAM_SVG_LG = (
+  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+);
+
 const TEXT_PAIRS = [
   ['"I think"', '"If you ask me"'],
   ['"Bad idea"', '"That\'s a recipe for disaster"'],
@@ -41,15 +53,15 @@ const LANDING_NAV_LINKS = [
 ];
 
 const FLIP_DATA = [
-  { normal: "I think",        advanced: "I am of the opinion",              category: "Basic → Advanced" },
-  { normal: "Bad idea",       advanced: "That is ill-advised",              category: "Basic → Advanced" },
-  { normal: "I'm ready",      advanced: "I am prepared",                    category: "Basic → Advanced" },
-  { normal: "Very hard",      advanced: "Exceedingly difficult",            category: "Basic → Advanced" },
+  { normal: "I think",        advanced: "If you ask me",                    category: "Basic → Advanced" },
+  { normal: "Bad idea",       advanced: "That\'s a recipe for disaster",    category: "Basic → Advanced" },
+  { normal: "I'm ready",      advanced: "I\'m good to go",                  category: "Basic → Advanced" },
+  { normal: "Very hard",      advanced: "It\'s no walk in the park",        category: "Basic → Advanced" },
   { normal: "A lot of",       advanced: "A multitude of",                   category: "Basic → Advanced" },
-  { normal: "Good job",       advanced: "Outstanding work",                 category: "Basic → Advanced" },
-  { normal: "I don't know",   advanced: "I am not certain",                 category: "Formal"           },
+  { normal: "I\'m tired",       advanced: "I\'m wiped out",                 category: "Basic → Advanced" },
+  { normal: "I don't know",   advanced: "Beats me",                         category: "Formal"           },
   { normal: "Shut up!",       advanced: "I would appreciate some silence",  category: "Rude → Polite"    },
-  { normal: "Piece of cake",  advanced: "That was remarkably straightforward", category: "Idiom Upgrade" },
+  { normal: "Piece of cake",  advanced: "It\'s easy", category: "Idiom Upgrade" },
 ];
 
 export default function LandingPage() {
@@ -291,16 +303,33 @@ export default function LandingPage() {
                 Start for Free
                 <span className="group-hover:translate-x-0.5 transition-transform inline-block shrink-0">→</span>
               </Link>
-              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
-                 className="flex-1 min-w-0 px-3 py-2.5 sm:flex-none sm:w-fit sm:px-7 sm:py-3.5 border border-white/10 rounded-full text-neutral-300 hover:border-white/20 hover:text-white transition-all flex items-center justify-center gap-1.5 sm:gap-2.5 text-[11px] sm:text-sm whitespace-nowrap">
-                <span className="shrink-0">{TIKTOK_SVG}</span>
-                <span className="truncate">Follow on TikTok</span>
-              </a>
             </div>
-            <div className="reveal reveal-delay-5 mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white">
-              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-green-500" /> <strong>Free to start</strong></span>
-              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]" /> <strong>No ads</strong></span>
-              <span className="flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-[#FF3D71]" /> <strong>1500+ Advanced Words</strong></span>
+            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white">
+              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '2.8s' }}><span className="w-1.5 h-1.5 rounded-full bg-green-500" /> <strong>Free to start</strong></span>
+              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '2.9s' }}><span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]" /> <strong>No ads</strong></span>
+              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '3.0s' }}><span className="w-1.5 h-1.5 rounded-full bg-[#FF3D71]" /> <strong>1500+ Advanced Words</strong></span>
+            </div>
+            <div className="mt-6 flex gap-3">
+              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '2.5s' }}>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg">{TIKTOK_SVG_LG}</span>
+                  <div className="flex flex-col">
+                    <span className="text-[#FF3D71] font-bold text-sm">237.000+</span>
+                    <span className="text-neutral-500 text-[10px]">followers on TikTok</span>
+                  </div>
+                </div>
+                <span className="text-neutral-400 text-xs ml-1 group-hover:text-white transition-colors">→</span>
+              </a>
+              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '2.9s' }}>
+                <div className="flex items-center gap-2">
+                  <span className="text-lg" style={{ backgroundImage: 'linear-gradient(to right, #A855F7, #EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{INSTAGRAM_SVG_LG}</span>
+                  <div className="flex flex-col">
+                    <span className="font-bold text-sm" style={{ backgroundImage: 'linear-gradient(to right, #C084FC, #F472B6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>9.600+</span>
+                    <span className="text-neutral-500 text-[10px]">followers on Instagram</span>
+                  </div>
+                </div>
+                <span className="text-neutral-400 text-xs ml-1 group-hover:text-white transition-colors">→</span>
+              </a>
             </div>
           </div>
 
@@ -388,7 +417,7 @@ export default function LandingPage() {
                 </div>
                 <h2 className="mb-2 text-[11px] font-semibold">Quick Start</h2>
                 <div className="grid grid-cols-2 gap-2 mb-3">
-                  {[["📖","Words","8 categories"],["💬","Sentences","A1 to C2"],["🚀","Phrasal verbs","4 topics"],["💡","Idioms","7 topics"],["📚","Grammar+Tenses","24 topics"],["🎮","Games","Wordle & more"]].map(([icon, title, sub]) => (
+                  {[["📖","Words","7 categories"],["💡","Idioms","7 topics"],["🚀","Phrasal verbs","4 topics"],["💬","Sentences","A1 to C2"],["📚","Grammar+Tenses","24 topics"],["🎮","Games","Wordle & more"]].map(([icon, title, sub]) => (
                     <div key={title} className="bg-white/[0.04] rounded-lg p-2.5 border border-white/5">
                       <div className="text-[#00E5FF] mb-1.5">{icon}</div>
                       <div className="text-[9px] font-medium leading-tight">{title}</div>
@@ -450,7 +479,7 @@ export default function LandingPage() {
             </h2>
             <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">From basic vocabulary to advanced idioms — structured, gamified, and actually effective.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Words */}
             <Link href="/words" className="reveal reveal-delay-1 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,61,113,0.12)", ["--glow-border" as string]: "rgba(255,61,113,0.25)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF3D71]/5 rounded-full blur-[60px]" />
@@ -461,7 +490,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold">Words</h3>
-                    <span className="text-[11px] text-neutral-500">8 categories</span>
+                    <span className="text-[11px] text-neutral-500">7 categories</span>
                   </div>
                 </div>
                 <div className="space-y-2 text-sm">
@@ -476,33 +505,8 @@ export default function LandingPage() {
                 </div>
               </div>
             </Link>
-            {/* Sentences */}
-            <Link href="/sentences" className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[60px]" />
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-11 h-11 rounded-xl bg-[#00E5FF]/10 flex items-center justify-center">
-                    <span className="text-[#00E5FF] text-xl">💬</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold">Sentences</h3>
-                    <span className="text-[11px] text-neutral-500">4 categories</span>
-                  </div>
-                </div>
-                <div className="space-y-2 text-sm">
-                  {['A1 to C2 Phrases — level by level','Phrasal Verbs — the real way natives speak','"Don\'t say: Very easy" — stop overusing words','Slang & Modern English expressions'].map(t => (
-                    <div key={t} className="flex items-center gap-2 text-neutral-400"><span className="w-1 h-1 rounded-full bg-[#00E5FF]/60" />{t}</div>
-                  ))}
-                </div>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {["A1","B2","C1","C2"].map(t => (
-                    <span key={t} className="px-2.5 py-1 rounded-md bg-[#00E5FF]/10 text-[#00E5FF] text-[11px] font-medium">{t}</span>
-                  ))}
-                </div>
-              </div>
-            </Link>
             {/* Idioms */}
-            <Link href="/idioms" className="reveal reveal-delay-3 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,217,61,0.1)", ["--glow-border" as string]: "rgba(255,217,61,0.2)" }}>
+            <Link href="/idioms" className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,217,61,0.1)", ["--glow-border" as string]: "rgba(255,217,61,0.2)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD93D]/5 rounded-full blur-[60px]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
@@ -521,8 +525,83 @@ export default function LandingPage() {
                 </div>
               </div>
             </Link>
+            {/* Phrasal Verbs */}
+            <Link href="/phrasal-verbs" className="reveal reveal-delay-3 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(236,72,153,0.12)", ["--glow-border" as string]: "rgba(236,72,153,0.25)" }}>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#EC4899]/5 rounded-full blur-[60px]" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-11 h-11 rounded-xl bg-[#EC4899]/10 flex items-center justify-center">
+                    <span className="text-[#EC4899] text-xl">🚀</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">Phrasal Verbs</h3>
+                    <span className="text-[11px] text-neutral-500">4 topics</span>
+                  </div>
+                </div>
+                <div className="space-y-2 text-sm">
+                  {["Everyday Situations — Real conversations","Business Phrasal Verbs — Professional English","Travel Phrasal Verbs — On the go","Technology Phrasal Verbs — Digital world"].map(t => (
+                    <div key={t} className="flex items-center gap-2 text-neutral-400"><span className="w-1 h-1 rounded-full bg-[#EC4899]/60" />{t}</div>
+                  ))}
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["Cards","Choice","Find Mistake","Pairs"].map(t => (
+                    <span key={t} className="px-2.5 py-1 rounded-md bg-[#EC4899]/10 text-[#EC4899] text-[11px] font-medium">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </Link>
+            {/* Sentences */}
+            <Link href="/sentences" className="reveal reveal-delay-4 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[60px]" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-11 h-11 rounded-xl bg-[#00E5FF]/10 flex items-center justify-center">
+                    <span className="text-[#00E5FF] text-xl">💬</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">Sentences</h3>
+                    <span className="text-[11px] text-neutral-500">4 categories</span>
+                  </div>
+                </div>
+                <div className="space-y-2 text-sm">
+                  {['A1 to C2 Phrases — level by level','Phrasal Verbs — the real way natives speak','"Don\'t say: Very easy" — stop overusing words','Slang & Modern English expressions'].map(t => (
+                    <div key={t} className="flex items-center gap-2 text-neutral-400"><span className="w-1 h-1 rounded-full bg-[#00E5FF]/60" />{t}</div>
+                  ))}
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["A1","A2","B1","B2","C1","C2"].map(t => (
+                    <span key={t} className="px-2.5 py-1 rounded-md bg-[#00E5FF]/10 text-[#00E5FF] text-[11px] font-medium">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </Link>
+            {/* Grammar+Tenses */}
+            <Link href="/grammar" className="reveal reveal-delay-5 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(34,197,94,0.12)", ["--glow-border" as string]: "rgba(34,197,94,0.25)" }}>
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[#22C55E]/5 rounded-full blur-[60px]" />
+              <div className="relative z-10">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-11 h-11 rounded-xl bg-[#22C55E]/10 flex items-center justify-center">
+                    <span className="text-[#22C55E] text-xl">�</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold">Grammar+Tenses</h3>
+                    <span className="text-[11px] text-neutral-500">24 topics</span>
+                  </div>
+                </div>
+                <div className="space-y-2 text-sm">
+                  {["Articles — a, an, the","Adjective Order — correct word sequence","Word Order — sentence structure","Find the Mistake — error correction"].map(t => (
+                    <div key={t} className="flex items-center gap-2 text-neutral-400"><span className="w-1 h-1 rounded-full bg-[#22C55E]/60" />{t}</div>
+                  ))}
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["Rule","Find Mistake"].map(t => (
+                    <span key={t} className="px-2.5 py-1 rounded-md bg-[#22C55E]/10 text-[#22C55E] text-[11px] font-medium">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </Link>
             {/* Games */}
-            <Link href="/games" className="reveal reveal-delay-4 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(168,85,247,0.12)", ["--glow-border" as string]: "rgba(168,85,247,0.25)" }}>
+            <Link href="/games" className="reveal reveal-delay-6 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(168,85,247,0.12)", ["--glow-border" as string]: "rgba(168,85,247,0.25)" }}>
               <div className="absolute top-0 right-0 w-32 h-32 bg-[#A855F7]/5 rounded-full blur-[60px]" />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
