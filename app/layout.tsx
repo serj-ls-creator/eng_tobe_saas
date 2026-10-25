@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script";
 
 import { PwaRegister } from "@/components/pwa/PwaRegister";
+import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
 import "@/app/globals.css";
 
 const inter = Inter({
@@ -46,6 +47,19 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
+        {/* Google Consent Mode v2 - Initialize with denied consent */}
+        <Script id="google-consent-mode" strategy="beforeInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              'analytics_storage': 'denied',
+              'ad_storage': 'denied',
+              'ad_user_data': 'denied',
+              'ad_personalization': 'denied'
+            });`}
+        </Script>
+        
+        {/* Google Analytics */}
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-DNR5F704KM"
@@ -57,8 +71,10 @@ export default function RootLayout({
             gtag('js', new Date());
             gtag('config', 'G-DNR5F704KM');`}
         </Script>
+        
         <PwaRegister />
         {children}
+        <CookieConsentBanner />
         <Analytics />
       </body>
     </html>
