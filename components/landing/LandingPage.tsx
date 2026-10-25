@@ -305,12 +305,12 @@ export default function LandingPage() {
               </Link>
             </div>
             <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-white">
-              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '2.8s' }}><span className="w-1.5 h-1.5 rounded-full bg-green-500" /> <strong>Free to start</strong></span>
-              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '2.9s' }}><span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]" /> <strong>No ads</strong></span>
-              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '3.0s' }}><span className="w-1.5 h-1.5 rounded-full bg-[#FF3D71]" /> <strong>1500+ Advanced Words</strong></span>
+              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '0.8s' }}><span className="w-1.5 h-1.5 rounded-full bg-green-500" /> <strong>Free to start</strong></span>
+              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '0.9s' }}><span className="w-1.5 h-1.5 rounded-full bg-[#00E5FF]" /> <strong>No ads</strong></span>
+              <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '1.0s' }}><span className="w-1.5 h-1.5 rounded-full bg-[#FF3D71]" /> <strong>1500+ Advanced Words</strong></span>
             </div>
             <div className="mt-6 flex gap-3">
-              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '2.5s' }}>
+              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '1.1s' }}>
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{TIKTOK_SVG_LG}</span>
                   <div className="flex flex-col">
@@ -320,7 +320,7 @@ export default function LandingPage() {
                 </div>
                 <span className="text-neutral-400 text-xs ml-1 group-hover:text-white transition-colors">→</span>
               </a>
-              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '2.9s' }}>
+              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
                 <div className="flex items-center gap-2">
                   <span className="text-lg" style={{ backgroundImage: 'linear-gradient(to right, #A855F7, #EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{INSTAGRAM_SVG_LG}</span>
                   <div className="flex flex-col">
