@@ -11,6 +11,7 @@ import { FlyingWords } from '@/components/ui/FlyingWords';
 import { getIdiomsByLevel, type IdiomCategory } from '@/lib/idioms';
 import { IDIOM_CATS } from '@/constants/categories';
 import { usePoints } from '@/lib/usePoints';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 
 interface PageProps {
   params: {
@@ -78,6 +79,7 @@ export default function FillBlanksPage({ params }: PageProps) {
   const router = useRouter();
 
   const points = usePoints();
+  const { playCorrect, playWrong } = useSoundEffects();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [idioms, setIdioms] = useState<any[]>([]);
   const [category, setCategory] = useState<any>(null);
@@ -153,7 +155,13 @@ export default function FillBlanksPage({ params }: PageProps) {
       );
 
       setAnswerState(isCorrect ? 'correct' : 'wrong');
-      if (isCorrect) setCorrectCount(prev => prev + 1);
+      
+      if (isCorrect) {
+        playCorrect();
+        setCorrectCount(prev => prev + 1);
+      } else {
+        playWrong();
+      }
 
       setTimeout(() => {
         if (currentIndex < idioms.length - 1) {
@@ -163,7 +171,7 @@ export default function FillBlanksPage({ params }: PageProps) {
         }
       }, 1500);
     }
-  }, [answerState, usedIds, slots, hiddenIndices, nextEmptySlot, idioms, currentIndex]);
+  }, [answerState, usedIds, slots, hiddenIndices, nextEmptySlot, idioms, currentIndex, playCorrect, playWrong]);
 
   // Erase last placed word
   const handleErase = useCallback(() => {
