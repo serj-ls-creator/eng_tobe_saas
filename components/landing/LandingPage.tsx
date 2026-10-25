@@ -17,14 +17,18 @@ const TIKTOK_SVG_LG = (
 );
 
 const TEXT_PAIRS = [
-  ['"I think"', '"I am of the opinion"'],
-  ['"Bad idea"', '"That is ill-advised"'],
-  ['"I\'m ready"', '"I am prepared"'],
-  ['"Very hard"', '"Exceedingly difficult"'],
-  ['"A lot of"', '"A multitude of"'],
-  ['"Good"', '"Exceptional"'],
-  ['"I\'m sure"', '"I am confident"'],
-  ['"Help me"', '"I would appreciate your assistance"'],
+  ['"I think"', '"If you ask me"'],
+  ['"Bad idea"', '"That\'s a recipe for disaster"'],
+  ['"I\'m ready"', '"I\'m good to go"'],
+  ['"Very hard"', '"It\'s no walk in the park"'],
+  ['"A lot of"', '"Tons of"'],
+  ['"Very good"', '"Top-notch"'],
+  ['"I\'m sure"', '"No doubt about it"'],
+  ['"Help me"', '"Can you give me a hand?"'],
+  ['"I\'m tired"', '"I\'m wiped out"'],
+  ['"I don\'t know"', '"Beats me"'],
+  ['"It\'s easy"', '"It\'s a piece of cake"'],
+  ['"I\'m very busy"', '"I\'m swamped"'],
 ];
 
 const LANDING_NAV_LINKS = [
@@ -280,7 +284,7 @@ export default function LandingPage() {
               <span ref={advancedRef} className="text-white font-medium transition-all duration-500">&quot;I am of the opinion&quot;</span>
             </div>
             <p className="reveal reveal-delay-3 mt-4 text-neutral-500 text-sm sm:text-base max-w-md leading-relaxed">
-              Words, idioms, sentences &amp; games — all in one place. Stop sounding basic. Start sounding brilliant.
+              Learn words, idioms and phrases in English. No translations, just real English.
             </p>
             <div className="reveal reveal-delay-4 mt-10 flex flex-row flex-nowrap items-center gap-2 sm:gap-4 w-full max-w-md sm:max-w-none">
               <Link href="/home" className="group flex-1 min-w-0 px-3 py-2.5 sm:flex-none sm:w-fit sm:px-7 sm:py-3.5 bg-white text-black font-medium rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-sm whitespace-nowrap">

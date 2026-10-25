@@ -29,9 +29,9 @@ export const PEOPLE: Subcategory[] = [
     words: [
       {
         basic: 'Good-looking',
-        advanced: 'Attractive',
-        transcription: '/əˈtræktɪv/',
-        wrong: ['Aggressive', 'Attentive', 'Authentic', 'Assertive'],
+        advanced: 'Gorgeous',
+        transcription: '/ˈɡɔːrdʒəs/',
+        wrong: ['Generous', 'Genuine', 'Gloomy', 'Grateful'],
       },
       {
         basic: 'Thin',
@@ -40,13 +40,13 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Sincere', 'Stubborn', 'Shallow', 'Striking'],
       },
       {
-        basic: 'Fat',
-        advanced: 'Overweight',
-        transcription: '/ˌoʊvərˈweɪt/',
-        wrong: ['Outspoken', 'Observant', 'Ordinary', 'Outdated'],
+        basic: 'Cute',
+        advanced: 'Adorable',
+        transcription: '/əˈdɔːrəbəl/',
+        wrong: ['Anxious', 'Ancient', 'Annoying', 'Awkward'],
       },
       {
-        basic: 'Old',
+        basic: 'Grown-up',
         advanced: 'Mature',
         transcription: '/məˈtjʊər/',
         wrong: ['Modest', 'Moody', 'Mellow', 'Messy'],
@@ -59,9 +59,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Well-dressed',
-        advanced: 'Elegant',
-        transcription: '/ˈelɪɡənt/',
-        wrong: ['Energetic', 'Emotional', 'Efficient', 'Eccentric'],
+        advanced: 'Stylish',
+        transcription: '/ˈstaɪlɪʃ/',
+        wrong: ['Stubborn', 'Selfish', 'Sensitive', 'Shallow'],
       },
       {
         basic: 'Strong',
@@ -71,9 +71,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Ugly',
-        advanced: 'Unattractive',
-        transcription: '/ˌʌnəˈtræktɪv/',
-        wrong: ['Unreliable', 'Uncertain', 'Unfriendly', 'Unusual'],
+        advanced: 'Hideous',
+        transcription: '/ˈhɪdiəs/',
+        wrong: ['Humble', 'Honest', 'Hopeful', 'Hesitant'],
       },
       {
         basic: 'Tall',
@@ -105,9 +105,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Brave',
-        advanced: 'Courageous',
-        transcription: '/kəˈreɪdʒəs/',
-        wrong: ['Curious', 'Cheerful', 'Careful', 'Clever'],
+        advanced: 'Fearless',
+        transcription: '/ˈfɪrləs/',
+        wrong: ['Fussy', 'Faithful', 'Fancy', 'Frantic'],
       },
       {
         basic: 'Shy',
@@ -116,7 +116,7 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Reliable', 'Resilient', 'Rational', 'Relaxed'],
       },
       {
-        basic: 'Rude',
+        basic: 'Full of yourself',
         advanced: 'Arrogant',
         transcription: '/ˈærəɡənt/',
         wrong: ['Ambitious', 'Analytical', 'Adaptable', 'Articulate'],
@@ -128,16 +128,16 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Warm', 'Wise', 'Willing', 'Wholesome'],
       },
       {
-        basic: 'Lazy',
-        advanced: 'Indolent',
-        transcription: '/ˈɪndələnt/',
-        wrong: ['Impulsive', 'Insightful', 'Intuitive', 'Inventive'],
+        basic: 'Unreliable',
+        advanced: 'Flaky',
+        transcription: '/ˈfleɪki/',
+        wrong: ['Fragile', 'Fierce', 'Frugal', 'Fortunate'],
       },
       {
         basic: 'Smart',
-        advanced: 'Intelligent',
-        transcription: '/ɪnˈtelɪdʒənt/',
-        wrong: ['Idealistic', 'Imaginative', 'Impulsive', 'Inflexible'],
+        advanced: 'Brilliant',
+        transcription: '/ˈbrɪljənt/',
+        wrong: ['Bossy', 'Blunt', 'Bitter', 'Boastful'],
       },
       {
         basic: 'Honest',
@@ -147,12 +147,12 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Stubborn',
-        advanced: 'Persistent',
-        transcription: '/pərˈsɪstənt/',
-        wrong: ['Pessimistic', 'Practical', 'Perceptive', 'Passionate'],
+        advanced: 'Headstrong',
+        transcription: '/ˈhedstrɔːŋ/',
+        wrong: ['Hasty', 'Helpful', 'Harmless', 'Hospitable'],
       },
       {
-        basic: 'Talkative',
+        basic: 'Friendly',
         advanced: 'Outgoing',
         transcription: '/ˈaʊtɡoʊɪŋ/',
         wrong: ['Optimistic', 'Objective', 'Obsessive', 'Organized'],
@@ -175,9 +175,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Sad',
-        advanced: 'Melancholic',
-        transcription: '/ˌmelənˈkɒlɪk/',
-        wrong: ['Motivated', 'Mindful', 'Mournful', 'Magnanimous'],
+        advanced: 'Devastated',
+        transcription: '/ˈdevəsteɪtɪd/',
+        wrong: ['Determined', 'Delighted', 'Defensive', 'Dedicated'],
       },
       {
         basic: 'Angry',
@@ -193,9 +193,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Surprised',
-        advanced: 'Astonished',
-        transcription: '/əˈstɒnɪʃt/',
-        wrong: ['Ambitious', 'Anxious', 'Absorbed', 'Amused'],
+        advanced: 'Stunned',
+        transcription: '/stʌnd/',
+        wrong: ['Sincere', 'Skeptical', 'Satisfied', 'Shameless'],
       },
       {
         basic: 'Tired',
@@ -223,9 +223,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Ashamed',
-        advanced: 'Humiliated',
-        transcription: '/hjuːˈmɪlieɪtɪd/',
-        wrong: ['Hopeful', 'Horrified', 'Heartbroken', 'Hesitant'],
+        advanced: 'Mortified',
+        transcription: '/ˈmɔːrtɪfaɪd/',
+        wrong: ['Motivated', 'Mindful', 'Moody', 'Merciful'],
       },
     ],
   },
@@ -238,22 +238,22 @@ export const PEOPLE: Subcategory[] = [
     name: 'Relationships',
     words: [
       {
-        basic: 'Friend',
-        advanced: 'Companion',
-        transcription: '/kəmˈpæniən/',
-        wrong: ['Colleague', 'Critic', 'Competitor', 'Counselor'],
+        basic: 'Close friend',
+        advanced: 'Confidant',
+        transcription: '/ˈkɑːnfɪdænt/',
+        wrong: ['Candidate', 'Colleague', 'Critic', 'Contractor'],
       },
       {
         basic: 'Enemy',
-        advanced: 'Rival',
-        transcription: '/ˈraɪvəl/',
-        wrong: ['Relative', 'Resident', 'Recipient', 'Referee'],
+        advanced: 'Nemesis',
+        transcription: '/ˈneməsɪs/',
+        wrong: ['Neighbor', 'Narrator', 'Novice', 'Nominee'],
       },
       {
-        basic: 'Partner',
-        advanced: 'Companion',
-        transcription: '/kəmˈpæniən/',
-        wrong: ['Competitor', 'Counselor', 'Candidate', 'Contributor'],
+        basic: 'Perfect partner',
+        advanced: 'Soulmate',
+        transcription: '/ˈsoʊlmeɪt/',
+        wrong: ['Survivor', 'Sponsor', 'Spectator', 'Successor'],
       },
       {
         basic: 'Boss',
@@ -268,7 +268,7 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Agent', 'Author', 'Advisor', 'Anchor'],
       },
       {
-        basic: 'Stranger',
+        basic: 'Casual friend',
         advanced: 'Acquaintance',
         transcription: '/əˈkweɪntəns/',
         wrong: ['Ambassador', 'Advocate', 'Associate', 'Architect'],
@@ -280,22 +280,22 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Manager', 'Mediator', 'Member', 'Monitor'],
       },
       {
-        basic: 'Follower',
-        advanced: 'Devotee',
-        transcription: '/ˌdevəˈtiː/',
-        wrong: ['Delegate', 'Designer', 'Director', 'Developer'],
+        basic: 'Group of friends',
+        advanced: 'Entourage',
+        transcription: '/ˌɑːntʊˈrɑːʒ/',
+        wrong: ['Engineer', 'Employer', 'Executive', 'Examiner'],
       },
       {
-        basic: 'Couple',
-        advanced: 'Partners',
-        transcription: '/ˈpɑːrtnərz/',
+        basic: 'Successful couple',
+        advanced: 'Power couple',
+        transcription: '/ˈpaʊər ˈkʌpəl/',
         wrong: ['Providers', 'Producers', 'Participants', 'Presenters'],
       },
       {
         basic: 'Loner',
-        advanced: 'Introvert',
-        transcription: '/ˈɪntrəvɜːrt/',
-        wrong: ['Investor', 'Inspector', 'Influencer', 'Instructor'],
+        advanced: 'Lone wolf',
+        transcription: '/ˌloʊn ˈwʊlf/',
+        wrong: ['Landlord', 'Lawyer', 'Lecturer', 'Librarian'],
       },
     ],
   },
@@ -311,13 +311,13 @@ export const PEOPLE: Subcategory[] = [
         basic: 'Walk',
         advanced: 'Stroll',
         transcription: '/stroʊl/',
-        wrong: ['Stride', 'Stumble', 'Struggle', 'Strive'],
+        wrong: ['Stumble', 'Struggle', 'Strive', 'Strict'],
       },
       {
         basic: 'Look',
-        advanced: 'Observe',
-        transcription: '/əbˈzɜːrv/',
-        wrong: ['Obtain', 'Occupy', 'Offend', 'Omit'],
+        advanced: 'Gaze',
+        transcription: '/ɡeɪz/',
+        wrong: ['Gather', 'Guide', 'Grind', 'Gamble'],
       },
       {
         basic: 'Say',
@@ -351,9 +351,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Start',
-        advanced: 'Initiate',
-        transcription: '/ɪˈnɪʃieɪt/',
-        wrong: ['Indicate', 'Influence', 'Inspect', 'Integrate'],
+        advanced: 'Launch',
+        transcription: '/lɔːntʃ/',
+        wrong: ['Lease', 'Linger', 'Locate', 'Lurk'],
       },
       {
         basic: 'Change',
@@ -363,9 +363,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Use',
-        advanced: 'Utilize',
-        transcription: '/ˈjuːtəlaɪz/',
-        wrong: ['Upgrade', 'Update', 'Undergo', 'Undermine'],
+        advanced: 'Leverage',
+        transcription: '/ˈlevərɪdʒ/',
+        wrong: ['Lecture', 'Lighten', 'Liberate', 'Legislate'],
       },
     ],
   },
@@ -384,10 +384,10 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Reflect', 'Respond', 'Reveal', 'Resolve'],
       },
       {
-        basic: 'Talk about',
-        advanced: 'Discuss',
-        transcription: '/dɪˈskʌs/',
-        wrong: ['Dismiss', 'Display', 'Distribute', 'Divide'],
+        basic: 'Talk about others',
+        advanced: 'Gossip',
+        transcription: '/ˈɡɑːsɪp/',
+        wrong: ['Greet', 'Glare', 'Guarantee', 'Gulp'],
       },
       {
         basic: 'Ask',
@@ -415,9 +415,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Complain',
-        advanced: 'Criticize',
-        transcription: '/ˈkrɪtɪsaɪz/',
-        wrong: ['Calculate', 'Capture', 'Clarify', 'Classify'],
+        advanced: 'Rant',
+        transcription: '/rænt/',
+        wrong: ['Rush', 'Roam', 'Rescue', 'Ripple'],
       },
       {
         basic: 'Praise',
@@ -449,9 +449,9 @@ export const PEOPLE: Subcategory[] = [
     words: [
       {
         basic: 'Understand',
-        advanced: 'Comprehend',
-        transcription: '/ˌkɒmprɪˈhend/',
-        wrong: ['Compete', 'Compile', 'Complete', 'Conform'],
+        advanced: 'Grasp',
+        transcription: '/ɡræsp/',
+        wrong: ['Guard', 'Glow', 'Grill', 'Gift'],
       },
       {
         basic: 'Guess',
@@ -461,9 +461,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Doubt',
-        advanced: 'Question',
-        transcription: '/ˈkwestʃən/',
-        wrong: ['Qualify', 'Quantify', 'Quote', 'Query'],
+        advanced: 'Second-guess',
+        transcription: '/ˌsekənd ˈɡes/',
+        wrong: ['Suppress', 'Summarize', 'Sacrifice', 'Simplify'],
       },
       {
         basic: 'Remember',
@@ -496,13 +496,13 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Summarize', 'Supervise', 'Support', 'Succeed'],
       },
       {
-        basic: 'Compare',
+        basic: 'Judge',
         advanced: 'Evaluate',
         transcription: '/ɪˈvæljueɪt/',
         wrong: ['Eliminate', 'Encourage', 'Enhance', 'Establish'],
       },
       {
-        basic: 'Make up',
+        basic: 'Picture in your mind',
         advanced: 'Imagine',
         transcription: '/ɪˈmædʒɪn/',
         wrong: ['Improve', 'Include', 'Indicate', 'Influence'],
@@ -518,10 +518,10 @@ export const PEOPLE: Subcategory[] = [
     name: 'Social',
     words: [
       {
-        basic: 'Meet',
-        advanced: 'Encounter',
-        transcription: '/ɪnˈkaʊntər/',
-        wrong: ['Endure', 'Enforce', 'Enhance', 'Engage'],
+        basic: 'Meet by chance',
+        advanced: 'Bump into',
+        transcription: '/ˈbʌmp ˌɪntuː/',
+        wrong: ['Borrow', 'Bargain', 'Bounce', 'Bribe'],
       },
       {
         basic: 'Join',
@@ -531,9 +531,9 @@ export const PEOPLE: Subcategory[] = [
       },
       {
         basic: 'Avoid',
-        advanced: 'Exclude',
-        transcription: '/ɪkˈskluːd/',
-        wrong: ['Examine', 'Exchange', 'Execute', 'Expand'],
+        advanced: 'Dodge',
+        transcription: '/dɑːdʒ/',
+        wrong: ['Deliver', 'Deserve', 'Drift', 'Debate'],
       },
       {
         basic: 'Share',
@@ -548,10 +548,10 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Conform', 'Connect', 'Consider', 'Consist'],
       },
       {
-        basic: 'Celebrate',
-        advanced: 'Commemorate',
-        transcription: '/kəˈmeməreɪt/',
-        wrong: ['Communicate', 'Compare', 'Complete', 'Compile'],
+        basic: 'Meet people for work',
+        advanced: 'Network',
+        transcription: '/ˈnetwɜːrk/',
+        wrong: ['Navigate', 'Neglect', 'Negotiate', 'Nominate'],
       },
       {
         basic: 'Follow rules',
@@ -560,10 +560,10 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Compete', 'Compose', 'Compute', 'Confirm'],
       },
       {
-        basic: 'Belong',
-        advanced: 'Identify with',
-        transcription: '/aɪˈdentɪfaɪ wɪð/',
-        wrong: ['Integrate with', 'Interact with', 'Invest in', 'Improve on'],
+        basic: 'Get close to someone',
+        advanced: 'Bond',
+        transcription: '/bɑːnd/',
+        wrong: ['Boost', 'Bother', 'Browse', 'Bake'],
       },
       {
         basic: 'Lead',
@@ -588,7 +588,7 @@ export const PEOPLE: Subcategory[] = [
     name: 'Energy',
     words: [
       {
-        basic: 'Tired',
+        basic: 'Out of energy',
         advanced: 'Drained',
         transcription: '/dreɪnd/',
         wrong: ['Driven', 'Devoted', 'Dynamic', 'Determined'],
@@ -630,22 +630,22 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Logical', 'Loyal', 'Liberal', 'Literal'],
       },
       {
-        basic: 'Happy',
+        basic: 'Positive',
         advanced: 'Upbeat',
         transcription: '/ˈʌpbiːt/',
         wrong: ['Upgrade', 'Upfront', 'Upright', 'Upset'],
       },
       {
         basic: 'Nervous',
-        advanced: 'Agitated',
-        transcription: '/ˈædʒɪteɪtɪd/',
-        wrong: ['Adapted', 'Admired', 'Admitted', 'Adopted'],
+        advanced: 'Jittery',
+        transcription: '/ˈdʒɪtəri/',
+        wrong: ['Jealous', 'Joyful', 'Jaded', 'Jolly'],
       },
       {
         basic: 'Relaxed',
         advanced: 'Laid-back',
         transcription: '/ˌleɪdˈbæk/',
-        wrong: ['Laid-off', 'Laid-out', 'Left-back', 'Low-key'],
+        wrong: ['Laid-off', 'Laid-out', 'Laid-up', 'Lined-up'],
       },
     ],
   },
@@ -688,7 +688,7 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Expert', 'Executor', 'Examiner', 'Exhibitor'],
       },
       {
-        basic: 'Self-made',
+        basic: 'Hungry for success',
         advanced: 'Ambitious',
         transcription: '/æmˈbɪʃəs/',
         wrong: ['Analytical', 'Adaptable', 'Articulate', 'Assertive'],
@@ -700,16 +700,16 @@ export const PEOPLE: Subcategory[] = [
         wrong: ['Index', 'Input', 'Insight', 'Issue'],
       },
       {
-        basic: 'Unique person',
-        advanced: 'Individual',
-        transcription: '/ˌɪndɪˈvɪdʒuəl/',
-        wrong: ['Indicator', 'Influence', 'Initiative', 'Insight'],
+        basic: 'First to do something',
+        advanced: 'Trailblazer',
+        transcription: '/ˈtreɪlbleɪzər/',
+        wrong: ['Traveler', 'Trader', 'Trainer', 'Tutor'],
       },
       {
         basic: 'Fake person',
-        advanced: 'Hypocrite',
-        transcription: '/ˈhɪpəkrɪt/',
-        wrong: ['Highlight', 'Habitat', 'Heritage', 'Hierarchy'],
+        advanced: 'Phony',
+        transcription: '/ˈfoʊni/',
+        wrong: ['Pioneer', 'Patron', 'Pilot', 'Pupil'],
       },
       {
         basic: 'Real',
