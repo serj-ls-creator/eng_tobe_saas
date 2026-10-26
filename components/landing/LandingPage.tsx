@@ -508,7 +508,7 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {["Synonym Pair","Memory","Multiple Choice","Letter Hunt"].map(t => (
+                  {["Cards","Synonym Pair","Unscramble","Multiple Choice","Word Check","Letter Hunt"].map(t => (
                     <span key={t} className="px-2.5 py-1 rounded-md bg-[#FF3D71]/10 text-[#FF3D71] text-[11px] font-medium">{t}</span>
                   ))}
                 </div>
@@ -532,6 +532,11 @@ export default function LandingPage() {
                     <div key={t} className="flex items-center gap-2 text-neutral-400"><span className="w-1 h-1 rounded-full bg-[#FFD93D]/60" />{t}</div>
                   ))}
                 </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["Cards","Multiple Choice","Synonym Pair","Fill the Blanks","Find the Mistake","Sentence Builder"].map(t => (
+                    <span key={t} className="px-2.5 py-1 rounded-md bg-[#FFD93D]/10 text-[#FFD93D] text-[11px] font-medium">{t}</span>
+                  ))}
+                </div>
               </div>
             </Link>
             {/* Phrasal Verbs */}
@@ -553,7 +558,7 @@ export default function LandingPage() {
                   ))}
                 </div>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {["Cards","Choice","Find Mistake","Pairs"].map(t => (
+                  {["Cards","Multiple Choice","Letter Hunt","Unscramble","Pair Match","Synonym Pair"].map(t => (
                     <span key={t} className="px-2.5 py-1 rounded-md bg-[#EC4899]/10 text-[#EC4899] text-[11px] font-medium">{t}</span>
                   ))}
                 </div>
@@ -598,7 +603,7 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <div className="space-y-2 text-sm">
-                  {["Articles — a, an, the","Adjective Order — correct word sequence","Word Order — sentence structure","Find the Mistake — error correction"].map(t => (
+                  {["Adjectives & Adverbs (Order, Comparatives, -ed/-ing, Prepositions)","Articles & Determiners (A, an, the usage rules)","Sentence Structure & Word Order (Correct sentence building)","Error Correction & Quizzes (Find the mistake exercises for every unit)","+ 20 more full grammar & tense topics included"].map(t => (
                     <div key={t} className="flex items-center gap-2 text-neutral-400"><span className="w-1 h-1 rounded-full bg-[#22C55E]/60" />{t}</div>
                   ))}
                 </div>
@@ -1091,10 +1096,10 @@ export default function LandingPage() {
               <ul className="text-sm text-neutral-400 space-y-3 mb-8 flex-1 text-left">
                 {[
                   "300+ Advanced Words",
-                  "Antonyms & Pronunciation",
+                  "60 Antonym pairs",
                   "2 categories of Sentences",
                   "2 categories of Idioms",
-                  "All Grammar categories",
+                  "17 Grammar categories",
                   "My Vocabulary (20 words)",
                   "2 Games",
                   "Streaks & progress tracking"
