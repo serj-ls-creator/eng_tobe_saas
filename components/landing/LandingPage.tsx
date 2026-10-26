@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Home, Brain, User, ShoppingBag, Menu, BookOpenText, Lightbulb, Rocket, MessageCircleMore, BookOpen, Gamepad2, BookMarked } from "lucide-react";
 
 const TIKTOK_SVG = (
   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -275,7 +276,7 @@ export default function LandingPage() {
         <div className="absolute bottom-20 right-10 w-[350px] h-[350px] glow-cyan opacity-[0.06] rounded-full" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] glow-purple opacity-[0.03] rounded-full" />
 
-        <div className="max-w-[90rem] mx-auto px-6 pt-10 sm:pt-12 pb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[33fr_41fr_25fr] gap-8 xl:gap-12 items-start relative z-10 w-full">
+        <div className="max-w-[90rem] mx-auto px-6 pt-10 sm:pt-12 pb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[33fr_41fr_25fr] gap-8 xl:gap-12 items-start relative z-10 w-full lg:items-start">
           {/* Left */}
           <div className="flex flex-col justify-center">
             <div className="flex items-center gap-3">
@@ -368,7 +369,7 @@ export default function LandingPage() {
           </div>
 
           {/* Right – Phone mockup */}
-          <div className="reveal reveal-delay-4 flex justify-center lg:justify-center pt-4 lg:pt-0">
+          <div className="reveal reveal-delay-4 flex justify-center md:col-span-2 md:justify-center lg:col-span-1 lg:justify-center pt-4 lg:pt-0">
             <div className="phone-frame">
               <div className="phone-notch" />
               <div className="phone-content">
@@ -386,9 +387,10 @@ export default function LandingPage() {
                       <p className="text-[8px] text-zinc-500">Small steps. Real progress!</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 rounded-full bg-yellow-500/10 px-2 py-0.5">
+                  <div className="flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-2 py-0.5">
                     <span className="fire-pulse inline-block text-yellow-400 text-[10px]">🔥</span>
                     <span className="text-[10px] font-semibold text-yellow-400">Day 8</span>
+                    <Menu className="h-3 w-3 text-yellow-400/70" />
                   </div>
                 </div>
                 <div className="bg-white/[0.03] rounded-xl p-3 mb-4 border border-white/5">
@@ -415,9 +417,16 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
-                <h2 className="mb-2 text-[11px] font-semibold">Quick Start</h2>
+                <h2 className="mb-2 text-[11px] font-semibold">Choose a Section & Start Learning!</h2>
                 <div className="grid grid-cols-2 gap-2 mb-3">
-                  {[["📖","Words","7 categories"],["💡","Idioms","7 topics"],["🚀","Phrasal verbs","4 topics"],["💬","Sentences","A1 to C2"],["📚","Grammar+Tenses","24 topics"],["🎮","Games","Wordle & more"]].map(([icon, title, sub]) => (
+                  {[
+                    { icon: <BookOpenText className="h-4 w-4" />, title: "Words", sub: "7 categories" },
+                    { icon: <Lightbulb className="h-4 w-4" />, title: "Idioms", sub: "7 topics" },
+                    { icon: <Rocket className="h-4 w-4" />, title: "Phrasal verbs", sub: "4 topics" },
+                    { icon: <MessageCircleMore className="h-4 w-4" />, title: "Sentences", sub: "A1 to C2" },
+                    { icon: <BookOpen className="h-4 w-4" />, title: "Grammar+Tenses", sub: "24 topics" },
+                    { icon: <Gamepad2 className="h-4 w-4" />, title: "Games", sub: "Wordle & more" }
+                  ].map(({ icon, title, sub }) => (
                     <div key={title} className="bg-white/[0.04] rounded-lg p-2.5 border border-white/5">
                       <div className="text-[#00E5FF] mb-1.5">{icon}</div>
                       <div className="text-[9px] font-medium leading-tight">{title}</div>
@@ -427,7 +436,7 @@ export default function LandingPage() {
                 </div>
                 <div className="mb-3 rounded-xl border border-cyan-400/20 bg-gradient-to-br from-cyan-950/40 via-zinc-900/90 to-purple-950/40 p-3">
                   <div className="flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-base">📒</div>
+                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cyan-400/10 text-base"><BookMarked className="h-4 w-4" /></div>
                     <div>
                       <div className="text-[10px] font-semibold">My Vocabulary <span className="rounded-full bg-cyan-400/10 px-1.5 py-0.5 text-[7px] text-cyan-400">Personal</span></div>
                       <div className="text-[8px] text-zinc-400">Save custom words &amp; practice</div>
@@ -450,11 +459,11 @@ export default function LandingPage() {
                   </div>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 h-14 bg-[#0a0a0a]/90 backdrop-blur-sm border-t border-white/5 flex items-center justify-around px-4">
-                  <div className="flex flex-col items-center gap-0.5 text-white"><span className="text-base">⌂</span><span className="text-[7px]">Home</span></div>
-                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">🧠</span><span className="text-[7px]">Recall</span></div>
-                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">♙</span><span className="text-[7px]">Profile</span></div>
-                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">🛍</span><span className="text-[7px]">Store</span></div>
-                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><span className="text-base">☰</span><span className="text-[7px]">More</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-white"><Home className="text-base" /><span className="text-[7px]">Home</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><Brain className="text-base" /><span className="text-[7px]">Recall</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><User className="text-base" /><span className="text-[7px]">Profile</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><ShoppingBag className="text-base" /><span className="text-[7px]">Store</span></div>
+                  <div className="flex flex-col items-center gap-0.5 text-neutral-600"><Menu className="text-base" /><span className="text-[7px]">More</span></div>
                 </div>
               </div>
             </div>
