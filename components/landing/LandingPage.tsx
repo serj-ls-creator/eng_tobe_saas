@@ -1151,6 +1151,83 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── APP INSTALL ── */}
+      <section className="py-12 sm:py-20 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00E5FF]/5 rounded-full blur-[150px]" />
+          <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-[#A855F7]/5 rounded-full blur-[120px]" />
+        </div>
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          {/* Heading */}
+          <div className="text-center mb-12">
+            <h2 className="reveal text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
+              📲 Install <span className="gradient-text"><b>English to be</b></span> App<br />
+              <span className="gradient-text">on Your Phone</span>
+            </h2>
+            <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">
+              No App Store needed! Get a fast, full-screen app experience right on your home screen.
+            </p>
+          </div>
+
+          {/* Installation steps */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Android */}
+            <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-8 hover:bg-white/[0.05] transition-all duration-300">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-12 h-12 rounded-xl bg-[#00E5FF]/10 flex items-center justify-center">
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Android</h3>
+                  <p className="text-xs text-neutral-500">Chrome & other browsers</p>
+                </div>
+              </div>
+              <ol className="space-y-3 text-sm text-neutral-300">
+                <li className="flex gap-3">
+                  <span className="text-[#00E5FF] font-bold">1.</span>
+                  <span>Tap the three dots menu in the top right corner.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-[#00E5FF] font-bold">2.</span>
+                  <span>Select "Install app" or "Add to Home screen".</span>
+                </li>
+              </ol>
+            </div>
+
+            {/* iPhone */}
+            <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 hover:bg-white/[0.05] transition-all duration-300">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-12 h-12 rounded-xl bg-[#A855F7]/10 flex items-center justify-center">
+                  <span className="text-2xl">🍏</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">iPhone / iPad</h3>
+                  <p className="text-xs text-neutral-500">Safari</p>
+                </div>
+              </div>
+              <ol className="space-y-3 text-sm text-neutral-300">
+                <li className="flex gap-3">
+                  <span className="text-[#A855F7] font-bold">1.</span>
+                  <span>Tap the Share button (square with arrow up at the bottom).</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-[#A855F7] font-bold">2.</span>
+                  <span>Scroll down and tap "Add to Home Screen".</span>
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          {/* Note */}
+          <div className="reveal reveal-delay-4 mt-8 text-center">
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00E5FF]/10 to-[#A855F7]/10 border border-white/10">
+              <span className="text-xl">⚡</span>
+              <span className="text-sm text-neutral-300">Once added, the app will launch instantly like a native app—without browser tabs or URL bars.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── SOCIAL CTA ── */}
       <section id="download" className="py-12 sm:py-20 relative overflow-hidden">
         <div className="absolute inset-0">
