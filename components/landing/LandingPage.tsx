@@ -359,9 +359,9 @@ export default function LandingPage() {
                   <p><strong className="text-white">Small steps every day</strong><br />Do daily tasks, build your streak and see your progress.</p>
                 </div>
               </div>
-              <div className="relative z-10 pt-1 text-xs sm:text-sm">
+              <div className="relative z-10 pt-1 text-xs sm:text-sm flex items-center justify-between gap-3">
                 <p className="text-[#00E5FF] font-semibold">For levels A2 and above.</p>
-                <Link href="/home" className="mt-3 inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-neutral-200">
+                <Link href="/home" className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-neutral-200 whitespace-nowrap">
                   Start for Free <span>→</span>
                 </Link>
               </div>
