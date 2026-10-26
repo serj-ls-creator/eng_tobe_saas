@@ -1161,16 +1161,16 @@ export default function LandingPage() {
           {/* Heading */}
           <div className="text-center mb-12">
             <h2 className="reveal text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
-              📲 Install <span className="gradient-text"><b>English to be</b></span> App<br />
-              <span className="gradient-text">on Your Phone</span>
+              Learn Any Way<br />
+              <span className="gradient-text">You Prefer</span>
             </h2>
             <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">
-              No App Store needed! Get a fast, full-screen app experience right on your home screen.
+              Install as an app for a native experience, or simply use it in your browser—no pressure, just learning.
             </p>
           </div>
 
           {/* Installation steps */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1.5fr] gap-6">
             {/* Android */}
             <div className="reveal reveal-delay-2 bg-zinc-900 border border-white/10 rounded-2xl p-8 hover:bg-white/[0.05] transition-all duration-300">
               <div className="flex items-center gap-3 mb-5">
@@ -1216,13 +1216,40 @@ export default function LandingPage() {
                 </li>
               </ol>
             </div>
+
+            {/* Browser */}
+            <div className="reveal reveal-delay-4 bg-zinc-900 border border-white/10 rounded-2xl p-8 hover:bg-white/[0.05] transition-all duration-300">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-12 h-12 rounded-xl bg-[#22C55E]/10 flex items-center justify-center">
+                  <span className="text-2xl">🌐</span>
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Just Your Browser</h3>
+                  <p className="text-xs text-neutral-500">No installation needed</p>
+                </div>
+              </div>
+              <div className="space-y-3 text-sm text-neutral-300">
+                <p className="flex gap-3">
+                  <span className="text-[#22C55E]">✓</span>
+                  <span>Simply bookmark this page and open it whenever you want to learn.</span>
+                </p>
+                <p className="flex gap-3">
+                  <span className="text-[#22C55E]">✓</span>
+                  <span>Works perfectly on any device—phone, tablet, or desktop.</span>
+                </p>
+                <p className="flex gap-3">
+                  <span className="text-[#22C55E]">✓</span>
+                  <span>No downloads, no storage required. Just open and learn.</span>
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Note */}
-          <div className="reveal reveal-delay-4 mt-8 text-center">
+          <div className="reveal reveal-delay-5 mt-8 text-center">
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00E5FF]/10 to-[#A855F7]/10 border border-white/10">
               <span className="text-xl">⚡</span>
-              <span className="text-sm text-neutral-300">Once added, the app will launch instantly like a native app—without browser tabs or URL bars.</span>
+              <span className="text-sm text-neutral-300">Choose what works best for you—install as an app or use it directly in your browser.</span>
             </div>
           </div>
         </div>
