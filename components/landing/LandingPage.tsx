@@ -1013,7 +1013,7 @@ export default function LandingPage() {
                     📒
                   </div>
                   <div>
-                    <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">24</div>
+                    <div className="text-2xl font-black bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">240</div>
                     <div className="text-[11px] text-neutral-500">words in your dictionary</div>
                   </div>
                 </div>
@@ -1052,7 +1052,7 @@ export default function LandingPage() {
                     <div className="h-full w-[62%] rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
                   </div>
                   <div className="grid grid-cols-3 gap-1.5 text-center">
-                    {[["15", "Learned", "text-emerald-400"], ["6", "Learning", "text-amber-400"], ["24", "Total", "text-white"]].map(([n, label, color]) => (
+                    {[["150", "Learned", "text-emerald-400"], ["60", "Learning", "text-amber-400"], ["240", "Total", "text-white"]].map(([n, label, color]) => (
                       <div key={label} className="rounded-lg bg-zinc-800/80 py-2">
                         <div className={`text-sm font-extrabold ${color}`}>{n}</div>
                         <div className="text-[9px] text-neutral-500">{label}</div>
@@ -1104,7 +1104,7 @@ export default function LandingPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/home" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Start for Free</Link>
+              <Link href="/home" className="w-full py-3 bg-[#00E5FF] text-black rounded-xl hover:bg-[#00E5FF]/90 transition-colors font-semibold block text-center">Start for Free</Link>
             </div>
             {/* 1 Month */}
             <div className="reveal reveal-delay-3 bg-zinc-900 border border-white/10 rounded-2xl p-8 text-center flex flex-col">
@@ -1115,7 +1115,7 @@ export default function LandingPage() {
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
-              <Link href="/store" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Choose Plan</Link>
+              <Link href="/store" className="w-full py-3 bg-[#00E5FF] text-black rounded-xl hover:bg-[#00E5FF]/90 transition-colors font-semibold block text-center">Choose Plan</Link>
             </div>
             {/* 3 Months – popular */}
             <div className="reveal reveal-delay-4 bg-gradient-to-b from-[#00E5FF]/10 to-transparent border border-[#00E5FF]/30 rounded-2xl p-8 text-center relative flex flex-col scale-105 shadow-[0_0_40px_rgba(0,229,255,0.1)]">
@@ -1140,7 +1140,7 @@ export default function LandingPage() {
                   <li key={f} className="flex items-center gap-2"><span className="text-[#00E5FF]">✓</span> {f}</li>
                 ))}
               </ul>
-              <Link href="/store" className="w-full py-3 bg-white/10 text-white rounded-xl hover:bg-white/20 transition-colors font-medium block text-center">Choose Plan</Link>
+              <Link href="/store" className="w-full py-3 bg-[#00E5FF] text-black rounded-xl hover:bg-[#00E5FF]/90 transition-colors font-semibold block text-center">Choose Plan</Link>
             </div>
           </div>
         </div>
