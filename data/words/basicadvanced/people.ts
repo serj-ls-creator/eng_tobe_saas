@@ -48,7 +48,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Grown-up',
         advanced: 'Mature',
-        transcription: '/məˈtjʊər/',
+        transcription: '/məˈtʃʊr/',
         wrong: ['Modest', 'Moody', 'Mellow', 'Messy'],
       },
       {
@@ -66,7 +66,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Strong',
         advanced: 'Muscular',
-        transcription: '/ˈmʌskjʊlər/',
+        transcription: '/ˈmʌskjələr/',
         wrong: ['Mysterious', 'Meticulous', 'Motivated', 'Merciful'],
       },
       {
@@ -84,7 +84,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Neat',
         advanced: 'Polished',
-        transcription: '/ˈpɒlɪʃt/',
+        transcription: '/ˈpɑːlɪʃt/',
         wrong: ['Passive', 'Peculiar', 'Persistent', 'Playful'],
       },
     ],
@@ -142,7 +142,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Honest',
         advanced: 'Sincere',
-        transcription: '/sɪnˈsɪər/',
+        transcription: '/sɪnˈsɪr/',
         wrong: ['Stubborn', 'Skeptical', 'Sensitive', 'Spontaneous'],
       },
       {
@@ -182,7 +182,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Angry',
         advanced: 'Furious',
-        transcription: '/ˈfjʊəriəs/',
+        transcription: '/ˈfjʊriəs/',
         wrong: ['Fearful', 'Frustrated', 'Fulfilled', 'Fascinated'],
       },
       {
@@ -422,7 +422,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Praise',
         advanced: 'Compliment',
-        transcription: '/ˈkɒmplɪment/',
+        transcription: '/ˈkɑːmpləment/',
         wrong: ['Compete', 'Complete', 'Compose', 'Compress'],
       },
       {
@@ -456,7 +456,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Guess',
         advanced: 'Assume',
-        transcription: '/əˈsjuːm/',
+        transcription: '/əˈsuːm/',
         wrong: ['Adjust', 'Achieve', 'Acquire', 'Agree'],
       },
       {
@@ -602,7 +602,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Full of energy',
         advanced: 'Enthusiastic',
-        transcription: '/ɪnˌθjuːziˈæstɪk/',
+        transcription: '/ɪnˌθuːziˈæstɪk/',
         wrong: ['Efficient', 'Empathetic', 'Ethical', 'Extreme'],
       },
       {
@@ -696,7 +696,7 @@ export const PEOPLE: Subcategory[] = [
       {
         basic: 'Role model',
         advanced: 'Icon',
-        transcription: '/ˈaɪkɒn/',
+        transcription: '/ˈaɪkɑːn/',
         wrong: ['Index', 'Input', 'Insight', 'Issue'],
       },
       {

@@ -29,9 +29,9 @@ export const WORLD: Subcategory[] = [
     words: [
       {
         basic: 'Living room',
-        advanced: 'Lounge',
-        transcription: '/laʊndʒ/',
-        wrong: ['Lodge', 'Loft', 'Lobby', 'Lane'],
+        advanced: 'Den',
+        transcription: '/den/',
+        wrong: ['Dock', 'Dome', 'Drain', 'Dune'],
       },
       {
         basic: 'Bedroom',
@@ -82,7 +82,7 @@ export const WORLD: Subcategory[] = [
         wrong: ['Debris', 'Debate', 'Decade', 'Detail'],
       },
       {
-        basic: 'One-room flat',
+        basic: 'One-room apartment',
         advanced: 'Studio',
         transcription: '/ˈstuːdioʊ/',
         wrong: ['Stable', 'Station', 'Storage', 'Stadium'],
@@ -91,11 +91,11 @@ export const WORLD: Subcategory[] = [
   },
 
   // ─────────────────────────────────────────
-  // 2. NEIGHBOURHOOD
+  // 2. NEIGHBORHOOD
   // ─────────────────────────────────────────
   {
     id: 'neighbourhood',
-    name: 'Neighbourhood',
+    name: 'Neighborhood',
     words: [
       {
         basic: 'Area',
@@ -134,7 +134,7 @@ export const WORLD: Subcategory[] = [
         wrong: ['Upfront', 'Upright', 'Upset', 'Upgrade'],
       },
       {
-        basic: 'Neighbour',
+        basic: 'Neighbor',
         advanced: 'Resident',
         transcription: '/ˈrezɪdənt/',
         wrong: ['Referee', 'Reporter', 'Recruiter', 'Receiver'],
@@ -316,8 +316,8 @@ export const WORLD: Subcategory[] = [
       {
         basic: 'Hotel',
         advanced: 'Accommodation',
-        transcription: '/əˌkɒməˈdeɪʃən/',
-        wrong: ['Achievement', 'Acquisition', 'Acknowledgement', 'Accumulation'],
+        transcription: '/əˌkɑːməˈdeɪʃən/',
+        wrong: ['Achievement', 'Acquisition', 'Acknowledgment', 'Accumulation'],
       },
       {
         basic: 'See the sights',
@@ -334,7 +334,7 @@ export const WORLD: Subcategory[] = [
       {
         basic: 'Cheap flight',
         advanced: 'Budget airline',
-        transcription: '/ˈbʌdʒɪt ˈeərlaɪn/',
+        transcription: '/ˈbʌdʒɪt ˈerlaɪn/',
         wrong: ['Blended airline', 'Booked airline', 'Broad airline', 'Bright airline'],
       },
       {
@@ -352,7 +352,7 @@ export const WORLD: Subcategory[] = [
       {
         basic: 'Border',
         advanced: 'Frontier',
-        transcription: '/ˈfrʌntiər/',
+        transcription: '/frʌnˈtɪr/',
         wrong: ['Fragment', 'Framework', 'Fraction', 'Frequency'],
       },
       {
@@ -362,7 +362,7 @@ export const WORLD: Subcategory[] = [
         wrong: ['Revised', 'Refined', 'Restored', 'Resolved'],
       },
       {
-        basic: 'Holiday',
+        basic: 'Vacation',
         advanced: 'Retreat',
         transcription: '/rɪˈtriːt/',
         wrong: ['Reveal', 'Review', 'Revive', 'Reward'],
@@ -402,7 +402,7 @@ export const WORLD: Subcategory[] = [
         wrong: ['Skyline', 'Skylight', 'Skyway', 'Skyward'],
       },
       {
-        basic: 'Top-floor flat',
+        basic: 'Top-floor apartment',
         advanced: 'Penthouse',
         transcription: '/ˈpenthaʊs/',
         wrong: ['Pavement', 'Pillar', 'Pavilion', 'Platform'],
@@ -532,13 +532,13 @@ export const WORLD: Subcategory[] = [
       {
         basic: 'See-through',
         advanced: 'Transparent',
-        transcription: '/trænsˈpærənt/',
+        transcription: '/trænsˈperənt/',
         wrong: ['Temporary', 'Terminal', 'Textured', 'Tropical'],
       },
       {
         basic: 'Shiny',
         advanced: 'Glossy',
-        transcription: '/ˈɡlɒsi/',
+        transcription: '/ˈɡlɔːsi/',
         wrong: ['Gradual', 'Graphic', 'Graceful', 'Generous'],
       },
       {
@@ -574,7 +574,7 @@ export const WORLD: Subcategory[] = [
       {
         basic: 'Strong material',
         advanced: 'Durable',
-        transcription: '/ˈdjʊərəbəl/',
+        transcription: '/ˈdʊrəbəl/',
         wrong: ['Dynamic', 'Distinct', 'Diverse', 'Digital'],
       },
     ],

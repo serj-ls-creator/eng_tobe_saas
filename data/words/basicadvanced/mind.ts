@@ -30,13 +30,13 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Makes sense',
         advanced: 'Coherent',
-        transcription: '/kəʊˈhɪərənt/',
+        transcription: '/koʊˈhɪrənt/',
         wrong: ['Cunning', 'Courageous', 'Compassionate', 'Cautious'],
       },
       {
         basic: 'Does not make sense',
         advanced: 'Absurd',
-        transcription: '/əbˈsɜːd/',
+        transcription: '/əbˈsɜːrd/',
         wrong: ['Ancient', 'Ambitious', 'Awkward', 'Amused'],
       },
       {
@@ -100,7 +100,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Learn',
         advanced: 'Absorb',
-        transcription: '/əbˈzɔːb/',
+        transcription: '/əbˈzɔːrb/',
         wrong: ['Admire', 'Adjust', 'Arrange', 'Assist'],
       },
       {
@@ -110,7 +110,7 @@ export const MIND: Subcategory[] = [
         wrong: ['Refuse', 'Rescue', 'Resign', 'Retreat'],
       },
       {
-        basic: 'Practise',
+        basic: 'Practice',
         advanced: 'Reinforce',
         transcription: '/ˌriːɪnˈfɔːrs/',
         wrong: ['Reveal', 'Reject', 'Rebel', 'Recycle'],
@@ -118,14 +118,14 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Learn perfectly',
         advanced: 'Master',
-        transcription: '/ˈmɑːstə/',
+        transcription: '/ˈmæstər/',
         wrong: ['Mourn', 'Mingle', 'Murmur', 'Muddle'],
       },
       {
         basic: 'Bad at something',
         advanced: 'Novice',
-        transcription: '/ˈnɒvɪs/',
-        wrong: ['Neighbour', 'Nuisance', 'Narrator', 'Nominee'],
+        transcription: '/ˈnɑːvɪs/',
+        wrong: ['Neighbor', 'Nuisance', 'Narrator', 'Nominee'],
       },
       {
         basic: 'Good at something',
@@ -170,13 +170,13 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Fix',
         advanced: 'Resolve',
-        transcription: '/rɪˈzɒlv/',
+        transcription: '/rɪˈzɑːlv/',
         wrong: ['Resist', 'Restrict', 'Retire', 'Reveal'],
       },
       {
         basic: 'Find the cause',
         advanced: 'Diagnose',
-        transcription: '/ˌdaɪəɡˈnəʊz/',
+        transcription: '/ˌdaɪəɡˈnoʊs/',
         wrong: ['Distribute', 'Delegate', 'Dismiss', 'Decorate'],
       },
       {
@@ -188,7 +188,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Best possible',
         advanced: 'Optimal',
-        transcription: '/ˈɒptɪməl/',
+        transcription: '/ˈɑːptɪməl/',
         wrong: ['Optional', 'Obvious', 'Ordinary', 'Outdated'],
       },
       {
@@ -219,7 +219,7 @@ export const MIND: Subcategory[] = [
         basic: 'Think ahead',
         advanced: 'Anticipate',
         transcription: '/ænˈtɪsɪpeɪt/',
-        wrong: ['Accuse', 'Apologise', 'Arrange', 'Attract'],
+        wrong: ['Accuse', 'Apologize', 'Arrange', 'Attract'],
       },
       {
         basic: 'Quick fix',
@@ -240,7 +240,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'New idea',
         advanced: 'Concept',
-        transcription: '/ˈkɒnsept/',
+        transcription: '/ˈkɑːnsept/',
         wrong: ['Context', 'Contract', 'Convert', 'Control'],
       },
       {
@@ -252,7 +252,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Think differently',
         advanced: 'Think outside the box',
-        transcription: '/θɪŋk ˌaʊtsaɪd ðə bɒks/',
+        transcription: '/θɪŋk ˌaʊtˈsaɪd ðə ˈbɑːks/',
         wrong: ['Think over the moon', 'Think under the weather', 'Think on thin ice', 'Think by the book'],
       },
       {
@@ -288,7 +288,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Rough version',
         advanced: 'Draft',
-        transcription: '/drɑːft/',
+        transcription: '/dræft/',
         wrong: ['Drain', 'Drawer', 'Dragon', 'Drift'],
       },
       {
@@ -310,7 +310,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Pay attention',
         advanced: 'Concentrate',
-        transcription: '/ˈkɒnsəntreɪt/',
+        transcription: '/ˈkɑːnsəntreɪt/',
         wrong: ['Confess', 'Collapse', 'Complain', 'Cooperate'],
       },
       {
@@ -334,13 +334,13 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Lose focus',
         advanced: 'Zone out',
-        transcription: '/ˌzəʊn ˈaʊt/',
+        transcription: '/ˌzoʊn ˈaʊt/',
         wrong: ['Zoom out', 'Zip up', 'Zero out', 'Zone in'],
       },
       {
         basic: 'One thing at a time',
         advanced: 'Single-tasking',
-        transcription: '/ˈsɪŋɡəl tɑːskɪŋ/',
+        transcription: '/ˈsɪŋɡəl ˌtæskɪŋ/',
         wrong: ['Single-handed', 'Single-file', 'Single-use', 'Single-origin'],
       },
       {
@@ -352,7 +352,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Block out noise',
         advanced: 'Tune out',
-        transcription: '/ˌtjuːn ˈaʊt/',
+        transcription: '/ˌtuːn ˈaʊt/',
         wrong: ['Turn up', 'Take off', 'Tear down', 'Tip over'],
       },
       {
@@ -364,7 +364,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Flow state',
         advanced: 'In the zone',
-        transcription: '/ɪn ðə ˈzəʊn/',
+        transcription: '/ɪn ðə ˈzoʊn/',
         wrong: ['In the dark', 'In a rut', 'In a pickle', 'In hot water'],
       },
     ],
@@ -392,7 +392,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Important point in a plan',
         advanced: 'Milestone',
-        transcription: '/ˈmaɪlstəʊn/',
+        transcription: '/ˈmaɪlstoʊn/',
         wrong: ['Mixture', 'Miracle', 'Mystery', 'Majority'],
       },
       {
@@ -404,7 +404,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Write down',
         advanced: 'Document',
-        transcription: '/ˈdɒkjʊmənt/',
+        transcription: '/ˈdɑːkjumənt/',
         wrong: ['Dismiss', 'Decorate', 'Delight', 'Despise'],
       },
       {
@@ -422,14 +422,14 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Most important',
         advanced: 'Priority',
-        transcription: '/praɪˈɒrɪti/',
+        transcription: '/praɪˈɔːrəti/',
         wrong: ['Property', 'Prejudice', 'Presence', 'Prisoner'],
       },
       {
         basic: 'Long-term plan',
         advanced: 'Roadmap',
-        transcription: '/ˈrəʊdmæp/',
-        wrong: ['Railway', 'Rainbow', 'Rooftop', 'Reservoir'],
+        transcription: '/ˈroʊdmæp/',
+        wrong: ['Railroad', 'Rainbow', 'Rooftop', 'Reservoir'],
       },
       {
         basic: 'Backup plan',
@@ -451,7 +451,7 @@ export const MIND: Subcategory[] = [
         basic: 'Daily habit',
         advanced: 'Routine',
         transcription: '/ruːˈtiːn/',
-        wrong: ['Rumour', 'Revenue', 'Region', 'Rental'],
+        wrong: ['Rumor', 'Revenue', 'Region', 'Rental'],
       },
       {
         basic: 'Hurting your own progress',
@@ -462,25 +462,25 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Taking care of yourself',
         advanced: 'Self-care',
-        transcription: '/ˌself ˈkeə/',
-        wrong: ['Self-pity', 'Self-doubt', 'Self-image', 'Self-defence'],
+        transcription: '/ˌself ˈker/',
+        wrong: ['Self-pity', 'Self-doubt', 'Self-image', 'Self-defense'],
       },
       {
         basic: 'Do it without thinking',
         advanced: 'Autopilot',
-        transcription: '/ˈɔːtəʊpaɪlət/',
+        transcription: '/ˈɔːtoʊpaɪlət/',
         wrong: ['Attitude', 'Anchor', 'Auction', 'Asylum'],
       },
       {
         basic: 'Start a habit',
         advanced: 'Kickstart',
-        transcription: '/ˈkɪkstɑːt/',
+        transcription: '/ˈkɪkstɑːrt/',
         wrong: ['Kidnap', 'Kneel', 'Knock', 'Knit'],
       },
       {
         basic: 'Forget old habits',
         advanced: 'Unlearn',
-        transcription: '/ʌnˈlɜːn/',
+        transcription: '/ʌnˈlɜːrn/',
         wrong: ['Unwind', 'Uphold', 'Unfold', 'Undergo'],
       },
       {
@@ -520,7 +520,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Get better',
         advanced: 'Evolve',
-        transcription: '/ɪˈvɒlv/',
+        transcription: '/ɪˈvɑːlv/',
         wrong: ['Escape', 'Exhaust', 'Explode', 'Exclaim'],
       },
       {
@@ -533,12 +533,12 @@ export const MIND: Subcategory[] = [
         basic: 'Challenge yourself',
         advanced: 'Push boundaries',
         transcription: '/pʊʃ ˈbaʊndəriz/',
-        wrong: ['Push buttons', 'Push papers', 'Push brooms', 'Push bikes'],
+        wrong: ['Push buttons', 'Push papers', 'Push brooms', 'Push carts'],
       },
       {
         basic: 'Stuck, no progress',
         advanced: 'Plateau',
-        transcription: '/ˈplætəʊ/',
+        transcription: '/plæˈtoʊ/',
         wrong: ['Pillar', 'Pocket', 'Parcel', 'Puddle'],
       },
       {
@@ -556,7 +556,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Self-improvement',
         advanced: 'Transformation',
-        transcription: '/ˌtrænsfəˈmeɪʃən/',
+        transcription: '/ˌtrænsfərˈmeɪʃən/',
         wrong: ['Transaction', 'Translation', 'Transmission', 'Transport'],
       },
       {
@@ -568,8 +568,8 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Know yourself',
         advanced: 'Self-awareness',
-        transcription: '/self əˈweənəs/',
-        wrong: ['Self-centred', 'Self-taught', 'Self-made', 'Self-driven'],
+        transcription: '/ˌself əˈwernəs/',
+        wrong: ['Self-centered', 'Self-taught', 'Self-made', 'Self-driven'],
       },
       {
         basic: 'Want to achieve a lot',
@@ -602,19 +602,19 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Be in charge',
         advanced: 'Call the shots',
-        transcription: '/ˌkɔːl ðə ˈʃɒts/',
-        wrong: ['Call it a day', 'Cut to the chase', 'Cross the line', 'Cry over spilt milk'],
+        transcription: '/ˌkɔːl ðə ˈʃɑːts/',
+        wrong: ['Call it a day', 'Cut to the chase', 'Cross the line', 'Cry over spilled milk'],
       },
       {
         basic: 'Motivate others',
         advanced: 'Empower',
         transcription: '/ɪmˈpaʊər/',
-        wrong: ['Emphasise', 'Employ', 'Envy', 'Endure'],
+        wrong: ['Emphasize', 'Employ', 'Envy', 'Endure'],
       },
       {
         basic: 'Take responsibility',
         advanced: 'Ownership',
-        transcription: '/ˈəʊnəʃɪp/',
+        transcription: '/ˈoʊnərʃɪp/',
         wrong: ['Outcome', 'Opponent', 'Oversight', 'Orchestra'],
       },
       {
@@ -626,19 +626,19 @@ export const MIND: Subcategory[] = [
       {
         basic: 'See the future',
         advanced: 'Forward-thinking',
-        transcription: '/ˌfɔːwəd ˈθɪŋkɪŋ/',
+        transcription: '/ˌfɔːrwərd ˈθɪŋkɪŋ/',
         wrong: ['Fast-moving', 'Far-fetched', 'Fun-loving', 'Full-time'],
       },
       {
         basic: 'Support your team',
         advanced: 'Have their back',
-        transcription: '/hæv ðeə ˈbæk/',
-        wrong: ['Have a ball', 'Have a blast', 'Have a go', 'Have the floor'],
+        transcription: '/hæv ðer ˈbæk/',
+        wrong: ['Have a ball', 'Have a blast', 'Have a cow', 'Have the floor'],
       },
       {
         basic: 'Stay calm under pressure',
         advanced: 'Composed',
-        transcription: '/kəmˈpəʊzd/',
+        transcription: '/kəmˈpoʊzd/',
         wrong: ['Complained', 'Competed', 'Compared', 'Complicated'],
       },
       {
@@ -685,17 +685,17 @@ export const MIND: Subcategory[] = [
         basic: 'Life view',
         advanced: 'Perspective',
         transcription: '/pəˈspektɪv/',
-        wrong: ['Pretence', 'Paradise', 'Passport', 'Penalty'],
+        wrong: ['Pretense', 'Paradise', 'Passport', 'Penalty'],
       },
       {
         basic: 'Accept what is',
         advanced: 'Stoic',
-        transcription: '/ˈstəʊɪk/',
+        transcription: '/ˈstoʊɪk/',
         wrong: ['Static', 'Stylish', 'Strict', 'Stubborn'],
       },
       {
         basic: 'Question everything',
-        advanced: 'Sceptical',
+        advanced: 'Skeptical',
         transcription: '/ˈskeptɪkəl/',
         wrong: ['Sarcastic', 'Superstitious', 'Sophisticated', 'Sentimental'],
       },
@@ -708,7 +708,7 @@ export const MIND: Subcategory[] = [
       {
         basic: 'Free will',
         advanced: 'Autonomy',
-        transcription: '/ɔːˈtɒnəmi/',
+        transcription: '/ɔːˈtɑːnəmi/',
         wrong: ['Authority', 'Anatomy', 'Astronomy', 'Alliance'],
       },
       {
