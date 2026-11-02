@@ -169,7 +169,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                       <div className="section-progress-track">
                         <div className="section-progress-fill" style={{ width: `${progress.words}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">{progress.words}%</span>
+                      <span className="text-xs text-zinc-500 whitespace-nowrap w-8 text-right">{progress.words}%</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
@@ -178,7 +178,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                       <div className="section-progress-track">
                         <div className="section-progress-fill" style={{ width: `${progress.phrasalVerbs}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">{progress.phrasalVerbs}%</span>
+                      <span className="text-xs text-zinc-500 whitespace-nowrap w-8 text-right">{progress.phrasalVerbs}%</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
@@ -187,7 +187,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                       <div className="section-progress-track">
                         <div className="section-progress-fill" style={{ width: `${progress.sentences}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">{progress.sentences}%</span>
+                      <span className="text-xs text-zinc-500 whitespace-nowrap w-8 text-right">{progress.sentences}%</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
@@ -196,7 +196,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                       <div className="section-progress-track">
                         <div className="section-progress-fill" style={{ width: `${progress.idioms}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">{progress.idioms}%</span>
+                      <span className="text-xs text-zinc-500 whitespace-nowrap w-8 text-right">{progress.idioms}%</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between">
@@ -205,7 +205,7 @@ export function ProfileSection({ profile, progress }: ProfileSectionProps) {
                       <div className="section-progress-track">
                         <div className="section-progress-fill" style={{ width: `${progress.grammar}%` }}></div>
                       </div>
-                      <span className="text-xs text-zinc-500">{progress.grammar}%</span>
+                      <span className="text-xs text-zinc-500 whitespace-nowrap w-8 text-right">{progress.grammar}%</span>
                     </div>
                   </div>
                 </div>

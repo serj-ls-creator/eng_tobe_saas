@@ -133,7 +133,7 @@ a {
   }
 
   .section-progress-track {
-    @apply h-2 w-24 overflow-hidden rounded-full bg-white/10;
+    @apply h-2 w-24 overflow-hidden rounded-full bg-white/10 flex-shrink-0;
   }
 
   .section-progress-fill {
