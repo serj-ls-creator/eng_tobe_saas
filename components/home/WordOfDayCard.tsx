@@ -15,6 +15,7 @@ interface WordOfDayCardProps {
   synonym: string;
   transcription: string;
   explanation: string;
+  isLoggedIn?: boolean;
 }
 
 export function WordOfDayCard({
@@ -23,17 +24,34 @@ export function WordOfDayCard({
   synonym,
   transcription,
   explanation,
+  isLoggedIn,
 }: WordOfDayCardProps) {
   const router = useRouter();
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(false);
 
-  const handleAddToVocabulary = async () => {
+  const handleAddToVocabulary = async (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+
+    // Fast path: if auth state was resolved on the server
+    if (isLoggedIn === true) {
+      router.push(`/vocabulary/add?word=${encodeURIComponent(synonym)}`);
+      return;
+    }
+    if (isLoggedIn === false) {
+      setShowSignupPrompt(true);
+      return;
+    }
+
     if (checkingAuth) return;
 
     setCheckingAuth(true);
     try {
-      const { data: { user } } = await createSupabaseBrowserClient().auth.getUser();
+      const supabase = createSupabaseBrowserClient();
+      const { data: { session } } = await supabase.auth.getSession();
+      const user = session?.user ?? (await supabase.auth.getUser()).data.user;
+
       if (!user) {
         setShowSignupPrompt(true);
         return;
@@ -61,7 +79,7 @@ export function WordOfDayCard({
             <span className="min-w-0 break-words text-base font-semibold text-white">{synonym}</span>
           </Link>
         </div>
-        <div className="mb-1 grid grid-cols-[minmax(0,1fr)_auto] grid-rows-[auto_auto] items-center gap-x-3 gap-y-1.5">
+        <div className="mb-1 grid grid-cols-[minmax(0,1fr)_auto] grid-rows-[auto_auto] items-center gap-x-2 gap-y-1">
           <div className="col-start-1 row-start-1 flex min-w-0 items-center gap-2">
             <span className="min-w-0 break-words text-xs text-zinc-400">{transcription}</span>
             <StrictEnglishTTS text={synonym} />
@@ -70,11 +88,18 @@ export function WordOfDayCard({
             type="button"
             onClick={handleAddToVocabulary}
             disabled={checkingAuth}
-            className="col-start-2 row-span-2 row-start-1 flex h-10 items-center justify-center gap-1.5 self-center rounded-control bg-cyan-400 px-3 text-xs font-semibold text-black transition-colors hover:bg-cyan-300 active:scale-[0.98] disabled:opacity-60"
+            className="col-start-2 row-span-2 row-start-1 grid h-12 max-h-12 min-h-12 w-[116px] shrink-0 grid-cols-[16px_minmax(0,1fr)] items-center gap-x-1 self-start overflow-hidden rounded-lg bg-gradient-to-r from-cyan-400 to-purple-500 px-2 py-1 text-[10px] font-bold leading-tight text-black shadow-md shadow-cyan-500/10 transition-all hover:opacity-95 active:scale-[0.98] disabled:opacity-60"
           >
-            <BookPlus className="h-4 w-4 shrink-0" />
-            <span className="whitespace-nowrap">
-              {checkingAuth ? 'Checking...' : 'Save word'}
+            <BookPlus className="h-3 w-3 shrink-0" />
+            <span className="text-center">
+              {checkingAuth ? (
+                'Checking...'
+              ) : (
+                <>
+                  <span className="block text-[14px]">Add to</span>
+                  <span className="block whitespace-nowrap">My Vocabulary</span>
+                </>
+              )}
             </span>
           </button>
           <Link href="/words" className="col-start-1 row-start-2 block min-w-0 break-words text-xs text-zinc-400">
