@@ -55,9 +55,9 @@ export function WordsTree({ categories, isPremium, progress }: WordsTreeProps) {
               </button>
 
               {isOpen ? (
-                <div className="border-t border-white/5 px-4 pb-4">
+                <div className="border-t border-border-subtle px-4 pb-4">
                   {category.topics?.length ? (
-                    <div className="space-y-3 pt-4">
+                    <div className="space-y-3 pt-3">
                       {category.topics.map((topic) => {
                         const hasActivities = Boolean(topic.activities?.length);
                         const topicLocked = !topic.isFree && !isPremium;
@@ -139,12 +139,13 @@ export function WordsTree({ categories, isPremium, progress }: WordsTreeProps) {
                       })}
                     </div>
                   ) : (
-                    <div className="pt-4">
+                    <div className="pt-3">
                       <Link
                         href={locked ? "/store" : category.href}
-                        className="block rounded-2xl border border-dashed border-white/10 bg-white/[0.02] p-4 text-sm text-zinc-400 transition-colors hover:bg-white/[0.05]"
+                        className="tree-item flex items-center justify-between gap-3 px-4 py-3 text-sm text-zinc-400 transition-colors hover:bg-surface-hover"
                       >
-                        Open {category.name}
+                        <span>Open {category.name}</span>
+                        <ChevronRight className="h-4 w-4 text-zinc-500" />
                       </Link>
                     </div>
                   )}

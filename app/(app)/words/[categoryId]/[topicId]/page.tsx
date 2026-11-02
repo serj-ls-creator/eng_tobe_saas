@@ -6,7 +6,7 @@ import { CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ArrowLeft, BookOpenText, ChevronRight } from "lucide-react";
 import { getIcon } from "@/lib/icons";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import { createPageMetadata } from "@/lib/metadata";
@@ -29,6 +29,34 @@ const BASIC_ADVANCED_SUBCATEGORY_ICONS: Record<string, string> = {
   logic: "Network", learning: "GraduationCap", "problem-solving": "Puzzle",
   creativity: "Lightbulb", focus: "Focus", planning: "ListTodo", habits: "Repeat2",
   growth: "Sprout", leadership: "Crown", philosophy: "BookOpenText"
+};
+
+const TOPIC_ICONS: Record<string, string> = {
+  // Antonyms
+  character: "ShieldCheck",
+  state: "Battery",
+  action: "ArrowLeftRight",
+  feeling: "Drama",
+  // Rude -> Polite
+  "at-work": "BriefcaseBusiness",
+  "with-strangers": "Handshake",
+  "in-conflict": "ShieldAlert",
+  "online-texting": "MessageSquareMore",
+  // Formal -> Informal
+  "emails-messages": "FileText",
+  "meetings-presentations": "BriefcaseBusiness",
+  "everyday-conversation": "MessageCircleMore",
+  "written-documents": "BookOpenText",
+  // Time words
+  "past-memory": "Brain",
+  "present-now": "Clock3",
+  "future-plans": "CalendarDays",
+  "duration-frequency": "Repeat2",
+  // Slang
+  "gen-z-slang": "Laugh",
+  "internet-social-media": "Share2",
+  "emotions-reactions": "Drama",
+  "street-urban": "MapPin"
 };
 
 interface PageProps {
@@ -78,16 +106,19 @@ export default async function TopicPage({ params }: PageProps) {
         <div className="mb-4">
           <Link 
             href="/words" 
-            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
-            ← Back to Words
+            <ArrowLeft className="h-3 w-3" /> Back to Words
           </Link>
         </div>
 
-        <div className="mb-6 section-hero p-5">
-          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Topic</div>
-          <h1 className="mb-2 text-3xl font-black text-white">{topic.name}</h1>
-          <div className="max-w-md text-sm leading-6 text-zinc-200">
+        <div className="mb-6 section-hero bg-none bg-surface-raised p-4">
+          <div className="mb-2 flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-theme" aria-hidden="true" />
+            <span className="text-xs font-medium text-zinc-400">Topic</span>
+          </div>
+          <h1 className="mb-2 text-3xl font-semibold text-foreground">{topic.name}</h1>
+          <div className="max-w-md text-sm leading-relaxed text-zinc-300">
             {topic.description?.includes('||') ? (
               <>
                 <div>{topic.description.split('||')[0]}</div>
@@ -101,71 +132,89 @@ export default async function TopicPage({ params }: PageProps) {
 
         {topic.subcategories && topic.subcategories.length > 0 ? (
           <div className="grid grid-cols-2 gap-3">
-            {topic.subcategories.map((subcategory, index) => (
-              <div key={subcategory.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-                <Link href={locked ? "/store" : `/words/${categoryId}/${topicId}/${subcategory.id}`}>
-                  <Card
-                    className={`p-4 ${
-                      getProgressCardClass(
-                        progress.containerStatuses[
-                          buildProgressKey({
-                            section: "words",
-                            categoryId,
-                            topicId,
-                            subcategoryId: subcategory.id
-                          })
-                        ] ?? "none"
-                      )
-                    }`}
-                  >
-                    <div className="mb-2 flex items-center gap-2 text-sm font-semibold">
-                      {categoryId === "basic-advanced" && (() => {
-                        const Icon = getIcon(BASIC_ADVANCED_SUBCATEGORY_ICONS[subcategory.id] ?? "Sparkles");
-                        return <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-cyan-400/15"><Icon className="h-4 w-4 text-cyan-300" /></span>;
-                      })()}
-                      <span>{subcategory.name}</span>
+            {topic.subcategories.map((subcategory, index) => {
+              const subcategoryIconName =
+                categoryId === "basic-advanced"
+                  ? (BASIC_ADVANCED_SUBCATEGORY_ICONS[subcategory.id] ?? "Sparkles")
+                  : (TOPIC_ICONS[topicId] ?? category.icon);
+              const SubIcon = getIcon(subcategoryIconName);
+              return (
+                <div key={subcategory.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+                  <Link href={locked ? "/store" : `/words/${categoryId}/${topicId}/${subcategory.id}`}>
+                    <Card
+                      className={`p-4 ${
+                        getProgressCardClass(
+                          progress.containerStatuses[
+                            buildProgressKey({
+                              section: "words",
+                              categoryId,
+                              topicId,
+                              subcategoryId: subcategory.id
+                            })
+                          ] ?? "none"
+                        )
+                      }`}
+                    >
+                      <div className="mb-2 flex items-center gap-2 text-sm font-medium">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-control bg-theme-soft">
+                          <SubIcon className="h-4 w-4 text-theme" />
+                        </span>
+                        <span>{subcategory.name}</span>
+                      </div>
+                      <div className="text-[11px] leading-relaxed">
+                      {subcategory.description?.includes('||') ? (
+                        <>
+                          <div className="text-zinc-500">{subcategory.description.split('||')[0]}</div>
+                          <div className="text-cyan-400 font-medium">10 words</div>
+                        </>
+                      ) : (
+                        <div className="text-zinc-500">{subcategory.description}</div>
+                      )}
                     </div>
-                    <div className="text-[11px] leading-relaxed">
-                    {subcategory.description?.includes('||') ? (
-                      <>
-                        <div className="text-zinc-500">{subcategory.description.split('||')[0]}</div>
-                        <div className="text-cyan-400 font-medium">10 words</div>
-                      </>
-                    ) : (
-                      <div className="text-zinc-500">{subcategory.description}</div>
-                    )}
-                  </div>
-                  </Card>
-                </Link>
-              </div>
-            ))}
+                    </Card>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         ) : topic.topics ? (
           <div className="grid grid-cols-2 gap-3">
-            {topic.topics.map((subtopic, index) => (
-              <div key={subtopic.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-                <Link href={locked ? "/store" : `/words#${categoryId}-${topicId}-${subtopic.id}`}>
-                  <Card className="p-4">
-                    <div className="mb-2 text-sm font-semibold">{subtopic.name}</div>
-                    <div className="text-[11px] leading-relaxed">
-                    {subtopic.description?.includes('||') ? (
-                      <>
-                        <div className="text-zinc-500">{subtopic.description.split('||')[0]}</div>
-                        <div className="text-cyan-400 font-medium">10 words</div>
-                      </>
-                    ) : (
-                      <div className="text-zinc-500">{subtopic.description}</div>
-                    )}
-                  </div>
-                  </Card>
-                </Link>
-              </div>
-            ))}
+            {topic.topics.map((subtopic, index) => {
+              const SubIcon = getIcon(TOPIC_ICONS[topicId] ?? category.icon);
+              return (
+                <div key={subtopic.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+                  <Link href={locked ? "/store" : `/words#${categoryId}-${topicId}-${subtopic.id}`}>
+                    <Card className="p-4">
+                      <div className="mb-2 flex items-center gap-2 text-sm font-medium">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-control bg-theme-soft">
+                          <SubIcon className="h-4 w-4 text-theme" />
+                        </span>
+                        <span>{subtopic.name}</span>
+                      </div>
+                      <div className="text-[11px] leading-relaxed">
+                      {subtopic.description?.includes('||') ? (
+                        <>
+                          <div className="text-zinc-500">{subtopic.description.split('||')[0]}</div>
+                          <div className="text-cyan-400 font-medium">10 words</div>
+                        </>
+                      ) : (
+                        <div className="text-zinc-500">{subtopic.description}</div>
+                      )}
+                    </div>
+                    </Card>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         ) : (
           <Card className="p-6 text-center">
-            <div className="mb-4 text-4xl">📚</div>
-            <h3 className="mb-2 text-sm font-semibold">{topic.name}</h3>
+            <div className="mb-3 flex justify-center">
+              <span className="flex h-10 w-10 items-center justify-center rounded-control bg-theme-soft">
+                <BookOpenText className="h-5 w-5 text-theme" />
+              </span>
+            </div>
+            <h3 className="mb-2 text-sm font-medium">{topic.name}</h3>
             <p className="text-xs leading-relaxed text-zinc-500">{topic.description}</p>
           </Card>
         )}
