@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BookOpenText, MessageCircleMore, Lightbulb, Gamepad2, Rocket, BookOpen, BookMarked, ChevronRight } from "lucide-react";
 
@@ -8,6 +9,12 @@ import { WordOfDayCard } from "@/components/home/WordOfDayCard";
 import { UI_TEXT } from "@/constants/ui";
 import { getCurrentProfileWithPremium } from "@/lib/isPremium";
 import { getWordOfTheDay } from "@/data/wordsOfTheDay";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Daily English Practice and Dashboard",
+  description: "Continue your daily English learning with words, idioms, sentences, grammar, and interactive games.",
+});
 
 const quickLinks = [
   { href: "/words", title: "Words", subtitle: "7 categories", icon: <BookOpenText className="h-5 w-5" /> },

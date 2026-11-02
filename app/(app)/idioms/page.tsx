@@ -1,11 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Common English Idioms and Phrases",
+  description: "Learn natural English idioms and expressions with practical explanations and interactive tasks.",
+});
 
 export default async function IdiomsPage() {
   const premium = await isPremium();

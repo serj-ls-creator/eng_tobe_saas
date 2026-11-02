@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
@@ -8,6 +9,7 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { getIcon } from "@/lib/icons";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
 
@@ -34,6 +36,24 @@ interface PageProps {
     categoryId: string;
     topicId: string;
   };
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
+  const category = CATS.find((cat) => cat.id === resolvedParams?.categoryId);
+  const topic = category?.topics?.find((t) => t.id === resolvedParams?.topicId);
+
+  if (!topic) {
+    return createPageMetadata({
+      title: "English Vocabulary Practice",
+      description: "Learn and practice English words and phrases with interactive cards and exercises.",
+    });
+  }
+
+  return createPageMetadata({
+    title: `${topic.name} - English Vocabulary Practice`,
+    description: topic.description || `Learn and practice ${topic.name} words with interactive flashcards.`,
+  });
 }
 
 export default async function TopicPage({ params }: PageProps) {

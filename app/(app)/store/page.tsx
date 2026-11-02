@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { getCurrentProfile, isPremium } from "@/lib/isPremium";
 import { StorePremiumCard } from "@/components/ui/StorePremiumCard";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Upgrade to Premium - Unlimited Learning",
+  description: "Unlock all English grammar lessons, advanced word categories, and premium learning tools.",
+});
 
 export default async function StorePage() {
   const profile = await getCurrentProfile();

@@ -13,9 +13,24 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "English to be",
-  description: "Learn English in English. Words, idioms, sentences, grammar and games for A2+ learners. Free to start.",
+  title: {
+    default: "Learn English - Small steps. Real progress! | English to be",
+    template: "%s | English to be",
+  },
+  description: "Learn English step by step with daily vocabulary, grammar rules, and fun interactive practice.",
   applicationName: "English to be",
+  openGraph: {
+    title: "Learn English - Small steps. Real progress! | English to be",
+    description: "Learn English step by step with daily vocabulary, grammar rules, and fun interactive practice.",
+    siteName: "English to be",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Learn English - Small steps. Real progress! | English to be",
+    description: "Learn English step by step with daily vocabulary, grammar rules, and fun interactive practice.",
+  },
   manifest: "/manifest.webmanifest",
   icons: {
     icon: "/favicon.ico",

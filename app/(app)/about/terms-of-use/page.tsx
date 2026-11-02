@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { TopBar } from "@/components/layout/TopBar";
 import { SupportContent } from "@/components/technical-support/SupportContent";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Terms of Use and Service Agreement",
+  description: "Review the terms and conditions for using English to be language learning services and platform.",
+});
 
 export default function TermsOfUsePage() {
   return (

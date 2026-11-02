@@ -1,5 +1,12 @@
+import type { Metadata } from "next";
 import { TopBar } from "@/components/layout/TopBar";
 import { SupportContent } from "@/components/technical-support/SupportContent";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Privacy Policy and User Data Protection",
+  description: "Read the English to be privacy policy to learn how your personal data and learning stats are protected.",
+});
 
 export default function PrivacyPolicyPage() {
   return (

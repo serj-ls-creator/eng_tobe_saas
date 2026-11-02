@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BookOpenText, CircleHelp, PenLine } from "lucide-react";
 import { notFound, redirect } from "next/navigation";
@@ -6,8 +7,34 @@ import { Card } from "@/components/ui/card";
 import { findGrammarTopic, GRAMMAR_SECTIONS } from "@/constants/grammar";
 import { isPremium } from "@/lib/isPremium";
 import { getLearningProgressSnapshot, buildProgressKey, getProgressCardClass } from "@/lib/learning-progress";
+import { createPageMetadata } from "@/lib/metadata";
 
-export default async function GrammarTopicPage({ params }: { params: { categoryId: string; topicId: string } }) {
+interface GrammarTopicPageProps {
+  params: {
+    categoryId: string;
+    topicId: string;
+  };
+}
+
+export async function generateMetadata({ params }: GrammarTopicPageProps): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
+  const section = GRAMMAR_SECTIONS.find((item) => item.id === resolvedParams?.categoryId);
+  const topic = findGrammarTopic(section?.topics, resolvedParams?.topicId);
+
+  if (!topic) {
+    return createPageMetadata({
+      title: "English Grammar Lesson",
+      description: "Learn English grammar rules step by step with simple explanations and practice.",
+    });
+  }
+
+  return createPageMetadata({
+    title: `${topic.name} - English Grammar Lesson`,
+    description: topic.rule || `Learn ${topic.name} with simple grammar rules and interactive practice.`,
+  });
+}
+
+export default async function GrammarTopicPage({ params }: GrammarTopicPageProps) {
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
   const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();

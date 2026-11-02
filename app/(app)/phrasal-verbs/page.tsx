@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
@@ -5,8 +6,14 @@ import { PHRASAL_VERBS_CAT } from "@/constants/categories";
 import { PHRASAL_VERB_TOPIC_STYLES } from "@/constants/ui";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Essential English Phrasal Verbs Practice",
+  description: "Master essential English phrasal verbs with clear meanings, example sentences, and quizzes.",
+});
 
 export default async function PhrasalVerbsPage() {
   const premium = await isPremium();

@@ -1,11 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { SentencesTree } from "@/components/sentences/SentencesTree";
 import { SENT_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { getLearningProgressSnapshot } from "@/lib/learning-progress";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Real English Sentences and Daily Dialogues",
+  description: "Practice common English sentences and dialogues for everyday life, travel, and conversations.",
+});
 
 export default async function SentencesPage() {
   const premium = await isPremium();

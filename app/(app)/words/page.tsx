@@ -1,11 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { WordsTree } from "@/components/words/WordsTree";
 import { CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { getLearningProgressSnapshot } from "@/lib/learning-progress";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "English Words and Vocabulary Practice",
+  description: "Expand your English vocabulary with practical words, topic flashcards, and interactive practice exercises.",
+});
 
 export default async function WordsPage() {
   const premium = await isPremium();

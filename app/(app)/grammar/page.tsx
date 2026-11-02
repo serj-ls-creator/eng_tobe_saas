@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { GRAMMAR_SECTIONS } from "@/constants/grammar";
@@ -5,8 +6,14 @@ import { GrammarTree } from "@/components/grammar/GrammarTree";
 import { TensesSection } from "@/components/grammar/TensesSection";
 import { getLearningProgressSnapshot } from "@/lib/learning-progress";
 import { isPremium } from "@/lib/isPremium";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Simple English Grammar Rules and Lessons",
+  description: "Learn clear English grammar rules with simple explanations, practical examples, and interactive exercises.",
+});
 
 export default async function GrammarPage() {
   const progress = await getLearningProgressSnapshot();

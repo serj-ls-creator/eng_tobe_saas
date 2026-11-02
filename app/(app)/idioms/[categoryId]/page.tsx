@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import Link from "next/link";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
@@ -5,8 +6,30 @@ import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 import { notFound } from "next/navigation";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
+
+interface IdiomCategoryPageProps {
+  params: { categoryId: string };
+}
+
+export async function generateMetadata({ params }: IdiomCategoryPageProps): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
+  const category = IDIOM_CATS.find((cat) => cat.id === resolvedParams?.categoryId);
+
+  if (!category) {
+    return createPageMetadata({
+      title: "English Idioms Practice",
+      description: "Learn common English idioms and phrases with real-world examples.",
+    });
+  }
+
+  return createPageMetadata({
+    title: `${category.name} - English Idioms Practice`,
+    description: category.description || `Learn ${category.name} idioms with simple meanings and examples.`,
+  });
+}
 
 const IDIOM_LEVELS = [
   {
@@ -32,7 +55,7 @@ const IDIOM_LEVELS = [
   }
 ];
 
-export default async function IdiomCategoryPage({ params }: { params: { categoryId: string } }) {
+export default async function IdiomCategoryPage({ params }: IdiomCategoryPageProps) {
   const premium = await isPremium();
   const progress = await getLearningProgressSnapshot();
   const category = IDIOM_CATS.find(cat => cat.id === params.categoryId);

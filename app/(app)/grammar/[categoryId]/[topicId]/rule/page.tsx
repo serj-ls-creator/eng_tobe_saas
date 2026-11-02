@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { notFound, redirect } from "next/navigation";
@@ -26,8 +27,34 @@ import { SENTENCE_LESSONS } from "@/constants/grammar-lessons/sentences";
 import { VERB_LESSONS } from "@/constants/grammar-lessons/verbs";
 import { TENSE_LESSONS } from "@/constants/grammar-lessons/tenses";
 import { isPremium } from "@/lib/isPremium";
+import { createPageMetadata } from "@/lib/metadata";
 
-export default async function GrammarRulePage({ params }: { params: { categoryId: string; topicId: string } }) {
+interface GrammarRulePageProps {
+  params: {
+    categoryId: string;
+    topicId: string;
+  };
+}
+
+export async function generateMetadata({ params }: GrammarRulePageProps): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
+  const section = GRAMMAR_SECTIONS.find((item) => item.id === resolvedParams?.categoryId);
+  const topic = findGrammarTopic(section?.topics, resolvedParams?.topicId);
+
+  if (!topic) {
+    return createPageMetadata({
+      title: "English Grammar Rule",
+      description: "Read simple English grammar rules and learn how to use them with examples.",
+    });
+  }
+
+  return createPageMetadata({
+    title: `${topic.name} Rule - English Grammar Lesson`,
+    description: topic.rule || `Read the rule and examples for ${topic.name}.`,
+  });
+}
+
+export default async function GrammarRulePage({ params }: GrammarRulePageProps) {
   const section = GRAMMAR_SECTIONS.find((item) => item.id === params.categoryId);
   const topic = findGrammarTopic(section?.topics, params.topicId);
   if (!section || !topic) notFound();

@@ -1,25 +1,12 @@
-"use client";
+import type { Metadata } from "next";
+import { VocabularyAuthGuard } from "@/components/vocabulary/VocabularyAuthGuard";
+import { createPageMetadata } from "@/lib/metadata";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
+export const metadata: Metadata = createPageMetadata({
+  title: "Personal Vocabulary & Custom Word Sets",
+  description: "Save new English words, organize custom vocabulary lists, and practice your personal word bank.",
+});
 
 export default function VocabularyLayout({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    const supabase = createSupabaseBrowserClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (!user) {
-        router.replace("/auth/login");
-      } else {
-        setChecked(true);
-      }
-    });
-  }, [router]);
-
-  if (!checked) return null;
-
-  return <>{children}</>;
+  return <VocabularyAuthGuard>{children}</VocabularyAuthGuard>;
 }

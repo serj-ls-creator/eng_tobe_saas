@@ -1,11 +1,18 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BookOpen, CircleHelp, Clock, PenLine, type LucideIcon } from "lucide-react";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Articles in English - Grammar Lesson",
+  description: "Learn when to use a, an, the, and zero article with simple rules and interactive exercises.",
+});
 
 type ArticlesActivity =
   | {

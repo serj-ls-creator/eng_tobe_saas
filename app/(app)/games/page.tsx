@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { GAME_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Fun English Games and Word Practice",
+  description: "Play fun English word games like Wordle, Wordsearch, and Memory to practice your vocabulary.",
+});
 
 export default async function GamesPage() {
   const premium = await isPremium();

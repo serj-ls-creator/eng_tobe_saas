@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
@@ -6,6 +7,7 @@ import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
+import { createPageMetadata } from "@/lib/metadata";
 
 export const dynamic = 'force-dynamic';
 
@@ -23,6 +25,24 @@ interface PageProps {
   };
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const resolvedParams = await Promise.resolve(params);
+  const category = CATS.find((cat) => cat.id === resolvedParams?.categoryId);
+  const topic = category?.topics?.find((t) => t.id === resolvedParams?.topicId);
+  const subcategory = topic?.subcategories?.find((sub) => sub.id === resolvedParams?.subcategoryId);
+
+  if (!subcategory) {
+    return createPageMetadata({
+      title: "English Word Practice",
+      description: "Learn and practice English words with interactive flashcards and exercises.",
+    });
+  }
+
+  return createPageMetadata({
+    title: `${subcategory.name} - English Word Practice`,
+    description: subcategory.description || `Practice ${subcategory.name} English words with interactive flashcards.`,
+  });
+}
 
 export default async function SubcategoryPage({ params }: PageProps) {
   const { categoryId, topicId, subcategoryId } = params;

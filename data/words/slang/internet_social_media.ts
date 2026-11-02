@@ -64,10 +64,10 @@ export const INTERNET_SOCIAL_MEDIA: Subcategory[] = [
         wrong: ['Obscured', 'Observed', 'Obsolete', 'Oppressed'],
       },
       {
-        basic: 'Win',
-        advanced: 'W',
-        transcription: '/ˈdʌbəl juː/',
-        wrong: ['L', 'V', 'X', 'Z'],
+        basic: 'Yes!',
+        advanced: 'Yass',
+        transcription: '/jæs/',
+        wrong: ['Yard', 'Yarn', 'Yank', 'Yams'],
       },
       {
         basic: 'Okay',
@@ -332,10 +332,10 @@ export const INTERNET_SOCIAL_MEDIA: Subcategory[] = [
         wrong: ['Cloud', 'Clown', 'Clove', 'Club'],
       },
       {
-        basic: 'Loss',
-        advanced: 'L',
-        transcription: '/el/',
-        wrong: ['K', 'M', 'N', 'P'],
+        basic: 'Big failure',
+        advanced: 'Epic fail',
+        transcription: '/ˌepɪk ˈfeɪl/',
+        wrong: ['Epic win', 'Epic fall', 'Epic fight', 'Epic film'],
       },
       {
         basic: 'Legendary',

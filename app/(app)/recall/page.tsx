@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
@@ -8,6 +9,12 @@ import { isPremium } from "@/lib/isPremium";
 import type { RecallItem } from "@/lib/learning-progress-shared";
 import { CATS, IDIOM_CATS, ALL_SENTENCE_CATS, GRAMMAR_CATS } from "@/constants/categories";
 import { GRAMMAR_SECTIONS, type GrammarTopic } from "@/constants/grammar";
+import { createPageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Spaced Repetition and Word Recall Review",
+  description: "Review saved words and grammar with spaced repetition to remember what you learn long term.",
+});
 
 function findGrammarTopic(topics: GrammarTopic[] | undefined, topicId: string | null): GrammarTopic | undefined {
   if (!topicId || !topics) return undefined;
