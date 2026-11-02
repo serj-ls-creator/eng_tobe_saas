@@ -32,7 +32,7 @@ export default async function WordsPage() {
           </Link>
         </div>
 
-        <div className="mb-6 section-hero bg-none bg-surface-raised p-4">
+        <div className="mb-6 section-hero p-4">
           <div className="mb-2 flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-theme" aria-hidden="true" />
             <span className="text-xs font-medium text-zinc-400">Practice</span>

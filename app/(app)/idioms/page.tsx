@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { IDIOM_CATS } from "@/constants/categories";
@@ -25,16 +26,19 @@ export default async function IdiomsPage() {
         <div className="mb-4">
           <Link 
             href="/home" 
-            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
-            ← Back to Home
+            <ArrowLeft className="h-3 w-3" /> Back to Home
           </Link>
         </div>
 
-        <div className="mb-6 section-hero p-5">
-          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Practice</div>
-          <h1 className="mb-2 text-3xl font-black text-white">Idioms</h1>
-          <p className="max-w-md text-sm leading-6 text-zinc-200">
+        <div className="mb-6 section-hero p-4">
+          <div className="mb-2 flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-theme" aria-hidden="true" />
+            <span className="text-xs font-medium text-zinc-400">Practice</span>
+          </div>
+          <h1 className="mb-2 text-3xl font-semibold text-foreground">Idioms</h1>
+          <p className="max-w-md text-sm leading-relaxed text-zinc-300">
             Learn everyday English expressions through themed idiom collections and practice.
           </p>
         </div>

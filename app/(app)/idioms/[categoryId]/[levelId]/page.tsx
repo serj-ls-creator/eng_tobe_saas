@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { Card } from "@/components/ui/card";
 import { IDIOM_CATS } from "@/constants/categories";
@@ -54,6 +55,15 @@ const IDIOM_ACTIVITIES = [
   }
 ];
 
+const IDIOM_ACTIVITY_ICONS: Record<string, { icon: string; color: string }> = {
+  cards: { icon: "Layers", color: "#3b82f6" },
+  "multiple-choice": { icon: "ListOrdered", color: "#10b981" },
+  "synonym-pair": { icon: "ArrowLeftRight", color: "#f59e0b" },
+  "fill-blanks": { icon: "FileText", color: "#ef4444" },
+  "find-mistake": { icon: "ShieldAlert", color: "#ec4899" },
+  "sentence-builder": { icon: "ListTodo", color: "#06b6d4" }
+};
+
 export default async function IdiomLevelPage({ params }: { params: { categoryId: string; levelId: string } }) {
   const premium = await isPremium();
   const progress = await getLearningProgressSnapshot();
@@ -73,16 +83,25 @@ export default async function IdiomLevelPage({ params }: { params: { categoryId:
         <div className="mb-4">
           <Link 
             href={`/idioms/${category.id}`} 
-            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
-            {"<-"} Back to {category.name}
+            <ArrowLeft className="h-3 w-3" /> Back to {category.name}
           </Link>
+        </div>
+
+        <div className="mb-6 section-hero p-4">
+          <div className="mb-2 flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-theme" aria-hidden="true" />
+            <span className="text-xs font-medium text-zinc-400">{levelName}</span>
+          </div>
+          <h1 className="text-3xl font-semibold text-foreground">{category.name}</h1>
         </div>
         
         {/* Activities Grid - 2 per row */}
         <div className="grid grid-cols-2 gap-3">
           {IDIOM_ACTIVITIES.map((activity, index) => {
-            const Icon = getIcon(activity.icon);
+            const activityStyle = IDIOM_ACTIVITY_ICONS[activity.id] ?? { icon: "Sparkles", color: "#A78BFA" };
+            const ActivityIcon = getIcon(activityStyle.icon);
             return (
               <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
                 <Link href={locked ? "/store" : `/idioms/${category.id}/${params.levelId}/${activity.id}`}>
@@ -100,22 +119,11 @@ export default async function IdiomLevelPage({ params }: { params: { categoryId:
                       )
                     }`}
                   >
-                    <div className="mb-2 flex items-center gap-2">
-                      <div className="flex h-6 w-6 items-center justify-center rounded-lg" style={{ backgroundColor: `${activity.color}25` }}>
-                        <Icon className="h-3 w-3" style={{ color: activity.color }} />
-                      </div>
-                      <div className="text-sm font-semibold">{activity.name}</div>
+                    <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-control" style={{ backgroundColor: `${activityStyle.color}25` }}>
+                      <ActivityIcon className="h-4 w-4" style={{ color: activityStyle.color }} />
                     </div>
-                    <div className="text-[11px] leading-relaxed">
-                      {activity.description?.includes('||') ? (
-                        <>
-                          <div className="text-zinc-500">{activity.description.split('||')[0]}</div>
-                          <div className="text-cyan-400 font-medium">{activity.description.split('||')[1]}</div>
-                        </>
-                      ) : (
-                        <div className="text-zinc-500">{activity.description}</div>
-                      )}
-                    </div>
+                    <div className="mb-2 text-sm font-medium">{activity.name}</div>
+                    <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>
                   </Card>
                 </Link>
               </div>

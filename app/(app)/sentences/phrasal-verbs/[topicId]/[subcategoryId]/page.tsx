@@ -5,7 +5,9 @@ import { ALL_SENTENCE_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot, getProgressCardClass } from "@/lib/learning-progress";
 import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import { PremiumBadge } from "@/components/ui/PremiumBadge";
+import { getIcon } from "@/lib/icons";
 
 export const dynamic = 'force-dynamic';
 
@@ -48,6 +50,15 @@ const PHRASAL_VERB_ACTIVITIES: Activity[] = [
   }
 ];
 
+const PHRASAL_VERB_ACTIVITY_ICONS: Record<string, { icon: string; color: string }> = {
+  cards: { icon: "Layers", color: "#3b82f6" },
+  "multiple-choice": { icon: "ListOrdered", color: "#10b981" },
+  "synonym-pair": { icon: "ArrowLeftRight", color: "#f59e0b" },
+  "letter-hunt": { icon: "Search", color: "#ef4444" },
+  unscramble: { icon: "Type", color: "#8b5cf6" },
+  "pair-match": { icon: "Puzzle", color: "#ec4899" }
+};
+
 interface PageProps {
   params: {
     topicId: string;
@@ -81,16 +92,19 @@ export default async function SubcategoryPage({ params }: PageProps) {
         <div className="mb-4">
           <Link 
             href={`/sentences/phrasal-verbs/${topicId}`}
-            className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
+            className="inline-flex items-center gap-1 text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
-            ← Back to {topic.name}
+            <ArrowLeft className="h-3 w-3" /> Back to {topic.name}
           </Link>
         </div>
 
-        <div className="mb-6 section-hero p-5">
-          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Practice</div>
-          <h1 className="mb-2 text-3xl font-black text-white">{subcategory.name}</h1>
-          <div className="max-w-md text-sm leading-6 text-zinc-200">
+        <div className="mb-6 section-hero p-4">
+          <div className="mb-2 flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-theme" aria-hidden="true" />
+            <span className="text-xs font-medium text-zinc-400">Practice</span>
+          </div>
+          <h1 className="mb-2 text-3xl font-semibold text-foreground">{subcategory.name}</h1>
+          <div className="max-w-md text-sm leading-relaxed text-zinc-300">
             {subcategory.description?.includes('||') ? (
               <>
                 <div>{subcategory.description.split('||')[0]}</div>
@@ -103,30 +117,37 @@ export default async function SubcategoryPage({ params }: PageProps) {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          {PHRASAL_VERB_ACTIVITIES.map((activity: Activity, index: number) => (
-            <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
-              <Link href={locked ? "/store" : `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/${activity.id}`}>
-                <Card
-                  className={`p-4 ${
-                    getProgressCardClass(
-                      progress.activityStatuses[
-                        buildProgressKey({
-                          section: "sentences",
-                          categoryId: "phrasal-verbs",
-                          topicId,
-                          subcategoryId,
-                          activityId: activity.id
-                        })
-                      ] ?? "none"
-                    )
-                  }`}
-                >
-                  <div className="mb-2 text-sm font-semibold">{activity.name}</div>
-                  <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>
-                </Card>
-              </Link>
-            </div>
-          ))}
+          {PHRASAL_VERB_ACTIVITIES.map((activity: Activity, index: number) => {
+            const activityStyle = PHRASAL_VERB_ACTIVITY_ICONS[activity.id] ?? { icon: "Sparkles", color: "#A78BFA" };
+            const ActivityIcon = getIcon(activityStyle.icon);
+            return (
+              <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
+                <Link href={locked ? "/store" : `/sentences/phrasal-verbs/${topicId}/${subcategoryId}/${activity.id}`}>
+                  <Card
+                    className={`p-4 ${
+                      getProgressCardClass(
+                        progress.activityStatuses[
+                          buildProgressKey({
+                            section: "sentences",
+                            categoryId: "phrasal-verbs",
+                            topicId,
+                            subcategoryId,
+                            activityId: activity.id
+                          })
+                        ] ?? "none"
+                      )
+                    }`}
+                  >
+                    <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-control" style={{ backgroundColor: `${activityStyle.color}25` }}>
+                      <ActivityIcon className="h-4 w-4" style={{ color: activityStyle.color }} />
+                    </div>
+                    <div className="mb-2 text-sm font-medium">{activity.name}</div>
+                    <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>
+                  </Card>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>
