@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpenText, MessageCircleMore, Lightbulb, Gamepad2, Rocket, BookOpen, BookMarked, ChevronRight } from "lucide-react";
+import {
+  BookOpenText,
+  MessageCircleMore,
+  Lightbulb,
+  Gamepad2,
+  Rocket,
+  BookOpen,
+  BookMarked,
+  ChevronRight,
+} from "lucide-react";
 
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
@@ -17,21 +26,22 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 const quickLinks = [
-  { href: "/words", title: "Words", subtitle: "7 categories", icon: <BookOpenText className="h-5 w-5" /> },
-  { href: "/idioms", title: "Idioms", subtitle: "7 topics", icon: <Lightbulb className="h-5 w-5" /> },
-  { href: "/phrasal-verbs", title: "Phrasal verbs", subtitle: "4 topics", icon: <Rocket className="h-5 w-5" /> },
-  { href: "/sentences", title: "Sentences", subtitle: "A1 to C2", icon: <MessageCircleMore className="h-5 w-5" /> },
-  { href: "/grammar", title: "Grammar+Tenses", subtitle: "24 topics", icon: <BookOpen className="h-5 w-5" /> },
-  { href: "/games", title: "Games", subtitle: "Wordle & more", icon: <Gamepad2 className="h-5 w-5" /> },
+  { href: "/words", title: "Words", subtitle: "7 categories", icon: BookOpenText, color: "#00E5FF" },
+  { href: "/idioms", title: "Idioms", subtitle: "7 topics", icon: Lightbulb, color: "#F472B6" },
+  { href: "/phrasal-verbs", title: "Phrasal verbs", subtitle: "4 topics", icon: Rocket, color: "#A855F7" },
+  { href: "/sentences", title: "Sentences", subtitle: "A1 to C2", icon: MessageCircleMore, color: "#34D399" },
+  { href: "/grammar", title: "Grammar + Tenses", subtitle: "24 topics", icon: BookOpen, color: "#4FD1FF" },
+  { href: "/games", title: "Games", subtitle: "Wordle & more", icon: Gamepad2, color: "#FFD93D" },
 ];
 
 export default async function AppHomePage() {
   const { profile, premium } = await getCurrentProfileWithPremium();
   const wordOfTheDay = getWordOfTheDay();
+
   const streakBlock = (
     <div className="fade-up">
       {profile ? (
-        <Link href="/profile">
+        <Link href="/profile" className="block">
           <StreakBar isLoggedIn />
         </Link>
       ) : (
@@ -39,6 +49,7 @@ export default async function AppHomePage() {
       )}
     </div>
   );
+
   const wordOfDayBlock = (
     <section className="fade-up fade-up-d4">
       <WordOfDayCard
@@ -55,50 +66,53 @@ export default async function AppHomePage() {
     <>
       <TopBar showBrand points={profile?.points ?? 0} streak={profile?.total_streak ?? 0} />
 
-      <div className="content-shell relative z-10 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="flying-word text-lg" style={{ "--op": "0.15", "--dur": "30s", "--mx": "50px", "--my": "0px", "--tilt": "8deg", top: "80vh", left: "10%" } as React.CSSProperties}>Vocabulary</div>
-            <div className="flying-word text-base" style={{ "--op": "0.12", "--dur": "27s", "--mx": "-40px", "--my": "0px", "--tilt": "-6deg", top: "60vh", left: "25%" } as React.CSSProperties}>Grammar</div>
-            <div className="flying-word text-lg" style={{ "--op": "0.1", "--dur": "33s", "--mx": "60px", "--my": "0px", "--tilt": "10deg", top: "40vh", left: "40%" } as React.CSSProperties}>Practice</div>
-            <div className="flying-word text-base" style={{ "--op": "0.14", "--dur": "28.5s", "--mx": "-45px", "--my": "0px", "--tilt": "7deg", top: "70vh", left: "55%" } as React.CSSProperties}>Fluency</div>
-            <div className="flying-word text-lg" style={{ "--op": "0.11", "--dur": "31.5s", "--mx": "55px", "--my": "0px", "--tilt": "-8deg", top: "50vh", left: "70%" } as React.CSSProperties}>Success</div>
-            <div className="flying-word text-base" style={{ "--op": "0.13", "--dur": "25.5s", "--mx": "-50px", "--my": "0px", "--tilt": "9deg", top: "30vh", left: "85%" } as React.CSSProperties}>English</div>
-          </div>
-        </div>
-
-        <div className="relative z-20 overflow-y-auto px-4 pt-4 pb-4">
+      <div className="content-shell pb-6">
+        <div className="space-y-4">
           {profile ? streakBlock : wordOfDayBlock}
 
-          <section className="mb-5 mt-5 relative">
-            <h2 className="fade-up fade-up-d2 mb-3 text-sm font-semibold relative z-10">{UI_TEXT.homeTitle}</h2>
+          <section>
+            <h2 className="fade-up fade-up-d2 mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+              Practice sections
+            </h2>
             <div className="grid grid-cols-2 gap-3">
-              {quickLinks.map((item, index) => (
-                <Link key={item.href} href={item.href}>
-                  <Card className={`p-4 fade-up fade-up-d${Math.min(index + 2, 5)}`}>
-                    <div className="mb-2 text-cyan-400">{item.icon}</div>
-                    <div className="text-base font-medium">{item.title}</div>
-                    <div className="text-xs text-zinc-500">{item.subtitle}</div>
-                  </Card>
-                </Link>
-              ))}
+              {quickLinks.map((item, index) => {
+                const Icon = item.icon;
+                return (
+                  <Link key={item.href} href={item.href}>
+                    <Card className={`p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d${Math.min(index + 2, 5)}`}>
+                      <div
+                        className="mb-3 flex h-9 w-9 items-center justify-center rounded-control"
+                        style={{ backgroundColor: `${item.color}18`, color: item.color }}
+                      >
+                        <Icon className="h-4.5 w-4.5" />
+                      </div>
+                      <div className="text-sm font-medium text-white">{item.title}</div>
+                      <div className="mt-0.5 text-xs text-zinc-400">{item.subtitle}</div>
+                    </Card>
+                  </Link>
+                );
+              })}
 
               <Link href="/vocabulary" className="col-span-2">
-                <Card className="fade-up fade-up-d5 relative overflow-hidden border border-cyan-400/20 bg-gradient-to-br from-cyan-950/40 via-zinc-900/90 to-purple-950/40 p-4 transition-all hover:border-cyan-400/40 hover:shadow-lg hover:shadow-cyan-500/10">
+                <Card className="p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d5">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400/20 to-purple-500/20 text-cyan-300 ring-1 ring-cyan-400/30">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-control bg-purple-500/15 text-purple-400">
                         <BookMarked className="h-5 w-5" />
                       </div>
-                      <div>
+                      <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-base font-semibold text-white">My Vocabulary</span>
-                          <span className="rounded-full bg-cyan-400/10 px-2 py-0.5 text-[10px] font-semibold text-cyan-400">Personal</span>
+                          <span className="text-sm font-medium text-white">My Vocabulary</span>
+                          <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-[10px] font-medium text-purple-300">
+                            Personal
+                          </span>
                         </div>
-                        <div className="text-xs text-zinc-400">Save custom words, search dictionary & practice</div>
+                        <p className="mt-0.5 truncate text-xs text-zinc-400">
+                          Save custom words, search dictionary & practice
+                        </p>
                       </div>
                     </div>
-                    <ChevronRight className="h-5 w-5 text-zinc-500" />
+                    <ChevronRight className="h-4 w-4 shrink-0 text-zinc-500" />
                   </div>
                 </Card>
               </Link>
@@ -108,13 +122,13 @@ export default async function AppHomePage() {
           {profile ? wordOfDayBlock : streakBlock}
 
           {!premium ? (
-            <section className="mt-4">
+            <section className="pt-1">
               <Card className="fade-up fade-up-d5 p-4">
-                <div className="mb-2 text-sm font-semibold">{UI_TEXT.premiumTitle}</div>
-                <p className="mb-4 text-xs leading-relaxed text-zinc-500">{UI_TEXT.premiumSubtitle}</p>
+                <div className="mb-1 text-sm font-semibold text-white">{UI_TEXT.premiumTitle}</div>
+                <p className="mb-3 text-xs leading-relaxed text-zinc-400">{UI_TEXT.premiumSubtitle}</p>
                 <Link
                   href="/store"
-                  className="inline-flex h-11 items-center justify-center rounded-xl bg-cyan-400 px-4 text-sm font-semibold text-black"
+                  className="inline-flex h-10 items-center justify-center rounded-control bg-cyan-400 px-4 text-xs font-semibold text-black transition-colors hover:bg-cyan-300 active:scale-[0.98]"
                 >
                   {UI_TEXT.premiumCta}
                 </Link>

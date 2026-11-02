@@ -62,59 +62,59 @@ export function StreakBar({ isLoggedIn = false, className }: StreakBarProps) {
 
   return (
     <GlowBorder className={className}>
-        {/* Day circles */}
-        <div className="mb-4 flex items-center justify-between">
-          {days.map((day, index) => (
-            <div key={index} className="flex flex-col items-center gap-1">
-              <span className="text-[10px] font-medium text-white">{day.letter}</span>
-              <div
-                className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs transition-all ${
-                  day.isCompleted
-                    ? 'border-yellow-500/60 bg-yellow-500/20 text-yellow-400'
-                    : day.isToday && isLoggedIn
-                    ? 'border-cyan-400/40 bg-cyan-400/10 text-cyan-400/60'
-                    : 'border-white/10 bg-white/[0.03] text-zinc-700'
-                }`}
-              >
-                {day.isCompleted ? '✓' : (day.isToday && isLoggedIn) ? '·' : ''}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Progress bar */}
-        <div className="mb-2 flex items-center justify-between text-xs">
-          <span className="text-zinc-500">{UI_TEXT.dailyProgress}</span>
-          <span className="text-cyan-400">
-            {isLoggedIn ? Math.min(dailyActivities, totalTasks) : 0}/{totalTasks} tasks
-          </span>
-        </div>
-        <Progress value={progress} />
-
-        {/* Bottom row: streak badge + hint */}
-        <div className="mt-3 flex items-center justify-between">
-          <div className="inline-flex items-center gap-1 rounded-full bg-yellow-500/10 px-2.5 py-1 text-xs font-semibold text-yellow-400">
-            <Flame className="h-3.5 w-3.5" />
-            {isLoggedIn && streak > 0 ? `Day ${streak}` : 'Start streak!'}
-          </div>
-
-          {isLoggedIn ? (
-            <div className="flex items-center gap-1 text-[10px] text-zinc-500">
-              <span>7 days</span>
-              <span className="text-zinc-600">=</span>
-              <Star className="h-3 w-3 text-yellow-400" />
-              <span className="text-yellow-400 font-semibold">1000</span>
-            </div>
-          ) : (
-            <Link
-              href="/auth/login"
-              className="text-[10px] text-cyan-400/70 hover:text-cyan-400 transition-colors"
-              onClick={e => e.stopPropagation()}
+      {/* Day circles */}
+      <div className="mb-4 flex items-center justify-between">
+        {days.map((day, index) => (
+          <div key={index} className="flex flex-col items-center gap-1.5">
+            <span className="text-[10px] font-medium text-zinc-300">{day.letter}</span>
+            <div
+              className={`flex h-8 w-8 items-center justify-center rounded-full border text-xs transition-all ${
+                day.isCompleted
+                  ? 'border-yellow-500/60 bg-yellow-500/20 text-yellow-400'
+                  : day.isToday && isLoggedIn
+                  ? 'border-cyan-400/40 bg-cyan-400/10 text-cyan-400/80'
+                  : 'border-white/10 bg-white/[0.03] text-zinc-700'
+              }`}
             >
-              Sign in to save progress →
-            </Link>
-          )}
+              {day.isCompleted ? '✓' : (day.isToday && isLoggedIn) ? '·' : ''}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Progress bar */}
+      <div className="mb-2 flex items-center justify-between text-xs">
+        <span className="text-zinc-400">{UI_TEXT.dailyProgress}</span>
+        <span className="font-medium text-cyan-400 tabular-nums">
+          {isLoggedIn ? Math.min(dailyActivities, totalTasks) : 0}/{totalTasks} tasks
+        </span>
+      </div>
+      <Progress value={progress} />
+
+      {/* Bottom row: streak badge + hint */}
+      <div className="mt-3 flex items-center justify-between">
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-yellow-500/10 px-2.5 py-1 text-xs font-medium text-yellow-400 tabular-nums">
+          <Flame className="h-3.5 w-3.5" />
+          {isLoggedIn && streak > 0 ? `Day ${streak}` : 'Start streak'}
         </div>
+
+        {isLoggedIn ? (
+          <div className="flex items-center gap-1 text-[11px] text-zinc-400 tabular-nums">
+            <span>7 days</span>
+            <span className="text-zinc-600">=</span>
+            <Star className="h-3 w-3 text-yellow-400" />
+            <span className="font-semibold text-yellow-400">1000</span>
+          </div>
+        ) : (
+          <Link
+            href="/auth/login"
+            className="text-[11px] text-cyan-400/80 transition-colors hover:text-cyan-400"
+            onClick={e => e.stopPropagation()}
+          >
+            Sign in to save progress →
+          </Link>
+        )}
+      </div>
     </GlowBorder>
   );
 }
