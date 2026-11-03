@@ -104,27 +104,38 @@ export function StrictEnglishTTS({ text, className = '', autoPlay = false }: Str
 
   // Load voices on mount
   useEffect(() => {
-    const loadVoices = () => {
-      const voices = window.speechSynthesis.getVoices();
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      setIsSupported(false);
+      return;
+    }
 
-      if (voices.length === 0) {
-        setVoicesLoaded(false);
+    const loadVoices = () => {
+      try {
+        const voices = window.speechSynthesis.getVoices();
+
+        if (voices.length === 0) {
+          setVoicesLoaded(false);
+          return false;
+        }
+
+        const englishVoices = voices.filter(
+          (voice) => voice.lang && voice.lang.toLowerCase().startsWith('en'),
+        );
+
+        if (englishVoices.length === 0) {
+          console.log('❌ NO ENGLISH VOICES - TTS DISABLED');
+          setIsSupported(false);
+        } else {
+          setIsSupported(true);
+        }
+
+        setVoicesLoaded(true);
+        return true;
+      } catch (error) {
+        console.error('❌ Error loading voices:', error);
+        setIsSupported(false);
         return false;
       }
-
-      const englishVoices = voices.filter(
-        (voice) => voice.lang && voice.lang.toLowerCase().startsWith('en'),
-      );
-
-      if (englishVoices.length === 0) {
-        console.log('❌ NO ENGLISH VOICES - TTS DISABLED');
-        setIsSupported(false);
-      } else {
-        setIsSupported(true);
-      }
-
-      setVoicesLoaded(true);
-      return true;
     };
 
     loadVoices();

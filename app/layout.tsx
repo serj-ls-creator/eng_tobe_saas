@@ -5,6 +5,7 @@ import Script from "next/script";
 
 import { PwaRegister } from "@/components/pwa/PwaRegister";
 import { CookieConsentBanner } from "@/components/ui/CookieConsentBanner";
+import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import "@/app/globals.css";
 
 const inter = Inter({
@@ -73,7 +74,7 @@ export default function RootLayout({
               'ad_personalization': 'denied'
             });`}
         </Script>
-        
+
         {/* Google Analytics */}
         <Script
           async
@@ -86,9 +87,11 @@ export default function RootLayout({
             gtag('js', new Date());
             gtag('config', 'G-DNR5F704KM');`}
         </Script>
-        
+
         <PwaRegister />
-        {children}
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
         <CookieConsentBanner />
         <Analytics />
       </body>
