@@ -99,6 +99,8 @@ export default function LandingPage() {
 
   /* ── Scroll reveal ── */
   useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+
     const obs = new IntersectionObserver(
       (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); }),
       { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
@@ -135,6 +137,8 @@ export default function LandingPage() {
 
   /* ── Counter animation ── */
   useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (!e.isIntersecting) return;
@@ -158,6 +162,8 @@ export default function LandingPage() {
 
   /* ── Streak animation ── */
   useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+
     let animated = false;
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
