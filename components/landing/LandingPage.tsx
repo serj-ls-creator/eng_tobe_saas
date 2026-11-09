@@ -218,12 +218,12 @@ export default function LandingPage() {
           </div>
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
-               className="hidden sm:flex w-9 h-9 items-center justify-center rounded-full border border-white/10 text-neutral-400 hover:text-white hover:border-white/20 transition-all">
+               className="hidden sm:flex w-9 h-9 items-center justify-center rounded-control border border-white/10 text-neutral-400 hover:text-white hover:border-white/20 transition-colors">
               {TIKTOK_SVG}
             </a>
             <Link
               href="/home"
-              className="px-3.5 py-2 sm:px-5 bg-white text-black text-xs sm:text-sm font-medium rounded-full hover:bg-neutral-200 transition-colors whitespace-nowrap"
+              className="px-4 py-2 bg-white text-black text-xs sm:text-sm font-medium rounded-control hover:bg-neutral-200 transition-colors whitespace-nowrap"
             >
               Start Learning
             </Link>
@@ -234,7 +234,7 @@ export default function LandingPage() {
                 aria-controls="landing-mobile-nav"
                 aria-label={mobileNavOpen ? "Close menu" : "Open menu"}
                 onClick={() => setMobileNavOpen((open) => !open)}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-neutral-300 hover:border-white/20 hover:text-white transition-all"
+                className="flex h-9 w-9 items-center justify-center rounded-control border border-white/10 text-neutral-300 hover:border-white/20 hover:text-white transition-colors"
               >
                 {mobileNavOpen ? (
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
@@ -256,7 +256,7 @@ export default function LandingPage() {
                   />
                   <div
                     id="landing-mobile-nav"
-                    className="absolute right-0 top-full z-50 mt-2 w-52 rounded-2xl border border-white/10 bg-zinc-900 py-2 shadow-xl shadow-black/40"
+                    className="absolute right-0 top-full z-50 mt-2 w-52 rounded-card border border-white/10 bg-zinc-900 py-2 shadow-xl shadow-black/40"
                   >
                     {LANDING_NAV_LINKS.map((item) => (
                       <a
@@ -278,10 +278,6 @@ export default function LandingPage() {
 
       {/* ── HERO ── */}
       <section className="min-h-screen flex items-center relative overflow-hidden pt-16 grid-pattern">
-        <div className="absolute top-20 left-10 w-[400px] h-[400px] glow-pink opacity-[0.07] rounded-full" />
-        <div className="absolute bottom-20 right-10 w-[350px] h-[350px] glow-cyan opacity-[0.06] rounded-full" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] glow-purple opacity-[0.03] rounded-full" />
-
         <div className="max-w-[90rem] mx-auto px-6 pt-10 sm:pt-12 pb-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[33fr_41fr_25fr] gap-8 xl:gap-12 items-start relative z-10 w-full lg:items-start">
           {/* Left */}
           <div className="flex flex-col justify-center">
@@ -306,7 +302,7 @@ export default function LandingPage() {
               Learn words, idioms and phrases in English. No translations, just real English.
             </p>
             <div className="reveal reveal-delay-4 mt-10 flex flex-row flex-nowrap items-center gap-2 sm:gap-4 w-full max-w-md sm:max-w-none">
-              <Link href="/home" className="group flex-1 min-w-0 px-3 py-2.5 sm:flex-none sm:w-fit sm:px-7 sm:py-3.5 bg-white text-black font-medium rounded-full hover:bg-neutral-200 transition-all flex items-center justify-center gap-1 sm:gap-2 text-[11px] sm:text-sm whitespace-nowrap">
+              <Link href="/home" className="group flex-1 min-w-0 px-4 py-3 sm:flex-none sm:w-fit sm:px-6 sm:py-3.5 bg-white text-black font-medium rounded-control hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2 text-xs sm:text-sm whitespace-nowrap">
                 Start for Free
                 <span className="group-hover:translate-x-0.5 transition-transform inline-block shrink-0">→</span>
               </Link>
@@ -317,7 +313,7 @@ export default function LandingPage() {
               <span className="flex items-center gap-1.5 animate-fade-in-up" style={{ animationDelay: '1.0s' }}><span className="w-1.5 h-1.5 rounded-full bg-[#FF3D71]" /> <strong>1500+ Advanced Words</strong></span>
             </div>
             <div className="mt-6 flex gap-3">
-              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '1.1s' }}>
+              <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-control bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-colors group animate-fade-in-up" style={{ animationDelay: '1.1s' }}>
                 <div className="flex items-center gap-2">
                   <span className="text-lg">{TIKTOK_SVG_LG}</span>
                   <div className="flex flex-col">
@@ -327,7 +323,7 @@ export default function LandingPage() {
                 </div>
                 <span className="text-neutral-400 text-xs ml-1 group-hover:text-white transition-colors">→</span>
               </a>
-              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-all group animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
+              <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-control bg-zinc-900 border border-white/10 hover:border-white/20 hover:bg-zinc-800 transition-colors group animate-fade-in-up" style={{ animationDelay: '1.2s' }}>
                 <div className="flex items-center gap-2">
                   <span className="text-lg" style={{ backgroundImage: 'linear-gradient(to right, #A855F7, #EC4899)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{INSTAGRAM_SVG_LG}</span>
                   <div className="flex flex-col">
@@ -345,8 +341,7 @@ export default function LandingPage() {
             <img src="/man_phone.jpg" alt="Man using phone"
                  style={{ maxWidth: "320px", width: "100%", height: "auto", objectFit: "contain", margin: "0 auto 24px auto" }}
                  className="hidden opacity-90 md:block" />
-            <div className="w-full space-y-4 text-sm text-neutral-400 leading-relaxed bg-zinc-900 border border-white/10 p-5 sm:p-6 rounded-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[50px] pointer-events-none" />
+            <div className="w-full space-y-4 text-sm text-neutral-400 leading-relaxed bg-zinc-900 border border-white/10 p-5 sm:p-6 rounded-card relative overflow-hidden">
               <div className="relative z-10">
                 <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white">Stuck in English? Let&apos;s fix that.</h2>
                 <p className="mt-2">You understand English, but speaking is hard. You know words, but you still think in your own language.</p>
@@ -367,7 +362,7 @@ export default function LandingPage() {
               </div>
               <div className="relative z-10 pt-1 text-xs sm:text-sm flex items-center justify-between gap-3">
                 <p className="text-[#00E5FF] font-semibold">For levels A2 and above.</p>
-                <Link href="/home" className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black transition-colors hover:bg-neutral-200 whitespace-nowrap">
+                <Link href="/home" className="inline-flex items-center gap-2 rounded-control bg-white px-4 py-2 text-xs font-medium text-black transition-colors hover:bg-neutral-200 whitespace-nowrap">
                   Start for Free <span>→</span>
                 </Link>
               </div>
@@ -486,18 +481,17 @@ export default function LandingPage() {
 
       {/* ── FEATURES ── */}
       <section id="features" className="py-12 sm:py-16 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-white/[0.08]" />
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="reveal text-3xl sm:text-5xl font-bold tracking-tight">
-              Everything You Need<br />to <span className="gradient-text">Sound Native</span>
+              Everything you need<br />to <span className="gradient-text">sound native</span>
             </h2>
             <p className="reveal reveal-delay-1 mt-4 text-neutral-400 max-w-lg mx-auto">From basic vocabulary to advanced idioms — structured, gamified, and actually effective.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Words */}
-            <Link href="/words" className="reveal reveal-delay-1 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,61,113,0.12)", ["--glow-border" as string]: "rgba(255,61,113,0.25)" }}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF3D71]/5 rounded-full blur-[60px]" />
+            <Link href="/words" className="reveal reveal-delay-1 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,61,113,0.12)", ["--glow-border" as string]: "rgba(255,61,113,0.25)" }}>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#FF3D71]/10 flex items-center justify-center">
@@ -521,8 +515,7 @@ export default function LandingPage() {
               </div>
             </Link>
             {/* Idioms */}
-            <Link href="/idioms" className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,217,61,0.1)", ["--glow-border" as string]: "rgba(255,217,61,0.2)" }}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#FFD93D]/5 rounded-full blur-[60px]" />
+            <Link href="/idioms" className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,217,61,0.1)", ["--glow-border" as string]: "rgba(255,217,61,0.2)" }}>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#FFD93D]/10 flex items-center justify-center">
@@ -546,8 +539,7 @@ export default function LandingPage() {
               </div>
             </Link>
             {/* Phrasal Verbs */}
-            <Link href="/phrasal-verbs" className="reveal reveal-delay-3 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(236,72,153,0.12)", ["--glow-border" as string]: "rgba(236,72,153,0.25)" }}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#EC4899]/5 rounded-full blur-[60px]" />
+            <Link href="/phrasal-verbs" className="reveal reveal-delay-3 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(236,72,153,0.12)", ["--glow-border" as string]: "rgba(236,72,153,0.25)" }}>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#EC4899]/10 flex items-center justify-center">
@@ -571,8 +563,7 @@ export default function LandingPage() {
               </div>
             </Link>
             {/* Sentences */}
-            <Link href="/sentences" className="reveal reveal-delay-4 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#00E5FF]/5 rounded-full blur-[60px]" />
+            <Link href="/sentences" className="reveal reveal-delay-4 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#00E5FF]/10 flex items-center justify-center">
@@ -596,8 +587,7 @@ export default function LandingPage() {
               </div>
             </Link>
             {/* Grammar+Tenses */}
-            <Link href="/grammar" className="reveal reveal-delay-5 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(34,197,94,0.12)", ["--glow-border" as string]: "rgba(34,197,94,0.25)" }}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#22C55E]/5 rounded-full blur-[60px]" />
+            <Link href="/grammar" className="reveal reveal-delay-5 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(34,197,94,0.12)", ["--glow-border" as string]: "rgba(34,197,94,0.25)" }}>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#22C55E]/10 flex items-center justify-center">
@@ -621,8 +611,7 @@ export default function LandingPage() {
               </div>
             </Link>
             {/* Games */}
-            <Link href="/games" className="reveal reveal-delay-6 cat-card bg-zinc-900 border border-white/10 rounded-2xl p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(168,85,247,0.12)", ["--glow-border" as string]: "rgba(168,85,247,0.25)" }}>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#A855F7]/5 rounded-full blur-[60px]" />
+            <Link href="/games" className="reveal reveal-delay-6 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(168,85,247,0.12)", ["--glow-border" as string]: "rgba(168,85,247,0.25)" }}>
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#A855F7]/10 flex items-center justify-center">
@@ -654,16 +643,16 @@ export default function LandingPage() {
       <section id="streaks" className="py-12 sm:py-16 relative">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-16">
-            <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#FFD93D]/20 bg-[#FFD93D]/[0.05] text-[#FFD93D] text-xs font-medium mb-6">
-              <span className="fire-pulse inline-block">🔥</span> Gamified Learning
+            <div className="reveal inline-flex items-center gap-2 px-3 py-1 rounded-control border border-[#FFD93D]/20 bg-[#FFD93D]/[0.05] text-[#FFD93D] text-xs font-medium mb-6">
+              <span className="fire-pulse inline-block">🔥</span> Gamified learning
             </div>
             <h2 className="reveal reveal-delay-1 text-3xl sm:text-5xl font-bold tracking-tight">
-              Build Your <span className="gradient-text">Streak</span>,<br />Earn <span className="gradient-text">Points</span>
+              Build your <span className="gradient-text">streak</span>,<br />earn <span className="gradient-text">points</span>
             </h2>
             <p className="reveal reveal-delay-2 mt-4 text-neutral-400 max-w-lg mx-auto">Every day you practice, your streak grows. Every task you complete, you earn points. Consistency beats intensity.</p>
           </div>
           <div className="reveal reveal-delay-2 max-w-md mx-auto mb-16">
-            <div className="bg-zinc-900 border border-white/10 rounded-2xl p-6">
+            <div className="bg-zinc-900 border border-white/10 rounded-card p-6">
               <div className="flex items-center justify-between mb-5">
                 <span className="text-sm font-medium">This Week</span>
                 <span className="flex items-center gap-1.5 text-[#FFD93D] text-sm font-semibold">
@@ -685,7 +674,7 @@ export default function LandingPage() {
             {[["+","counter","10","#FF3D71","✓","per task completed"],
               ["+","counter","200","#00E5FF","🔥","per daily streak"],
               ["+","counter","500","#FFD93D","🏆","per level unlocked"]].map(([, cls, target, color, icon, label], i) => (
-              <div key={i} className={`reveal reveal-delay-${i+3} bg-zinc-900 border border-white/10 rounded-2xl p-3 sm:p-6 text-center group hover:bg-white/[0.05] transition-all duration-300`}>
+              <div key={i} className={`reveal reveal-delay-${i+3} bg-zinc-900 border border-white/10 rounded-card p-4 sm:p-6 text-center group hover:bg-white/[0.05] transition-colors`}>
                 <div className="w-9 h-9 sm:w-12 sm:h-12 mx-auto rounded-xl flex items-center justify-center mb-2 sm:mb-4 group-hover:scale-110 transition-transform duration-300" style={{ background: `${color}1a` }}>
                   <span className="text-xl" style={{ color }}>{icon}</span>
                 </div>
@@ -699,9 +688,7 @@ export default function LandingPage() {
 
       {/* ── UPGRADE / FLIP CARDS ── */}
       <section id="upgrade" className="py-12 sm:py-16 relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute top-1/3 left-0 w-[400px] h-[400px] glow-pink opacity-[0.04] rounded-full" />
-        <div className="absolute bottom-1/3 right-0 w-[400px] h-[400px] glow-cyan opacity-[0.04] rounded-full" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-white/[0.08]" />
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#FF3D71]/20 bg-[#FF3D71]/[0.05] text-[#FF3D71] text-xs font-medium mb-6">
@@ -745,14 +732,14 @@ export default function LandingPage() {
 
       {/* ── GAMES ── */}
       <section id="games" className="py-12 sm:py-16 relative">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-white/[0.08]" />
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
             <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#A855F7]/20 bg-[#A855F7]/[0.05] text-[#A855F7] text-xs font-medium mb-6">
               🎮 Learn Through Play
             </div>
             <h2 className="reveal reveal-delay-1 text-3xl sm:text-5xl font-bold tracking-tight">
-              Games That <span className="gradient-text">Stick</span>
+              Games that <span className="gradient-text">stick</span>
             </h2>
             <p className="reveal reveal-delay-2 mt-4 text-neutral-400 max-w-lg mx-auto">4 game modes across every topic. You won&apos;t even feel like you&apos;re studying.</p>
           </div>
@@ -849,22 +836,19 @@ export default function LandingPage() {
 
       {/* ── GRAMMAR ── */}
       <section id="grammar" className="py-12 sm:py-16 relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute top-1/4 left-0 w-[350px] h-[350px] rounded-full bg-violet-500/[0.07] blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[300px] h-[300px] rounded-full bg-cyan-500/[0.05] blur-[90px] pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-white/[0.08]" />
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-12 sm:mb-16">
-            <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-violet-400/25 bg-gradient-to-r from-violet-400/10 to-cyan-500/10 text-violet-200 text-xs font-medium mb-6">
+            <div className="reveal inline-flex items-center gap-2 px-3 py-1 rounded-control border border-violet-400/25 bg-violet-400/10 text-violet-200 text-xs font-medium mb-6">
               ✍️ Grammar that makes your English clear
             </div>
             <h2 className="reveal reveal-delay-1 text-3xl sm:text-5xl font-bold tracking-tight">
-              Build stronger <span className="bg-gradient-to-r from-violet-400 via-cyan-300 to-blue-400 bg-clip-text text-transparent">sentences</span>
+              Build stronger <span className="text-[#00E5FF]">sentences</span>
             </h2>
             <p className="reveal reveal-delay-2 mt-4 text-neutral-400 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
               Explore 24 grammar categories, learn a rule in context, and put it into practice with interactive exercises.
             </p>
-            <div className="reveal reveal-delay-2 mx-auto mt-5 h-1 w-20 rounded-full bg-gradient-to-r from-violet-400 to-cyan-400 opacity-80" />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -922,7 +906,7 @@ export default function LandingPage() {
           </div>
 
           <div className="text-center mt-10 sm:mt-12">
-            <Link href="/grammar" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+            <Link href="/grammar" className="group inline-flex items-center gap-2 px-6 py-3.5 bg-white text-black font-medium rounded-control hover:bg-neutral-200 transition-colors text-sm sm:text-base">
               Explore Grammar <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
             </Link>
           </div>
@@ -931,9 +915,7 @@ export default function LandingPage() {
 
       {/* ── MY VOCABULARY ── */}
       <section id="vocabulary" className="py-12 sm:py-16 relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-        <div className="absolute top-1/4 right-0 w-[350px] h-[350px] rounded-full bg-purple-500/[0.06] blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-1/4 left-0 w-[300px] h-[300px] rounded-full bg-cyan-500/[0.05] blur-[90px] pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-white/[0.08]" />
 
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <div className="text-center mb-12 sm:mb-16">
@@ -1077,7 +1059,7 @@ export default function LandingPage() {
           </div>
 
           <div className="text-center mt-10 sm:mt-12">
-            <Link href="/home" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+            <Link href="/home" className="group inline-flex items-center gap-2 px-6 py-3.5 bg-white text-black font-medium rounded-control hover:bg-neutral-200 transition-colors text-sm sm:text-base">
               Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
             </Link>
           </div>
@@ -1159,10 +1141,7 @@ export default function LandingPage() {
 
       {/* ── APP INSTALL ── */}
       <section className="py-12 sm:py-20 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#00E5FF]/5 rounded-full blur-[150px]" />
-          <div className="absolute top-1/4 right-1/4 w-[300px] h-[300px] bg-[#A855F7]/5 rounded-full blur-[120px]" />
-        </div>
+
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           {/* Heading */}
           <div className="text-center mb-12">
@@ -1253,7 +1232,7 @@ export default function LandingPage() {
 
           {/* Note */}
           <div className="reveal reveal-delay-5 mt-8 text-center">
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-[#00E5FF]/10 to-[#A855F7]/10 border border-white/10">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-control bg-white/[0.04] border border-white/10">
               <span className="text-xl">⚡</span>
               <span className="text-sm text-neutral-300">Choose what works best for you—install as an app or use it directly in your browser.</span>
             </div>
@@ -1302,7 +1281,7 @@ export default function LandingPage() {
                 Daily vocabulary, idioms and tips — short videos that stick in your memory.
               </p>
               <a href="https://tiktok.com/@english_tobe" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-sm w-fit">
+                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black font-semibold rounded-control hover:bg-neutral-200 transition-colors text-sm w-fit">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/></svg>
                 Follow on TikTok
               </a>
@@ -1329,7 +1308,7 @@ export default function LandingPage() {
                 Vocabulary cards, idiom posts and learning motivation — every day in your feed.
               </p>
               <a href="https://instagram.com/english_tobe" target="_blank" rel="noopener noreferrer"
-                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/10 text-neutral-300 font-semibold rounded-full hover:border-white/20 hover:text-white transition-all text-sm w-fit">
+                 className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/10 text-neutral-300 font-semibold rounded-control hover:border-white/20 hover:text-white transition-colors text-sm w-fit">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 Follow on Instagram
               </a>
@@ -1338,7 +1317,7 @@ export default function LandingPage() {
 
           {/* CTA */}
           <div className="text-center">
-            <Link href="/home" className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-semibold rounded-full hover:bg-neutral-200 transition-all text-base">
+            <Link href="/home" className="group inline-flex items-center gap-2 px-6 py-3.5 bg-white text-black font-medium rounded-control hover:bg-neutral-200 transition-colors text-sm sm:text-base">
               Start Learning for Free <span className="group-hover:translate-x-0.5 transition-transform inline-block">→</span>
             </Link>
           </div>
