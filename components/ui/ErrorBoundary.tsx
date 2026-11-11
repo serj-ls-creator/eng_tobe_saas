@@ -24,6 +24,15 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: any) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
+    // Log error message so we can diagnose mobile-only crashes
+    if (typeof window !== 'undefined') {
+      try {
+        const msg = `[ErrorBoundary] ${error?.message ?? error} | stack: ${error?.stack?.slice(0, 300)}`;
+        console.warn(msg);
+        // Store last error in sessionStorage so user can report it
+        sessionStorage.setItem('last_app_error', msg);
+      } catch {}
+    }
   }
 
   render() {

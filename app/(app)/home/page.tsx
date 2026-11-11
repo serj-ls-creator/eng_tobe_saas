@@ -58,6 +58,7 @@ export default async function AppHomePage() {
         synonym={wordOfTheDay.synonym}
         transcription={wordOfTheDay.transcription}
         explanation={wordOfTheDay.explanation}
+        isLoggedIn={!!profile}
       />
     </section>
   );

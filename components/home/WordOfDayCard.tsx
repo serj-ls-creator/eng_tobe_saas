@@ -30,13 +30,23 @@ export function WordOfDayCard({
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(false);
 
+  const navigateToAdd = (word: string) => {
+    const url = `/vocabulary/add?word=${encodeURIComponent(word)}`;
+    try {
+      router.push(url);
+    } catch {
+      // Fallback for iOS Safari PWA and other navigation issues
+      window.location.href = url;
+    }
+  };
+
   const handleAddToVocabulary = async (e?: React.MouseEvent) => {
     e?.preventDefault();
     e?.stopPropagation();
 
     // Fast path: if auth state was resolved on the server
     if (isLoggedIn === true) {
-      router.push(`/vocabulary/add?word=${encodeURIComponent(synonym)}`);
+      navigateToAdd(synonym);
       return;
     }
     if (isLoggedIn === false) {
@@ -49,15 +59,28 @@ export function WordOfDayCard({
     setCheckingAuth(true);
     try {
       const supabase = createSupabaseBrowserClient();
-      const { data: { session } } = await supabase.auth.getSession();
-      const user = session?.user ?? (await supabase.auth.getUser()).data.user;
+      let user: { id: string } | null = null;
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        user = session?.user ?? null;
+      } catch {
+        // getSession failed, try getUser
+      }
+      if (!user) {
+        try {
+          const { data } = await supabase.auth.getUser();
+          user = data.user;
+        } catch {
+          // getUser also failed
+        }
+      }
 
       if (!user) {
         setShowSignupPrompt(true);
         return;
       }
 
-      router.push(`/vocabulary/add?word=${encodeURIComponent(synonym)}`);
+      navigateToAdd(synonym);
     } catch (error) {
       console.error('Failed to check authentication:', error);
       setShowSignupPrompt(true);
