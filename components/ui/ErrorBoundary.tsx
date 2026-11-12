@@ -52,6 +52,22 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             >
               Refresh Page
             </button>
+
+            {this.state.error && (
+              <div className="mt-6 p-3 rounded-lg bg-zinc-900 border border-white/10 text-left max-w-md mx-auto">
+                <div className="text-[11px] font-bold text-rose-400 uppercase tracking-wider mb-1">
+                  Debug Error Info:
+                </div>
+                <div className="text-xs font-mono text-zinc-300 break-words">
+                  {this.state.error.message || String(this.state.error)}
+                </div>
+                {this.state.error.stack && (
+                  <div className="mt-2 text-[10px] font-mono text-zinc-500 whitespace-pre-wrap break-all max-h-36 overflow-y-auto">
+                    {this.state.error.stack.split("\n").slice(0, 4).join("\n")}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       );
