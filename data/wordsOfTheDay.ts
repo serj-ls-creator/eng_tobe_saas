@@ -67,6 +67,12 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ˈfriːzɪŋ/"
   },
   {
+    simple: "Very hot",
+    synonym: "Scorching",
+    explanation: "Extremely hot or burning",
+    transcription: "/ˈskɔːrtʃɪŋ/"
+  },
+  {
     simple: "Very beautiful",
     synonym: "Stunning",
     explanation: "Extremely attractive or impressive",
