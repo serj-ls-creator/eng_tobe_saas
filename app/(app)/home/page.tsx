@@ -57,18 +57,45 @@ export default function AppHomePage() {
     // Fetch profile data
     const fetchProfile = async () => {
       try {
-        const response = await fetch('/api/profile');
+        const response = await fetch(`/api/profile?t=${Date.now()}`, { cache: 'no-store' });
         if (response.ok) {
           const data = await response.json();
           setProfile(data.profile);
           setPremium(data.premium);
+        } else {
+          // User not logged in
+          setProfile(null);
+          setPremium(false);
         }
       } catch (error) {
         console.error('Failed to fetch profile:', error);
+        setProfile(null);
+        setPremium(false);
       }
     };
     
     fetchProfile();
+
+    // Listen for auth state changes
+    const handleAuthChange = () => {
+      fetchProfile();
+    };
+
+    window.addEventListener('auth-state-changed', handleAuthChange);
+    
+    // Also refetch when page becomes visible (handles returning from logout)
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        fetchProfile();
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      window.removeEventListener('auth-state-changed', handleAuthChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   if (!mounted) {
@@ -107,7 +134,8 @@ export default function AppHomePage() {
       <div className="content-shell pb-6">
         <ErrorBoundary>
           <div className="space-y-4">
-            {profile ? streakBlock : wordOfDayBlock}
+            {/* Word of the day first for all users */}
+            {wordOfDayBlock}
 
             <section>
               <h2 className="fade-up fade-up-d2 mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
@@ -167,7 +195,8 @@ export default function AppHomePage() {
               </div>
             </section>
 
-            {profile ? wordOfDayBlock : streakBlock}
+            {/* Streak block after My Vocabulary */}
+            {streakBlock}
 
             {!premium ? (
               <section className="pt-1">

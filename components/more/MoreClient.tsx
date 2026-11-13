@@ -18,6 +18,8 @@ export function MoreClient() {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     );
     await supabase.auth.signOut();
+    // Dispatch event to notify other components of auth state change
+    window.dispatchEvent(new Event('auth-state-changed'));
     window.location.href = "/";
   };
 
