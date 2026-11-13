@@ -127,12 +127,6 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ˈdestɪtjuːt/"
   },
   {
-    simple: "Very strong",
-    synonym: "Powerful",
-    explanation: "Having great physical strength or influence",
-    transcription: "/ˈpaʊərfl/"
-  },
-  {
     simple: "Very important",
     synonym: "Crucial",
     explanation: "Extremely important or essential",
