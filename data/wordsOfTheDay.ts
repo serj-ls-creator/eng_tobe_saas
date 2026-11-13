@@ -43,12 +43,6 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ɪˈnɔːrməs/"
   },
   {
-    simple: "Very small",
-    synonym: "Tiny",
-    explanation: "Extremely small in size",
-    transcription: "/ˈtaɪni/"
-  },
-  {
     simple: "Very fast",
     synonym: "Lightning-fast",
     explanation: "Moving at incredible speed",
@@ -186,5 +180,17 @@ export function getWordOfTheDay(): WordOfTheDay {
   const today = new Date();
   const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
   const wordIndex = daysSinceEpoch % WORDS_OF_THE_DAY.length;
-  return WORDS_OF_THE_DAY[wordIndex];
+  const word = WORDS_OF_THE_DAY[wordIndex];
+  
+  console.log('Word of the day:', {
+    wordIndex,
+    daysSinceEpoch,
+    word,
+    simple: word.simple,
+    synonym: word.synonym,
+    transcription: word.transcription,
+    explanation: word.explanation,
+  });
+  
+  return word;
 }

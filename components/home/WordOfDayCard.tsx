@@ -30,11 +30,23 @@ export function WordOfDayCard({
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(false);
 
+  // Log card props for debugging
+  console.log('WordOfDayCard props:', {
+    title,
+    simple,
+    synonym,
+    transcription,
+    explanation,
+    isLoggedIn,
+  });
+
   const navigateToAdd = (word: string) => {
+    console.log('navigateToAdd called with word:', word);
     const url = `/vocabulary/add?word=${encodeURIComponent(word)}`;
     try {
       router.push(url);
-    } catch {
+    } catch (error) {
+      console.error('Router push failed, trying window.location.href:', error);
       // Fallback for iOS Safari PWA and other navigation issues
       window.location.href = url;
     }

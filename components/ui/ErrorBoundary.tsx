@@ -10,6 +10,7 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
+  errorInfo?: any;
 }
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -24,15 +25,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: any) {
     console.error('ErrorBoundary caught an error:', error, errorInfo);
-    // Log error message so we can diagnose mobile-only crashes
-    if (typeof window !== 'undefined') {
-      try {
-        const msg = `[ErrorBoundary] ${error?.message ?? error} | stack: ${error?.stack?.slice(0, 300)}`;
-        console.warn(msg);
-        // Store last error in sessionStorage so user can report it
-        sessionStorage.setItem('last_app_error', msg);
-      } catch {}
-    }
+    this.setState({ error, errorInfo });
   }
 
   render() {
@@ -41,33 +34,44 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
         return this.props.fallback;
       }
 
+      const errorDetails = {
+        message: this.state.error?.message || 'Unknown error',
+        stack: this.state.error?.stack || 'No stack trace',
+        componentStack: this.state.errorInfo?.componentStack || 'No component stack',
+      };
+
       return (
         <div className="min-h-screen bg-black text-white flex items-center justify-center p-4">
-          <div className="text-center">
+          <div className="text-center max-w-md">
             <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
             <p className="text-zinc-400 mb-6">Please try refreshing the page</p>
+            
             <button
               onClick={() => window.location.reload()}
-              className="px-6 py-3 bg-cyan-400 text-black font-semibold rounded-lg hover:bg-cyan-300 transition-colors"
+              className="mb-6 px-6 py-3 bg-cyan-400 text-black font-semibold rounded-lg hover:bg-cyan-300 transition-colors"
             >
               Refresh Page
             </button>
 
-            {this.state.error && (
-              <div className="mt-6 p-3 rounded-lg bg-zinc-900 border border-white/10 text-left max-w-md mx-auto">
-                <div className="text-[11px] font-bold text-rose-400 uppercase tracking-wider mb-1">
-                  Debug Error Info:
+            <div className="mt-6 p-4 bg-zinc-900 rounded-lg text-left">
+              <h2 className="text-sm font-semibold text-cyan-400 mb-3">Debug Error Info:</h2>
+              <div className="space-y-2 text-xs">
+                <div>
+                  <span className="text-zinc-500">Error:</span>
+                  <pre className="text-red-400 mt-1 whitespace-pre-wrap break-all">{errorDetails.message}</pre>
                 </div>
-                <div className="text-xs font-mono text-zinc-300 break-words">
-                  {this.state.error.message || String(this.state.error)}
+                <div>
+                  <span className="text-zinc-500">Stack:</span>
+                  <pre className="text-zinc-400 mt-1 whitespace-pre-wrap break-all text-[10px]">{errorDetails.stack}</pre>
                 </div>
-                {this.state.error.stack && (
-                  <div className="mt-2 text-[10px] font-mono text-zinc-500 whitespace-pre-wrap break-all max-h-36 overflow-y-auto">
-                    {this.state.error.stack.split("\n").slice(0, 4).join("\n")}
+                {errorDetails.componentStack && (
+                  <div>
+                    <span className="text-zinc-500">Component Stack:</span>
+                    <pre className="text-zinc-400 mt-1 whitespace-pre-wrap break-all text-[10px]">{errorDetails.componentStack}</pre>
                   </div>
                 )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       );

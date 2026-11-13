@@ -15,6 +15,7 @@ import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
 import { StreakBar } from "@/components/ui/StreakBar";
 import { WordOfDayCard } from "@/components/home/WordOfDayCard";
+import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { UI_TEXT } from "@/constants/ui";
 import { getCurrentProfileWithPremium } from "@/lib/isPremium";
 import { getWordOfTheDay } from "@/data/wordsOfTheDay";
@@ -68,75 +69,77 @@ export default async function AppHomePage() {
       <TopBar showBrand points={profile?.points ?? 0} streak={profile?.total_streak ?? 0} />
 
       <div className="content-shell pb-6">
-        <div className="space-y-4">
-          {profile ? streakBlock : wordOfDayBlock}
+        <ErrorBoundary>
+          <div className="space-y-4">
+            {profile ? streakBlock : wordOfDayBlock}
 
-          <section>
-            <h2 className="fade-up fade-up-d2 mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
-              Practice sections
-            </h2>
-            <div className="grid grid-cols-2 gap-3">
-              {quickLinks.map((item, index) => {
-                const Icon = item.icon;
-                return (
-                  <Link key={item.href} href={item.href}>
-                    <Card className={`p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d${Math.min(index + 2, 5)}`}>
-                      <div
-                        className="mb-3 flex h-9 w-9 items-center justify-center rounded-control"
-                        style={{ backgroundColor: `${item.color}18`, color: item.color }}
-                      >
-                        <Icon className="h-4.5 w-4.5" />
-                      </div>
-                      <div className="text-sm font-medium text-white">{item.title}</div>
-                      <div className="mt-0.5 text-xs text-zinc-400">{item.subtitle}</div>
-                    </Card>
-                  </Link>
-                );
-              })}
-
-              <Link href="/vocabulary" className="col-span-2">
-                <Card className="p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d5">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-control bg-purple-500/15 text-purple-400">
-                        <BookMarked className="h-5 w-5" />
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium text-white">My Vocabulary</span>
-                          <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-[10px] font-medium text-purple-300">
-                            Personal
-                          </span>
+            <section>
+              <h2 className="fade-up fade-up-d2 mb-3 text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                Practice sections
+              </h2>
+              <div className="grid grid-cols-2 gap-3">
+                {quickLinks.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.href} href={item.href}>
+                      <Card className={`p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d${Math.min(index + 2, 5)}`}>
+                        <div
+                          className="mb-3 flex h-9 w-9 items-center justify-center rounded-control"
+                          style={{ backgroundColor: `${item.color}18`, color: item.color }}
+                        >
+                          <Icon className="h-4.5 w-4.5" />
                         </div>
-                        <p className="mt-0.5 truncate text-xs text-zinc-400">
-                          Save custom words, search dictionary & practice
-                        </p>
+                        <div className="text-sm font-medium text-white">{item.title}</div>
+                        <div className="mt-0.5 text-xs text-zinc-400">{item.subtitle}</div>
+                      </Card>
+                    </Link>
+                  );
+                })}
+
+                <Link href="/vocabulary" className="col-span-2">
+                  <Card className="p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d5">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-control bg-purple-500/15 text-purple-400">
+                          <BookMarked className="h-5 w-5" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-medium text-white">My Vocabulary</span>
+                            <span className="rounded-full bg-purple-500/15 px-2 py-0.5 text-[10px] font-medium text-purple-300">
+                              Personal
+                            </span>
+                          </div>
+                          <p className="mt-0.5 truncate text-xs text-zinc-400">
+                            Save custom words, search dictionary & practice
+                          </p>
+                        </div>
                       </div>
+                      <ChevronRight className="h-4 w-4 shrink-0 text-zinc-500" />
                     </div>
-                    <ChevronRight className="h-4 w-4 shrink-0 text-zinc-500" />
-                  </div>
-                </Card>
-              </Link>
-            </div>
-          </section>
-
-          {profile ? wordOfDayBlock : streakBlock}
-
-          {!premium ? (
-            <section className="pt-1">
-              <Card className="fade-up fade-up-d5 p-4">
-                <div className="mb-1 text-sm font-semibold text-white">{UI_TEXT.premiumTitle}</div>
-                <p className="mb-3 text-xs leading-relaxed text-zinc-400">{UI_TEXT.premiumSubtitle}</p>
-                <Link
-                  href="/store"
-                  className="inline-flex h-10 items-center justify-center rounded-control bg-cyan-400 px-4 text-xs font-semibold text-black transition-colors hover:bg-cyan-300 active:scale-[0.98]"
-                >
-                  {UI_TEXT.premiumCta}
+                  </Card>
                 </Link>
-              </Card>
+              </div>
             </section>
-          ) : null}
-        </div>
+
+            {profile ? wordOfDayBlock : streakBlock}
+
+            {!premium ? (
+              <section className="pt-1">
+                <Card className="fade-up fade-up-d5 p-4">
+                  <div className="mb-1 text-sm font-semibold text-white">{UI_TEXT.premiumTitle}</div>
+                  <p className="mb-3 text-xs leading-relaxed text-zinc-400">{UI_TEXT.premiumSubtitle}</p>
+                  <Link
+                    href="/store"
+                    className="inline-flex h-10 items-center justify-center rounded-control bg-cyan-400 px-4 text-xs font-semibold text-black transition-colors hover:bg-cyan-300 active:scale-[0.98]"
+                  >
+                    {UI_TEXT.premiumCta}
+                  </Link>
+                </Card>
+              </section>
+            ) : null}
+          </div>
+        </ErrorBoundary>
       </div>
     </>
   );
