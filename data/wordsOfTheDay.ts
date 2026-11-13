@@ -139,12 +139,6 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ˈpaʊərfl/"
   },
   {
-    simple: "Very weak",
-    synonym: "Frail",
-    explanation: "Physically weak and delicate",
-    transcription: "/freɪl/"
-  },
-  {
     simple: "Very important",
     synonym: "Crucial",
     explanation: "Extremely important or essential",
