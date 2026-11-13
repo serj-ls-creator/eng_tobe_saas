@@ -29,16 +29,6 @@ export function WordOfDayCard({
   const [checkingAuth, setCheckingAuth] = useState(false);
   const linkRef = useRef<HTMLAnchorElement>(null);
 
-  // Log card props for debugging
-  console.log('WordOfDayCard props:', {
-    title,
-    simple,
-    synonym,
-    transcription,
-    explanation,
-    isLoggedIn,
-  });
-
   const handleAddToVocabulary = async (e?: React.MouseEvent) => {
     try {
       e?.preventDefault();

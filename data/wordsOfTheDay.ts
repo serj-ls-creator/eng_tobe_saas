@@ -43,16 +43,34 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ɪˈnɔːrməs/"
   },
   {
+    simple: "Very small",
+    synonym: "Tiny",
+    explanation: "Extremely small in size",
+    transcription: "/ˈtaɪni/"
+  },
+  {
     simple: "Very fast",
     synonym: "Lightning-fast",
     explanation: "Moving at incredible speed",
     transcription: "/ˈlaɪtnɪŋ fɑːst/"
   },
   {
+    simple: "Very slow",
+    synonym: "Sluggish",
+    explanation: "Moving or reacting very slowly",
+    transcription: "/ˈslʌɡɪʃ/"
+  },
+  {
     simple: "Very cold",
     synonym: "Freezing",
     explanation: "Extremely cold temperature",
     transcription: "/ˈfriːzɪŋ/"
+  },
+  {
+    simple: "Very hot",
+    synonym: "Scorching",
+    explanation: "Extremely hot or burning",
+    transcription: "/ˈskɔːrtʃɪŋ/"
   },
   {
     simple: "Very beautiful",
@@ -127,10 +145,28 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ˈdestɪtjuːt/"
   },
   {
+    simple: "Very strong",
+    synonym: "Powerful",
+    explanation: "Having great physical strength or influence",
+    transcription: "/ˈpaʊərfl/"
+  },
+  {
+    simple: "Very weak",
+    synonym: "Frail",
+    explanation: "Physically weak and delicate",
+    transcription: "/freɪl/"
+  },
+  {
     simple: "Very important",
     synonym: "Crucial",
     explanation: "Extremely important or essential",
     transcription: "/ˈkruːʃl/"
+  },
+  {
+    simple: "Very difficult",
+    synonym: "Challenging",
+    explanation: "Requiring great effort or skill",
+    transcription: "/ˈtʃælɪndʒɪŋ/"
   },
   {
     simple: "Very easy",
@@ -156,17 +192,5 @@ export function getWordOfTheDay(): WordOfTheDay {
   const today = new Date();
   const daysSinceEpoch = Math.floor(today.getTime() / (1000 * 60 * 60 * 24));
   const wordIndex = daysSinceEpoch % WORDS_OF_THE_DAY.length;
-  const word = WORDS_OF_THE_DAY[wordIndex];
-  
-  console.log('Word of the day:', {
-    wordIndex,
-    daysSinceEpoch,
-    word,
-    simple: word.simple,
-    synonym: word.synonym,
-    transcription: word.transcription,
-    explanation: word.explanation,
-  });
-  
-  return word;
+  return WORDS_OF_THE_DAY[wordIndex];
 }
