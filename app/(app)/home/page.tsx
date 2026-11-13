@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
-import Link from "next/link";
+'use client';
+
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import {
   BookOpenText,
   MessageCircleMore,
@@ -17,14 +19,7 @@ import { StreakBar } from "@/components/ui/StreakBar";
 import { WordOfDayCard } from "@/components/home/WordOfDayCard";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { UI_TEXT } from "@/constants/ui";
-import { getCurrentProfileWithPremium } from "@/lib/isPremium";
 import { getWordOfTheDay } from "@/data/wordsOfTheDay";
-import { createPageMetadata } from "@/lib/metadata";
-
-export const metadata: Metadata = createPageMetadata({
-  title: "Daily English Practice and Dashboard",
-  description: "Continue your daily English learning with words, idioms, sentences, grammar, and interactive games.",
-});
 
 const quickLinks = [
   { href: "/words", title: "Words", subtitle: "7 categories", icon: BookOpenText, color: "#00E5FF" },
@@ -35,9 +30,35 @@ const quickLinks = [
   { href: "/games", title: "Games", subtitle: "Wordle & more", icon: Gamepad2, color: "#FFD93D" },
 ];
 
-export default async function AppHomePage() {
-  const { profile, premium } = await getCurrentProfileWithPremium();
-  const wordOfTheDay = getWordOfTheDay();
+export default function AppHomePage() {
+  const [mounted, setMounted] = useState(false);
+  const [profile, setProfile] = useState<any>(null);
+  const [premium, setPremium] = useState(false);
+  const [wordOfTheDay, setWordOfTheDay] = useState(getWordOfTheDay());
+
+  useEffect(() => {
+    setMounted(true);
+    
+    // Fetch profile data
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch('/api/profile');
+        if (response.ok) {
+          const data = await response.json();
+          setProfile(data.profile);
+          setPremium(data.premium);
+        }
+      } catch (error) {
+        console.error('Failed to fetch profile:', error);
+      }
+    };
+    
+    fetchProfile();
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   const streakBlock = (
     <div className="fade-up">
