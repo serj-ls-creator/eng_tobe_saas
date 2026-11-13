@@ -49,12 +49,6 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ˈlaɪtnɪŋ fɑːst/"
   },
   {
-    simple: "Very slow",
-    synonym: "Sluggish",
-    explanation: "Moving or reacting very slowly",
-    transcription: "/ˈslʌɡɪʃ/"
-  },
-  {
     simple: "Very cold",
     synonym: "Freezing",
     explanation: "Extremely cold temperature",
