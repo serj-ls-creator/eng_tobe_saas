@@ -41,8 +41,12 @@ export function WordOfDayCard({
   };
 
   const handleAddToVocabulary = async (e?: React.MouseEvent) => {
-    e?.preventDefault();
-    e?.stopPropagation();
+    try {
+      e?.preventDefault();
+      e?.stopPropagation();
+    } catch (err) {
+      console.error('Error preventing default:', err);
+    }
 
     // Fast path: if auth state was resolved on the server
     if (isLoggedIn === true) {
@@ -59,19 +63,25 @@ export function WordOfDayCard({
     setCheckingAuth(true);
     try {
       const supabase = createSupabaseBrowserClient();
+      if (!supabase || !supabase.auth) {
+        console.error('Supabase client or auth not available');
+        setShowSignupPrompt(true);
+        return;
+      }
+
       let user: { id: string } | null = null;
       try {
         const { data: { session } } = await supabase.auth.getSession();
         user = session?.user ?? null;
-      } catch {
-        // getSession failed, try getUser
+      } catch (error) {
+        console.error('getSession failed:', error);
       }
       if (!user) {
         try {
           const { data } = await supabase.auth.getUser();
           user = data.user;
-        } catch {
-          // getUser also failed
+        } catch (error) {
+          console.error('getUser failed:', error);
         }
       }
 

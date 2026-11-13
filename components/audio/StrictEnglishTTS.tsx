@@ -24,11 +24,16 @@ export function pickPreferredEnglishVoice(englishVoices: SpeechSynthesisVoice[])
     'ralph',
   ];
 
-  const exactUS = englishVoices.filter((v) => v.lang === 'en-US');
-  const candidates = exactUS.length ? exactUS : englishVoices;
+  try {
+    const exactUS = englishVoices.filter((v) => v.lang === 'en-US');
+    const candidates = exactUS.length ? exactUS : englishVoices;
 
-  const byName = candidates.find((v) => maleHints.some((hint) => v.name.toLowerCase().includes(hint)));
-  return byName ?? candidates[0];
+    const byName = candidates.find((v) => maleHints.some((hint) => v.name.toLowerCase().includes(hint)));
+    return byName ?? candidates[0];
+  } catch (error) {
+    console.error('Error picking voice:', error);
+    return englishVoices[0] || null;
+  }
 }
 
 export function speakStrictEnglish(
@@ -43,49 +48,64 @@ export function speakStrictEnglish(
     return false;
   }
 
-  const voices = window.speechSynthesis.getVoices();
-  const englishVoices = voices.filter(
-    (voice) => voice.lang && voice.lang.toLowerCase().startsWith('en'),
-  );
-
-  // STRICT: If no English voice is available, NEVER speak (prevents Russian/foreign voice fallback)
-  if (englishVoices.length === 0) {
-    console.log('❌ STRICT TTS: No English voices available - speech aborted');
-    return false;
-  }
-
-  const preferredVoice = pickPreferredEnglishVoice(englishVoices);
-  if (!preferredVoice) {
-    return false;
-  }
-
   try {
-    window.speechSynthesis.cancel();
+    const voices = window.speechSynthesis.getVoices();
+    if (!Array.isArray(voices)) {
+      console.log('❌ STRICT TTS: getVoices did not return an array');
+      return false;
+    }
 
-    setTimeout(() => {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.voice = preferredVoice;
-      utterance.lang = preferredVoice.lang || 'en-US';
-      utterance.rate = 0.8;
-      utterance.pitch = 1.0;
-      utterance.volume = 1.0;
+    const englishVoices = voices.filter(
+      (voice) => voice.lang && typeof voice.lang === 'string' && voice.lang.toLowerCase().startsWith('en'),
+    );
 
-      utterance.onstart = () => {
-        callbacks?.onStart?.();
-      };
-      utterance.onend = () => {
-        callbacks?.onEnd?.();
-      };
-      utterance.onerror = (event) => {
-        callbacks?.onError?.(event);
-      };
+    // STRICT: If no English voice is available, NEVER speak (prevents Russian/foreign voice fallback)
+    if (englishVoices.length === 0) {
+      console.log('❌ STRICT TTS: No English voices available - speech aborted');
+      return false;
+    }
 
-      window.speechSynthesis.speak(utterance);
-    }, 100);
+    const preferredVoice = pickPreferredEnglishVoice(englishVoices);
+    if (!preferredVoice) {
+      return false;
+    }
 
-    return true;
+    try {
+      window.speechSynthesis.cancel();
+
+      setTimeout(() => {
+        try {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.voice = preferredVoice;
+          utterance.lang = preferredVoice.lang || 'en-US';
+          utterance.rate = 0.8;
+          utterance.pitch = 1.0;
+          utterance.volume = 1.0;
+
+          utterance.onstart = () => {
+            callbacks?.onStart?.();
+          };
+          utterance.onend = () => {
+            callbacks?.onEnd?.();
+          };
+          utterance.onerror = (event) => {
+            callbacks?.onError?.(event);
+          };
+
+          window.speechSynthesis.speak(utterance);
+        } catch (error) {
+          console.error('❌ Error creating utterance:', error);
+          callbacks?.onError?.(error);
+        }
+      }, 100);
+
+      return true;
+    } catch (error) {
+      console.error('❌ StrictEnglishTTS speak error:', error);
+      return false;
+    }
   } catch (error) {
-    console.error('❌ StrictEnglishTTS speak error:', error);
+    console.error('❌ StrictEnglishTTS error:', error);
     return false;
   }
 }

@@ -21,8 +21,13 @@ interface StreakBarProps {
 }
 
 function dayLetter(dateStr: string): string {
-  const d = new Date(dateStr + 'T00:00:00Z');
-  return ['S', 'M', 'T', 'W', 'T', 'F', 'S'][d.getUTCDay()];
+  try {
+    const d = new Date(dateStr + 'T00:00:00Z');
+    return ['S', 'M', 'T', 'W', 'T', 'F', 'S'][d.getUTCDay()];
+  } catch (error) {
+    console.error('Error parsing date:', error);
+    return '?';
+  }
 }
 
 export function StreakBar({ isLoggedIn = false, className }: StreakBarProps) {
