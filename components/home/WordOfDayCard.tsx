@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { BookPlus, X } from 'lucide-react';
 
 import { GlowBorder } from '@/components/ui/GlowBorder';
@@ -26,9 +25,9 @@ export function WordOfDayCard({
   explanation,
   isLoggedIn,
 }: WordOfDayCardProps) {
-  const router = useRouter();
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(false);
+  const linkRef = useRef<HTMLAnchorElement>(null);
 
   // Log card props for debugging
   console.log('WordOfDayCard props:', {
@@ -40,18 +39,6 @@ export function WordOfDayCard({
     isLoggedIn,
   });
 
-  const navigateToAdd = (word: string) => {
-    console.log('navigateToAdd called with word:', word);
-    const url = `/vocabulary/add?word=${encodeURIComponent(word)}`;
-    try {
-      router.push(url);
-    } catch (error) {
-      console.error('Router push failed, trying window.location.href:', error);
-      // Fallback for iOS Safari PWA and other navigation issues
-      window.location.href = url;
-    }
-  };
-
   const handleAddToVocabulary = async (e?: React.MouseEvent) => {
     try {
       e?.preventDefault();
@@ -62,7 +49,15 @@ export function WordOfDayCard({
 
     // Fast path: if auth state was resolved on the server
     if (isLoggedIn === true) {
-      navigateToAdd(synonym);
+      // Use direct link click instead of router.push to avoid MessagePort issues
+      const url = `/vocabulary/add?word=${encodeURIComponent(synonym)}`;
+      if (linkRef.current) {
+        linkRef.current.href = url;
+        linkRef.current.click();
+      } else {
+        // Fallback
+        window.location.href = url;
+      }
       return;
     }
     if (isLoggedIn === false) {
@@ -102,7 +97,15 @@ export function WordOfDayCard({
         return;
       }
 
-      navigateToAdd(synonym);
+      // Use direct link click instead of router.push to avoid MessagePort issues
+      const url = `/vocabulary/add?word=${encodeURIComponent(synonym)}`;
+      if (linkRef.current) {
+        linkRef.current.href = url;
+        linkRef.current.click();
+      } else {
+        // Fallback
+        window.location.href = url;
+      }
     } catch (error) {
       console.error('Failed to check authentication:', error);
       setShowSignupPrompt(true);
@@ -113,6 +116,9 @@ export function WordOfDayCard({
 
   return (
     <>
+      {/* Hidden link for navigation without router.push */}
+      <a ref={linkRef} className="hidden" />
+
       <GlowBorder innerClassName="hover:opacity-90 transition-opacity">
         <div>
           <Link href="/words" className="mb-1.5 block text-xs font-medium uppercase tracking-wider text-cyan-400">

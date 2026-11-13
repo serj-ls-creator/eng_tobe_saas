@@ -139,12 +139,6 @@ export const WORDS_OF_THE_DAY: WordOfTheDay[] = [
     transcription: "/ˈkruːʃl/"
   },
   {
-    simple: "Very difficult",
-    synonym: "Challenging",
-    explanation: "Requiring great effort or skill",
-    transcription: "/ˈtʃælɪndʒɪŋ/"
-  },
-  {
     simple: "Very easy",
     synonym: "Effortless",
     explanation: "Requiring no difficulty or effort",
