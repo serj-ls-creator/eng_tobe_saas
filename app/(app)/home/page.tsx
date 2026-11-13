@@ -13,6 +13,8 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+import type { StaticImageData } from "next/image";
+
 import { TopBar } from "@/components/layout/TopBar";
 import { Card } from "@/components/ui/card";
 import { StreakBar } from "@/components/ui/StreakBar";
@@ -20,14 +22,27 @@ import { WordOfDayCard } from "@/components/home/WordOfDayCard";
 import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 import { UI_TEXT } from "@/constants/ui";
 import { getWordOfTheDay } from "@/data/wordsOfTheDay";
+import wordsArt from "@/data/pic/words.png";
+import idiomsArt from "@/data/pic/idioms.png";
+import phverbsArt from "@/data/pic/phverbs.png";
+import sentencesArt from "@/data/pic/sentences.png";
+import grammarArt from "@/data/pic/grammar.png";
+import gamesArt from "@/data/pic/games.png";
 
-const quickLinks = [
-  { href: "/words", title: "Words", subtitle: "7 categories", icon: BookOpenText, color: "#00E5FF" },
-  { href: "/idioms", title: "Idioms", subtitle: "7 topics", icon: Lightbulb, color: "#F472B6" },
-  { href: "/phrasal-verbs", title: "Phrasal verbs", subtitle: "4 topics", icon: Rocket, color: "#A855F7" },
-  { href: "/sentences", title: "Sentences", subtitle: "A1 to C2", icon: MessageCircleMore, color: "#34D399" },
-  { href: "/grammar", title: "Grammar + Tenses", subtitle: "24 topics", icon: BookOpen, color: "#4FD1FF" },
-  { href: "/games", title: "Games", subtitle: "Wordle & more", icon: Gamepad2, color: "#FFD93D" },
+const quickLinks: Array<{
+  href: string;
+  title: string;
+  subtitle: string;
+  icon: typeof BookOpenText;
+  color: string;
+  image: StaticImageData;
+}> = [
+  { href: "/words", title: "Words", subtitle: "7 categories", icon: BookOpenText, color: "#00E5FF", image: wordsArt },
+  { href: "/idioms", title: "Idioms", subtitle: "7 topics", icon: Lightbulb, color: "#F472B6", image: idiomsArt },
+  { href: "/phrasal-verbs", title: "Phrasal verbs", subtitle: "4 topics", icon: Rocket, color: "#A855F7", image: phverbsArt },
+  { href: "/sentences", title: "Sentences", subtitle: "A1 to C2", icon: MessageCircleMore, color: "#34D399", image: sentencesArt },
+  { href: "/grammar", title: "Grammar + Tenses", subtitle: "24 topics", icon: BookOpen, color: "#4FD1FF", image: grammarArt },
+  { href: "/games", title: "Games", subtitle: "Wordle & more", icon: Gamepad2, color: "#FFD93D", image: gamesArt },
 ];
 
 export default function AppHomePage() {
@@ -103,15 +118,24 @@ export default function AppHomePage() {
                   const Icon = item.icon;
                   return (
                     <Link key={item.href} href={item.href}>
-                      <Card className={`p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d${Math.min(index + 2, 5)}`}>
-                        <div
-                          className="mb-3 flex h-9 w-9 items-center justify-center rounded-control"
-                          style={{ backgroundColor: `${item.color}18`, color: item.color }}
-                        >
-                          <Icon className="h-4.5 w-4.5" />
+                      <Card className={`relative overflow-hidden p-4 transition-colors hover:bg-white/[0.04] fade-up fade-up-d${Math.min(index + 2, 5)}`}>
+                        <img
+                          src={item.image.src}
+                          alt=""
+                          aria-hidden="true"
+                          draggable={false}
+                          className="pointer-events-none absolute right-0 top-1/2 w-[68%] -translate-y-1/2 select-none"
+                        />
+                        <div className="relative z-10">
+                          <div
+                            className="mb-3 flex h-9 w-9 items-center justify-center rounded-control"
+                            style={{ backgroundColor: `${item.color}18`, color: item.color }}
+                          >
+                            <Icon className="h-4.5 w-4.5" />
+                          </div>
+                          <div className="text-sm font-medium text-white">{item.title}</div>
+                          <div className="mt-0.5 text-xs text-zinc-400">{item.subtitle}</div>
                         </div>
-                        <div className="text-sm font-medium text-white">{item.title}</div>
-                        <div className="mt-0.5 text-xs text-zinc-400">{item.subtitle}</div>
                       </Card>
                     </Link>
                   );
