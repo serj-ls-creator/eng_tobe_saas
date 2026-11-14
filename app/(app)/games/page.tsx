@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
 import { GAME_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { createPageMetadata } from "@/lib/metadata";
+import gamesArt from "@/data/pic/games.png";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Fun English Games and Word Practice",
@@ -27,10 +29,17 @@ export default async function GamesPage() {
           </Link>
         </div>
 
-        <div className="mb-6 section-hero p-5">
-          <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Practice</div>
-          <h1 className="mb-2 text-3xl font-black text-white">Games</h1>
-          <p className="max-w-md text-sm leading-6 text-zinc-200">
+        <div className="mb-6 section-hero relative overflow-hidden p-5">
+          <Image
+            src={gamesArt}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="pointer-events-none absolute right-0 top-1/2 w-[60%] -translate-y-1/2 select-none opacity-80"
+          />
+          <div className="relative z-10 mb-2 text-[10px] uppercase tracking-[0.28em] text-cyan-300">Practice</div>
+          <h1 className="relative z-10 mb-2 text-3xl font-black text-white">Games</h1>
+          <p className="relative z-10 max-w-md text-sm leading-6 text-zinc-200">
             Expand your vocabulary from basic to advanced levels with interactive exercises
           </p>
         </div>

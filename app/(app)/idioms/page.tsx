@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { CategoryCard } from "@/components/ui/CategoryCard";
 import { TopBarServer as TopBar } from "@/components/layout/TopBarServer";
@@ -7,6 +8,7 @@ import { IDIOM_CATS } from "@/constants/categories";
 import { isPremium } from "@/lib/isPremium";
 import { buildProgressKey, getLearningProgressSnapshot } from "@/lib/learning-progress";
 import { createPageMetadata } from "@/lib/metadata";
+import idiomsArt from "@/data/pic/idioms.png";
 
 export const dynamic = 'force-dynamic';
 
@@ -32,13 +34,20 @@ export default async function IdiomsPage() {
           </Link>
         </div>
 
-        <div className="mb-6 section-hero p-4">
-          <div className="mb-2 flex items-center gap-1.5">
+        <div className="mb-6 section-hero relative overflow-hidden p-4">
+          <Image
+            src={idiomsArt}
+            alt=""
+            aria-hidden="true"
+            draggable={false}
+            className="pointer-events-none absolute right-0 top-1/2 w-[60%] -translate-y-1/2 select-none opacity-80"
+          />
+          <div className="relative z-10 mb-2 flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-theme" aria-hidden="true" />
             <span className="text-xs font-medium text-zinc-400">Practice</span>
           </div>
-          <h1 className="mb-2 text-3xl font-semibold text-foreground">Idioms</h1>
-          <p className="max-w-md text-sm leading-relaxed text-zinc-300">
+          <h1 className="relative z-10 mb-2 text-3xl font-semibold text-foreground">Idioms</h1>
+          <p className="relative z-10 max-w-md text-sm leading-relaxed text-zinc-300">
             Learn everyday English expressions through themed idiom collections and practice.
           </p>
         </div>

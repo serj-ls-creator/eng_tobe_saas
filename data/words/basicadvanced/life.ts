@@ -15,6 +15,7 @@ export interface WordItem {
 export interface Subcategory {
   id: string
   name: string
+  color: string
   words: WordItem[]
 }
 
@@ -26,6 +27,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'food',
     name: 'Food',
+    color: '#FF6B6B',
     words: [
       {
         basic: 'Tasty',
@@ -96,6 +98,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'drinks',
     name: 'Drinks',
+    color: '#4ECDC4',
     words: [
       {
         basic: 'Strong coffee',
@@ -166,6 +169,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'cooking',
     name: 'Cooking',
+    color: '#FFE66D',
     words: [
       {
         basic: 'Cook',
@@ -236,6 +240,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'restaurant',
     name: 'Restaurant',
+    color: '#95E1D3',
     words: [
       {
         basic: 'Waiter',
@@ -306,6 +311,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'hobbies',
     name: 'Hobbies',
+    color: '#F38181',
     words: [
       {
         basic: 'Hobby',
@@ -376,6 +382,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'sports',
     name: 'Sports',
+    color: '#AA96DA',
     words: [
       {
         basic: 'Work out',
@@ -446,6 +453,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'shopping',
     name: 'Shopping',
+    color: '#FCBAD3',
     words: [
       {
         basic: 'Buy quickly',
@@ -516,6 +524,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'beauty',
     name: 'Beauty',
+    color: '#A8D8EA',
     words: [
       {
         basic: 'Perfect skin',
@@ -586,6 +595,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'health',
     name: 'Health',
+    color: '#FF9F43',
     words: [
       {
         basic: 'Sick',
@@ -656,6 +666,7 @@ export const LIFE: Subcategory[] = [
   {
     id: 'routine',
     name: 'Routine',
+    color: '#54A0FF',
     words: [
       {
         basic: 'Wake up',

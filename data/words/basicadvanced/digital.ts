@@ -15,6 +15,7 @@ export interface WordItem {
 export interface Subcategory {
   id: string
   name: string
+  color: string
   words: WordItem[]
 }
 
@@ -26,6 +27,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'devices',
     name: 'Devices',
+    color: '#FF6B6B',
     words: [
       {
         basic: 'Everywhere',
@@ -96,6 +98,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'internet',
     name: 'Internet',
+    color: '#4ECDC4',
     words: [
       {
         basic: 'Spend hours clicking from page to page',
@@ -166,6 +169,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'social-media',
     name: 'Social Media',
+    color: '#FFE66D',
     words: [
       {
         basic: 'Make it reach more people',
@@ -236,6 +240,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'work-tools',
     name: 'Work Tools',
+    color: '#95E1D3',
     words: [
       {
         basic: 'Not enough time or energy',
@@ -306,6 +311,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'communication',
     name: 'Communication',
+    color: '#F38181',
     words: [
       {
         basic: 'Read a message and not reply',
@@ -376,6 +382,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'data',
     name: 'Data',
+    color: '#AA96DA',
     words: [
       {
         basic: 'Remove names from data',
@@ -446,6 +453,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'security',
     name: 'Security',
+    color: '#FCBAD3',
     words: [
       {
         basic: 'Hack',
@@ -516,6 +524,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'automation',
     name: 'Automation',
+    color: '#A8D8EA',
     words: [
       {
         basic: 'AI makes up false facts',
@@ -586,6 +595,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'trends',
     name: 'Trends',
+    color: '#FF9F43',
     words: [
       {
         basic: 'Spirit of the times',
@@ -656,6 +666,7 @@ export const DIGITAL: Subcategory[] = [
   {
     id: 'startup',
     name: 'Startup',
+    color: '#54A0FF',
     words: [
       {
         basic: 'Start with your own money',

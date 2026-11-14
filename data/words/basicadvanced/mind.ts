@@ -15,6 +15,7 @@ export interface WordItem {
 export interface Subcategory {
   id: string
   name: string
+  color: string
   words: WordItem[]
 }
 
@@ -26,6 +27,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'logic',
     name: 'Logic',
+    color: '#FF6B6B',
     words: [
       {
         basic: 'Makes sense',
@@ -96,6 +98,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'learning',
     name: 'Learning',
+    color: '#4ECDC4',
     words: [
       {
         basic: 'Learn',
@@ -166,6 +169,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'problem-solving',
     name: 'Problem Solving',
+    color: '#FFE66D',
     words: [
       {
         basic: 'Fix',
@@ -236,6 +240,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'creativity',
     name: 'Creativity',
+    color: '#95E1D3',
     words: [
       {
         basic: 'New idea',
@@ -306,6 +311,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'focus',
     name: 'Focus',
+    color: '#F38181',
     words: [
       {
         basic: 'Pay attention',
@@ -376,6 +382,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'planning',
     name: 'Planning',
+    color: '#AA96DA',
     words: [
       {
         basic: 'Plan',
@@ -446,6 +453,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'habits',
     name: 'Habits',
+    color: '#FCBAD3',
     words: [
       {
         basic: 'Daily habit',
@@ -516,6 +524,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'growth',
     name: 'Growth',
+    color: '#A8D8EA',
     words: [
       {
         basic: 'Get better',
@@ -586,6 +595,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'leadership',
     name: 'Leadership',
+    color: '#FF9F43',
     words: [
       {
         basic: 'Lead',
@@ -656,6 +666,7 @@ export const MIND: Subcategory[] = [
   {
     id: 'philosophy',
     name: 'Philosophy',
+    color: '#54A0FF',
     words: [
       {
         basic: 'Right and wrong',

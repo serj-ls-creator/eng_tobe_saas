@@ -15,6 +15,7 @@ export interface WordItem {
 export interface Subcategory {
   id: string
   name: string
+  color: string
   words: WordItem[]
 }
 
@@ -26,6 +27,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'appearance',
     name: 'Appearance',
+    color: '#FF6B6B',
     words: [
       {
         basic: 'Good-looking',
@@ -96,6 +98,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'personality',
     name: 'Personality',
+    color: '#4ECDC4',
     words: [
       {
         basic: 'Kind',
@@ -166,6 +169,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'emotions',
     name: 'Emotions',
+    color: '#FFE66D',
     words: [
       {
         basic: 'Happy',
@@ -236,6 +240,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'relationships',
     name: 'Relationships',
+    color: '#95E1D3',
     words: [
       {
         basic: 'Close friend',
@@ -306,6 +311,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'actions',
     name: 'Actions',
+    color: '#F38181',
     words: [
       {
         basic: 'Walk',
@@ -376,6 +382,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'speech',
     name: 'Speech',
+    color: '#AA96DA',
     words: [
       {
         basic: 'Say again',
@@ -446,6 +453,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'thinking',
     name: 'Thinking',
+    color: '#FCBAD3',
     words: [
       {
         basic: 'Understand',
@@ -516,6 +524,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'social',
     name: 'Social',
+    color: '#A8D8EA',
     words: [
       {
         basic: 'Meet by chance',
@@ -586,6 +595,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'energy',
     name: 'Energy',
+    color: '#FF9F43',
     words: [
       {
         basic: 'Out of energy',
@@ -656,6 +666,7 @@ export const PEOPLE: Subcategory[] = [
   {
     id: 'identity',
     name: 'Identity',
+    color: '#54A0FF',
     words: [
       {
         basic: 'Leader',

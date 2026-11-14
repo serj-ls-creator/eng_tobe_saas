@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, type ReactNode } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
@@ -8,6 +9,7 @@ import { PremiumBadge } from "@/components/ui/PremiumBadge";
 import type { GrammarSection } from "@/constants/grammar";
 import { getIcon } from "@/lib/icons";
 import { buildProgressKey, getProgressCardClass, type LearningProgressSnapshot } from "@/lib/learning-progress-shared";
+import grammarArt from "@/data/pic/grammar.png";
 
 const tenseCategoryIcons: Record<string, { icon: string; color: string }> = {
   "tense-basics": { icon: "Layers", color: "#a855f7" },
@@ -66,13 +68,20 @@ export function TensesSection({ section, progress, isPremium }: { section: Gramm
 
   return (
     <section className="mt-5" aria-labelledby="tenses-heading">
-      <div className={`mb-6 section-hero p-5 ${getProgressCardClass(status)}`}>
-        <div className="mb-2 text-[10px] uppercase tracking-[0.28em] text-theme">Practice</div>
-        <div className="mb-2 flex items-center gap-3">
+      <div className={`mb-6 section-hero relative overflow-hidden p-5 ${getProgressCardClass(status)}`}>
+        <Image
+          src={grammarArt}
+          alt=""
+          aria-hidden="true"
+          draggable={false}
+          className="pointer-events-none absolute right-0 top-1/2 w-[60%] -translate-y-1/2 select-none opacity-80"
+        />
+        <div className="relative z-10 mb-2 text-[10px] uppercase tracking-[0.28em] text-theme">Practice</div>
+        <div className="relative z-10 mb-2 flex items-center gap-3">
           <h2 id="tenses-heading" className="text-3xl font-black text-white">Tenses</h2>
           {!isPremium ? <PremiumBadge /> : null}
         </div>
-        <p className="max-w-md text-sm leading-6 text-zinc-200">{section.description}</p>
+        <p className="relative z-10 max-w-md text-sm leading-6 text-zinc-200">{section.description}</p>
       </div>
 
       <div className="space-y-2">

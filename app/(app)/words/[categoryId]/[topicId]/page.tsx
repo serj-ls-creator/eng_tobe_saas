@@ -138,6 +138,9 @@ export default async function TopicPage({ params }: PageProps) {
                   ? (BASIC_ADVANCED_SUBCATEGORY_ICONS[subcategory.id] ?? "Sparkles")
                   : (TOPIC_ICONS[topicId] ?? category.icon);
               const SubIcon = getIcon(subcategoryIconName);
+              const subcategoryColor = categoryId === "basic-advanced" 
+                ? (subcategory as any).color || "#00E5FF"
+                : "#00E5FF";
               return (
                 <div key={subcategory.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
                   <Link href={locked ? "/store" : `/words/${categoryId}/${topicId}/${subcategory.id}`}>
@@ -156,8 +159,8 @@ export default async function TopicPage({ params }: PageProps) {
                       }`}
                     >
                       <div className="mb-2 flex items-center gap-2 text-sm font-medium">
-                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-control bg-theme-soft">
-                          <SubIcon className="h-4 w-4 text-theme" />
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-control" style={{ backgroundColor: `${subcategoryColor}25` }}>
+                          <SubIcon className="h-4 w-4" style={{ color: subcategoryColor }} />
                         </span>
                         <span>{subcategory.name}</span>
                       </div>
