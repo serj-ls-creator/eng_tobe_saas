@@ -1345,7 +1345,7 @@ export default function LandingPage() {
                 {fullEmail}
               </a>
             </div>
-            <p className="text-xs text-neutral-700">© 2025 English to be. All rights reserved.</p>
+            <p className="text-xs text-neutral-700">© 2026 English to be. All rights reserved.</p>
           </div>
         </div>
       </footer>

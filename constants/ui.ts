@@ -20,7 +20,7 @@ export const UI_TEXT = {
   dailyProgress: "Daily Progress",
   premiumCta: "Unlock Premium",
   premiumTitle: "Go Premium",
-  premiumSubtitle: "Unlock everything · from $3.99/month.",
+  premiumSubtitle: "Unlock everything · from $2.67/month.",
   premiumButton: "Go to Store",
   comingSoon: "Coming Soon",
   loginTitle: "Welcome back",
