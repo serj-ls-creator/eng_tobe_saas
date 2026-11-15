@@ -19,13 +19,13 @@ type Activity = {
   description: string;
 };
 
-const ACTIVITY_ICONS: Record<string, string> = {
-  cards: "Layers",
-  "synonym-pair": "ArrowLeftRight",
-  "multiple-choice": "ListOrdered",
-  "letter-hunt": "Search",
-  "word-check": "ShieldCheck",
-  unscramble: "Type"
+const ACTIVITY_ICONS: Record<string, { icon: string; color: string }> = {
+  cards: { icon: "Layers", color: "#3b82f6" },
+  "synonym-pair": { icon: "ArrowLeftRight", color: "#f59e0b" },
+  "multiple-choice": { icon: "ListOrdered", color: "#10b981" },
+  "letter-hunt": { icon: "Search", color: "#8b5cf6" },
+  "word-check": { icon: "ShieldCheck", color: "#ec4899" },
+  unscramble: { icon: "Type", color: "#06b6d4" }
 };
 
 interface PageProps {
@@ -107,7 +107,8 @@ export default async function SubcategoryPage({ params }: PageProps) {
 
         <div className="grid grid-cols-2 gap-3">
           {WORD_GAME_ACTIVITIES.map((activity: Activity, index: number) => {
-            const ActivityIcon = getIcon(ACTIVITY_ICONS[activity.id] ?? "Sparkles");
+            const activityStyle = ACTIVITY_ICONS[activity.id] ?? { icon: "Sparkles", color: "#A78BFA" };
+            const ActivityIcon = getIcon(activityStyle.icon);
             return (
               <div key={activity.id} className={`fade-up fade-up-d${Math.min(index + 1, 5)}`}>
                 <Link href={locked ? "/store" : (activity.id === 'cards' ? `/words/${categoryId}/${topicId}/${subcategoryId}/cards` : activity.id === 'synonym-pair' ? `/words/${categoryId}/${topicId}/${subcategoryId}/synonym-pair` : activity.id === 'multiple-choice' ? `/words/${categoryId}/${topicId}/${subcategoryId}/multiple-choice` : activity.id === 'letter-hunt' ? `/words/${categoryId}/${topicId}/${subcategoryId}/letter-hunt` : activity.id === 'unscramble' ? `/words/${categoryId}/${topicId}/${subcategoryId}/unscramble` : activity.id === 'word-check' ? `/words/${categoryId}/${topicId}/${subcategoryId}/word-check` : `/words#${categoryId}-${topicId}-${subcategoryId}-${activity.id}`)}>
@@ -126,8 +127,8 @@ export default async function SubcategoryPage({ params }: PageProps) {
                       )
                     }`}
                   >
-                    <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-control bg-theme-soft">
-                      <ActivityIcon className="h-4 w-4 text-theme" />
+                    <div className="mb-2 flex h-8 w-8 items-center justify-center rounded-control" style={{ backgroundColor: `${activityStyle.color}25` }}>
+                      <ActivityIcon className="h-4 w-4" style={{ color: activityStyle.color }} />
                     </div>
                     <div className="mb-2 text-sm font-medium">{activity.name}</div>
                     <div className="text-[11px] leading-relaxed text-zinc-500">{activity.description}</div>

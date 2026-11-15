@@ -15,7 +15,6 @@ export interface WordItem {
 export interface Subcategory {
   id: string
   name: string
-  color: string
   words: WordItem[]
 }
 
@@ -27,7 +26,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'home',
     name: 'Home',
-    color: '#FF6B6B',
     words: [
       {
         basic: 'Living room',
@@ -98,7 +96,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'neighbourhood',
     name: 'Neighborhood',
-    color: '#4ECDC4',
     words: [
       {
         basic: 'Area',
@@ -169,7 +166,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'nature',
     name: 'Nature',
-    color: '#FFE66D',
     words: [
       {
         basic: 'Forest',
@@ -240,7 +236,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'weather',
     name: 'Weather',
-    color: '#95E1D3',
     words: [
       {
         basic: 'Hot',
@@ -311,7 +306,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'travel',
     name: 'Travel',
-    color: '#F38181',
     words: [
       {
         basic: 'Trip',
@@ -382,7 +376,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'architecture',
     name: 'Architecture',
-    color: '#AA96DA',
     words: [
       {
         basic: 'Building',
@@ -453,7 +446,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'objects',
     name: 'Objects',
-    color: '#FCBAD3',
     words: [
       {
         basic: 'Tech thing',
@@ -524,7 +516,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'materials',
     name: 'Materials',
-    color: '#A8D8EA',
     words: [
       {
         basic: 'Hard',
@@ -595,7 +586,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'space',
     name: 'Space',
-    color: '#FF9F43',
     words: [
       {
         basic: 'Huge',
@@ -666,7 +656,6 @@ export const WORLD: Subcategory[] = [
   {
     id: 'atmosphere',
     name: 'Atmosphere',
-    color: '#54A0FF',
     words: [
       {
         basic: 'Nice vibe',
