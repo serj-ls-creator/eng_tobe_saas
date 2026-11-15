@@ -42,6 +42,7 @@ export interface WordSubcategory {
   id: string;
   name: string;
   description: string;
+  color?: string;
 }
 
 export interface WordTopic {
