@@ -152,7 +152,7 @@ export default function AppHomePage() {
                           alt=""
                           aria-hidden="true"
                           draggable={false}
-                          className="pointer-events-none absolute right-0 top-1/2 w-[68%] -translate-y-1/2 select-none"
+                          className="pointer-events-none absolute right-0 top-1/2 w-[68%] -translate-y-1/2 select-none brightness-[0.8]"
                         />
                         <div className="relative z-10">
                           <div
