@@ -11,6 +11,18 @@ import sentencesArt from "@/data/pic/sentences.png";
 import grammarArt from "@/data/pic/grammar.png";
 import gamesArt from "@/data/pic/games.png";
 
+function CategoryBackground({ src }: { src: string }) {
+  return (
+    <img
+      src={src}
+      alt=""
+      aria-hidden="true"
+      draggable={false}
+      className="pointer-events-none absolute right-0 top-1/2 w-[52%] -translate-y-1/2 select-none brightness-[0.3]"
+    />
+  );
+}
+
 const TIKTOK_SVG = (
   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
     <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48V13.2a8.16 8.16 0 005.58 2.18V11.9a4.83 4.83 0 01-3.77-1.48V6.69z"/>
@@ -512,6 +524,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Words */}
             <Link href="/words" className="reveal reveal-delay-1 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,61,113,0.12)", ["--glow-border" as string]: "rgba(255,61,113,0.25)" }}>
+              <CategoryBackground src={wordsArt.src} />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#FF3D71]/10 flex items-center justify-center">
@@ -536,6 +549,7 @@ export default function LandingPage() {
             </Link>
             {/* Idioms */}
             <Link href="/idioms" className="reveal reveal-delay-2 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(255,217,61,0.1)", ["--glow-border" as string]: "rgba(255,217,61,0.2)" }}>
+              <CategoryBackground src={idiomsArt.src} />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#FFD93D]/10 flex items-center justify-center">
@@ -560,6 +574,7 @@ export default function LandingPage() {
             </Link>
             {/* Phrasal Verbs */}
             <Link href="/phrasal-verbs" className="reveal reveal-delay-3 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(236,72,153,0.12)", ["--glow-border" as string]: "rgba(236,72,153,0.25)" }}>
+              <CategoryBackground src={phverbsArt.src} />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#EC4899]/10 flex items-center justify-center">
@@ -584,6 +599,7 @@ export default function LandingPage() {
             </Link>
             {/* Sentences */}
             <Link href="/sentences" className="reveal reveal-delay-4 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(0,229,255,0.12)", ["--glow-border" as string]: "rgba(0,229,255,0.25)" }}>
+              <CategoryBackground src={sentencesArt.src} />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#00E5FF]/10 flex items-center justify-center">
@@ -608,6 +624,7 @@ export default function LandingPage() {
             </Link>
             {/* Grammar+Tenses */}
             <Link href="/grammar" className="reveal reveal-delay-5 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(34,197,94,0.12)", ["--glow-border" as string]: "rgba(34,197,94,0.25)" }}>
+              <CategoryBackground src={grammarArt.src} />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#22C55E]/10 flex items-center justify-center">
@@ -632,6 +649,7 @@ export default function LandingPage() {
             </Link>
             {/* Games */}
             <Link href="/games" className="reveal reveal-delay-6 cat-card bg-zinc-900 border border-white/10 rounded-card p-6 sm:p-8 relative overflow-hidden block hover:opacity-95 cursor-pointer" style={{ ["--glow-color" as string]: "rgba(168,85,247,0.12)", ["--glow-border" as string]: "rgba(168,85,247,0.25)" }}>
+              <CategoryBackground src={gamesArt.src} />
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-11 h-11 rounded-xl bg-[#A855F7]/10 flex items-center justify-center">
