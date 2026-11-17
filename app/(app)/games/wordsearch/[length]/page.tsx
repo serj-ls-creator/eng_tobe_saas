@@ -219,12 +219,28 @@ export default function WordsearchGamePage() {
             </div>
 
             <div className="mt-5 w-full">
-              <div className="mb-2 flex items-center justify-between text-xs text-zinc-500">
-                <span>Words to find</span><span>{foundWords.length} / {puzzle.words.length}</span>
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <div className="flex shrink-0 items-center gap-2 text-xs text-zinc-400">
+                  <span>Words to find</span>
+                  <span className="font-semibold text-cyan-300">{foundWords.length} / {puzzle.words.length}</span>
+                </div>
+                <div className="rounded-lg border border-cyan-300/60 bg-gradient-to-r from-cyan-400/35 to-purple-500/35 px-2 py-1.5 text-right text-[10px] font-bold leading-tight text-white shadow-md shadow-cyan-400/15 sm:text-xs">
+                  Tap + to add a word to My Vocabulary
+                </div>
               </div>
               <div className="flex flex-wrap gap-2">
                 {puzzle.words.map(({ word }) => (
-                  <span key={word} className={`rounded-lg border px-3 py-2 text-sm font-semibold tracking-wide ${foundWords.includes(word) ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300 line-through' : 'border-white/10 bg-slate-900 text-white'}`}>{word}</span>
+                  <div key={word} className="flex items-center gap-1">
+                    <span className={`rounded-lg border px-3 py-2 text-sm font-semibold tracking-wide ${foundWords.includes(word) ? 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300 line-through' : 'border-white/10 bg-slate-900 text-white'}`}>{word}</span>
+                    <Link
+                      href={`/vocabulary/add?word=${encodeURIComponent(word)}`}
+                      aria-label={`Add ${word} to My Vocabulary`}
+                      title={`Add ${word} to My Vocabulary`}
+                      className="flex h-[25px] w-[25px] shrink-0 items-center justify-center rounded-full bg-indigo-400 text-base font-black leading-none text-black shadow-md shadow-indigo-400/25 transition-colors hover:bg-indigo-300 active:scale-95"
+                    >
+                      +
+                    </Link>
+                  </div>
                 ))}
               </div>
               <p className="mt-4 text-center text-xs text-zinc-500">Select a word from first letter to last letter.</p>
