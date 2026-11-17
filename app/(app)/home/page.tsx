@@ -188,7 +188,6 @@ export default function AppHomePage() {
                           </p>
                         </div>
                       </div>
-                      <ChevronRight className="h-4 w-4 shrink-0 text-zinc-500" />
                     </div>
                   </Card>
                 </Link>
