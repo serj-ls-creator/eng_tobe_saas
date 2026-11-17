@@ -4,6 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Home, Brain, User, ShoppingBag, Menu, BookOpenText, Lightbulb, Rocket, MessageCircleMore, BookOpen, Gamepad2, BookMarked } from "lucide-react";
+import wordsArt from "@/data/pic/words.png";
+import idiomsArt from "@/data/pic/idioms.png";
+import phverbsArt from "@/data/pic/phverbs.png";
+import sentencesArt from "@/data/pic/sentences.png";
+import grammarArt from "@/data/pic/grammar.png";
+import gamesArt from "@/data/pic/games.png";
 
 const TIKTOK_SVG = (
   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -421,18 +427,32 @@ export default function LandingPage() {
                 <h2 className="mb-2 text-[11px] font-semibold">Choose a Section & Start Learning!</h2>
                 <div className="grid grid-cols-2 gap-2 mb-3">
                   {[
-                    { icon: <BookOpenText className="h-4 w-4" />, title: "Words", sub: "7 categories" },
-                    { icon: <Lightbulb className="h-4 w-4" />, title: "Idioms", sub: "7 topics" },
-                    { icon: <Rocket className="h-4 w-4" />, title: "Phrasal verbs", sub: "4 topics" },
-                    { icon: <MessageCircleMore className="h-4 w-4" />, title: "Sentences", sub: "A1 to C2" },
-                    { icon: <BookOpen className="h-4 w-4" />, title: "Grammar+Tenses", sub: "24 topics" },
-                    { icon: <Gamepad2 className="h-4 w-4" />, title: "Games", sub: "Wordle & more" }
-                  ].map(({ icon, title, sub }) => (
-                    <div key={title} className="bg-white/[0.04] rounded-lg p-2.5 border border-white/5">
-                      <div className="text-[#00E5FF] mb-1.5">{icon}</div>
-                      <div className="text-[9px] font-medium leading-tight">{title}</div>
-                      <div className="text-[8px] text-zinc-500">{sub}</div>
-                    </div>
+                    { href: "/words", icon: <BookOpenText className="h-4 w-4" />, title: "Words", sub: "7 categories", color: "#00E5FF", image: wordsArt },
+                    { href: "/idioms", icon: <Lightbulb className="h-4 w-4" />, title: "Idioms", sub: "7 topics", color: "#F472B6", image: idiomsArt },
+                    { href: "/phrasal-verbs", icon: <Rocket className="h-4 w-4" />, title: "Phrasal verbs", sub: "4 topics", color: "#A855F7", image: phverbsArt },
+                    { href: "/sentences", icon: <MessageCircleMore className="h-4 w-4" />, title: "Sentences", sub: "A1 to C2", color: "#34D399", image: sentencesArt },
+                    { href: "/grammar", icon: <BookOpen className="h-4 w-4" />, title: "Grammar + Tenses", sub: "24 topics", color: "#4FD1FF", image: grammarArt },
+                    { href: "/games", icon: <Gamepad2 className="h-4 w-4" />, title: "Games", sub: "Wordle & more", color: "#FFD93D", image: gamesArt }
+                  ].map(({ href, icon, title, sub, color, image }) => (
+                    <Link key={title} href={href} className="relative block overflow-hidden rounded-lg border border-white/5 bg-white/[0.04] p-2.5 transition-colors hover:bg-white/[0.08] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400">
+                      <img
+                        src={image.src}
+                        alt=""
+                        aria-hidden="true"
+                        draggable={false}
+                        className="pointer-events-none absolute right-0 top-1/2 w-[68%] -translate-y-1/2 select-none brightness-[0.8]"
+                      />
+                      <div className="relative z-10">
+                        <div
+                          className="mb-1.5 flex h-9 w-9 items-center justify-center rounded-control"
+                          style={{ backgroundColor: `${color}18`, color }}
+                        >
+                          {icon}
+                        </div>
+                        <div className="text-[9px] font-medium leading-tight">{title}</div>
+                        <div className="text-[8px] text-zinc-500">{sub}</div>
+                      </div>
+                    </Link>
                   ))}
                 </div>
                 <div className="mb-3 rounded-xl border border-cyan-400/20 bg-gradient-to-br from-cyan-950/40 via-zinc-900/90 to-purple-950/40 p-3">
