@@ -18,7 +18,7 @@ function CategoryBackground({ src }: { src: string }) {
       alt=""
       aria-hidden="true"
       draggable={false}
-      className="pointer-events-none absolute right-0 top-1/2 w-[52%] -translate-y-1/2 select-none brightness-[0.3]"
+      className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover brightness-[0.3]"
     />
   );
 }
